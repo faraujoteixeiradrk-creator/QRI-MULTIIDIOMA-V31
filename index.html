@@ -9944,6 +9944,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             document.getElementById('offer-decision-modal').classList.remove('hidden');
             document.getElementById('offer-decision-modal').classList.add('flex');
             
+            // CRÍTICO: Traducir contenido del modal
+            if (window.translateAll) {
+                setTimeout(() => window.translateAll(), 50);
+            }
+            
             // Ocultar el selector de tarifa al abrir el modal (se mostrará solo si es necesario)
             document.getElementById('best-option-tariff-selector')?.classList.add('hidden');
             
