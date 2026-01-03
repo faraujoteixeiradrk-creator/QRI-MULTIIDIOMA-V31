@@ -1225,7 +1225,7 @@
 
             <div id="result-card" class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 mb-8 relative">
                 <div id="result-header" class="bg-gradient-to-r from-drk-800 to-drk-600 p-6 text-white text-center relative overflow-hidden">
-                    <p class="uppercase tracking-widest text-xs font-semibold text-drk-100 mb-1" id="best-offer-label">LA MEJOR OPCIÓN PARA TI ES</p>
+                    <p class="uppercase tracking-widest text-xs font-semibold text-drk-100 mb-1" id="best-offer-label"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                     <h2 id="best-offer-name" class="text-2xl md:text-3xl font-extrabold leading-tight mb-2">Nombre Tarifa</h2>
                     <!-- offer.description del CSV -->
                     <p id="best-offer-desc" class="text-drk-100 text-sm opacity-90">Descripción</p> 
@@ -1238,18 +1238,18 @@
                         </div>
                         <div id="price-columns" class="w-full grid grid-cols-2 text-center text-sm border-b pb-4 border-slate-100">
                             <div class="border-r border-slate-200 pr-2">
-                                <p class="text-slate-400 text-xs font-semibold mb-2 uppercase">TU FACTURA ACTUAL</p>
+                                <p class="text-slate-400 text-xs font-semibold mb-2 uppercase"${tr("TU FACTURA ACTUAL")}</p>
                                 <div class="mb-3">
                                     <p class="text-xl font-bold text-cta-red-500 line-through decoration-cta-red-500/50 decoration-2" id="old-period-cost-display">0,00 €</p>
-                                    <p class="text-xs text-slate-500 font-medium" id="old-period-days-label">Total Periodo</p> 
+                                    <p class="text-xs text-slate-500 font-medium" id="old-period-days-label"${tr("Total Periodo")}</p> 
                                 </div>
                                 <div><p class="text-lg font-bold text-cta-red-500 line-through decoration-cta-red-500/50 decoration-2" id="old-annual-cost-display">0,00 €/año</p></div>
                             </div>
                             <div class="pl-2">
-                                <p class="text-drk-800 text-xs font-semibold mb-2 uppercase" id="new-cost-label">TU NUEVO COSTE DRK</p>
+                                <p class="text-drk-800 text-xs font-semibold mb-2 uppercase" id="new-cost-label"${tr("TU NUEVO COSTE DRK")}</p>
                                 <div class="mb-3">
                                     <p class="text-2xl font-black text-drk-900" id="new-monthly-cost-display">0,00 €/mes</p>
-                                    <p class="text-xs text-drk-800 font-medium" id="monthly-label">Estimado Mensual</p>
+                                    <p class="text-xs text-drk-800 font-medium" id="monthly-label"${tr("Estimado Mensual")}</p>
                                 </div>
                                 <div><p class="text-2xl font-black text-drk-900" id="new-annual-cost-display">0,00 €/año</p></div>
                             </div>
@@ -3198,10 +3198,10 @@
                         <!-- COLUMNA 1: TU FACTURA ACTUAL -->
                         <div class="text-center">
                             <div class="bg-slate-600 text-white py-2 px-2 rounded-t-lg">
-                                <p class="text-xs font-bold uppercase">TU FACTURA ACTUAL</p>
+                                <p class="text-xs font-bold uppercase"${tr("TU FACTURA ACTUAL")}</p>
                             </div>
                             <div class="bg-white border-2 border-slate-300 rounded-b-lg p-3">
-                                <p class="text-xs text-slate-500 mb-2 uppercase">TU FACTURA ACTUAL</p>
+                                <p class="text-xs text-slate-500 mb-2 uppercase"${tr("TU FACTURA ACTUAL")}</p>
                                 <p class="text-2xl font-black text-red-600 line-through mb-2">${eur(res.importe_total)}</p>
                                 <p class="text-xs text-slate-500 mb-3">Total Periodo (${res.dias_facturados || 'varios'} días)</p>
                                 <p class="text-2xl font-black text-red-600">${eur(res.originalBillAnnual)}/año</p>
@@ -3216,7 +3216,7 @@
                             <div class="${isDrk ? 'bg-drk-50 border-drk-400' : 'bg-powercup-50 border-powercup-400'} border-2 rounded-b-lg p-3">
                                 <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-2 font-bold">${isDrk ? 'DRK' : 'POWER CUP'} - TARIFAS FIJAS</p>
                                 <p class="text-2xl font-black ${isDrk ? 'text-drk-900' : 'text-powercup-900'} mb-2">${eur(res.totalAnnual / 12)}/mes</p>
-                                <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-3">Estimado Mensual</p>
+                                <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-3"${tr("Estimado Mensual")}</p>
                                 <p class="text-2xl font-black ${isDrk ? 'text-drk-900' : 'text-powercup-900'}">${eur(res.totalAnnual)}/año</p>
                             </div>
                         </div>
@@ -3229,7 +3229,7 @@
                             <div class="bg-green-50 border-2 border-green-400 rounded-b-lg p-3">
                                 <p class="text-xs text-green-700 mb-2 font-bold">${isDrk ? 'DRK' : 'POWER CUP'} - TARIFAS INDEXADAS</p>
                                 <p class="text-2xl font-black text-green-900 mb-2">${eur(totalIndexadoAnual / 12)}/mes</p>
-                                <p class="text-xs text-green-700 mb-3">Estimado Mensual</p>
+                                <p class="text-xs text-green-700 mb-3"${tr("Estimado Mensual")}</p>
                                 <p class="text-2xl font-black text-green-900">${eur(totalIndexadoAnual)}/año</p>
                             </div>
                         </div>
@@ -3878,10 +3878,10 @@
                         <!-- COLUMNA 1: TU FACTURA ACTUAL -->
                         <div class="text-center">
                             <div class="bg-slate-600 text-white py-2 px-2 rounded-t-lg">
-                                <p class="text-xs font-bold uppercase">TU FACTURA ACTUAL</p>
+                                <p class="text-xs font-bold uppercase"${tr("TU FACTURA ACTUAL")}</p>
                             </div>
                             <div class="bg-white border-2 border-slate-300 rounded-b-lg p-3">
-                                <p class="text-xs text-slate-500 mb-2 uppercase">TU FACTURA ACTUAL</p>
+                                <p class="text-xs text-slate-500 mb-2 uppercase"${tr("TU FACTURA ACTUAL")}</p>
                                 <p class="text-2xl font-black text-red-600 line-through mb-2">${eur(resFijo.originalBillPeriod || resFijo.importe_total)}</p>
                                 <p class="text-xs text-slate-500 mb-3">Total Periodo (${resFijo.dias_facturados || 0} días)</p>
                                 <p class="text-2xl font-black text-red-600">${eur(resFijo.originalBillAnnual)}/año</p>
@@ -3896,7 +3896,7 @@
                             <div class="${isDrk ? 'bg-drk-50 border-drk-400' : 'bg-powercup-50 border-powercup-400'} border-2 rounded-b-lg p-3">
                                 <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-2 font-bold">${resFijo.offer.name}</p>
                                 <p class="text-2xl font-black ${isDrk ? 'text-drk-900' : 'text-powercup-900'} mb-2">${eur(resFijo.totalAnnual / 12)}/mes</p>
-                                <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-3">Estimado Mensual</p>
+                                <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-3"${tr("Estimado Mensual")}</p>
                                 <p class="text-2xl font-black ${isDrk ? 'text-drk-900' : 'text-powercup-900'}">${eur(resFijo.totalAnnual)}/año</p>
                             </div>
                         </div>
@@ -3909,7 +3909,7 @@
                             <div class="bg-green-50 border-2 border-green-400 rounded-b-lg p-3">
                                 <p class="text-xs text-green-700 mb-2 font-bold">${resIndexed.offer.name}</p>
                                 <p class="text-2xl font-black text-green-900 mb-2">${eur(resIndexed.totalAnnual / 12)}/mes</p>
-                                <p class="text-xs text-green-700 mb-3">Estimado Mensual</p>
+                                <p class="text-xs text-green-700 mb-3"${tr("Estimado Mensual")}</p>
                                 <p class="text-2xl font-black text-green-900">${eur(resIndexed.totalAnnual)}/año</p>
                             </div>
                         </div>
@@ -4189,18 +4189,18 @@
                     <div class="mb-4">
                         <p class="font-bold text-slate-800 mb-1">ENERGÍA (€/kWh)</p>
                         ${energyBreakdown}
-                        <div class="flex justify-between font-bold ${brand.SECONDARY_TEXT} border-t mt-1 pt-1"><span>Subtotal Energía (Bruto)</span><span>${num(res.subEnergy, 2)} €</span></div>
+                        <div class="flex justify-between font-bold ${brand.SECONDARY_TEXT} border-t mt-1 pt-1"><span${tr("Subtotal Energía (Bruto)")}</span><span>${num(res.subEnergy, 2)} €</span></div>
                         ${discountRowsHtml}
                     </div>
 
                     <div class="border-t border-slate-200 pt-2 mb-2">
-                        <div class="flex justify-between font-bold text-slate-800"><span>SUBTOTAL BASE (P+E)</span><span>${num(res.subBase, 2)} €</span></div>
+                        <div class="flex justify-between font-bold text-slate-800"><span${tr("SUBTOTAL BASE (P+E)")}</span><span>${num(res.subBase, 2)} €</span></div>
                         <div class="flex justify-between"><span>Imp. Eléc. (${num(res.ieRate * 100, 3)}%)</span><span>${num(res.costIE, 2)} €</span></div>
-                        <div class="flex justify-between font-bold text-lg border-t mt-1 pt-1"><span>BASE IMPONIBLE</span><span>${num(res.baseImp, 2)} €</span></div>
+                        <div class="flex justify-between font-bold text-lg border-t mt-1 pt-1"><span${tr("BASE IMPONIBLE")}</span><span>${num(res.baseImp, 2)} €</span></div>
                         <div class="flex justify-between"><span>IVA (21%)</span><span>${num(res.costIVA, 2)} €</span></div>
                     </div>
                     
-                    <div class="bg-drk-900 text-white p-3 rounded-lg flex justify-between items-center text-md font-bold mb-1 mt-4"><span>TOTAL FACTURA</span><span>${eur(res.totalPeriod)}</span></div>
+                    <div class="bg-drk-900 text-white p-3 rounded-lg flex justify-between items-center text-md font-bold mb-1 mt-4"><span${tr("TOTAL FACTURA")}</span><span>${eur(res.totalPeriod)}</span></div>
                     <div class="text-center mt-2 ${brand.PRIMARY_TEXT} font-bold">Total Anual Estimado: ${eur(res.totalAnnual)}</div>
                 </div>
             `;
@@ -4550,7 +4550,7 @@
                 doc.setTextColor(255, 255, 255);
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(10);
-                doc.text('LA MEJOR OPCIÓN PARA TI ES', pageWidth / 2, bigBoxY + 12, { align: 'center' });
+                doc.text(tr('LA MEJOR OPCIÓN PARA TI ES'), pageWidth / 2, bigBoxY + 12, { align: 'center' });
                 
                 // Nombre de la marca en grande
                 doc.setFont('helvetica', 'bold');
@@ -4580,7 +4580,7 @@
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(11);
                 doc.setTextColor(107, 114, 128);
-                doc.text('TU FACTURA ACTUAL', col1X, y1);
+                doc.text(tr('TU FACTURA ACTUAL'), col1X, y1);
                 y1 += 12;
                 
                 // Precio mensual (TACHADO)
@@ -5190,7 +5190,7 @@
                 doc.setTextColor(255, 255, 255);
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(10);
-                doc.text('LA MEJOR OPCIÓN PARA TI ES', pageWidth / 2, bigBoxY + 12, { align: 'center' });
+                doc.text(tr('LA MEJOR OPCIÓN PARA TI ES'), pageWidth / 2, bigBoxY + 12, { align: 'center' });
                 
                 // Nombre de la marca en grande
                 doc.setFont('helvetica', 'bold');
@@ -5287,7 +5287,7 @@
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(11);
                 doc.setTextColor(107, 114, 128);
-                doc.text('TU FACTURA ACTUAL', margin, y1);
+                doc.text(tr('TU FACTURA ACTUAL'), margin, y1);
                 y1 += 12;
                 
                 // Precio mensual (TACHADO)
@@ -5907,7 +5907,7 @@
                         <div style="font-family: Arial, sans-serif; max-width: 900px;">
                             <h2 style="color: ${brandColor}; text-align: center;">⚡🔥 RESULTADO COMPARATIVA DUAL</h2>
                             <div style="background: linear-gradient(135deg, ${isDrk ? '#f0f9ff' : '#f7fee7'} 0%, ${isDrk ? '#e0f2fe' : '#ecfccb'} 100%); border: 3px solid ${brandColor}; border-radius: 12px; padding: 24px; margin: 20px 0;">
-                                <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;">LA MEJOR OPCIÓN PARA TI ES</h3>
+                                <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</h3>
                                 <h2 style="color: ${isDrk ? '#0c4a6e' : '#365314'}; text-align: center; font-size: 36px; margin: 16px 0;">Tus Tarifas Actuales</h2>
                                 <p style="text-align: center; color: ${brandColor}; font-size: 18px;">Es la mejor opción detectada</p>
                             </div>
@@ -5927,7 +5927,7 @@
                                         <td style="padding: 8px; text-align: right;">${electricitySupply?.tariff || 'N/A'}</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #BFDBFE;">
-                                        <td style="padding: 8px; font-weight: bold;">CUPS:</td>
+                                        <td style="padding: 8px; font-weight: bold;"${tr("CUPS:")}</td>
                                         <td style="padding: 8px; text-align: right; font-family: monospace; font-size: 11px;">${electricitySupply?.cups || 'N/A'}</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #BFDBFE;">
@@ -6374,7 +6374,7 @@ ${i + 1}. ${r.name}
                             <div style="font-family: Arial, sans-serif; max-width: 800px;">
                                 <h2 style="color: ${brandColor}; text-align: center;">⚡ RESULTADO COMPARATIVA ELECTRICIDAD</h2>
                                 <div style="background-color: ${isDrk ? '#f0f9ff' : '#f7fee7'}; border: 3px solid ${brandColor}; border-radius: 12px; padding: 24px; margin: 20px 0;">
-                                    <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;">LA MEJOR OPCIÓN PARA TI ES</h3>
+                                    <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</h3>
                                     <h2 style="color: ${isDrk ? '#0c4a6e' : '#365314'}; text-align: center; font-size: 36px; margin: 16px 0;">Tu Tarifa Actual</h2>
                                     <p style="text-align: center; color: ${brandColor}; font-size: 18px;">Es la mejor opción detectada</p>
                                 </div>
@@ -6393,7 +6393,7 @@ ${i + 1}. ${r.name}
                                             <td style="padding: 8px; text-align: right;">${lastComparisonResult.dias_facturados || 0} días</td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
-                                            <td style="padding: 8px; font-weight: bold;">CUPS:</td>
+                                            <td style="padding: 8px; font-weight: bold;"${tr("CUPS:")}</td>
                                             <td style="padding: 8px; text-align: right; font-family: monospace; font-size: 11px;">${lastComparisonResult.cups || 'N/A'}</td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
@@ -6484,7 +6484,7 @@ CUPS: ${cups || 'No proporcionado'}
                         <h3>DATOS DEL CLIENTE:</h3>
                         <ul>
                             <li><strong>Nombre:</strong> ${clientName || 'No proporcionado'}</li>
-                            <li><strong>CUPS:</strong> ${cups || 'No proporcionado'}</li>
+                            <li><strong${tr("CUPS:")}</strong> ${cups || 'No proporcionado'}</li>
                             <li><strong>Teléfono:</strong> ${phone || 'No proporcionado'}</li>
                             <li><strong>Email:</strong> ${email || 'No proporcionado'}</li>
                             ${observations ? `<li><strong>Observaciones:</strong> ${observations}</li>` : ''}
@@ -6872,7 +6872,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setTextColor(255, 255, 255);
                     doc.setFontSize(9);
                     doc.setFont('helvetica', 'bold');
-                    doc.text('LA MEJOR OPCIÓN PARA TI ES', pageWidth / 2, yPos + 8, { align: 'center' });
+                    doc.text(tr('LA MEJOR OPCIÓN PARA TI ES'), pageWidth / 2, yPos + 8, { align: 'center' });
                     
                     // Marca o Tarifa
                     const brandNameMulti = isDrk ? 'DRK' : 'POWER CUP';
@@ -6909,7 +6909,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         doc.setTextColor(120, 120, 140);
                         doc.setFontSize(10);
                         doc.setFont('helvetica', 'bold');
-                        doc.text('TU AHORRO ANUAL ESTIMADO', pageWidth / 2, yPos + 8, { align: 'center' });
+                        doc.text(tr('TU AHORRO ANUAL ESTIMADO'), pageWidth / 2, yPos + 8, { align: 'center' });
                         
                         // Cifra de ahorro en VERDE (grande pero ajustado)
                         doc.setTextColor(...greenColor);
@@ -6950,7 +6950,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setTextColor(140, 150, 160);
                     doc.setFontSize(8);
                     doc.setFont('helvetica', 'bold');
-                    doc.text('TU FACTURA ACTUAL', leftXMulti + colWidthMulti / 2, yPos, { align: 'center' });
+                    doc.text(tr('TU FACTURA ACTUAL'), leftXMulti + colWidthMulti / 2, yPos, { align: 'center' });
                     
                     // Precio mensual tachado en rojo
                     const oldPriceMulti = `${eur(res.originalBillAnnual / 12)}/mes`;
@@ -7560,7 +7560,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'bold');
-                doc.text('LA MEJOR OPCIÓN PARA TI ES', pageWidth / 2, yPos + 8, { align: 'center' });
+                doc.text(tr('LA MEJOR OPCIÓN PARA TI ES'), pageWidth / 2, yPos + 8, { align: 'center' });
                 
                 // Comercializadora y Tarifa
                 const comercializadora = offer.name; // Nombre corto (ej: ELEIA)
@@ -7602,7 +7602,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setTextColor(120, 120, 140);
                     doc.setFontSize(10);
                     doc.setFont('helvetica', 'bold');
-                    doc.text('TU AHORRO ANUAL ESTIMADO', pageWidth / 2, yPos + 8, { align: 'center' });
+                    doc.text(tr('TU AHORRO ANUAL ESTIMADO'), pageWidth / 2, yPos + 8, { align: 'center' });
                     
                     // Cifra de ahorro en VERDE (grande pero ajustado)
                     doc.setTextColor(...greenColor);
@@ -7641,7 +7641,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 doc.setTextColor(140, 150, 160);
                 doc.setFontSize(8);
                 doc.setFont('helvetica', 'bold');
-                doc.text('TU FACTURA ACTUAL', leftXResumen + colWidthResumen / 2, yPos, { align: 'center' });
+                doc.text(tr('TU FACTURA ACTUAL'), leftXResumen + colWidthResumen / 2, yPos, { align: 'center' });
                 
                 // Precio periodo (mensual estimado) tachado en rojo
                 const diasPeriodo = res.dias_facturados || 30;
@@ -7943,7 +7943,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     // Total año
                     doc.setTextColor(...primaryColor);
                     doc.setFontSize(10);
-                    doc.text('TOTAL AÑO (PROYECTADO)', margin + 2, yPos);
+                    doc.text(tr('TOTAL AÑO (PROYECTADO)'), margin + 2, yPos);
                     doc.text(eur(res.totalAnnual), pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 8;
                 }
@@ -8297,7 +8297,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     <!-- CAJA PRINCIPAL -->
                     <div style="background-color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                         <div style="background-color: ${HEADER_BLUE}; color: white; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px;">
-                            <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;">LA MEJOR OPCIÓN PARA TI ES</p>
+                            <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold;">${BRAND_DISPLAY}</h2>
                             <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.95;">Ofrece el mayor ahorro consolidado con ${brand.NAME.toUpperCase()}.</p>
                         </div>
@@ -8308,10 +8308,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                 <!-- FACTURA ACTUAL -->
                                 <td style="width: 30%; vertical-align: top; text-align: center; padding: 0 10px;">
                                     <div style="padding: 15px; border-right: 1px solid #e5e7eb;">
-                                        <p style="margin: 0 0 8px 0; font-size: 10px; color: #6b7280; font-weight: 600; text-transform: uppercase;">TU FACTURA ACTUAL</p>
+                                        <p style="margin: 0 0 8px 0; font-size: 10px; color: #6b7280; font-weight: 600; text-transform: uppercase;"${tr("TU FACTURA ACTUAL")}</p>
                                         <div style="margin: 10px 0;">
                                             <p style="margin: 0; font-size: 20px; font-weight: bold; color: ${RED_CTA}; text-decoration: line-through;">${eur(resFijo.originalBillPeriod)}</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 9px; color: #9ca3af;">Total Periodo</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 9px; color: #9ca3af;"${tr("Total Periodo")}</p>
                                         </div>
                                         <div style="margin-top: 12px;">
                                             <p style="margin: 0; font-size: 20px; font-weight: bold; color: ${RED_CTA}; text-decoration: line-through;">${eur(resFijo.originalBillAnnual)}/año</p>
@@ -8329,7 +8329,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                         <div style="margin: 15px 0 0 0;">
                                             <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;">TU NUEVO COSTE ${BRAND_DISPLAY}</p>
                                             <p style="margin: 0; font-size: 22px; font-weight: bold; color: ${DRK_BLUE};">${eur(resFijo.totalAnnual / 12)}/mes</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;">Estimado Mensual</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr("Estimado Mensual")}</p>
                                             <p style="margin: 10px 0 0 0; font-size: 20px; font-weight: bold; color: ${DRK_BLUE};">${eur(resFijo.totalAnnual)}/año</p>
                                         </div>
                                     </div>
@@ -8345,7 +8345,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                         <div style="margin: 15px 0 0 0;">
                                             <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;">TU NUEVO COSTE ${BRAND_DISPLAY}</p>
                                             <p style="margin: 0; font-size: 22px; font-weight: bold; color: ${GREEN_SAVE};">${eur(resIndexed.totalAnnual / 12)}/mes</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;">Estimado Mensual</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr("Estimado Mensual")}</p>
                                             <p style="margin: 10px 0 0 0; font-size: 20px; font-weight: bold; color: ${GREEN_SAVE};">${eur(resIndexed.totalAnnual)}/año</p>
                                         </div>
                                     </div>
@@ -8837,13 +8837,13 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     </table>
                     
                     <div style="background-color: white; padding: 15px 30px; border-bottom: 2px solid #e5e7eb;">
-                        <p style="margin: 0; font-size: 12px; color: #374151;"><strong>CLIENTE:</strong> ${clientName}</p>
+                        <p style="margin: 0; font-size: 12px; color: #374151;"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
                         <p style="margin: 5px 0 0 0; font-size: 11px; color: #6b7280;">CUPS TOTALES: ${res.cups} CUPS</p>
                     </div>
                     
                     <div style="background-color: white; padding: 30px; border-radius: 0 0 16px 16px; margin-bottom: 20px;">
                         <div style="background-color: ${HEADER_BLUE}; color: white; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px;">
-                            <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;">LA MEJOR OPCIÓN PARA TI ES</p>
+                            <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold;">${BRAND_DISPLAY}</h2>
                             <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.95;">Ofrece el mayor ahorro consolidado con ${brand.NAME.toUpperCase()}.</p>
                         </div>
@@ -8852,10 +8852,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             <tr>
                                 <td style="width: 30%; vertical-align: top; text-align: center; padding: 0 10px;">
                                     <div style="padding: 15px; border-right: 1px solid #e5e7eb;">
-                                        <p style="margin: 0 0 8px 0; font-size: 10px; color: #6b7280; font-weight: 600; text-transform: uppercase;">TU FACTURA ACTUAL</p>
+                                        <p style="margin: 0 0 8px 0; font-size: 10px; color: #6b7280; font-weight: 600; text-transform: uppercase;"${tr("TU FACTURA ACTUAL")}</p>
                                         <div style="margin: 10px 0;">
                                             <p style="margin: 0; font-size: 24px; font-weight: bold; color: ${RED_CTA}; text-decoration: line-through;">${eur(facturaActualTotal)}</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 9px; color: #9ca3af;">Total Periodo</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 9px; color: #9ca3af;"${tr("Total Periodo")}</p>
                                         </div>
                                         <div style="margin-top: 12px;">
                                             <p style="margin: 0; font-size: 20px; font-weight: bold; color: ${RED_CTA}; text-decoration: line-through;">${eur(facturaActualTotal)}/año</p>
@@ -8870,9 +8870,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                     <div style="padding: 15px 10px;">
                                         <p style="margin: 0; font-size: 32px; font-weight: bold; color: ${GREEN_SAVE};">${eur(ahorroFijo)}</p>
                                         <div style="margin: 15px 0 0 0;">
-                                            <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;">TU NUEVO COSTE DRK</p>
+                                            <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;"${tr("TU NUEVO COSTE DRK")}</p>
                                             <p style="margin: 0; font-size: 22px; font-weight: bold; color: ${DRK_BLUE};">${eur(nuevoCosteAnualFijo / 12)}/mes</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;">Estimado Mensual</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr("Estimado Mensual")}</p>
                                             <p style="margin: 10px 0 0 0; font-size: 20px; font-weight: bold; color: ${DRK_BLUE};">${eur(nuevoCosteAnualFijo)}/año</p>
                                         </div>
                                     </div>
@@ -8885,9 +8885,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                     <div style="padding: 15px 10px;">
                                         <p style="margin: 0; font-size: 32px; font-weight: bold; color: ${GREEN_SAVE};">${eur(ahorroIndexado)}</p>
                                         <div style="margin: 15px 0 0 0;">
-                                            <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;">TU NUEVO COSTE DRK</p>
+                                            <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;"${tr("TU NUEVO COSTE DRK")}</p>
                                             <p style="margin: 0; font-size: 22px; font-weight: bold; color: ${GREEN_SAVE};">${eur(nuevoCosteAnualIndexado / 12)}/mes</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;">Estimado Mensual</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr("Estimado Mensual")}</p>
                                             <p style="margin: 10px 0 0 0; font-size: 20px; font-weight: bold; color: ${GREEN_SAVE};">${eur(nuevoCosteAnualIndexado)}/año</p>
                                         </div>
                                     </div>
@@ -9179,9 +9179,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             <p style="margin:5px 0 0 0; font-size: 14px; opacity: 0.9;">TU TARIFA ACTUAL ES LA MÁS COMPETITIVA</p>
                         </td></tr>
                         <tr><td colspan="2" style="padding: 15px;">
-                            <p style="margin: 0; font-size: 13px;"><strong>CLIENTE:</strong> ${clientName}</p>
-                            <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>CUPS:</strong> ${bd.cups}</p>
-                            <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>COMERCIAL:</strong> ${commercialCode || 'N/A'}</p>
+                            <p style="margin: 0; font-size: 13px;"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
+                            <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("CUPS:")}</strong> ${bd.cups}</p>
+                            <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("COMERCIAL:")}</strong> ${commercialCode || 'N/A'}</p>
                         </td></tr>
                         <tr><td colspan="2" style="background-color: ${BG_LIGHT}; padding: 25px 20px; text-align: center; border-top: 2px solid ${D_PRIMARY_MED}; border-bottom: 2px solid ${D_PRIMARY_MED};">
                             <div style="font-size: 60px; color: ${GREEN_SAVE_COLOR}; margin-bottom: 10px; line-height: 1;">&#9989;</div>
@@ -9227,21 +9227,21 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             const desgloseRows = `
                 <tr><td colspan="2"><div style="font-weight: bold; color: ${D_PRIMARY_MED}; padding: 5px 0 2px 0;">TÉRMINO POTENCIA (Precio en €/kW Día)</div></td></tr>
                 ${desglosePotencia}
-                <tr><td style="${rowLabel} border-bottom: 1px solid #eee; font-weight: bold; color: ${D_PRIMARY_DARK};">SUBTOTAL POTENCIA</td><td style="${rowValue} border-bottom: 1px solid #eee; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subPower, 2)} €</td></tr>
+                <tr><td style="${rowLabel} border-bottom: 1px solid #eee; font-weight: bold; color: ${D_PRIMARY_DARK};"${tr("SUBTOTAL POTENCIA")}</td><td style="${rowValue} border-bottom: 1px solid #eee; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subPower, 2)} €</td></tr>
                 
                 <tr><td colspan="2"><div style="font-weight: bold; color: ${D_PRIMARY_MED}; padding: 10px 0 2px 0;">TÉRMINO ENERGÍA (Precios en €/kWh)</div></td></tr>
                 ${desgloseEnergia}
-                <tr><td style="${rowLabel} border-bottom: 2px solid #333; font-weight: bold; color: #555;">Subtotal Energía (Bruto)</td><td style="${rowValue} border-bottom: 2px solid #333; font-weight: bold; color: #555; white-space: nowrap;">${num(bd.subEnergy, 2)} €</td></tr>
+                <tr><td style="${rowLabel} border-bottom: 2px solid #333; font-weight: bold; color: #555;"${tr("Subtotal Energía (Bruto)")}</td><td style="${rowValue} border-bottom: 2px solid #333; font-weight: bold; color: #555; white-space: nowrap;">${num(bd.subEnergy, 2)} €</td></tr>
                 
                 ${discountRowsHtml}
                 
-                <tr><td style="${rowLabel} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK};">SUBTOTAL BASE (P+E)</td><td style="${rowValue} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subBase, 2)} €</td></tr>
+                <tr><td style="${rowLabel} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK};"${tr("SUBTOTAL BASE (P+E)")}</td><td style="${rowValue} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subBase, 2)} €</td></tr>
                 <tr><td style="${rowLabel}">Imp. Eléc. (${num(bd.ieRate * 100, 3)}%)</td><td style="${rowValue} white-space: nowrap;">${num(bd.costIE, 2)} €</td></tr>
-                <tr><td style="${rowLabel} font-weight: bold;">BASE IMPONIBLE</td><td style="${rowValue} font-weight: bold; white-space: nowrap;">${num(bd.baseImp, 2)} €</td></tr>
+                <tr><td style="${rowLabel} font-weight: bold;"${tr("BASE IMPONIBLE")}</td><td style="${rowValue} font-weight: bold; white-space: nowrap;">${num(bd.baseImp, 2)} €</td></tr>
                 <tr><td style="${rowLabel}">IVA (21%)</td><td style="${rowValue} white-space: nowrap;">${num(bd.costIVA, 2)} €</td></tr>
                 
                 <tr><td style="${rowLabel} background-color: #eee; font-weight: bold;">TOTAL FACTURA (${bd.dias_facturados} DÍAS)</td><td style="${rowValue} background-color: #eee; font-size: 16px; white-space: nowrap;">${eur(bd.totalPeriod)}</td></tr>
-                <tr><td style="${rowLabel} background-color: #eee; font-weight: bold;">TOTAL AÑO (PROYECTADO)</td><td style="${rowValue} background-color: #eee; font-size: 16px; white-space: nowrap;">${eur(bd.totalAnnual)}</td></tr>
+                <tr><td style="${rowLabel} background-color: #eee; font-weight: bold;"${tr("TOTAL AÑO (PROYECTADO)")}</td><td style="${rowValue} background-color: #eee; font-size: 16px; white-space: nowrap;">${eur(bd.totalAnnual)}</td></tr>
             `;
 
             const discountSummaryRow = bd.discountRate > 0 ? `
@@ -9333,13 +9333,13 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     </td></tr>
                     
                     <tr><td colspan="2" style="padding: 15px;">
-                        <p style="margin: 0; font-size: 13px;"><strong>CLIENTE:</strong> ${clientName}</p>
-                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>CUPS:</strong> ${bd.cups}</p>
-                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>COMERCIAL:</strong> ${commercialCode || 'N/A'}</p>
+                        <p style="margin: 0; font-size: 13px;"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
+                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("CUPS:")}</strong> ${bd.cups}</p>
+                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("COMERCIAL:")}</strong> ${commercialCode || 'N/A'}</p>
                     </td></tr>
 
                     <tr><td colspan="2" style="background-color: ${BG_LIGHT}; padding: 15px; text-align: center; border-top: 2px solid ${D_PRIMARY_MED}; border-bottom: 2px solid ${D_PRIMARY_MED};">
-                        <p style="margin: 0; color: ${D_PRIMARY_MED}; font-size: 12px; font-weight: bold; letter-spacing: 1px;">LA MEJOR OPCIÓN PARA TI ES</p>
+                        <p style="margin: 0; color: ${D_PRIMARY_MED}; font-size: 12px; font-weight: bold; letter-spacing: 1px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                         <h2 style="margin: 5px 0 0 0; color: ${D_PRIMARY_DARK}; font-size: 22px;">${commercialTariffName}</h2>
                     </td></tr>
 
@@ -9366,7 +9366,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 20px; table-layout: fixed;">
                             <tr>
                                 <td style="width: 50%; padding: 15px; background-color: #f9fafb; border: 1px solid #ddd; text-align: center; vertical-align: top;">
-                                    <div style="font-size: 11px; font-weight: bold; color: #888; text-transform: uppercase;">TU FACTURA ACTUAL</div>
+                                    <div style="font-size: 11px; font-weight: bold; color: #888; text-transform: uppercase;"${tr("TU FACTURA ACTUAL")}</div>
                                     <div style="font-size: 20px; font-weight: bold; color: #ef4444; margin: 5px 0; text-decoration: line-through; white-space: nowrap;">${eur(bd.originalBillAnnual)}</div>
                                     <div style="font-size: 11px; color: #666;">/ AÑO</div>
                                 </td>
@@ -9706,10 +9706,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     </td></tr>
                     
                     <tr><td colspan="2" style="padding: 15px;">
-                        <p style="margin: 0; font-size: 13px;"><strong>CLIENTE:</strong> ${clientName}</p>
+                        <p style="margin: 0; font-size: 13px;"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
                         <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>TOTAL CUPS:</strong> ${individualResults.length}</p>
                         <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>OFERTA CONSOLIDADA:</strong> ${consolidatedTariffName}</p>
-                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>COMERCIAL:</strong> ${commercialCode || 'N/A'}</p>
+                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("COMERCIAL:")}</strong> ${commercialCode || 'N/A'}</p>
                     </td></tr>
 
                     <tr><td colspan="2" style="padding: 0 20px;">
@@ -13048,7 +13048,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             summaryEl.innerHTML = `
                 <p class="font-bold text-slate-800 mb-2">Datos Extraídos del QR</p>
                 <div class="grid grid-cols-2 gap-1 text-xs">
-                    <span>CUPS:</span><span class="font-mono text-right">${data.cups}</span>
+                    <span${tr("CUPS:")}</span><span class="font-mono text-right">${data.cups}</span>
                     <span>Días Fact:</span><span class="font-mono text-right">${data.dias_facturados}</span>
                     <span>Total Factura:</span><span class="font-mono text-right">${data.importe_total.toFixed(2)} €</span>
                     <span class="col-span-2 border-t pt-1 mt-1 font-bold">Potencias (kW):</span>
@@ -14533,14 +14533,14 @@ ${clientName}
         
         <!-- DATOS CLIENTE -->
         <div style="padding:15px 30px;background:#f8f9fa">
-            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong>CLIENTE:</strong> ${clientName}</p>
-            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong>CUPS:</strong> ${dualSupplies[0].cups}</p>
-            <p style="margin:0;font-size:11px;color:#1e293b"><strong>COMERCIAL:</strong> ${comercialCode}</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong${tr("CUPS:")}</strong> ${dualSupplies[0].cups}</p>
+            <p style="margin:0;font-size:11px;color:#1e293b"><strong${tr("COMERCIAL:")}</strong> ${comercialCode}</p>
         </div>
         
         <!-- LA MEJOR OPCIÓN -->
         <div style="padding:15px 30px;background:white;text-align:center">
-            <p style="margin:0 0 5px 0;font-size:11px;color:#546e7a;font-weight:600;letter-spacing:0.5px">LA MEJOR OPCIÓN PARA TI ES</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#546e7a;font-weight:600;letter-spacing:0.5px"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
             <p style="margin:0;font-size:18px;color:#546e7a;font-weight:bold;letter-spacing:1px">${brandName}</p>
         </div>
         
@@ -14584,7 +14584,7 @@ ${clientName}
         
         <!-- AHORRO ANUAL - DISEÑO LIMPIO -->
         <div style="padding:50px 30px 20px 30px;margin:20px 0;background:#ffffff;text-align:center">
-            <p style="margin:0 0 20px 0;font-size:13px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:1px">${totalSavings > 0 ? 'TU AHORRO ANUAL ESTIMADO' : 'RESULTADO DE LA COMPARATIVA'}</p>
+            <p style="margin:0 0 20px 0;font-size:13px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:1px">${totalSavings > 0 ? tr('TU AHORRO ANUAL ESTIMADO') : 'RESULTADO DE LA COMPARATIVA'}</p>
             <p style="margin:0;font-size:52px;color:${totalSavings > 0 ? '#22c55e' : '#9ca3af'};font-weight:600;letter-spacing:-1px">${totalSavings.toFixed(2)} €</p>
             ${totalSavings === 0 ? '<p style="margin:10px 0 0 0;font-size:14px;color:#9ca3af;">Sin ahorro conseguido</p>' : ''}
         </div>
@@ -14595,7 +14595,7 @@ ${clientName}
                 <tr>
                     <!-- TU FACTURA ACTUAL -->
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
-                        <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">TU FACTURA ACTUAL</p>
+                        <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px"${tr("TU FACTURA ACTUAL")}</p>
                         <p style="margin:0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${(totalOriginalBill/12).toFixed(2)} €/mes</p>
                         <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">Total Periodo (31 días)</p>
                         <p style="margin:20px 0 0 0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${totalOriginalBill.toFixed(2)} €/año</p>
@@ -14610,7 +14610,7 @@ ${clientName}
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
                         <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">TU NUEVO COSTE ${brandName}</p>
                         <p style="margin:0;font-size:28px;color:#475569;font-weight:500">${(totalNew/12).toFixed(2)} €/mes</p>
-                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">Estimado Mensual</p>
+                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1"${tr("Estimado Mensual")}</p>
                         <p style="margin:20px 0 0 0;font-size:28px;color:#475569;font-weight:500">${totalNew.toFixed(2)} €/año</p>
                     </td>
                 </tr>
@@ -16076,7 +16076,7 @@ ${clientName}
                 html += `
                 <div class="mb-6 p-6 border-4 border-red-500 bg-red-50 rounded-2xl">
                     <div class="text-center mb-6">
-                        <h3 class="text-3xl font-black text-red-600 mb-4">LA MEJOR OPCIÓN PARA TI ES</h3>
+                        <h3 class="text-3xl font-black text-red-600 mb-4"${tr("LA MEJOR OPCIÓN PARA TI ES")}</h3>
                         <h2 class="text-5xl font-black text-red-700 mb-3">Tu Tarifa Actual</h2>
                         <p class="text-lg text-red-600 font-semibold">Es la mejor opción detectada</p>
                     </div>
@@ -16460,9 +16460,9 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: white; border: 1px solid #e0e0e0; margin-top: 20px;">
                     <tr>
                         <td style="padding: 20px 40px;">
-                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>CLIENTE:</strong> [NOMBRE COMPLETO CLIENTE]</p>
-                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>CUPS:</strong> ES0021000020679723GY</p>
-                            <p style="margin: 0; font-size: 14px;"><strong>COMERCIAL:</strong> zdvxzc</p>
+                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong${tr("CLIENTE:")}</strong> [NOMBRE COMPLETO CLIENTE]</p>
+                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong${tr("CUPS:")}</strong> ES0021000020679723GY</p>
+                            <p style="margin: 0; font-size: 14px;"><strong${tr("COMERCIAL:")}</strong> zdvxzc</p>
                         </td>
                     </tr>
                 </table>
@@ -16471,7 +16471,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 20px;">
                     <tr>
                         <td style="padding: 30px 40px; text-align: center;">
-                            <p style="margin: 0 0 10px 0; font-size: 16px;">LA MEJOR OPCIÓN PARA TI ES</p>
+                            <p style="margin: 0 0 10px 0; font-size: 16px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                             <h2 style="margin: 0; font-size: 36px; font-weight: bold;">${tariffName}</h2>
                         </td>
                     </tr>
@@ -16499,7 +16499,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
                     <tr>
                         <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
-                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">TU FACTURA ACTUAL</p>
+                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;"${tr("TU FACTURA ACTUAL")}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(facturaActualAnio)}</h2>
                             <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ AÑO</p>
                         </td>
@@ -16561,7 +16561,7 @@ ${clientName}
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right; font-weight: bold;">${eur(result.total_fijo)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
-                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;">SUBTOTAL POTENCIA</td>
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr("SUBTOTAL POTENCIA")}</td>
                         <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_fijo)}</td>
                     </tr>
                     
@@ -16575,19 +16575,19 @@ ${clientName}
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right; font-weight: bold;">${eur(result.total_energia)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
-                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;">Subtotal Energía (Bruto)</td>
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr("Subtotal Energía (Bruto)")}</td>
                         <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_energia)}</td>
                     </tr>
                     
                     <tr>
-                        <td style="padding: 15px 40px; padding-top: 20px; font-size: 15px; font-weight: bold; color: ${primaryColor};" colspan="2">SUBTOTAL BASE (P+E)</td>
+                        <td style="padding: 15px 40px; padding-top: 20px; font-size: 15px; font-weight: bold; color: ${primaryColor};" colspan="2"${tr("SUBTOTAL BASE (P+E)")}</td>
                     </tr>
                     <tr>
                         <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">Imp. Hidrocarburos (€0,00234 x ${kwh} kWh)</td>
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right;">${eur(result.impuesto_hidrocarburo)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
-                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;">BASE IMPONIBLE</td>
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr("BASE IMPONIBLE")}</td>
                         <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_fijo + result.total_energia + result.impuesto_hidrocarburo)}</td>
                     </tr>
                     <tr>
@@ -16599,7 +16599,7 @@ ${clientName}
                         <td style="padding: 15px 40px; font-size: 16px; text-align: right; font-weight: bold;">${eur(result.total)}</td>
                     </tr>
                     <tr style="background-color: #f0f0f0;">
-                        <td style="padding: 12px 40px; font-size: 14px; font-weight: bold;">TOTAL AÑO (PROYECTADO)</td>
+                        <td style="padding: 12px 40px; font-size: 14px; font-weight: bold;"${tr("TOTAL AÑO (PROYECTADO)")}</td>
                         <td style="padding: 12px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(nuevoAnio)}</td>
                     </tr>
                 </table>
@@ -16710,7 +16710,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 20px;">
                     <tr>
                         <td style="padding: 25px 40px; text-align: center;">
-                            <p style="margin: 0 0 10px 0; font-size: 16px;">LA MEJOR OPCIÓN PARA TI ES</p>
+                            <p style="margin: 0 0 10px 0; font-size: 16px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                             <h2 style="margin: 0; font-size: 36px; font-weight: bold;">${brandName}</h2>
                             <p style="margin: 10px 0 0 0; font-size: 14px;">Ofrece el mayor ahorro consolidado con ${brandName}.</p>
                         </td>
@@ -16722,9 +16722,9 @@ ${clientName}
                     <tr>
                         <!-- COLUMNA 1: FACTURA ACTUAL -->
                         <td style="width: 30%; vertical-align: top; text-align: center;">
-                            <p style="margin: 0 0 15px 0; font-size: 13px; color: #888; font-weight: bold;">TU FACTURA ACTUAL</p>
+                            <p style="margin: 0 0 15px 0; font-size: 13px; color: #888; font-weight: bold;"${tr("TU FACTURA ACTUAL")}</p>
                             <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(totalCliente)}</h2>
-                            <p style="margin: 8px 0; font-size: 11px; color: #888;">Total Periodo</p>
+                            <p style="margin: 8px 0; font-size: 11px; color: #888;"${tr("Total Periodo")}</p>
                             <h2 style="margin: 0; font-size: 22px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(facturaActualAnio)}/año</h2>
                         </td>
                         
@@ -16749,7 +16749,7 @@ ${clientName}
                                     <td style="text-align: center;">
                                         <p style="margin: 0 0 5px 0; font-size: 11px; color: #666;">TU NUEVO COSTE ${brandName}</p>
                                         <p style="margin: 0; font-size: 18px; font-weight: bold; color: ${primaryColor};">${eur(resFijo.total * 30 / dias)}/mes</p>
-                                        <p style="margin: 5px 0 0 0; font-size: 10px; color: #888;">Estimado Mensual</p>
+                                        <p style="margin: 5px 0 0 0; font-size: 10px; color: #888;"${tr("Estimado Mensual")}</p>
                                         <p style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: ${primaryColor};">${eur(resFijo.total * 365 / dias)}/año</p>
                                     </td>
                                 </tr>
@@ -16777,7 +16777,7 @@ ${clientName}
                                     <td style="text-align: center;">
                                         <p style="margin: 0 0 5px 0; font-size: 11px; color: #666;">TU NUEVO COSTE ${brandName}</p>
                                         <p style="margin: 0; font-size: 18px; font-weight: bold; color: #16a34a;">${eur(resIndexed.total * 30 / dias)}/mes</p>
-                                        <p style="margin: 5px 0 0 0; font-size: 10px; color: #888;">Estimado Mensual</p>
+                                        <p style="margin: 5px 0 0 0; font-size: 10px; color: #888;"${tr("Estimado Mensual")}</p>
                                         <p style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #16a34a;">${eur(resIndexed.total * 365 / dias)}/año</p>
                                     </td>
                                 </tr>
@@ -17306,7 +17306,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(11);
-            doc.text('LA MEJOR OPCIÓN PARA TI ES', pageWidth / 2, yPos + 10, { align: 'center' });
+            doc.text(tr('LA MEJOR OPCIÓN PARA TI ES'), pageWidth / 2, yPos + 10, { align: 'center' });
             
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(20);
@@ -17325,7 +17325,7 @@ ${clientName}
             doc.setTextColor(100, 120, 140);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
-            doc.text('TU AHORRO ANUAL ESTIMADO', pageWidth / 2, yPos + 8, { align: 'center' });
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO'), pageWidth / 2, yPos + 8, { align: 'center' });
             
             doc.setTextColor(76, 175, 80);
             doc.setFont('helvetica', 'bold');
@@ -17341,7 +17341,7 @@ ${clientName}
             doc.setTextColor(100, 120, 140);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text('TU FACTURA ACTUAL', margin + colWidth / 2, yPos, { align: 'center' });
+            doc.text(tr('TU FACTURA ACTUAL'), margin + colWidth / 2, yPos, { align: 'center' });
             
             doc.setTextColor(220, 38, 38);
             doc.setFont('helvetica', 'bold');
@@ -17381,7 +17381,7 @@ ${clientName}
             doc.setTextColor(100, 120, 140);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text('TU NUEVO COSTE DRK', margin + colWidth + 10 + colWidth / 2, yPos, { align: 'center' });
+            doc.text(tr('TU NUEVO COSTE DRK'), margin + colWidth + 10 + colWidth / 2, yPos, { align: 'center' });
             
             doc.setTextColor(59, 130, 246);
             doc.setFont('helvetica', 'bold');
@@ -17526,7 +17526,7 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text('TOTAL AÑO (PROYECTADO)', margin, yPos);
+            doc.text(tr('TOTAL AÑO (PROYECTADO)'), margin, yPos);
             doc.text(eur(bestResult.total * 365 / dias), pageWidth - margin - 5, yPos, { align: 'right' });
             
             yPos += 15;
@@ -17704,7 +17704,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text('LA MEJOR OPCIÓN PARA TI ES', pageWidth / 2, y + 10, { align: 'center' });
+            doc.text(tr('LA MEJOR OPCIÓN PARA TI ES'), pageWidth / 2, y + 10, { align: 'center' });
             
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(28);
@@ -17739,7 +17739,7 @@ ${clientName}
             doc.setTextColor(70, 80, 90);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text('TU FACTURA ACTUAL', col1X, y);
+            doc.text(tr('TU FACTURA ACTUAL'), col1X, y);
             
             y += 10;
             doc.setTextColor(220, 38, 38);
@@ -17791,7 +17791,7 @@ ${clientName}
             doc.setTextColor(100, 110, 120);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text('TU NUEVO COSTE DRK', col2X + 30, y, { align: 'center' });
+            doc.text(tr('TU NUEVO COSTE DRK'), col2X + 30, y, { align: 'center' });
             
             y += 8;
             doc.setTextColor(59, 130, 246);
@@ -17831,7 +17831,7 @@ ${clientName}
             doc.setTextColor(100, 110, 120);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text('TU NUEVO COSTE DRK', col3X + 30, y, { align: 'center' });
+            doc.text(tr('TU NUEVO COSTE DRK'), col3X + 30, y, { align: 'center' });
             
             y += 8;
             doc.setTextColor(76, 175, 80);
@@ -17954,7 +17954,7 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text('TOTAL AÑO (PROYECTADO)', leftX, leftY);
+            doc.text(tr('TOTAL AÑO (PROYECTADO)'), leftX, leftY);
             doc.text(eur(resFijo.total * 365 / dias), leftX + colW - 2, leftY, { align: 'right' });
             
             leftY += 12;
@@ -18052,7 +18052,7 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text('TOTAL AÑO (PROYECTADO)', rightX, rightY);
+            doc.text(tr('TOTAL AÑO (PROYECTADO)'), rightX, rightY);
             doc.text(eur(resIndexed.total * 365 / dias), rightX + colW - 2, rightY, { align: 'right' });
             
             rightY += 12;
@@ -18280,7 +18280,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
-            doc.text('LA MEJOR OPCIÓN PARA TI ES', pageWidth / 2, y + 13, { align: 'center' });
+            doc.text(tr('LA MEJOR OPCIÓN PARA TI ES'), pageWidth / 2, y + 13, { align: 'center' });
             
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(32);
@@ -18303,7 +18303,7 @@ ${clientName}
             doc.setTextColor(120, 130, 120);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('TU AHORRO ANUAL ESTIMADO', pageWidth / 2, y, { align: 'center' });
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO'), pageWidth / 2, y, { align: 'center' });
             
             y += 18;
             doc.setTextColor(76, 175, 80);
@@ -18321,7 +18321,7 @@ ${clientName}
             doc.setTextColor(110, 120, 110);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text('TU FACTURA ACTUAL', 57, y, { align: 'center' });
+            doc.text(tr('TU FACTURA ACTUAL'), 57, y, { align: 'center' });
             
             y += 10;
             const factMes = totalCliente * 30 / dias;
@@ -18464,7 +18464,7 @@ ${clientName}
             y += 14;
             doc.setTextColor(0, 0, 0);
             doc.setFontSize(9);
-            doc.text('TOTAL AÑO (PROYECTADO)', 12, y);
+            doc.text(tr('TOTAL AÑO (PROYECTADO)'), 12, y);
             doc.text(eur(bestResult.total * 365 / dias), 195, y, { align: 'right' });
             
             y += 12;
@@ -18612,7 +18612,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
-            doc.text('LA MEJOR OPCIÓN PARA TI ES', pageWidth / 2, y + 13, { align: 'center' });
+            doc.text(tr('LA MEJOR OPCIÓN PARA TI ES'), pageWidth / 2, y + 13, { align: 'center' });
             
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(32);
@@ -18648,7 +18648,7 @@ ${clientName}
             doc.setTextColor(70, 80, 70);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text('TU FACTURA ACTUAL', col1X, y);
+            doc.text(tr('TU FACTURA ACTUAL'), col1X, y);
             
             y += 9;
             doc.setTextColor(220, 38, 38);
@@ -18856,7 +18856,7 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text('TOTAL AÑO (PROYECTADO)', leftX, leftY);
+            doc.text(tr('TOTAL AÑO (PROYECTADO)'), leftX, leftY);
             doc.text(eur(resFijo.total * 365 / dias), leftX + colW - 2, leftY, { align: 'right' });
             
             leftY += 12;
@@ -18954,7 +18954,7 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text('TOTAL AÑO (PROYECTADO)', rightX, rightY);
+            doc.text(tr('TOTAL AÑO (PROYECTADO)'), rightX, rightY);
             doc.text(eur(resIndexed.total * 365 / dias), rightX + colW - 2, rightY, { align: 'right' });
             
             rightY += 12;
@@ -19303,7 +19303,12 @@ ${clientName}
                 "AHORRO TOTAL FIJAS:": { en: "TOTAL FIXED SAVINGS:", zh: "总固定节省：", de: "GESAMTE FESTE EINSPARUNGEN:", fr: "ÉCONOMIES TOTALES FIXES :" },
                 "AHORRO TOTAL INDEXADAS:": { en: "TOTAL INDEXED SAVINGS:", zh: "总指数节省：", de: "GESAMTE INDEXIERTE EINSPARUNGEN:", fr: "ÉCONOMIES TOTALES INDEXÉES :" },
                 "FACTURA ACTUAL TOTAL:": { en: "CURRENT TOTAL BILL:", zh: "当前总账单：", de: "AKTUELLE GESAMTRECHNUNG:", fr: "FACTURE TOTALE ACTUELLE :" },
-                "TOTAL:": { en: "TOTAL:", zh: "总计：", de: "GESAMT:", fr: "TOTAL :" }
+                "TOTAL:": { en: "TOTAL:", zh: "总计：", de: "GESAMT:", fr: "TOTAL :" },
+                
+                // Traducciones adicionales para PDFs
+                "COMPARATIVA": { en: "COMPARISON", zh: "比较", de: "VERGLEICH", fr: "COMPARAISON" },
+                "mes": { en: "month", zh: "月", de: "Monat", fr: "mois" },
+                "DÍAS": { en: "DAYS", zh: "天", de: "TAGE", fr: "JOURS" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19316,6 +19321,96 @@ ${clientName}
             
             // Hacer tr() global
             window.tr = tr;
+            
+            // Función para traducir TODO el HTML generado (usado antes de crear PDFs)
+            window.translateHTML = function(html) {
+                if (!html) return html;
+                
+                // Lista exhaustiva de textos a traducir
+                const textsToTranslate = {
+                    // Encabezados principales
+                    'LA MEJOR OPCIÓN PARA TI ES': tr('LA MEJOR OPCIÓN PARA TI ES'),
+                    'TU FACTURA ACTUAL': tr('TU FACTURA ACTUAL'),
+                    'TU NUEVO COSTE DRK': tr('TU NUEVO COSTE DRK'),
+                    'TU NUEVO COSTE POWER CUP': tr('TU NUEVO COSTE POWER CUP'),
+                    'TU AHORRO ANUAL ESTIMADO': tr('TU AHORRO ANUAL ESTIMADO'),
+                    'TU AHORRO ANUAL FIJO': tr('TU AHORRO ANUAL FIJO'),
+                    'TU AHORRO ANUAL INDEXADO': tr('TU AHORRO ANUAL INDEXADO'),
+                    
+                    // Headers y secciones
+                    'ESTUDIO DE AHORRO': tr('ESTUDIO DE AHORRO'),
+                    'COMPARATIVA PROFESIONAL': tr('COMPARATIVA PROFESIONAL'),
+                    'COMPARATIVA': tr('COMPARATIVA'),
+                    'PROFESIONAL': tr('PROFESIONAL'),
+                    'Liderando el ahorro y la eficiencia energética.': tr('Liderando el ahorro y la eficiencia energética.'),
+                    'Asesoría Energética': tr('Asesoría Energética'),
+                    'Ofrece el mayor ahorro consolidado con': tr('Ofrece el mayor ahorro consolidado con'),
+                    
+                    // Datos del cliente
+                    'CLIENTE:': tr('CLIENTE:'),
+                    'CUPS:': tr('CUPS:'),
+                    'COMERCIAL:': tr('COMERCIAL:'),
+                    'CUPS TOTALES:': tr('CUPS TOTALES:'),
+                    
+                    // Términos técnicos
+                    'POTENCIA:': tr('POTENCIA:'),
+                    'ENERGIA:': tr('ENERGIA:'),
+                    'TÉRMINO POTENCIA': tr('TÉRMINO POTENCIA'),
+                    'TÉRMINO ENERGÍA': tr('TÉRMINO ENERGÍA'),
+                    'Precio en €/kW Día': tr('Precio en €/kW Día'),
+                    'Precios en €/kWh': tr('Precios en €/kWh'),
+                    
+                    // Subtotales
+                    'SUBTOTAL POTENCIA': tr('SUBTOTAL POTENCIA'),
+                    'SUBTOTAL BASE (P+E)': tr('SUBTOTAL BASE (P+E)'),
+                    'BASE IMPONIBLE': tr('BASE IMPONIBLE'),
+                    'Subtotal Energía (Bruto)': tr('Subtotal Energía (Bruto)'),
+                    'Subtotal Energía (Neto)': tr('Subtotal Energía (Neto)'),
+                    
+                    // Impuestos y totales
+                    'Imp. Eléc.': tr('Imp. Eléc.'),
+                    'IVA (21%)': tr('IVA (21%)'),
+                    'TOTAL FACTURA': tr('TOTAL FACTURA'),
+                    'TOTAL AÑO (PROYECTADO)': tr('TOTAL AÑO (PROYECTADO)'),
+                    'Total Periodo': tr('Total Periodo'),
+                    'Estimado Mensual': tr('Estimado Mensual'),
+                    
+                    // GAS
+                    'Resultados GAS': tr('Resultados GAS'),
+                    'Comparativa de tarifas': tr('Comparativa de tarifas'),
+                    'Término fijo': tr('Término fijo'),
+                    'Impuesto hidrocarburos': tr('Impuesto hidrocarburos'),
+                    
+                    // Documentación
+                    'PARA FORMALIZAR ESTE CONTRATO:': tr('PARA FORMALIZAR ESTE CONTRATO:'),
+                    'Responde a este email adjuntando la siguiente documentacion:': tr('Responde a este email adjuntando la siguiente documentacion:'),
+                    'Este resumen es una simulacion': tr('Este resumen es una simulacion'),
+                    'basada en su ultima factura': tr('basada en su ultima factura'),
+                    'consolidada de': tr('consolidada de'),
+                    'suministros': tr('suministros'),
+                    'Colaborador:': tr('Colaborador:'),
+                    
+                    // Otros
+                    'DESGLOSE DETALLADO': tr('DESGLOSE DETALLADO'),
+                    'días': tr('días'),
+                    'DÍAS': tr('DÍAS'),
+                    'mes': tr('mes'),
+                    'año': tr('año')
+                };
+                
+                // Reemplazar cada texto
+                let translatedHTML = html;
+                Object.keys(textsToTranslate).forEach(original => {
+                    const translated = textsToTranslate[original];
+                    if (translated !== original) {
+                        // Usar regex global case-sensitive
+                        const regex = new RegExp(original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+                        translatedHTML = translatedHTML.replace(regex, translated);
+                    }
+                });
+                
+                return translatedHTML;
+            };
 
             // Función exhaustiva de traducción
             function translateAll() {
