@@ -1571,15 +1571,15 @@
             <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col">
                 <!-- Header -->
                 <div class="bg-gradient-to-r from-drk-600 to-drk-700 p-6 text-white flex-shrink-0">
-                    <h3 class="text-2xl font-black">📋 SELECCIONA TU OFERTA</h3>
-                    <p class="text-drk-100 text-sm mt-1">Hemos calculado todas las opciones con ahorro. Elige la que prefieras.</p>
+                    <h3 id="offer-selection-title" class="text-2xl font-black">📋 SELECCIONA TU OFERTA</h3>
+                    <p id="offer-selection-subtitle" class="text-drk-100 text-sm mt-1">Hemos calculado todas las opciones con ahorro. Elige la que prefieras.</p>
                 </div>
                 
                 <!-- Content -->
                 <div class="p-6 overflow-y-auto flex-1">
                     <!-- Info del CUPS -->
                     <div class="bg-slate-50 rounded-lg p-4 mb-4">
-                        <p class="text-xs font-bold text-slate-600 mb-2">📋 DATOS DEL SUMINISTRO</p>
+                        <p id="datos-suministro-label" class="text-xs font-bold text-slate-600 mb-2">📋 DATOS DEL SUMINISTRO</p>
                         <p class="text-sm font-mono" id="modal-selection-cups"></p>
                     </div>
                     
@@ -1588,7 +1588,7 @@
                         <div class="flex flex-col md:flex-row gap-3">
                             <!-- Filtro por nombre -->
                             <div class="flex-1">
-                                <label class="block text-xs font-bold text-slate-600 mb-2">🔍 BUSCAR POR NOMBRE</label>
+                                <label id="buscar-nombre-label" class="block text-xs font-bold text-slate-600 mb-2">🔍 BUSCAR POR NOMBRE</label>
                                 <input 
                                     type="text" 
                                     id="offer-search-input" 
@@ -1600,7 +1600,7 @@
                             
                             <!-- Ordenación -->
                             <div class="md:w-64">
-                                <label class="block text-xs font-bold text-slate-600 mb-2">📊 ORDENAR POR</label>
+                                <label id="ordenar-por-label" class="block text-xs font-bold text-slate-600 mb-2">📊 ORDENAR POR</label>
                                 <select 
                                     id="offer-sort-select" 
                                     class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:border-drk-500 focus:outline-none text-sm font-medium"
@@ -1617,9 +1617,10 @@
                         <!-- Contador de resultados -->
                         <div class="mt-3 flex items-center justify-between">
                             <p class="text-xs text-slate-500">
-                                <span class="font-bold text-drk-600" id="offers-visible-count">0</span> de <span id="offers-total-count">0</span> ofertas
+                                <span class="font-bold text-drk-600" id="offers-visible-count">0</span> <span id="offers-de-text">de</span> <span id="offers-total-count">0</span> <span id="offers-text">ofertas</span>
                             </p>
                             <button 
+                                id="limpiar-filtros-btn"
                                 onclick="clearOfferFilters()" 
                                 class="text-xs text-drk-600 hover:text-drk-800 font-bold hover:underline"
                             >
@@ -1944,17 +1945,17 @@
             }, 50);
             
             // 2. Establecer contenido del modal
-            setModalContent("Con el cuadro de texto invisible enfocado, pulse Ctrl+V (o Cmd+V) para pegar la imagen de la factura.", "Esperando Pegado (Ctrl+V)", false);
+            setModalContent(tr("Con el cuadro de texto invisible enfocado, pulse Ctrl+V (o Cmd+V) para pegar la imagen de la factura."), tr("Esperando Pegado (Ctrl+V)"), false);
 
             // 3. Configurar el botón de Cancelar dinámicamente
             let secondaryBtn = document.getElementById('secondary-action-btn');
-            secondaryBtn.textContent = "Cancelar Pegado";
+            secondaryBtn.textContent = tr("Cancelar Pegado");
             secondaryBtn.onclick = () => { onCancel(); hideErrorModal(); };
             secondaryBtn.classList.remove('hidden');
             
             // 4. Configurar botón principal para que también cancele
             const mainButton = document.querySelector('#error-modal button:not(#secondary-action-btn)');
-            mainButton.textContent = "Continuar Pegando";  
+            mainButton.textContent = tr("Continuar Pegando");  
             mainButton.onclick = () => { hideErrorModal(); };
         }
         
@@ -11349,6 +11350,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             document.getElementById('offer-selection-modal').classList.remove('hidden');
             document.getElementById('offer-selection-modal').classList.add('flex');
             
+            // CRÍTICO: Traducir contenido del modal
+            if (window.translateAll) {
+                setTimeout(() => window.translateAll(), 50);
+            }
+            
             // Deshabilitar botón de confirmar inicialmente
             document.getElementById('confirm-offer-selection-btn').disabled = true;
             manuallySelectedOffer = null;
@@ -19537,7 +19543,28 @@ ${clientName}
                 "Consejo:": { en: "Advice:", zh: "建议：", de: "Rat:", fr: "Conseil :" },
                 "Si quieres ver rápidamente la mejor oferta, elige la primera opción. Si necesitas comparar varias opciones o el cliente tiene preferencias específicas, elige la segunda.": { en: "If you want to quickly see the best offer, choose the first option. If you need to compare multiple options or the client has specific preferences, choose the second.", zh: "如果您想快速查看最佳优惠，请选择第一个选项。如果您需要比较多个选项或客户有特定偏好，请选择第二个。", de: "Wenn Sie schnell das beste Angebot sehen möchten, wählen Sie die erste Option. Wenn Sie mehrere Optionen vergleichen müssen oder der Kunde spezifische Präferenzen hat, wählen Sie die zweite.", fr: "Si vous voulez voir rapidement la meilleure offre, choisissez la première option. Si vous devez comparer plusieurs options ou si le client a des préférences spécifiques, choisissez la seconde." },
                 "⚡ Comparar FIJO vs INDEXADO": { en: "⚡ Compare FIXED vs INDEXED", zh: "⚡ 比较固定与指数", de: "⚡ FEST vs INDEXIERT vergleichen", fr: "⚡ Comparer FIXE vs INDEXÉ" },
-                "Genera comparativa dual: tarifa fija y tarifa indexada DRK INDEX (precio variable del mercado).": { en: "Generate dual comparison: fixed rate and DRK INDEX indexed rate (variable market price).", zh: "生成双重比较：固定费率和DRK INDEX指数费率（可变市场价格）。", de: "Dual-Vergleich generieren: Festpreis und DRK INDEX indexierter Tarif (variabler Marktpreis).", fr: "Générer une comparaison duale : tarif fixe et tarif indexé DRK INDEX (prix variable du marché)." }
+                "Genera comparativa dual: tarifa fija y tarifa indexada DRK INDEX (precio variable del mercado).": { en: "Generate dual comparison: fixed rate and DRK INDEX indexed rate (variable market price).", zh: "生成双重比较：固定费率和DRK INDEX指数费率（可变市场价格）。", de: "Dual-Vergleich generieren: Festpreis und DRK INDEX indexierter Tarif (variabler Marktpreis).", fr: "Générer une comparaison duale : tarif fixe et tarif indexé DRK INDEX (prix variable du marché)." },
+                
+                // Modal de selección de ofertas
+                "📋 SELECCIONA TU OFERTA": { en: "📋 SELECT YOUR OFFER", zh: "📋 选择您的报价", de: "📋 WÄHLEN SIE IHR ANGEBOT", fr: "📋 SÉLECTIONNEZ VOTRE OFFRE" },
+                "Hemos calculado todas las opciones con ahorro. Elige la que prefieras.": { en: "We have calculated all options with savings. Choose the one you prefer.", zh: "我们已计算所有节省选项。选择您喜欢的。", de: "Wir haben alle Optionen mit Einsparungen berechnet. Wählen Sie die, die Sie bevorzugen.", fr: "Nous avons calculé toutes les options avec des économies. Choisissez celle que vous préférez." },
+                "📋 DATOS DEL SUMINISTRO": { en: "📋 SUPPLY DATA", zh: "📋 供应数据", de: "📋 VERSORGUNGSDATEN", fr: "📋 DONNÉES D'APPROVISIONNEMENT" },
+                "🔍 BUSCAR POR NOMBRE": { en: "🔍 SEARCH BY NAME", zh: "🔍 按名称搜索", de: "🔍 NACH NAME SUCHEN", fr: "🔍 RECHERCHER PAR NOM" },
+                "Escribe nombre de comercializadora...": { en: "Enter supplier name...", zh: "输入供应商名称...", de: "Lieferantenname eingeben...", fr: "Entrez le nom du fournisseur..." },
+                "📊 ORDENAR POR": { en: "📊 SORT BY", zh: "📊 排序方式", de: "📊 SORTIEREN NACH", fr: "📊 TRIER PAR" },
+                "💰 Mayor ahorro primero": { en: "💰 Highest savings first", zh: "💰 最高节省优先", de: "💰 Höchste Einsparungen zuerst", fr: "💰 Économies les plus élevées en premier" },
+                "💸 Menor ahorro primero": { en: "💸 Lowest savings first", zh: "💸 最低节省优先", de: "💸 Niedrigste Einsparungen zuerst", fr: "💸 Économies les plus faibles en premier" },
+                "🔤 Nombre (A-Z)": { en: "🔤 Name (A-Z)", zh: "🔤 名称（A-Z）", de: "🔤 Name (A-Z)", fr: "🔤 Nom (A-Z)" },
+                "🔤 Nombre (Z-A)": { en: "🔤 Name (Z-A)", zh: "🔤 名称（Z-A）", de: "🔤 Name (Z-A)", fr: "🔤 Nom (Z-A)" },
+                "de": { en: "of", zh: "的", de: "von", fr: "de" },
+                "ofertas": { en: "offers", zh: "报价", de: "Angebote", fr: "offres" },
+                "🔄 Limpiar filtros": { en: "🔄 Clear filters", zh: "🔄 清除筛选", de: "🔄 Filter löschen", fr: "🔄 Effacer les filtres" },
+                
+                // Modal de pegado
+                "Esperando Pegado (Ctrl+V)": { en: "Waiting for Paste (Ctrl+V)", zh: "等待粘贴（Ctrl+V）", de: "Warten auf Einfügen (Strg+V)", fr: "En attente de Coller (Ctrl+V)" },
+                "Con el cuadro de texto invisible enfocado, pulse Ctrl+V (o Cmd+V) para pegar la imagen de la factura.": { en: "With the invisible text box focused, press Ctrl+V (or Cmd+V) to paste the invoice image.", zh: "在不可见文本框聚焦时，按Ctrl+V（或Cmd+V）粘贴发票图像。", de: "Drücken Sie bei fokussiertem unsichtbaren Textfeld Strg+V (oder Cmd+V), um das Rechnungsbild einzufügen.", fr: "Avec la zone de texte invisible focalisée, appuyez sur Ctrl+V (ou Cmd+V) pour coller l'image de la facture." },
+                "Continuar Pegando": { en: "Continue Pasting", zh: "继续粘贴", de: "Weiter einfügen", fr: "Continuer à coller" },
+                "Cancelar Pegado": { en: "Cancel Paste", zh: "取消粘贴", de: "Einfügen abbrechen", fr: "Annuler le Collage" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19953,7 +19980,10 @@ ${clientName}
                     'dual-title', 'dual-subtitle', 'dual-supplies-label',
                     'dual-add-btn', 'dual-calculate-btn', 'dual-reset-btn',
                     'advice-label', 'advice-content',
-                    'compare-fijo-indexado-title', 'compare-fijo-indexado-desc'
+                    'compare-fijo-indexado-title', 'compare-fijo-indexado-desc',
+                    'offer-selection-title', 'offer-selection-subtitle', 'datos-suministro-label',
+                    'buscar-nombre-label', 'ordenar-por-label', 'offers-de-text', 'offers-text',
+                    'limpiar-filtros-btn'
                 ];
                 
                 elementIds.forEach(id => {
@@ -19992,6 +20022,22 @@ ${clientName}
                         node.textContent = node.textContent.replace(original, newText);
                     }
                 });
+                
+                // CRÍTICO: Traducir placeholders
+                const searchInput = document.getElementById('offer-search-input');
+                if (searchInput) {
+                    searchInput.placeholder = tr('Escribe nombre de comercializadora...');
+                }
+                
+                // CRÍTICO: Traducir opciones del select de ordenación
+                const sortSelect = document.getElementById('offer-sort-select');
+                if (sortSelect) {
+                    const options = sortSelect.querySelectorAll('option');
+                    options.forEach(option => {
+                        const originalText = option.textContent.trim();
+                        option.textContent = tr(originalText);
+                    });
+                }
             }
 
             // API global
