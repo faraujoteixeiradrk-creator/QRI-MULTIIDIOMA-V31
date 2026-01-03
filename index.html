@@ -1283,7 +1283,7 @@
             </div>
 
             <div class="mt-8">
-                <button onclick="resetToLanding()" class="w-full bg-white border-2 border-slate-200 hover:border-drk-500 text-slate-600 hover:text-drk-800 font-bold py-4 rounded-xl transition flex items-center justify-center gap-2">
+                <button onclick="resetToLanding()" class="w-full bg-white border-2 border-slate-200 hover:border-drk-500 text-slate-600 hover:text-drk-800 font-bold py-4 rounded-xl transition flex items-center justify-center gap-2" id="reset-button-text">
                     Realizar Nueva Comparación
                 </button>
             </div>
@@ -3155,7 +3155,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-drk-100 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-drk-100 text-base md:text-lg font-bold">PROFESIONAL</p>
+                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
                         </div>
                     </div>
                 `;
@@ -3175,7 +3175,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-powercup-50 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-powercup-50 text-base md:text-lg font-bold">PROFESIONAL</p>
+                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
                         </div>
                     </div>
                 `;
@@ -3379,7 +3379,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-drk-100 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-drk-100 text-base md:text-lg font-bold">PROFESIONAL</p>
+                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
                         </div>
                     </div>
                 `;
@@ -3399,7 +3399,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-powercup-50 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-powercup-50 text-base md:text-lg font-bold">PROFESIONAL</p>
+                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
                         </div>
                     </div>
                 `;
@@ -3840,7 +3840,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-drk-100 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-drk-100 text-base md:text-lg font-bold">PROFESIONAL</p>
+                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
                         </div>
                     </div>
                 `;
@@ -3860,7 +3860,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-powercup-50 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-powercup-50 text-base md:text-lg font-bold">PROFESIONAL</p>
+                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
                         </div>
                     </div>
                 `;
@@ -4013,7 +4013,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-drk-100 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-drk-100 text-base md:text-lg font-bold">PROFESIONAL</p>
+                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
                         </div>
                     </div>
                 `;
@@ -4033,7 +4033,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-powercup-50 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-powercup-50 text-base md:text-lg font-bold">PROFESIONAL</p>
+                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
                         </div>
                     </div>
                 `;
@@ -4205,8 +4205,8 @@
                         <div class="flex justify-between"><span>IVA (21%)</span><span>${num(res.costIVA, 2)} €</span></div>
                     </div>
                     
-                    <div class="bg-drk-900 text-white p-3 rounded-lg flex justify-between items-center text-md font-bold mb-1 mt-4"><span${tr("TOTAL FACTURA")}</span><span>${eur(res.totalPeriod)}</span></div>
-                    <div class="text-center mt-2 ${brand.PRIMARY_TEXT} font-bold">Total Anual Estimado: ${eur(res.totalAnnual)}</div>
+                    <div class="bg-drk-900 text-white p-3 rounded-lg flex justify-between items-center text-md font-bold mb-1 mt-4"><span>${tr("TOTAL FACTURA")}</span><span>${eur(res.totalPeriod)}</span></div>
+                    <div class="text-center mt-2 ${brand.PRIMARY_TEXT} font-bold">${tr("Total Anual Estimado")}: ${eur(res.totalAnnual)}</div>
                 </div>
             `;
             
@@ -4346,11 +4346,11 @@
                 document.body.removeChild(tempElement);
 
                 if (success) {
-                    window.showMessageModal("✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio.");
+                    window.showMessageModal(tr("✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio."));
                     document.getElementById('send-offer-modal').classList.add('hidden');
                     document.getElementById('send-offer-modal').classList.remove('flex');
                 } else {
-                    window.showErrorModal("No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte.");
+                    window.showErrorModal(tr("No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte."));
                 }
             } catch (e) {
                 console.error("Error al copiar al portapapeles:", e);
@@ -19701,6 +19701,13 @@ ${clientName}
                 "Hogar/Negocio": { en: "Home/Business", zh: "家庭/商业", de: "Haus/Geschäft", fr: "Maison/Entreprise" },
                 "Industria/Gran Consumo": { en: "Industry/High Consumption", zh: "工业/高消耗", de: "Industrie/Großverbrauch", fr: "Industrie/Grande consommation" },
                 "Consumos (kWh)": { en: "Consumption (kWh)", zh: "消耗 (kWh)", de: "Verbrauch (kWh)", fr: "Consommation (kWh)" },
+                
+                // Textos adicionales de interfaz
+                "PROFESIONAL": { en: "PROFESSIONAL", zh: "专业", de: "PROFESSIONELL", fr: "PROFESSIONNEL" },
+                "Total Anual Estimado": { en: "Estimated Annual Total", zh: "估计年度总额", de: "Geschätzter Jahresgesamtbetrag", fr: "Total annuel estimé" },
+                "Realizar Nueva Comparación": { en: "Make New Comparison", zh: "进行新比较", de: "Neuen Vergleich durchführen", fr: "Effectuer une nouvelle comparaison" },
+                "✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio.": { en: "✅ Offer copied successfully! Now you can paste (Ctrl+V or Cmd+V) the visual design into your email client.", zh: "✅ 报价复制成功！现在您可以将视觉设计粘贴（Ctrl+V 或 Cmd+V）到您的电子邮件客户端。", de: "✅ Angebot erfolgreich kopiert! Jetzt können Sie das visuelle Design in Ihren E-Mail-Client einfügen (Strg+V oder Cmd+V).", fr: "✅ Offre copiée avec succès ! Vous pouvez maintenant coller (Ctrl+V ou Cmd+V) le design visuel dans votre client de messagerie." },
+                "No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte.": { en: "Could not copy visual design. Try from a PC or contact support.", zh: "无法复制视觉设计。请尝试从PC或联系支持。", de: "Visuelles Design konnte nicht kopiert werden. Versuchen Sie es von einem PC aus oder kontaktieren Sie den Support.", fr: "Impossible de copier le design visuel. Essayez depuis un PC ou contactez le support." },
                 "Acumulado": { en: "Accumulated", zh: "累计", de: "Kumuliert", fr: "Accumulé" },
                 "Total Consumo": { en: "Total Consumption", zh: "总消耗", de: "Gesamtverbrauch", fr: "Consommation totale" },
                 "Ahorro:": { en: "Savings:", zh: "节省：", de: "Einsparungen:", fr: "Économies :" },
@@ -20340,7 +20347,7 @@ ${clientName}
                     'back-offer-selection-btn', 'confirm-offer-selection-btn',
                     'gas-request-improvement-text', 'dual-request-improvement-text', 'request-improvement-text',
                     'calculation-complete-title', 'calculation-complete-subtitle',
-                    'details-toggle-text'
+                    'details-toggle-text', 'reset-button-text'
                 ];
                 
                 elementIds.forEach(id => {
