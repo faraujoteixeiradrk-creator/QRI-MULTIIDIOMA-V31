@@ -186,7 +186,7 @@
             <!-- Language Selector -->
             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <select id="language-selector" onchange="if(window.translationSystem) window.translationSystem.changeLanguage(this.value)" 
+                    <select id="language-selector" onchange="if(window.LANG) window.LANG.change(this.value)" 
                             class="bg-drk-800 text-white text-xs px-3 py-1.5 rounded border border-drk-700 cursor-pointer hover:bg-drk-700 transition-colors appearance-none pr-8 font-semibold">
                         <option value="es">🇪🇸 ES</option>
                         <option value="en">🇬🇧 EN</option>
@@ -19046,395 +19046,177 @@ ${clientName}
         }
 
         // ============================================================================
-        // SISTEMA COMPLETO DE TRADUCCIÓN MULTIIDIOMA V2.0
-        // Traduce AUTOMÁTICAMENTE cuando cambias de pantalla
+        // SISTEMA ULTRA-COMPLETO DE TRADUCCIÓN MULTIIDIOMA
+        // Traduce TODO: Pantallas, Modales, Botones, Mensajes
         // ============================================================================
 
-        const TRANSLATIONS_COMPLETE = {
-            es: {
-                common: {
-                    drk: "DRK",
-                    energia: "Energía",
-                    comparador: "COMPARADOR",
-                    selector: "Selector",
-                    continuar: "Continuar",
-                    volver: "Volver",
-                    calcular: "Calcular Ahorro",
-                    electricidad: "ELECTRICIDAD",
-                    gas: "GAS",
-                    dual: "DUAL",
-                    multicups: "MULTICUPS"
-                },
-                screens: {
-                    inicio: {
-                        title: "DRK COMPARADOR",
-                        subtitle: "Selecciona el tipo de suministro.",
-                        tipoSuministro: "TIPO DE SUMINISTRO",
-                        electricidadDesc: "MULTICUPS · 2.0 TD · 3.0 TD",
-                        gasDesc: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
-                        dualSub: "ELECTRICIDAD + GAS",
-                        dualDesc: "Múltiples suministros · Comparativa global"
-                    },
-                    modoComparacion: {
-                        title: "MODO DE COMPARACIÓN",
-                        drkOnly: "DRK Únicamente",
-                        drkPrioritized: "DRK Prioritario",
-                        powerCupGlobal: "POWER CUP",
-                        globalSub: "Global"
-                    },
-                    tariffSelection: {
-                        subtitle: "Selecciona la tarifa que deseas analizar.",
-                        multicupsDesc: "Gestor de múltiples contratos (2.0TD + 3.0TD)",
-                        td20Desc: "Hogar / Pequeño Negocio (Individual)",
-                        td30Desc: "Empresa / Negocio (Individual)"
-                    },
-                    inputMethod: {
-                        title: "¿Cómo quieres introducir los datos?",
-                        manual: "Introducción Manual",
-                        manualDesc: "Escribe los datos de tu factura",
-                        qr: "Escanear QR",
-                        qrDesc: "Usa la cámara o sube una imagen",
-                        paste: "Pegar Imagen",
-                        pasteDesc: "Pega desde portapapeles (Ctrl+V)"
-                    }
-                }
-            },
-            en: {
-                common: {
-                    drk: "DRK",
-                    energia: "Energy",
-                    comparador: "COMPARATOR",
-                    selector: "Selector",
-                    continuar: "Continue",
-                    volver: "Back",
-                    calcular: "Calculate Savings",
-                    electricidad: "ELECTRICITY",
-                    gas: "GAS",
-                    dual: "DUAL",
-                    multicups: "MULTICUPS"
-                },
-                screens: {
-                    inicio: {
-                        title: "DRK COMPARATOR",
-                        subtitle: "Select the type of supply.",
-                        tipoSuministro: "SUPPLY TYPE",
-                        electricidadDesc: "MULTICUPS · 2.0 TD · 3.0 TD",
-                        gasDesc: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
-                        dualSub: "ELECTRICITY + GAS",
-                        dualDesc: "Multiple supplies · Global comparison"
-                    },
-                    modoComparacion: {
-                        title: "COMPARISON MODE",
-                        drkOnly: "DRK Only",
-                        drkPrioritized: "DRK Prioritized",
-                        powerCupGlobal: "POWER CUP",
-                        globalSub: "Global"
-                    },
-                    tariffSelection: {
-                        subtitle: "Select the rate you want to analyze.",
-                        multicupsDesc: "Multiple contracts manager (2.0TD + 3.0TD)",
-                        td20Desc: "Home / Small Business (Individual)",
-                        td30Desc: "Company / Business (Individual)"
-                    },
-                    inputMethod: {
-                        title: "How do you want to enter the data?",
-                        manual: "Manual Entry",
-                        manualDesc: "Type your bill data",
-                        qr: "Scan QR",
-                        qrDesc: "Use camera or upload image",
-                        paste: "Paste Image",
-                        pasteDesc: "Paste from clipboard (Ctrl+V)"
-                    }
-                }
-            },
-            zh: {
-                common: {
-                    drk: "DRK",
-                    energia: "能源",
-                    comparador: "比较器",
-                    selector: "选择器",
-                    continuar: "继续",
-                    volver: "返回",
-                    calcular: "计算节省",
-                    electricidad: "电力",
-                    gas: "天然气",
-                    dual: "双重",
-                    multicups: "多合同"
-                },
-                screens: {
-                    inicio: {
-                        title: "DRK 比较器",
-                        subtitle: "选择供应类型。",
-                        tipoSuministro: "供应类型",
-                        electricidadDesc: "多合同 · 2.0 TD · 3.0 TD",
-                        gasDesc: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
-                        dualSub: "电力 + 天然气",
-                        dualDesc: "多个供应 · 全面比较"
-                    },
-                    modoComparacion: {
-                        title: "比较模式",
-                        drkOnly: "仅DRK",
-                        drkPrioritized: "DRK优先",
-                        powerCupGlobal: "POWER CUP",
-                        globalSub: "全球"
-                    },
-                    tariffSelection: {
-                        subtitle: "选择您想分析的费率。",
-                        multicupsDesc: "多合同管理器 (2.0TD + 3.0TD)",
-                        td20Desc: "家庭 / 小型企业（单独）",
-                        td30Desc: "公司 / 企业（单独）"
-                    },
-                    inputMethod: {
-                        title: "您想如何输入数据？",
-                        manual: "手动输入",
-                        manualDesc: "输入您的账单数据",
-                        qr: "扫描二维码",
-                        qrDesc: "使用相机或上传图片",
-                        paste: "粘贴图片",
-                        pasteDesc: "从剪贴板粘贴 (Ctrl+V)"
-                    }
-                }
-            },
-            de: {
-                common: {
-                    drk: "DRK",
-                    energia: "Energie",
-                    comparador: "VERGLEICHER",
-                    selector: "Auswahl",
-                    continuar: "Fortfahren",
-                    volver: "Zurück",
-                    calcular: "Ersparnis berechnen",
-                    electricidad: "ELEKTRIZITÄT",
-                    gas: "GAS",
-                    dual: "DUAL",
-                    multicups: "MULTICUPS"
-                },
-                screens: {
-                    inicio: {
-                        title: "DRK VERGLEICHER",
-                        subtitle: "Wählen Sie die Art der Versorgung.",
-                        tipoSuministro: "VERSORGUNGSTYP",
-                        electricidadDesc: "MULTICUPS · 2.0 TD · 3.0 TD",
-                        gasDesc: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
-                        dualSub: "ELEKTRIZITÄT + GAS",
-                        dualDesc: "Mehrere Versorgungen · Globaler Vergleich"
-                    },
-                    modoComparacion: {
-                        title: "VERGLEICHSMODUS",
-                        drkOnly: "Nur DRK",
-                        drkPrioritized: "DRK Priorität",
-                        powerCupGlobal: "POWER CUP",
-                        globalSub: "Global"
-                    },
-                    tariffSelection: {
-                        subtitle: "Wählen Sie den Tarif, den Sie analysieren möchten.",
-                        multicupsDesc: "Mehrfachvertrags-Manager (2.0TD + 3.0TD)",
-                        td20Desc: "Zuhause / Kleinunternehmen (Einzeln)",
-                        td30Desc: "Unternehmen / Geschäft (Einzeln)"
-                    },
-                    inputMethod: {
-                        title: "Wie möchten Sie die Daten eingeben?",
-                        manual: "Manuelle Eingabe",
-                        manualDesc: "Geben Sie Ihre Rechnungsdaten ein",
-                        qr: "QR scannen",
-                        qrDesc: "Kamera verwenden oder Bild hochladen",
-                        paste: "Bild einfügen",
-                        pasteDesc: "Aus Zwischenablage einfügen (Strg+V)"
-                    }
-                }
-            },
-            fr: {
-                common: {
-                    drk: "DRK",
-                    energia: "Énergie",
-                    comparador: "COMPARATEUR",
-                    selector: "Sélecteur",
-                    continuar: "Continuer",
-                    volver: "Retour",
-                    calcular: "Calculer les Économies",
-                    electricidad: "ÉLECTRICITÉ",
-                    gas: "GAZ",
-                    dual: "DUAL",
-                    multicups: "MULTICUPS"
-                },
-                screens: {
-                    inicio: {
-                        title: "COMPARATEUR DRK",
-                        subtitle: "Sélectionnez le type d'approvisionnement.",
-                        tipoSuministro: "TYPE D'APPROVISIONNEMENT",
-                        electricidadDesc: "MULTICUPS · 2.0 TD · 3.0 TD",
-                        gasDesc: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
-                        dualSub: "ÉLECTRICITÉ + GAZ",
-                        dualDesc: "Multiples approvisionnements · Comparaison globale"
-                    },
-                    modoComparacion: {
-                        title: "MODE DE COMPARAISON",
-                        drkOnly: "DRK Uniquement",
-                        drkPrioritized: "DRK Prioritaire",
-                        powerCupGlobal: "POWER CUP",
-                        globalSub: "Global"
-                    },
-                    tariffSelection: {
-                        subtitle: "Sélectionnez le tarif que vous souhaitez analyser.",
-                        multicupsDesc: "Gestionnaire de contrats multiples (2.0TD + 3.0TD)",
-                        td20Desc: "Maison / Petite Entreprise (Individuel)",
-                        td30Desc: "Entreprise / Commerce (Individuel)"
-                    },
-                    inputMethod: {
-                        title: "Comment souhaitez-vous saisir les données ?",
-                        manual: "Saisie Manuelle",
-                        manualDesc: "Saisissez vos données de facture",
-                        qr: "Scanner QR",
-                        qrDesc: "Utiliser la caméra ou télécharger une image",
-                        paste: "Coller l'Image",
-                        pasteDesc: "Coller depuis le presse-papiers (Ctrl+V)"
-                    }
-                }
-            }
-        };
-
-        // Sistema de traducción que se ejecuta automáticamente
         (function() {
-            let currentLang = localStorage.getItem('appLanguage') || 'es';
-            
-            function translateByContent(original, translation) {
-                if (!translation || original === translation) return;
-                
+            // Mapa COMPLETO de traducciones - TODOS los textos visibles
+            const TR = {
+                "Analizar Factura": { en: "Analyze Invoice", zh: "分析账单", de: "Rechnung analysieren", fr: "Analyser la Facture" },
+                "Escanea el código QR o introduce datos manualmente.": { en: "Scan the QR code or enter data manually.", zh: "扫描二维码或手动输入数据。", de: "Scannen Sie den QR-Code oder geben Sie Daten manuell ein.", fr: "Scannez le code QR ou saisissez les données manuellement." },
+                "ESCANEAR QR AHORA": { en: "SCAN QR NOW", zh: "立即扫描二维码", de: "QR JETZT SCANNEN", fr: "SCANNER QR MAINTENANT" },
+                "OTRAS OPCIONES DE CAPTURA": { en: "OTHER CAPTURE OPTIONS", zh: "其他捕获选项", de: "ANDERE AUFNAHMEOPTIONEN", fr: "AUTRES OPTIONS DE CAPTURE" },
+                "DATOS A MANO": { en: "MANUAL DATA", zh: "手动数据", de: "MANUELLE DATEN", fr: "DONNÉES MANUELLES" },
+                "Volver a selección": { en: "Back to selection", zh: "返回选择", de: "Zurück zur Auswahl", fr: "Retour à la sélection" },
+                "Seleccione Opción QR": { en: "Select QR Option", zh: "选择二维码选项", de: "QR-Option wählen", fr: "Sélectionner l'Option QR" },
+                "Capturar Foto": { en: "Capture Photo", zh: "拍照", de: "Foto aufnehmen", fr: "Capturer une Photo" },
+                "Subir Imagen": { en: "Upload Image", zh: "上传图片", de: "Bild hochladen", fr: "Télécharger une Image" },
+                "Pegar Imagen (CTRL+V)": { en: "Paste Image (CTRL+V)", zh: "粘贴图片 (CTRL+V)", de: "Bild einfügen (STRG+V)", fr: "Coller l'Image (CTRL+V)" },
+                "Cancelar": { en: "Cancel", zh: "取消", de: "Abbrechen", fr: "Annuler" },
+                "Selecciona la tarifa que deseas analizar.": { en: "Select the rate you want to analyze.", zh: "选择您想分析的费率。", de: "Wählen Sie den Tarif, den Sie analysieren möchten.", fr: "Sélectionnez le tarif que vous souhaitez analyser." },
+                "Gestor de múltiples contratos (2.0TD + 3.0TD)": { en: "Multiple contracts manager (2.0TD + 3.0TD)", zh: "多合同管理器 (2.0TD + 3.0TD)", de: "Mehrfachvertrags-Manager (2.0TD + 3.0TD)", fr: "Gestionnaire de contrats multiples (2.0TD + 3.0TD)" },
+                "Hogar / Pequeño Negocio (Individual)": { en: "Home / Small Business (Individual)", zh: "家庭 / 小型企业（单独）", de: "Zuhause / Kleinunternehmen (Einzeln)", fr: "Maison / Petite Entreprise (Individuel)" },
+                "Empresa / Negocio (Individual)": { en: "Company / Business (Individual)", zh: "公司 / 企业（单独）", de: "Unternehmen / Geschäft (Einzeln)", fr: "Entreprise / Commerce (Individuel)" },
+                "Industria / Gran Consumo (Individual)": { en: "Industry / Large Consumption (Individual)", zh: "工业 / 大型消费（单独）", de: "Industrie / Großverbrauch (Einzeln)", fr: "Industrie / Grande Consommation (Individuel)" },
+                "ABRIR EN EL MÓVIL": { en: "OPEN ON MOBILE", zh: "在手机上打开", de: "AUF MOBIL ÖFFNEN", fr: "OUVRIR SUR MOBILE" },
+                "Cálculo Completado": { en: "Calculation Complete", zh: "计算完成", de: "Berechnung abgeschlossen", fr: "Calcul Terminé" },
+                "Hemos encontrado ofertas con ahorro. ¿Cómo quieres continuar?": { en: "We found offers with savings. How do you want to continue?", zh: "我们找到了节省优惠。您想如何继续？", de: "Wir haben Angebote mit Einsparungen gefunden. Wie möchten Sie fortfahren?", fr: "Nous avons trouvé des offres avec des économies. Comment souhaitez-vous continuer ?" },
+                "Comparar FIJO vs INDEXADO": { en: "Compare FIXED vs INDEXED", zh: "比较固定与指数", de: "FEST vs INDEXIERT vergleichen", fr: "Comparer FIXE vs INDEXÉ" },
+                "Genera comparativa dual: tarifa fija y tarifa indexada DRK INDEX (precio variable del mercado).": { en: "Generate dual comparison: fixed rate and DRK INDEX indexed rate (variable market price).", zh: "生成双重比较：固定费率和DRK INDEX指数费率（市场可变价格）。", de: "Dualer Vergleich generieren: Festpreis und DRK INDEX indexierter Tarif (variabler Marktpreis).", fr: "Générer une comparaison duale : tarif fixe et tarif indexé DRK INDEX (prix variable du marché)." },
+                "VER MEJOR OPCIÓN": { en: "SEE BEST OPTION", zh: "查看最佳选项", de: "BESTE OPTION SEHEN", fr: "VOIR LA MEILLEURE OPTION" },
+                "Muestra automáticamente la oferta con mayor ahorro y genera la comparativa": { en: "Automatically shows the offer with the highest savings and generates the comparison", zh: "自动显示节省最多的优惠并生成比较", de: "Zeigt automatisch das Angebot mit den höchsten Einsparungen und generiert den Vergleich", fr: "Affiche automatiquement l'offre avec les économies les plus élevées et génère la comparaison" },
+                "ELEGIR ENTRE RESULTADOS": { en: "CHOOSE FROM RESULTS", zh: "从结果中选择", de: "AUS ERGEBNISSEN WÄHLEN", fr: "CHOISIR PARMI LES RÉSULTATS" },
+                "Revisa todas las ofertas con ahorro positivo y elige la que prefieras": { en: "Review all offers with positive savings and choose your preferred one", zh: "查看所有正节省的优惠并选择您喜欢的", de: "Überprüfen Sie alle Angebote mit positiven Einsparungen und wählen Sie Ihr bevorzugtes", fr: "Examinez toutes les offres avec des économies positives et choisissez celle que vous préférez" },
+                "Consejo:": { en: "Advice:", zh: "建议：", de: "Rat:", fr: "Conseil :" },
+                "¿Qué tipo de tarifa DRK quieres ver?": { en: "What type of DRK rate do you want to see?", zh: "您想查看哪种类型的DRK费率？", de: "Welchen DRK-Tariftyp möchten Sie sehen?", fr: "Quel type de tarif DRK souhaitez-vous voir ?" },
+                "Tarifa FIJA": { en: "FIXED Rate", zh: "固定费率", de: "FESTPREIS-Tarif", fr: "Tarif FIXE" },
+                "Precio fijo estable (excluye DRK INDEX)": { en: "Stable fixed price (excludes DRK INDEX)", zh: "稳定固定价格（不包括DRK INDEX）", de: "Stabiler Festpreis (ohne DRK INDEX)", fr: "Prix fixe stable (exclut DRK INDEX)" },
+                "Tarifa INDEXADA (DRK INDEX)": { en: "INDEXED Rate (DRK INDEX)", zh: "指数费率（DRK INDEX）", de: "INDEXIERTER Tarif (DRK INDEX)", fr: "Tarif INDEXÉ (DRK INDEX)" },
+                "Solo muestra DRK INDEX del mercado": { en: "Only shows market DRK INDEX", zh: "仅显示市场DRK INDEX", de: "Zeigt nur Markt-DRK INDEX", fr: "Affiche uniquement le DRK INDEX du marché" },
+                "Continuar con esta opción →": { en: "Continue with this option →", zh: "继续此选项 →", de: "Mit dieser Option fortfahren →", fr: "Continuer avec cette option →" },
+                "DRK ENERGÍA": { en: "DRK ENERGY", zh: "DRK 能源", de: "DRK ENERGIE", fr: "DRK ÉNERGIE" },
+                "Liderando el ahorro y la eficiencia energética": { en: "Leading savings and energy efficiency", zh: "引领节省和能源效率", de: "Führend bei Einsparungen und Energieeffizienz", fr: "Leader des économies et de l'efficacité énergétique" },
+                "Análisis Completado": { en: "Analysis Complete", zh: "分析完成", de: "Analyse abgeschlossen", fr: "Analyse Terminée" },
+                "Resultado del Estudio": { en: "Study Result", zh: "研究结果", de: "Studienergebnis", fr: "Résultat de l'Étude" },
+                "LA MEJOR OPCIÓN PARA TI ES": { en: "THE BEST OPTION FOR YOU IS", zh: "最适合您的选择是", de: "DIE BESTE OPTION FÜR SIE IST", fr: "LA MEILLEURE OPTION POUR VOUS EST" },
+                "TU AHORRO ANUAL ESTIMADO": { en: "YOUR ESTIMATED ANNUAL SAVINGS", zh: "您的预计年度节省", de: "IHRE GESCHÄTZTE JÄHRLICHE ERSPARNIS", fr: "VOS ÉCONOMIES ANNUELLES ESTIMÉES" },
+                "TU FACTURA ACTUAL": { en: "YOUR CURRENT BILL", zh: "您当前的账单", de: "IHRE AKTUELLE RECHNUNG", fr: "VOTRE FACTURE ACTUELLE" },
+                "Total Periodo": { en: "Period Total", zh: "期间总额", de: "Periodensumme", fr: "Total de la Période" },
+                "TU NUEVO COSTE DRK": { en: "YOUR NEW DRK COST", zh: "您的新DRK成本", de: "IHRE NEUEN DRK-KOSTEN", fr: "VOTRE NOUVEAU COÛT DRK" },
+                "Estimado Mensual": { en: "Monthly Estimate", zh: "每月估算", de: "Monatliche Schätzung", fr: "Estimation Mensuelle" },
+                "Datos del Comercial y Cliente": { en: "Sales Representative and Client Data", zh: "销售代表和客户数据", de: "Vertriebs- und Kundendaten", fr: "Données du Commercial et du Client" },
+                "Rellene sus datos. El resumen profesional de la oferta se copiará a su portapapeles (Ctrl+V).": { en: "Fill in your details. The professional offer summary will be copied to your clipboard (Ctrl+V).", zh: "填写您的详细信息。专业优惠摘要将复制到剪贴板（Ctrl+V）。", de: "Füllen Sie Ihre Daten aus. Die professionelle Angebotsübersicht wird in Ihre Zwischenablage kopiert (Strg+V).", fr: "Remplissez vos données. Le résumé professionnel de l'offre sera copié dans votre presse-papiers (Ctrl+V)." },
+                "CÓDIGO COMERCIAL (Obligatorio)": { en: "SALES CODE (Required)", zh: "销售代码（必填）", de: "VERTRIEBSCODE (Erforderlich)", fr: "CODE COMMERCIAL (Obligatoire)" },
+                "Nombre Cliente": { en: "Client Name", zh: "客户姓名", de: "Kundenname", fr: "Nom du Client" },
+                "Teléfono": { en: "Phone", zh: "电话", de: "Telefon", fr: "Téléphone" },
+                "NOTA PARA USUARIOS DE iPHONE:": { en: "NOTE FOR iPHONE USERS:", zh: "iPHONE用户注意：", de: "HINWEIS FÜR iPHONE-BENUTZER:", fr: "NOTE POUR LES UTILISATEURS D'iPHONE :" },
+                "COPIAR COMPARATIVO (HTML)": { en: "COPY COMPARISON (HTML)", zh: "复制比较（HTML）", de: "VERGLEICH KOPIEREN (HTML)", fr: "COPIER LA COMPARAISON (HTML)" },
+                "CREAR PDF COMPARATIVO": { en: "CREATE PDF COMPARISON", zh: "创建PDF比较", de: "PDF-VERGLEICH ERSTELLEN", fr: "CRÉER UN PDF COMPARATIF" },
+                "MODO DE COMPARACIÓN": { en: "COMPARISON MODE", zh: "比较模式", de: "VERGLEICHSMODUS", fr: "MODE DE COMPARAISON" },
+                "DRK Únicamente": { en: "DRK Only", zh: "仅DRK", de: "Nur DRK", fr: "DRK Uniquement" },
+                "DRK Prioritario": { en: "DRK Prioritized", zh: "DRK优先", de: "DRK Priorität", fr: "DRK Prioritaire" },
+                "Global": { en: "Global", zh: "全球", de: "Global", fr: "Global" },
+                "DRK COMPARADOR": { en: "DRK COMPARATOR", zh: "DRK 比较器", de: "DRK VERGLEICHER", fr: "COMPARATEUR DRK" },
+                "Selecciona el tipo de suministro.": { en: "Select the type of supply.", zh: "选择供应类型。", de: "Wählen Sie die Art der Versorgung.", fr: "Sélectionnez le type d'approvisionnement." },
+                "TIPO DE SUMINISTRO": { en: "SUPPLY TYPE", zh: "供应类型", de: "VERSORGUNGSTYP", fr: "TYPE D'APPROVISIONNEMENT" },
+                "ELECTRICIDAD": { en: "ELECTRICITY", zh: "电力", de: "ELEKTRIZITÄT", fr: "ÉLECTRICITÉ" },
+                "MULTICUPS · 2.0 TD · 3.0 TD": { en: "MULTICUPS · 2.0 TD · 3.0 TD", zh: "多合同 · 2.0 TD · 3.0 TD", de: "MULTICUPS · 2.0 TD · 3.0 TD", fr: "MULTICUPS · 2.0 TD · 3.0 TD" },
+                "RL1 · RL2 · RL3 · RL4 · RL5 · RL6": { en: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6", zh: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6", de: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6", fr: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6" },
+                "ELECTRICIDAD + GAS": { en: "ELECTRICITY + GAS", zh: "电力 + 天然气", de: "ELEKTRIZITÄT + GAS", fr: "ÉLECTRICITÉ + GAZ" },
+                "Múltiples suministros · Comparativa global": { en: "Multiple supplies · Global comparison", zh: "多个供应 · 全面比较", de: "Mehrere Versorgungen · Globaler Vergleich", fr: "Multiples approvisionnements · Comparaison globale" },
+                "Continuar": { en: "Continue", zh: "继续", de: "Fortfahren", fr: "Continuer" },
+                "Volver": { en: "Back", zh: "返回", de: "Zurück", fr: "Retour" },
+                "Calcular Ahorro": { en: "Calculate Savings", zh: "计算节省", de: "Ersparnis berechnen", fr: "Calculer les Économies" },
+                "Energía": { en: "Energy", zh: "能源", de: "Energie", fr: "Énergie" },
+                "Selector": { en: "Selector", zh: "选择器", de: "Auswahl", fr: "Sélecteur" },
+                "MULTICUPS": { en: "MULTICUPS", zh: "多合同", de: "MULTICUPS", fr: "MULTICUPS" },
+                "GAS": { en: "GAS", zh: "天然气", de: "GAS", fr: "GAZ" },
+                "DUAL": { en: "DUAL", zh: "双重", de: "DUAL", fr: "DUAL" },
+                "días": { en: "days", zh: "天", de: "Tage", fr: "jours" }
+            };
+
+            let lang = localStorage.getItem('appLanguage') || 'es';
+
+            // Función para traducir
+            function tr(text) {
+                if (!TR[text] || !TR[text][lang]) return text;
+                return TR[text][lang];
+            }
+
+            // Función exhaustiva de traducción
+            function translateAll() {
+                // Navbar
+                const accentEl = document.getElementById('app-logo-accent');
+                if (accentEl) accentEl.textContent = tr('Energía');
+                const subtitleEl = document.getElementById('app-subtitle');
+                if (subtitleEl) subtitleEl.textContent = tr('Selector');
+
+                // Traducir TODO el DOM por contenido
                 const walker = document.createTreeWalker(
                     document.body,
                     NodeFilter.SHOW_TEXT,
                     null,
                     false
                 );
-                
+
                 let node;
+                const nodesToTranslate = [];
+                
                 while (node = walker.nextNode()) {
-                    if (node.textContent.trim() === original) {
-                        node.textContent = translation;
+                    const trimmed = node.textContent.trim();
+                    if (trimmed && TR[trimmed]) {
+                        nodesToTranslate.push({node, original: trimmed});
                     }
                 }
+
+                // Traducir todos los nodos encontrados
+                nodesToTranslate.forEach(({node, original}) => {
+                    node.textContent = node.textContent.replace(original, tr(original));
+                });
             }
-            
-            function translateAll() {
-                const lang = TRANSLATIONS_COMPLETE[currentLang];
-                if (!lang) return;
-                
-                // Traducir navbar
-                const accentEl = document.getElementById('app-logo-accent');
-                if (accentEl) accentEl.textContent = lang.common.energia;
-                const subtitleEl = document.getElementById('app-subtitle');
-                if (subtitleEl) subtitleEl.textContent = lang.common.selector;
-                
-                // Traducir por contenido exacto - textos comunes
-                translateByContent('DRK COMPARADOR', lang.screens.inicio.title);
-                translateByContent('Selecciona el tipo de suministro.', lang.screens.inicio.subtitle);
-                translateByContent('TIPO DE SUMINISTRO', lang.screens.inicio.tipoSuministro);
-                translateByContent('ELECTRICIDAD', lang.common.electricidad);
-                translateByContent('GAS', lang.common.gas);
-                translateByContent('DUAL', lang.common.dual);
-                translateByContent('MULTICUPS', lang.common.multicups);
-                translateByContent('MULTICUPS · 2.0 TD · 3.0 TD', lang.screens.inicio.electricidadDesc);
-                translateByContent('RL1 · RL2 · RL3 · RL4 · RL5 · RL6', lang.screens.inicio.gasDesc);
-                translateByContent('ELECTRICIDAD + GAS', lang.screens.inicio.dualSub);
-                translateByContent('Múltiples suministros · Comparativa global', lang.screens.inicio.dualDesc);
-                
-                // Modo de comparación
-                translateByContent('MODO DE COMPARACIÓN', lang.screens.modoComparacion.title);
-                translateByContent('DRK Únicamente', lang.screens.modoComparacion.drkOnly);
-                translateByContent('DRK Prioritario', lang.screens.modoComparacion.drkPrioritized);
-                translateByContent('Global', lang.screens.modoComparacion.globalSub);
-                
-                // Selección de tarifa
-                translateByContent('Selecciona la tarifa que deseas analizar.', lang.screens.tariffSelection.subtitle);
-                translateByContent('Gestor de múltiples contratos (2.0TD + 3.0TD)', lang.screens.tariffSelection.multicupsDesc);
-                translateByContent('Hogar / Pequeño Negocio (Individual)', lang.screens.tariffSelection.td20Desc);
-                translateByContent('Empresa / Negocio (Individual)', lang.screens.tariffSelection.td30Desc);
-                
-                // Método de entrada
-                translateByContent('¿Cómo quieres introducir los datos?', lang.screens.inputMethod.title);
-                translateByContent('Introducción Manual', lang.screens.inputMethod.manual);
-                translateByContent('Escribe los datos de tu factura', lang.screens.inputMethod.manualDesc);
-                translateByContent('Escanear QR', lang.screens.inputMethod.qr);
-                translateByContent('Usa la cámara o sube una imagen', lang.screens.inputMethod.qrDesc);
-                translateByContent('Pegar Imagen', lang.screens.inputMethod.paste);
-                translateByContent('Pega desde portapapeles (Ctrl+V)', lang.screens.inputMethod.pasteDesc);
-                
-                // Botones comunes
-                translateByContent('Continuar', lang.common.continuar);
-                translateByContent('Volver', lang.common.volver);
-                translateByContent('Calcular Ahorro', lang.common.calcular);
-            }
-            
-            // Crear sistema global
-            window.translationSystem = {
-                changeLanguage: function(lang) {
-                    currentLang = lang;
-                    localStorage.setItem('appLanguage', lang);
-                    document.title = TRANSLATIONS_COMPLETE[lang]?.screens?.inicio?.title || "DRK COMPARADOR";
+
+            // API global
+            window.LANG = {
+                change: function(newLang) {
+                    lang = newLang;
+                    localStorage.setItem('appLanguage', newLang);
                     if (document.getElementById('language-selector')) {
-                        document.getElementById('language-selector').value = lang;
+                        document.getElementById('language-selector').value = newLang;
                     }
+                    document.title = tr('DRK COMPARADOR');
                     translateAll();
                 },
-                
-                retranslate: function() {
-                    translateAll();
-                },
-                
-                getCurrentLanguage: function() {
-                    return currentLang;
-                }
+                translate: tr,
+                retranslate: translateAll
             };
+
+            // Interceptar navegación
+            const funcsToIntercept = ['hideAllScreens', 'goToInicio', 'goToElectricidad', 'goToGas', 'goToDual', 
+                                       'selectTariffType', 'showOfferDecisionModal', 'showDualResults'];
             
-            // Interceptar funciones de navegación para re-traducir automáticamente
-            const originalHideAll = window.hideAllScreens;
-            if (originalHideAll) {
-                window.hideAllScreens = function() {
-                    originalHideAll.apply(this, arguments);
-                    setTimeout(() => window.translationSystem.retranslate(), 50);
-                };
-            }
-            
-            // Interceptar las funciones goTo
-            ['goToInicio', 'goToElectricidad', 'goToGas', 'goToDual'].forEach(funcName => {
+            funcsToIntercept.forEach(funcName => {
                 const original = window[funcName];
                 if (original) {
                     window[funcName] = function() {
-                        original.apply(this, arguments);
-                        setTimeout(() => window.translationSystem.retranslate(), 100);
+                        const result = original.apply(this, arguments);
+                        setTimeout(() => window.LANG.retranslate(), 100);
+                        return result;
                     };
                 }
             });
-            
-            // Observer para detectar cambios en el DOM
+
+            // MutationObserver
             const observer = new MutationObserver((mutations) => {
-                const hasNewContent = mutations.some(m => 
-                    m.addedNodes.length > 0 || 
-                    m.type === 'childList'
-                );
-                if (hasNewContent) {
-                    setTimeout(() => window.translationSystem.retranslate(), 50);
+                const hasChanges = mutations.some(m => m.addedNodes.length > 0 || m.type === 'childList');
+                if (hasChanges) {
+                    setTimeout(() => window.LANG.retranslate(), 50);
                 }
             });
-            
-            // Observar cambios en el app
+
             const appEl = document.getElementById('app');
             if (appEl) {
-                observer.observe(appEl, {
-                    childList: true,
-                    subtree: true
-                });
+                observer.observe(appEl, {childList: true, subtree: true});
             }
-            
+
             // Inicializar
-            document.addEventListener('DOMContentLoaded', () => {
+            window.addEventListener('DOMContentLoaded', () => {
                 const savedLang = localStorage.getItem('appLanguage') || 'es';
-                window.translationSystem.changeLanguage(savedLang);
+                window.LANG.change(savedLang);
             });
-            
-            // También traducir en load
+
             window.addEventListener('load', () => {
-                setTimeout(() => window.translationSystem.retranslate(), 200);
+                setTimeout(() => window.LANG.retranslate(), 200);
             });
         })();
     </script>
