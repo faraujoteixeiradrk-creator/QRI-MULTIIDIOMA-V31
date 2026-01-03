@@ -614,7 +614,7 @@
                     <div id="gas-request-improvement-container" style="display:none;" class="mt-6">
                         <button id="gas-request-improvement-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-3">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                            <span>SOLICITAR MEJORA A DRK</span>
+                            <span id="gas-request-improvement-text">SOLICITAR MEJORA A DRK</span>
                         </button>
                     </div>
                     
@@ -829,7 +829,7 @@
                         <div id="dual-request-improvement-container" style="display:none;">
                             <button id="dual-request-improvement-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-3 mb-3">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                                <span>SOLICITAR MEJORA A DRK</span>
+                                <span id="dual-request-improvement-text">SOLICITAR MEJORA A DRK</span>
                             </button>
                         </div>
                         
@@ -1273,7 +1273,7 @@
                 <!-- NUEVO: Botón para solicitar mejora cuando no hay ahorro -->
                 <button id="request-improvement-btn" style="display:none;" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-3 mb-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                    <span>SOLICITAR MEJORA A DRK</span>
+                    <span id="request-improvement-text">SOLICITAR MEJORA A DRK</span>
                 </button>
                 
                 <button onclick="document.getElementById('details-container').classList.toggle('hidden')" class="text-center text-drk-800 font-bold text-sm hover:underline flex items-center justify-center gap-1" id="details-toggle-btn">Ver desglose detallado del cálculo</button>
@@ -1645,7 +1645,7 @@
                 <!-- Footer con botones -->
                 <div class="p-6 border-t border-slate-200 flex-shrink-0">
                     <div class="flex gap-3">
-                        <button onclick="closeOfferSelectionModal()" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-xl transition">
+                        <button id="back-offer-selection-btn" onclick="closeOfferSelectionModal()" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-xl transition">
                             ← Volver
                         </button>
                         <button id="confirm-offer-selection-btn" class="flex-1 bg-drk-600 hover:bg-drk-700 text-white font-bold py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition" disabled>
@@ -19607,7 +19607,14 @@ ${clientName}
                 "Ver": { en: "View", zh: "查看", de: "Anzeigen", fr: "Voir" },
                 "Calcular": { en: "Calculate", zh: "计算", de: "Berechnen", fr: "Calculer" },
                 "Comparar": { en: "Compare", zh: "比较", de: "Vergleichen", fr: "Comparer" },
-                "Añadir": { en: "Add", zh: "添加", de: "Hinzufügen", fr: "Ajouter" }
+                "Añadir": { en: "Add", zh: "添加", de: "Hinzufügen", fr: "Ajouter" },
+                
+                // Botones de acción específicos
+                "← Volver": { en: "← Back", zh: "← 返回", de: "← Zurück", fr: "← Retour" },
+                "Generar Comparativa →": { en: "Generate Comparison →", zh: "生成比较 →", de: "Vergleich erstellen →", fr: "Générer la Comparaison →" },
+                "SOLICITAR MEJORA A DRK": { en: "REQUEST IMPROVEMENT FROM DRK", zh: "向DRK请求改进", de: "VERBESSERUNG VON DRK ANFORDERN", fr: "DEMANDER UNE AMÉLIORATION À DRK" },
+                "Solicitar Mejora a DRK": { en: "Request Improvement from DRK", zh: "向DRK请求改进", de: "Verbesserung von DRK anfordern", fr: "Demander une Amélioration à DRK" },
+                "Ver desglose detallado del cálculo": { en: "View detailed calculation breakdown", zh: "查看详细计算明细", de: "Detaillierte Berechnungsaufschlüsselung anzeigen", fr: "Voir la répartition détaillée du calcul" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -20026,7 +20033,9 @@ ${clientName}
                     'compare-fijo-indexado-title', 'compare-fijo-indexado-desc',
                     'offer-selection-title', 'offer-selection-subtitle', 'datos-suministro-label',
                     'buscar-nombre-label', 'ordenar-por-label', 'offers-de-text', 'offers-text',
-                    'limpiar-filtros-btn', 'cancel-manual-input-btn'
+                    'limpiar-filtros-btn', 'cancel-manual-input-btn',
+                    'back-offer-selection-btn', 'confirm-offer-selection-btn',
+                    'gas-request-improvement-text', 'dual-request-improvement-text', 'request-improvement-text'
                 ];
                 
                 elementIds.forEach(id => {
@@ -20086,11 +20095,16 @@ ${clientName}
                 const allButtons = document.querySelectorAll('button');
                 allButtons.forEach(button => {
                     const text = button.textContent.trim();
-                    if (text === 'Cancelar' || text === 'Cerrar' || text === 'Aceptar' || 
-                        text === 'Continuar' || text === 'Guardar' || text === 'Eliminar' ||
-                        text === 'Editar' || text === 'Modificar' || text === 'Actualizar' ||
-                        text === 'Enviar' || text === 'Generar' || text === 'Ver' || 
-                        text === 'Calcular' || text === 'Comparar' || text === 'Añadir') {
+                    // Lista completa de textos de botones a traducir
+                    const buttonTexts = [
+                        'Cancelar', 'Cerrar', 'Aceptar', 'Continuar', 'Guardar', 'Eliminar',
+                        'Editar', 'Modificar', 'Actualizar', 'Enviar', 'Generar', 'Ver',
+                        'Calcular', 'Comparar', 'Añadir', '← Volver', 'Generar Comparativa →',
+                        'SOLICITAR MEJORA A DRK', 'Solicitar Mejora a DRK',
+                        'Ver desglose detallado del cálculo'
+                    ];
+                    
+                    if (buttonTexts.includes(text)) {
                         button.textContent = tr(text);
                     }
                 });
