@@ -6686,7 +6686,12 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 
                 // Importar jsPDF
                 const { jsPDF } = window.jspdf;
-                const doc = new jsPDF('p', 'mm', 'a4');
+                let doc = new jsPDF('p', 'mm', 'a4');
+                
+                // CRÍTICO: Activar traducción automática de textos
+                if (window.setupPDFTranslation) {
+                    doc = window.setupPDFTranslation(doc);
+                }
                 
                 const brand = activeBrand;
                 const res = lastComparisonResult;
@@ -18179,16 +18184,13 @@ ${clientName}
             window.showMessageModal("⏳ Generando PDF POWER CUP...");
             
             const { jsPDF } = window.jspdf;
+            let doc = new jsPDF('p', 'mm', 'a4');
             
-            // CRÍTICO: Wrapper para traducir textos automáticamente
-            const originalText = doc.text.bind(doc);
-            doc.text = function(text, x, y, options) {
-                if (typeof text === "string" && window.tr) {
-                    text = window.tr(text);
-                }
-                return originalText(text, x, y, options);
-            };
-            const doc = new jsPDF('p', 'mm', 'a4');
+            // CRÍTICO: Activar traducción automática de textos
+            if (window.setupPDFTranslation) {
+                doc = window.setupPDFTranslation(doc);
+            }
+            
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
             const num = (n, d=2) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
             
@@ -18520,7 +18522,13 @@ ${clientName}
         async function generateGasPDF_Dual_PowerCup(resFijo, resIndexed, dias, kwh, totalCliente, clientName = '[NOMBRE COMPLETO CLIENTE]', comercialCode = 'D=00') {
             window.showMessageModal("⏳ Generando PDF comparativo POWER CUP...");
             const { jsPDF} = window.jspdf;
-            const doc = new jsPDF('p', 'mm', 'a4');
+            let doc = new jsPDF('p', 'mm', 'a4');
+            
+            // CRÍTICO: Activar traducción automática de textos
+            if (window.setupPDFTranslation) {
+                doc = window.setupPDFTranslation(doc);
+            }
+            
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
             const num = (n, d=2) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
             
@@ -19437,45 +19445,94 @@ ${clientName}
                 doc.text = function(text, x, y, options) {
                     // Traducir solo strings, no objetos ni arrays
                     if (typeof text === 'string' && window.tr) {
-                        // Lista de patrones a buscar y reemplazar
+                        // Lista EXHAUSTIVA de patrones a buscar y reemplazar
                         const patterns = [
+                            // TÍTULOS PRINCIPALES
                             'DESGLOSE DETALLADO DE LA SIMULACIÓN',
+                            'ESTUDIO DE AHORRO',
+                            'COMPARATIVA PROFESIONAL',
+                            'TU AHORRO ANUAL ESTIMADO ES:',
+                            'TU FACTURA ACTUAL',
+                            'TU NUEVO COSTE DRK',
+                            'TU NUEVO COSTE POWER CUP',
+                            
+                            // TÉRMINOS TÉCNICOS
+                            'TÉRMINO POTENCIA (Precio en €/kW Día)',
                             'TÉRMINO POTENCIA',
+                            'TÉRMINO ENERGÍA (Precios en €/kWh)',
                             'TÉRMINO ENERGÍA',
                             'Precio en €/kW Día',
                             'Precios en €/kWh',
+                            
+                            // PERÍODOS
                             'E1 - Punta',
                             'E2 - Llano', 
                             'E3 - Valle',
+                            'E4 - Supervalle',
+                            'E5 - Punta',
+                            'E6 - Valle',
+                            'Punta',
+                            'Llano',
+                            'Valle',
+                            'Supervalle',
+                            
+                            // SUBTOTALES Y TOTALES
                             'Subtotal Energía (Bruto)',
                             'Subtotal Energía (Neto)',
+                            'SUBTOTAL POTENCIA',
+                            'POWER SUBTOTAL',
                             'SUBTOTAL BASE (P+E)',
                             'BASE IMPONIBLE',
+                            'TAXABLE BASE',
+                            
+                            // IMPUESTOS
                             'Imp. Eléc.',
                             'IVA (21%)',
+                            'VAT (21%)',
+                            'Imp. Hidrocarburos',
+                            
+                            // TOTALES
+                            'TOTAL FACTURA (60 DÍAS)',
+                            'TOTAL FACTURA (30 DÍAS)',
                             'TOTAL FACTURA',
-                            'TU AHORRO ANUAL ESTIMADO ES:',
-                            'TU FACTURA ACTUAL',
-                            'TU NUEVO COSTE',
-                            'Liderando el ahorro y la',
-                            'eficiencia energética.',
-                            'ESTUDIO DE AHORRO',
-                            'COMPARATIVA PROFESIONAL',
+                            'TOTAL AÑO (PROYECTADO)',
+                            'TOTAL YEAR (PROJECTED)',
+                            'Total Periodo',
+                            'Estimado Mensual',
+                            
+                            // CLIENTE
                             'CLIENTE:',
                             'COMERCIAL:',
                             'CUPS:',
-                            'Total Periodo',
-                            'Estimado Mensual'
+                            'CUPS TOTALES:',
+                            'TARIFA:',
+                            
+                            // OTROS
+                            'Liderando el ahorro y la',
+                            'eficiencia energética.',
+                            'Asesoría Energética',
+                            'PRECIOS DE LA OFERTA:',
+                            'PARA FORMALIZAR ESTE CONTRATO:',
+                            
+                            // GAS
+                            'TÉRMINO FIJO:',
+                            'ENERGÍA:',
+                            'POTENCIA:',
+                            'TÉRMINO FIJO (Precio en €/día)',
+                            'Precio fijo diario (€/día):',
+                            'Precio energía (€/kWh):'
                         ];
                         
                         let translated = text;
+                        let hasChange = false;
                         
                         // Buscar y reemplazar cada patrón
                         patterns.forEach(pattern => {
                             if (translated.includes(pattern)) {
                                 const translatedPattern = window.tr(pattern);
                                 if (translatedPattern !== pattern) {
-                                    translated = translated.replace(new RegExp(pattern, 'g'), translatedPattern);
+                                    translated = translated.replace(new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), translatedPattern);
+                                    hasChange = true;
                                     console.log(`📝 PDF Pattern: "${pattern}" → "${translatedPattern}"`);
                                 }
                             }
@@ -19486,7 +19543,7 @@ ${clientName}
                         if (fullTranslation !== text) {
                             console.log(`📝 PDF Full: "${text}" → "${fullTranslation}"`);
                             text = fullTranslation;
-                        } else if (translated !== text) {
+                        } else if (hasChange) {
                             text = translated;
                         }
                     }
