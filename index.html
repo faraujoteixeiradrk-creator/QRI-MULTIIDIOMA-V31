@@ -8163,9 +8163,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'bold');
                 if (res.isMulti) {
-                    doc.text(`Responde a este email adjuntando la documentacion de los ${res.individualResults.length} CUPS:`, margin + 5, yPos);
+                    doc.text(tr('Responde a este email adjuntando la documentación de los') + ` ${res.individualResults.length} CUPS:`, margin + 5, yPos);
                 } else {
-                    doc.text('Responde a este email adjuntando la siguiente documentacion:', margin + 5, yPos);
+                    doc.text(tr('Responde a este email adjuntando la siguiente documentación:'), margin + 5, yPos);
                 }
                 
                 yPos += 6;
@@ -15013,17 +15013,17 @@ ${clientName}
         
         <!-- FOOTER INSTRUCCIONES -->
         <div style="background:#546e7a;padding:20px 30px;margin-top:20px">
-            <p style="margin:0 0 10px 0;font-size:11px;color:white;font-weight:bold">PARA FORMALIZAR ESTE CONTRATO:</p>
-            <p style="margin:0 0 8px 0;font-size:10px;color:white">Responde a este email adjuntando la documentación de los ${dualSupplies.length} CUPS:</p>
+            <p style="margin:0 0 10px 0;font-size:11px;color:white;font-weight:bold">${tr('PARA FORMALIZAR ESTE CONTRATO:')}</p>
+            <p style="margin:0 0 8px 0;font-size:10px;color:white">${tr('Responde a este email adjuntando la documentación de los')} ${dualSupplies.length} CUPS:</p>
             <ol style="margin:0;padding-left:20px;font-size:10px;color:white;line-height:1.6">
-                <li>Foto del DNI/CIF (anverso y reverso)</li>
-                <li>Última factura (menos de 3 meses de antigüedad)</li>
-                <li>Autorización de cambio de titular (si aplica)</li>
-                <li>Teléfono de contacto</li>
-                <li>Número de cuenta bancaria (IBAN)</li>
+                <li>${tr('Foto del DNI/CIF (anverso y reverso)')}</li>
+                <li>${tr('Última factura (menos de 3 meses de antigüedad)')}</li>
+                <li>${tr('Autorización de cambio de titular (si aplica)')}</li>
+                <li>${tr('Teléfono de contacto')}</li>
+                <li>${tr('Número de cuenta bancaria (IBAN)')}</li>
             </ol>
             <div style="margin-top:12px;padding:10px;background:rgba(255,255,255,0.2);border-radius:4px;text-align:center">
-                <p style="margin:0;font-size:10px;color:white">Envía la documentación al comercial: <strong>${comercialCode}</strong></p>
+                <p style="margin:0;font-size:10px;color:white">${tr('Envía la documentación al comercial:')}<strong>${comercialCode}</strong></p>
             </div>
         </div>
         
@@ -17947,18 +17947,18 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('PARA FORMALIZAR ESTE CONTRATO:', margin + 5, yPos + 8);
+            doc.text(tr('PARA FORMALIZAR ESTE CONTRATO:'), margin + 5, yPos + 8);
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text('Responde a este email adjuntando la siguiente documentación:', margin + 5, yPos + 15);
+            doc.text(tr('Responde a este email adjuntando la siguiente documentación:'), margin + 5, yPos + 15);
             
             const docList = [
-                '1. Foto del DNI/CIF (anverso y reverso)',
-                '2. Última factura (mínimo 3 meses de antigüedad)',
-                '3. Email de contacto para validación',
-                '4. Teléfono de contacto',
-                '5. Número de cuenta bancaria (IBAN)'
+                tr('1. Foto del DNI/CIF (anverso y reverso)'),
+                tr('2. Última factura (mínimo 3 meses de antigüedad)'),
+                tr('3. Email de contacto para validación'),
+                tr('4. Teléfono de contacto'),
+                tr('5. Número de cuenta bancaria (IBAN)')
             ];
             
             let listY = yPos + 22;
@@ -17969,7 +17969,7 @@ ${clientName}
             
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text('Envía la documentación al comercial:', margin + 5, listY + 5);
+            doc.text(tr('Envía la documentación al comercial:'), margin + 5, listY + 5);
             doc.setFontSize(11);
             doc.text('zdc', margin + 5, listY + 11);
             
@@ -17977,7 +17977,7 @@ ${clientName}
             doc.setFont('helvetica', 'italic');
             doc.setFontSize(7);
             doc.setTextColor(120, 120, 120);
-            doc.text('Documento generado automáticamente - DRK Energía', pageWidth / 2, 285, { align: 'center' });
+            doc.text(tr('Documento generado automáticamente - DRK Energía'), pageWidth / 2, 285, { align: 'center' });
             doc.text('Fecha: ' + new Date().toLocaleDateString('es-ES'), pageWidth / 2, 290, { align: 'center' });
             
             // Descargar
@@ -19630,12 +19630,22 @@ ${clientName}
                 // Documentación y formalización
                 "PARA FORMALIZAR ESTE CONTRATO:": { en: "TO FORMALIZE THIS CONTRACT:", zh: "为了正式签订本合同：", de: "UM DIESEN VERTRAG ZU FORMALISIEREN:", fr: "POUR FORMALISER CE CONTRAT :" },
                 "Responde a este email adjuntando la siguiente documentacion:": { en: "Reply to this email attaching the following documentation:", zh: "回复此邮件并附上以下文件：", de: "Antworten Sie auf diese E-Mail mit folgenden Unterlagen:", fr: "Répondez à cet e-mail en joignant les documents suivants :" },
+                "Responde a este email adjuntando la siguiente documentación:": { en: "Reply to this email attaching the following documentation:", zh: "回复此邮件并附上以下文件：", de: "Antworten Sie auf diese E-Mail mit folgenden Unterlagen:", fr: "Répondez à cet e-mail en joignant les documents suivants :" },
                 "1. Foto del DNI/CIF (anverso y reverso)": { en: "1. Photo of ID/Tax ID (front and back)", zh: "1. 身份证/税号照片（正反面）", de: "1. Foto des Personalausweises/Steuernummer (Vorder- und Rückseite)", fr: "1. Photo de la carte d'identité/numéro fiscal (recto et verso)" },
                 "2. Ultima factura (minimo 3 meses de antiguedad)": { en: "2. Latest invoice (minimum 3 months old)", zh: "2. 最新账单（至少3个月前）", de: "2. Letzte Rechnung (mindestens 3 Monate alt)", fr: "2. Dernière facture (minimum 3 mois d'ancienneté)" },
+                "2. Última factura (mínimo 3 meses de antigüedad)": { en: "2. Latest invoice (minimum 3 months old)", zh: "2. 最新账单（至少3个月前）", de: "2. Letzte Rechnung (mindestens 3 Monate alt)", fr: "2. Dernière facture (minimum 3 mois d'ancienneté)" },
                 "3. Email de contacto para validacion": { en: "3. Contact email for validation", zh: "3. 验证联系邮箱", de: "3. Kontakt-E-Mail zur Validierung", fr: "3. E-mail de contact pour validation" },
+                "3. Email de contacto para validación": { en: "3. Contact email for validation", zh: "3. 验证联系邮箱", de: "3. Kontakt-E-Mail zur Validierung", fr: "3. E-mail de contact pour validation" },
                 "4. Telefono de contacto": { en: "4. Contact phone", zh: "4. 联系电话", de: "4. Kontakttelefon", fr: "4. Téléphone de contact" },
+                "4. Teléfono de contacto": { en: "4. Contact phone", zh: "4. 联系电话", de: "4. Kontakttelefon", fr: "4. Téléphone de contact" },
                 "5. Numero de cuenta bancaria (IBAN)": { en: "5. Bank account number (IBAN)", zh: "5. 银行账号（IBAN）", de: "5. Bankkontonummer (IBAN)", fr: "5. Numéro de compte bancaire (IBAN)" },
+                "5. Número de cuenta bancaria (IBAN)": { en: "5. Bank account number (IBAN)", zh: "5. 银行账号（IBAN）", de: "5. Bankkontonummer (IBAN)", fr: "5. Numéro de compte bancaire (IBAN)" },
                 "Envia la documentacion al comercial:": { en: "Send the documentation to the sales rep:", zh: "将文件发送给销售代表：", de: "Senden Sie die Unterlagen an den Vertrieb:", fr: "Envoyez la documentation au commercial :" },
+                "Envía la documentación al comercial:": { en: "Send the documentation to the sales rep:", zh: "将文件发送给销售代表：", de: "Senden Sie die Unterlagen an den Vertrieb:", fr: "Envoyez la documentation au commercial :" },
+                "Responde a este email adjuntando la documentación de los": { en: "Reply to this email attaching the documentation of the", zh: "回复此邮件并附上以下", de: "Antworten Sie auf diese E-Mail mit den Unterlagen der", fr: "Répondez à cet e-mail en joignant la documentation des" },
+                "Última factura (menos de 3 meses de antigüedad)": { en: "Latest invoice (less than 3 months old)", zh: "最新账单（不超过3个月）", de: "Letzte Rechnung (weniger als 3 Monate alt)", fr: "Dernière facture (moins de 3 mois d'ancienneté)" },
+                "Autorización de cambio de titular (si aplica)": { en: "Authorization to change holder (if applicable)", zh: "更换持有人授权（如适用）", de: "Genehmigung zur Änderung des Inhabers (falls zutreffend)", fr: "Autorisation de changement de titulaire (le cas échéant)" },
+                "Documento generado automáticamente - DRK Energía": { en: "Automatically generated document - DRK Energy", zh: "自动生成的文件 - DRK 能源", de: "Automatisch generiertes Dokument - DRK Energie", fr: "Document généré automatiquement - DRK Énergie" },
                 "Este resumen es una simulacion": { en: "This summary is a simulation", zh: "此摘要为模拟", de: "Diese Zusammenfassung ist eine Simulation", fr: "Ce résumé est une simulation" },
                 "basada en su ultima factura": { en: "based on your latest invoice", zh: "基于您的最新账单", de: "basierend auf Ihrer letzten Rechnung", fr: "basée sur votre dernière facture" },
                 "Foto del DNI/CIF (anverso y reverso)": { en: "Photo of ID/Tax ID (front and back)", zh: "身份证/税号照片（正反面）", de: "Foto des Personalausweises/Steuernummer (Vorder- und Rückseite)", fr: "Photo de la carte d'identité/numéro fiscal (recto et verso)" },
