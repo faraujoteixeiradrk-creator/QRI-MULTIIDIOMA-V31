@@ -1069,7 +1069,7 @@
                 </div>
                 
                 <button id="multicups-finalize-btn-saga" onclick="finalizeMultiCups()" class="w-full bg-cta-green-500 hover:bg-cta-green-600 text-white font-bold py-4 rounded-2xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-3 mt-8 hidden">
-                    FINALIZAR Y COMPARAR (<span id="saga-finalize-count">0</span> Suministros)
+                    <span id="finalize-btn-text">FINALIZAR Y COMPARAR</span> (<span id="saga-finalize-count">0</span> <span id="finalize-suministros-text">Suministros</span>)
                 </button>
             </div>
         </div>
@@ -1344,8 +1344,8 @@
         <!-- 7. QR Confirmation Modal (MultiCups) -->
         <div id="qr-confirm-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center p-4 z-50 backdrop-blur-sm">
             <div class="bg-white p-6 rounded-2xl shadow-2xl max-w-sm w-full max-h-[90vh] overflow-y-auto">
-                <h3 class="text-xl font-bold text-drk-800 mb-2">Confirmar Suministro</h3>
-                <p class="text-sm text-slate-500 mb-4">Revisa los datos extraídos y selecciona el tipo de tarifa para añadir a la lista.</p>
+                <h3 id="qr-confirm-title" class="text-xl font-bold text-drk-800 mb-2">Confirmar Suministro</h3>
+                <p id="qr-confirm-subtitle" class="text-sm text-slate-500 mb-4">Revisa los datos extraídos y selecciona el tipo de tarifa para añadir a la lista.</p>
 
                 <div class="mb-4" id="tariff-selector-wrapper">
                     <label for="confirm-tariff-select" class="block text-sm font-medium text-slate-700 text-left mb-1">Tipo de Tarifa</label>
@@ -7052,7 +7052,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setTextColor(255, 255, 255);
                     doc.setFontSize(11);
                     doc.setFont('helvetica', 'bold');
-                    doc.text(`RESUMEN DE ${res.individualResults.length} SUMINISTROS`, margin + 3, yPos + 6.5);
+                    // Construir texto traducible
+                    const resumenText = `${tr('RESUMEN DE')} ${res.individualResults.length} ${tr('SUMINISTROS')}`;
+                    doc.text(resumenText, margin + 3, yPos + 6.5);
                     yPos += 14;
                     
                     // Cabecera tabla (azul oscuro con texto blanco)
@@ -13060,8 +13062,8 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 selectEl.value = multiCupsAddType;
                 
                 // Actualizar título y descripción
-                modal.querySelector('h3').textContent = `Confirmar Suministro MultiCups (${multiCupsAddType})`;
-                modal.querySelector('p').textContent = `Revisa los datos extraídos del QR antes de añadir este suministro a la lista.`;
+                modal.querySelector('h3').textContent = `${tr('Confirmar Suministro MultiCups')} (${multiCupsAddType})`;
+                modal.querySelector('p').textContent = tr('Revisa los datos extraídos del QR antes de añadir este suministro a la lista.');
             } else {
                 // Modo Individual: MOSTRAR el selector
                 selectorWrapper.style.display = 'block';
@@ -13076,23 +13078,28 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             }
 
             summaryEl.innerHTML = `
-                <p class="font-bold text-slate-800 mb-2">Datos Extraídos del QR</p>
+                <p class="font-bold text-slate-800 mb-2">${tr('Datos Extraídos del QR')}</p>
                 <div class="grid grid-cols-2 gap-1 text-xs">
-                    <span${tr("CUPS:")}</span><span class="font-mono text-right">${data.cups}</span>
-                    <span>Días Fact:</span><span class="font-mono text-right">${data.dias_facturados}</span>
-                    <span>Total Factura:</span><span class="font-mono text-right">${data.importe_total.toFixed(2)} €</span>
-                    <span class="col-span-2 border-t pt-1 mt-1 font-bold">Potencias (kW):</span>
+                    <span>${tr('CUPS:')}</span><span class="font-mono text-right">${data.cups}</span>
+                    <span>${tr('Días Fact:')}</span><span class="font-mono text-right">${data.dias_facturados}</span>
+                    <span>${tr('Total')} ${tr('Factura:')}</span><span class="font-mono text-right">${data.importe_total.toFixed(2)} €</span>
+                    <span class="col-span-2 border-t pt-1 mt-1 font-bold">${tr('Potencias (kW)')}:</span>
                     <span>P1:</span><span class="font-mono text-right">${data.potencia_p1_kw.toFixed(2)}</span>
                     <span>P2:</span><span class="font-mono text-right">${data.potencia_p2_kw.toFixed(2)}</span>
-                    <span class="col-span-2 border-t pt-1 mt-1 font-bold">Consumos (kWh):</span>
-                    <span>Punta (E1):</span><span class="font-mono text-right">${data.consumo_punta}</span>
-                    <span>Llano (E2):</span><span class="font-mono text-right">${data.consumo_llano}</span>
-                    <span>Valle (E3):</span><span class="font-mono text-right">${data.consumo_valle}</span>
+                    <span class="col-span-2 border-t pt-1 mt-1 font-bold">${tr('Consumos (kWh)')}:</span>
+                    <span>${tr('Punta')} (E1):</span><span class="font-mono text-right">${data.consumo_punta}</span>
+                    <span>${tr('Llano')} (E2):</span><span class="font-mono text-right">${data.consumo_llano}</span>
+                    <span>${tr('Valle')} (E3):</span><span class="font-mono text-right">${data.consumo_valle}</span>
                 </div>
             `;
 
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            
+            // CRÍTICO: Traducir contenido del modal
+            if (window.translateAll) {
+                setTimeout(() => window.translateAll(), 50);
+            }
         }
 
         document.getElementById('confirm-save-supply-btn').onclick = () => {
@@ -14563,20 +14570,20 @@ ${clientName}
         
         <!-- DATOS CLIENTE -->
         <div style="padding:15px 30px;background:#f8f9fa">
-            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
-            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong${tr("CUPS:")}</strong> ${dualSupplies[0].cups}</p>
-            <p style="margin:0;font-size:11px;color:#1e293b"><strong${tr("COMERCIAL:")}</strong> ${comercialCode}</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong>${tr("CLIENTE:")}</strong> ${clientName}</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong>${tr("CUPS:")}</strong> ${dualSupplies[0].cups}</p>
+            <p style="margin:0;font-size:11px;color:#1e293b"><strong>${tr("COMERCIAL:")}</strong> ${comercialCode}</p>
         </div>
         
         <!-- LA MEJOR OPCIÓN -->
         <div style="padding:15px 30px;background:white;text-align:center">
-            <p style="margin:0 0 5px 0;font-size:11px;color:#546e7a;font-weight:600;letter-spacing:0.5px"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#546e7a;font-weight:600;letter-spacing:0.5px">${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
             <p style="margin:0;font-size:18px;color:#546e7a;font-weight:bold;letter-spacing:1px">${brandName}</p>
         </div>
         
         <!-- RESUMEN TABLA -->
         <div style="margin:25px 30px;padding:20px;background:white;border:3px solid #e5e7eb;border-radius:10px">
-            <p style="margin:0 0 15px 0;font-size:14px;color:#1e293b;font-weight:bold;text-align:center;text-transform:uppercase">RESUMEN DE SUMINISTROS INCLUIDOS</p>
+            <p style="margin:0 0 15px 0;font-size:14px;color:#1e293b;font-weight:bold;text-align:center;text-transform:uppercase">${tr("RESUMEN DE SUMINISTROS INCLUIDOS")}</p>
             <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
                 <thead>
                     <tr style="background:#f1f5f9">
@@ -19494,7 +19501,22 @@ ${clientName}
                 "ENERGÍA": { en: "ENERGY", zh: "能源", de: "ENERGIE", fr: "ÉNERGIE" },
                 "Punta": { en: "Peak", zh: "峰值", de: "Spitze", fr: "Pointe" },
                 "Llano": { en: "Standard", zh: "标准", de: "Standard", fr: "Standard" },
-                "Valle": { en: "Valley", zh: "谷值", de: "Tal", fr: "Vallée" }
+                "Valle": { en: "Valley", zh: "谷值", de: "Tal", fr: "Vallée" },
+                
+                // MULTICUPS - Más textos
+                "RESUMEN DE": { en: "SUMMARY OF", zh: "摘要", de: "ZUSAMMENFASSUNG VON", fr: "RÉSUMÉ DE" },
+                "SUMINISTROS": { en: "SUPPLIES", zh: "供应", de: "VERSORGUNGEN", fr: "APPROVISIONNEMENTS" },
+                "Confirmar Suministro MultiCups": { en: "Confirm MultiCups Supply", zh: "确认多CUPS供应", de: "MultiCups-Versorgung bestätigen", fr: "Confirmer l'approvisionnement MultiCups" },
+                "Revisa los datos extraídos del QR antes de añadir este suministro a la lista.": { en: "Review the data extracted from the QR before adding this supply to the list.", zh: "在将此供应添加到列表之前，请检查从二维码中提取的数据。", de: "Überprüfen Sie die aus dem QR-Code extrahierten Daten, bevor Sie diese Versorgung zur Liste hinzufügen.", fr: "Vérifiez les données extraites du QR avant d'ajouter cet approvisionnement à la liste." },
+                "Datos Extraídos del QR": { en: "Data Extracted from QR", zh: "从二维码提取的数据", de: "Aus QR extrahierte Daten", fr: "Données extraites du QR" },
+                "Días Fact:": { en: "Billed Days:", zh: "计费天数：", de: "Berechnete Tage:", fr: "Jours facturés :" },
+                "Total": { en: "Total", zh: "总计", de: "Gesamt", fr: "Total" },
+                "Factura:": { en: "Bill:", zh: "账单：", de: "Rechnung:", fr: "Facture :" },
+                "AÑADIR A LA LISTA DE CUPS": { en: "ADD TO CUPS LIST", zh: "添加到CUPS列表", de: "ZUR CUPS-LISTE HINZUFÜGEN", fr: "AJOUTER À LA LISTE CUPS" },
+                "Comparar FIJO vs INDEXADO": { en: "Compare FIXED vs INDEXED", zh: "比较固定与指数", de: "FEST vs INDEXIERT vergleichen", fr: "Comparer FIXE vs INDEXÉ" },
+                "RESUMEN DE TODOS LOS SUMINISTROS": { en: "SUMMARY OF ALL SUPPLIES", zh: "所有供应摘要", de: "ZUSAMMENFASSUNG ALLER VERSORGUNGEN", fr: "RÉSUMÉ DE TOUS LES APPROVISIONNEMENTS" },
+                "RESUMEN DE SUMINISTROS INCLUIDOS": { en: "SUMMARY OF INCLUDED SUPPLIES", zh: "包含供应摘要", de: "ZUSAMMENFASSUNG DER ENTHALTENEN VERSORGUNGEN", fr: "RÉSUMÉ DES APPROVISIONNEMENTS INCLUS" },
+                "LA MEJOR OPCIÓN PARA TI ES": { en: "THE BEST OPTION FOR YOU IS", zh: "最适合您的选项是", de: "DIE BESTE OPTION FÜR SIE IST", fr: "LA MEILLEURE OPTION POUR VOUS EST" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19607,7 +19629,12 @@ ${clientName}
                             
                             // Secciones del PDF (sin dos puntos)
                             'POTENCIA',
-                            'ENERGÍA'
+                            'ENERGÍA',
+                            'RESUMEN DE',
+                            'SUMINISTROS',
+                            'RESUMEN DE TODOS LOS SUMINISTROS',
+                            'RESUMEN DE SUMINISTROS INCLUIDOS',
+                            'LA MEJOR OPCIÓN PARA TI ES'
                         ];
                         
                         let translated = text;
@@ -19663,7 +19690,19 @@ ${clientName}
                     ['Energía (kWh)', tr('Energía (kWh)')],
                     ['Total Factura (€)', tr('Total Factura (€)')],
                     ['AÑADIR SUMINISTRO MANUAL', tr('AÑADIR SUMINISTRO MANUAL')],
+                    ['AÑADIR SUMINISTRO', tr('AÑADIR SUMINISTRO')],
                     ['Cancelar', tr('Cancelar')],
+                    
+                    // Modal de confirmación QR
+                    ['Confirmar Suministro MultiCups', tr('Confirmar Suministro MultiCups')],
+                    ['Revisa los datos extraídos del QR antes de añadir este suministro a la lista.', tr('Revisa los datos extraídos del QR antes de añadir este suministro a la lista.')],
+                    ['Datos Extraídos del QR', tr('Datos Extraídos del QR')],
+                    ['Días Fact:', tr('Días Fact:')],
+                    ['Total Factura:', tr('Total') + ' ' + tr('Factura:')],
+                    ['AÑADIR A LA LISTA DE CUPS', tr('AÑADIR A LA LISTA DE CUPS')],
+                    ['RESUMEN DE', tr('RESUMEN DE')],
+                    ['SUMINISTROS', tr('SUMINISTROS')],
+                    ['RESUMEN DE TODOS LOS SUMINISTROS', tr('RESUMEN DE TODOS LOS SUMINISTROS')],
                     
                     // Modales
                     ['Cálculo Completado', tr('Cálculo Completado')],
@@ -19885,7 +19924,9 @@ ${clientName}
                     'inicio-title', 'inicio-subtitle', 'inicio-supply-label',
                     'landing-title', 'savings-label', 'gas-results-subtitle',
                     'qr-analyzing-title', 'qr-progress-label', 'qr-help-text',
-                    'multicups-datos-generales', 'multicups-potencias', 'multicups-energia'
+                    'multicups-datos-generales', 'multicups-potencias', 'multicups-energia',
+                    'qr-confirm-title', 'qr-confirm-subtitle', 'confirm-save-supply-btn',
+                    'finalize-btn-text', 'finalize-suministros-text'
                 ];
                 
                 elementIds.forEach(id => {
