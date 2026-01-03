@@ -20787,33 +20787,24 @@ ${clientName}
 
             // API global
             window.LANG = {
-                change: function(newLang) {
+                change: function(newLang, skipReload = false) {
+                    const oldLang = lang;
                     lang = newLang;
                     localStorage.setItem('appLanguage', newLang);
                     
-                    // Actualizar window.tr con el nuevo idioma
-                    window.tr = function(text) {
-                        if (!TR[text] || !TR[text][newLang]) return text;
-                        return TR[text][newLang];
-                    };
-                    
-                    // Advertencia para chino sobre PDFs
-                    if (newLang === 'zh') {
-                        console.warn('⚠️ AVISO: Los PDFs en chino pueden mostrar caracteres incorrectamente. La interfaz web funcionará correctamente.');
+                    // Solo recargar si es un cambio manual del usuario (no la carga inicial)
+                    if (!skipReload && oldLang !== newLang) {
+                        console.log(`🔄 Cambiando idioma de ${oldLang} a ${newLang} - Recargando página...`);
+                        location.reload();
+                        return;
                     }
                     
+                    // Si es carga inicial, solo actualizar la UI
                     if (document.getElementById('language-selector')) {
                         document.getElementById('language-selector').value = newLang;
                     }
                     document.title = tr('DRK COMPARADOR');
-                    
-                    // Traducir inmediatamente
                     translateAll();
-                    
-                    // Traducir de nuevo después de un pequeño delay para capturar contenido dinámico
-                    setTimeout(() => translateAll(), 100);
-                    setTimeout(() => translateAll(), 300);
-                    setTimeout(() => translateAll(), 500);
                 },
                 translate: tr,
                 retranslate: translateAll,
@@ -20851,7 +20842,7 @@ ${clientName}
             // Inicializar
             window.addEventListener('DOMContentLoaded', () => {
                 const savedLang = localStorage.getItem('appLanguage') || 'es';
-                window.LANG.change(savedLang);
+                window.LANG.change(savedLang, true); // skipReload = true para carga inicial
             });
 
             window.addEventListener('load', () => {
