@@ -3149,7 +3149,7 @@
                             </div>
                             <div class="text-center md:text-left">
                                 <h1 class="text-white text-4xl md:text-5xl font-black tracking-tight mb-2">${brand.FULL_NAME}</h1>
-                                <p class="text-drk-100 text-lg md:text-xl font-semibold">Liderando el ahorro y la eficiencia energética</p>
+                                <p class="text-drk-100 text-lg md:text-xl font-semibold">${tr('Liderando el ahorro y la eficiencia energética')}</p>
                             </div>
                         </div>
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
@@ -3373,7 +3373,7 @@
                             </div>
                             <div class="text-center md:text-left">
                                 <h1 class="text-white text-4xl md:text-5xl font-black tracking-tight mb-2">DRK ENERGÍA</h1>
-                                <p class="text-drk-100 text-lg md:text-xl font-semibold">Liderando el ahorro y la eficiencia energética</p>
+                                <p class="text-drk-100 text-lg md:text-xl font-semibold">${tr('Liderando el ahorro y la eficiencia energética')}</p>
                             </div>
                         </div>
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
@@ -3834,7 +3834,7 @@
                             </div>
                             <div class="text-center md:text-left">
                                 <h1 class="text-white text-4xl md:text-5xl font-black tracking-tight mb-2">${brand.FULL_NAME}</h1>
-                                <p class="text-drk-100 text-lg md:text-xl font-semibold">Liderando el ahorro y la eficiencia energética</p>
+                                <p class="text-drk-100 text-lg md:text-xl font-semibold">${tr('Liderando el ahorro y la eficiencia energética')}</p>
                             </div>
                         </div>
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
@@ -4007,7 +4007,7 @@
                             </div>
                             <div class="text-center md:text-left">
                                 <h1 class="text-white text-4xl md:text-5xl font-black tracking-tight mb-2">DRK ENERGÍA</h1>
-                                <p class="text-drk-100 text-lg md:text-xl font-semibold">Liderando el ahorro y la eficiencia energética</p>
+                                <p class="text-drk-100 text-lg md:text-xl font-semibold">${tr('Liderando el ahorro y la eficiencia energética')}</p>
                             </div>
                         </div>
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
@@ -4795,10 +4795,10 @@
                 doc.setFontSize(8);
                 doc.setFont('helvetica', 'normal');
                 if (isDrk) {
-                    doc.text('Liderando el ahorro y la', logoX + 12, 20);
-                    doc.text('eficiencia energética.', logoX + 12, 24);
+                    doc.text(tr('Liderando el ahorro y la'), logoX + 12, 20);
+                    doc.text(tr('eficiencia energética.'), logoX + 12, 24);
                 } else {
-                    doc.text('Asesoría Energética', logoX + 12, 20);
+                    doc.text(tr('Asesoría Energética'), logoX + 12, 20);
                 }
                 
                 // Texto derecha
@@ -5437,10 +5437,10 @@
                 doc.setFontSize(8);
                 doc.setFont('helvetica', 'normal');
                 if (isDrk) {
-                    doc.text('Liderando el ahorro y la', logoX + 12, 20);
-                    doc.text('eficiencia energética.', logoX + 12, 24);
+                    doc.text(tr('Liderando el ahorro y la'), logoX + 12, 20);
+                    doc.text(tr('eficiencia energética.'), logoX + 12, 24);
                 } else {
-                    doc.text('Asesoría Energética', logoX + 12, 20);
+                    doc.text(tr('Asesoría Energética'), logoX + 12, 20);
                 }
                 
                 doc.setTextColor(40, 60, 80);
@@ -7100,8 +7100,8 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'normal');
                 doc.setTextColor(200, 220, 240);
-                doc.text('Liderando el ahorro y la', logoX + 12, yPos + 19);
-                doc.text('eficiencia energética.', logoX + 12, yPos + 24);
+                doc.text(tr('Liderando el ahorro y la'), logoX + 12, yPos + 19);
+                doc.text(tr('eficiencia energética.'), logoX + 12, yPos + 24);
                 
                 // Texto derecha "ESTUDIO DE AHORRO COMPARATIVA PROFESIONAL"
                 doc.setTextColor(40, 60, 80);
@@ -17795,8 +17795,8 @@ ${clientName}
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text('Liderando el ahorro y la', logoX + logoRadius + 6, logoY + 13);
-            doc.text('eficiencia energética.', logoX + logoRadius + 6, logoY + 18);
+            doc.text(tr('Liderando el ahorro y la'), logoX + logoRadius + 6, logoY + 13);
+            doc.text(tr('eficiencia energética.'), logoX + logoRadius + 6, logoY + 18);
             
             // Texto derecha
             doc.setFont('helvetica', 'bold');
@@ -18190,8 +18190,8 @@ ${clientName}
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7);
-            doc.text('Liderando el ahorro y la', logoX + 15, 30);
-            doc.text('eficiencia energética.', logoX + 15, 34);
+            doc.text(tr('Liderando el ahorro y la'), logoX + 15, 30);
+            doc.text(tr('eficiencia energética.'), logoX + 15, 34);
             
             // Texto derecha del header
             doc.setTextColor(40, 60, 80);
@@ -18772,8 +18772,8 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             doc.setTextColor(230, 240, 230);
-            doc.text('Liderando el ahorro y la', logoX + 30, 40);
-            doc.text('eficiencia energética.', logoX + 30, 44.5);
+            doc.text(tr('Liderando el ahorro y la'), logoX + 30, 40);
+            doc.text(tr('eficiencia energética.'), logoX + 30, 44.5);
             
             // TEXTO DERECHA DEL HEADER
             doc.setTextColor(40, 60, 80);
@@ -19109,8 +19109,8 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             doc.setTextColor(230, 240, 230);
-            doc.text('Liderando el ahorro y la', logoX + 30, 40);
-            doc.text('eficiencia energética.', logoX + 30, 44.5);
+            doc.text(tr('Liderando el ahorro y la'), logoX + 30, 40);
+            doc.text(tr('eficiencia energética.'), logoX + 30, 44.5);
             
             // TEXTO DERECHA DEL HEADER
             doc.setTextColor(40, 60, 80);
@@ -19994,7 +19994,9 @@ ${clientName}
                 "TÉRMINO POTENCIA (Precio en €/kW Día)": { en: "POWER TERM (Price in €/kW Day)", zh: "功率条款（价格€/千瓦天）", de: "LEISTUNGSTERM (Preis in €/kW Tag)", fr: "TERME PUISSANCE (Prix en €/kW Jour)" },
                 "TÉRMINO ENERGÍA (Precios en €/kWh)": { en: "ENERGY TERM (Prices in €/kWh)", zh: "能源条款（价格€/千瓦时）", de: "ENERGIETERM (Preise in €/kWh)", fr: "TERME ÉNERGIE (Prix en €/kWh)" },
                 "TOTAL FACTURA (60 DÍAS)": { en: "TOTAL BILL (60 DAYS)", zh: "总账单（60天）", de: "GESAMTRECHNUNG (60 TAGE)", fr: "FACTURE TOTALE (60 JOURS)" },
-                "Liderando el ahorro y la": { en: "Leading in savings and", zh: "节约和效率的领导者", de: "Führend bei Einsparungen und", fr: "Leader de l'épargne et de" },
+                "Liderando el ahorro y la": { es: "Liderando el ahorro y la", en: "Leading in savings and", zh: "引领节省和", de: "Führend bei Einsparungen und", fr: "Leader de l'épargne et de" },
+                "eficiencia energética.": { es: "eficiencia energética.", en: "energy efficiency.", zh: "能源效率。", de: "Energieeffizienz.", fr: "efficacité énergétique." },
+                "Asesoría Energética": { es: "Asesoría Energética", en: "Energy Consulting", zh: "能源咨询", de: "Energieberatung", fr: "Conseil en énergie" },
                 "60d": { en: "60d", zh: "60天", de: "60T", fr: "60j" },
                 
                 // MULTICUPS - Interfaz completa
