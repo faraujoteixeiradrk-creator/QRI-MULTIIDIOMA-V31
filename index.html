@@ -4511,7 +4511,7 @@
                                         </tr>
                                         ${res.energyCosts ? res.energyCosts.map((e, i) => `
                                         <tr>
-                                            <td style="padding:5px;color:#64748b;">E${e.period} (${i===0 ? 'Punta' : i===1 ? 'Llano' : 'Valle'}) (${e.kwh || 0} kWh x ${(e.price || 0).toFixed(6)} €/kWh)</td>
+                                            <td style="padding:5px;color:#64748b;">E${e.period} (${i===0 ? '峰值' : i===1 ? '平段' : '谷段'}) (${e.kwh || 0} kWh x ${(e.price || 0).toFixed(6)} €/kWh)</td>
                                             <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(e.totalEnergy || 0).toFixed(2)} €</td>
                                         </tr>
                                         `).join('') : ''}
