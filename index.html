@@ -4303,9 +4303,293 @@
             
             const currentLang = localStorage.getItem('appLanguage') || 'es';
             
-            // NUEVO: Para CHINO, copiar directamente el DOM visible
-            if (currentLang === 'zh') {
-                console.log('🇨🇳 Modo chino detectado - copiando DOM visible en handleCopyOffer');
+            // NUEVO: Para TODOS LOS IDIOMAS, generar HTML con tablas traducidas
+            console.log(`🌐 Generando HTML traducido para idioma: ${currentLang}`);
+            
+            try {
+                // Extraer datos principales del DOM
+                const offerName = document.getElementById('best-offer-name')?.textContent || 'DRK FIJO 4';
+                const savingsAmount = document.getElementById('savings-estimate')?.textContent || '0 €';
+                const oldCost = document.getElementById('old-annual-cost-display')?.textContent || '0 €';
+                const newCost = document.getElementById('new-annual-cost-display')?.textContent || '0 €';
+                const monthlyText = document.getElementById('new-monthly-cost-display')?.textContent || '0 €';
+                
+                // Extraer datos del cálculo
+                const res = lastComparisonResult;
+                
+                // Crear HTML ULTRA-SIMPLE para Outlook (compatible con TODOS los idiomas)
+                const htmlContent = `
+                    <!DOCTYPE html>
+                    <html>
+                    <head><meta charset="UTF-8"></head>
+                    <body style="margin:0;padding:20px;font-family:Arial,sans-serif;background:#f1f5f9;">
+                    
+                    <table width="700" cellpadding="0" cellspacing="0" align="center" style="background:#ffffff;">
+                        <!-- HEADER -->
+                        <tr>
+                            <td bgcolor="#2e5266" style="padding:30px;text-align:center;">
+                                <h1 style="margin:0;color:#ffffff;font-size:32px;">DRK ${tr('能源')}</h1>
+                                <p style="margin:10px 0 0 0;color:#ffffff;font-size:15px;">${tr('引领节省和能源效率')}</p>
+                            </td>
+                        </tr>
+                        
+                        <!-- OFERTA -->
+                        <tr>
+                            <td bgcolor="#2e5266" style="padding:15px;text-align:center;">
+                                <p style="margin:0;color:#ffffff;font-size:11px;">${tr('为您提供的最佳选择')}</p>
+                                <h2 style="margin:5px 0 0 0;color:#ffffff;font-size:22px;">${offerName}</h2>
+                            </td>
+                        </tr>
+                        
+                        <!-- AHORRO -->
+                        <tr>
+                            <td style="padding:25px;text-align:center;border-bottom:1px solid #e2e8f0;">
+                                <p style="margin:0 0 8px 0;color:#64748b;font-size:11px;font-weight:bold;">${tr('您的预计年度节省')}</p>
+                                <p style="margin:0;color:#16a34a;font-size:42px;font-weight:bold;">${savingsAmount}</p>
+                            </td>
+                        </tr>
+                        
+                        <!-- COMPARATIVA -->
+                        <tr>
+                            <td style="padding:0;">
+                                <table width="100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td width="50%" style="padding:20px;text-align:center;border-right:1px solid #e2e8f0;">
+                                            <p style="margin:0 0 10px 0;color:#64748b;font-size:10px;font-weight:bold;">${tr('您的当前账单')}</p>
+                                            <p style="margin:0;color:#dc2626;font-size:18px;font-weight:bold;text-decoration:line-through;">${oldCost}</p>
+                                        </td>
+                                        <td width="50%" style="padding:20px;text-align:center;">
+                                            <p style="margin:0 0 10px 0;color:#2e5266;font-size:10px;font-weight:bold;">${tr('您的新DRK成本')}</p>
+                                            <p style="margin:0 0 5px 0;color:#1e293b;font-size:20px;font-weight:bold;">${monthlyText}</p>
+                                            <p style="margin:0;color:#1e293b;font-size:16px;font-weight:bold;">${newCost}</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- DETALLES TÍTULO -->
+                        <tr>
+                            <td style="padding:20px 20px 10px 20px;">
+                                <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">${tr('提取数据')}</h3>
+                            </td>
+                        </tr>
+                        
+                        <!-- PERIODO Y FECHAS -->
+                        <tr>
+                            <td style="padding:0 20px;">
+                                <table width="100%" cellpadding="10" cellspacing="0" bgcolor="#f8fafc">
+                                    <tr>
+                                        <td width="50%">
+                                            <p style="margin:0 0 5px 0;color:#64748b;font-size:11px;">${tr('期间')}</p>
+                                            <p style="margin:0;color:#1e293b;font-size:14px;font-weight:bold;">${res.dias_facturados || 60} ${tr('天')}</p>
+                                        </td>
+                                        <td width="50%">
+                                            <p style="margin:0 0 5px 0;color:#64748b;font-size:11px;">${tr('日期')}</p>
+                                            <p style="margin:0;color:#1e293b;font-size:12px;font-weight:bold;">${res.fechas || 'N/A'}</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- CONSUMOS -->
+                        <tr>
+                            <td style="padding:15px 20px 5px 20px;">
+                                <p style="margin:0;color:#2e5266;font-size:14px;font-weight:bold;">${tr('期间消耗 (kWh)')}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0 20px;">
+                                <table width="100%" cellpadding="5" cellspacing="0" border="0">
+                                    ${res.energyCosts ? res.energyCosts.map((e, i) => `
+                                    <tr>
+                                        <td style="padding:5px 0;color:#64748b;font-size:12px;">E${e.period} (${i===0 ? tr('峰值') : i===1 ? tr('平段') : tr('谷段')})</td>
+                                        <td align="right" style="padding:5px 0;color:#1e293b;font-size:12px;font-weight:bold;">${e.kwh || 0} kWh</td>
+                                    </tr>
+                                    `).join('') : ''}
+                                    <tr style="border-top:1px solid #e2e8f0;">
+                                        <td style="padding:8px 0;color:#2e5266;font-size:13px;font-weight:bold;">${tr('总消耗')}</td>
+                                        <td align="right" style="padding:8px 0;color:#2e5266;font-size:13px;font-weight:bold;">${res.energyCosts ? res.energyCosts.reduce((sum, e) => sum + (e.kwh || 0), 0) : 0} kWh</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- POTENCIAS -->
+                        <tr>
+                            <td style="padding:15px 20px 5px 20px;">
+                                <p style="margin:0;color:#2e5266;font-size:14px;font-weight:bold;">${tr('签约功率 (kW)')}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0 20px 15px 20px;">
+                                <table width="100%" cellpadding="5" cellspacing="0">
+                                    ${res.powerCosts ? res.powerCosts.map(p => `
+                                    <tr>
+                                        <td style="padding:5px 0;color:#64748b;font-size:12px;">P${p.period}</td>
+                                        <td align="right" style="padding:5px 0;color:#1e293b;font-size:12px;font-weight:bold;">${(p.kw || 0).toFixed(2)} kW</td>
+                                    </tr>
+                                    `).join('') : ''}
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- PRECIOS TÍTULO -->
+                        <tr>
+                            <td style="padding:20px 20px 10px 20px;">
+                                <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">${tr('合并报价价格')}</h3>
+                            </td>
+                        </tr>
+                        
+                        <!-- PRECIOS -->
+                        <tr>
+                            <td style="padding:0 20px;">
+                                <table width="100%" cellpadding="10" cellspacing="0" bgcolor="#f8fafc">
+                                    <tr>
+                                        <td colspan="2">
+                                            <p style="margin:0 0 10px 0;color:#1e293b;font-size:13px;font-weight:bold;">${tr('资费 2.0 TD')} - ${offerName}</p>
+                                        </td>
+                                    </tr>
+                                    ${res.powerCosts ? res.powerCosts.map(p => `
+                                    <tr>
+                                        <td style="padding:4px 0;color:#64748b;font-size:11px;">P${p.period} (€/kW/${tr('日')}):</td>
+                                        <td align="right" style="padding:4px 0;color:#1e293b;font-size:11px;font-family:monospace;font-weight:bold;">${(p.priceDay || 0).toFixed(6)}</td>
+                                    </tr>
+                                    `).join('') : ''}
+                                    <tr>
+                                        <td colspan="2" style="padding:8px 0 4px 0;color:#16a34a;font-size:12px;font-weight:bold;">${tr('能源 (€/kWh)')}</td>
+                                    </tr>
+                                    ${res.energyCosts ? res.energyCosts.map((e, i) => `
+                                    <tr>
+                                        <td style="padding:4px 0;color:#64748b;font-size:11px;">E${e.period} (${i===0 ? tr('峰值') : i===1 ? tr('平段') : tr('谷段')}):</td>
+                                        <td align="right" style="padding:4px 0;color:#1e293b;font-size:11px;font-family:monospace;font-weight:bold;">${(e.price || 0).toFixed(6)}</td>
+                                    </tr>
+                                    `).join('') : ''}
+                                    <tr>
+                                        <td colspan="2" style="padding:10px 0 0 0;color:#64748b;font-size:10px;font-style:italic;">*${tr('显示的价格来自中标报价。')}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- CÁLCULO TÍTULO -->
+                        <tr>
+                            <td style="padding:20px 20px 10px 20px;">
+                                <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">${tr('官方计算')}</h3>
+                            </td>
+                        </tr>
+                        
+                        <!-- CÁLCULO -->
+                        <tr>
+                            <td style="padding:0 20px 20px 20px;">
+                                <table width="100%" cellpadding="10" cellspacing="0" border="1" bordercolor="#e2e8f0" style="border-collapse:collapse;font-family:monospace;font-size:11px;">
+                                    <tr>
+                                        <td colspan="2" bgcolor="#f8fafc" align="center" style="padding:10px;">
+                                            <p style="margin:0;color:#1e293b;font-size:14px;font-weight:bold;">DRK</p>
+                                            <p style="margin:5px 0 0 0;color:#64748b;font-size:12px;">${tr('模拟')} ${res.dias_facturados || 60} ${tr('天')}</p>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr bgcolor="#f8fafc">
+                                        <td colspan="2" style="padding:8px;color:#1e293b;font-size:12px;font-weight:bold;">${tr('功率 (€/kW 日)')}</td>
+                                    </tr>
+                                    ${res.powerCosts ? res.powerCosts.map(p => `
+                                    <tr>
+                                        <td style="padding:5px;color:#64748b;">P${p.period} (${(p.kw || 0).toFixed(2)} kW x ${(p.priceDay || 0).toFixed(6)} €/día)</td>
+                                        <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(p.totalPower || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    `).join('') : ''}
+                                    <tr style="border-top:2px solid #e2e8f0;">
+                                        <td style="padding:8px;color:#3b82f6;font-weight:bold;">${tr('功率小计')}</td>
+                                        <td align="right" style="padding:8px;color:#3b82f6;font-weight:bold;">${(res.subPower || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    
+                                    <tr bgcolor="#f8fafc">
+                                        <td colspan="2" style="padding:8px;color:#1e293b;font-size:12px;font-weight:bold;">${tr('能源 (€/kWh)')}</td>
+                                    </tr>
+                                    ${res.energyCosts ? res.energyCosts.map((e, i) => `
+                                    <tr>
+                                        <td style="padding:5px;color:#64748b;">E${e.period} (${i===0 ? tr('峰值') : i===1 ? tr('平段') : tr('谷段')}) (${e.kwh || 0} kWh x ${(e.price || 0).toFixed(6)} €/kWh)</td>
+                                        <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(e.totalEnergy || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    `).join('') : ''}
+                                    
+                                    <tr style="border-top:1px dashed #cbd5e1;">
+                                        <td></td>
+                                        <td align="right" style="padding:8px;color:#1e293b;font-weight:bold;">${(res.subEnergyNet || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr style="border-top:1px dashed #cbd5e1;">
+                                        <td></td>
+                                        <td align="right" style="padding:8px;color:#1e293b;font-weight:bold;">${(res.subtotalNet || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:5px;color:#64748b;">Imp. Eléc. (5,113%)</td>
+                                        <td align="right" style="padding:5px;color:#1e293b;">${(res.impElec || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr style="border-top:1px solid #cbd5e1;">
+                                        <td></td>
+                                        <td align="right" style="padding:8px;color:#1e293b;font-weight:bold;">${(res.totalSinIVA || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:5px;color:#64748b;">${tr('增值税（21%）')}</td>
+                                        <td align="right" style="padding:5px;color:#1e293b;">${(res.iva || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr style="border-top:3px solid #1e293b;" bgcolor="#f8fafc">
+                                        <td style="padding:10px;color:#1e293b;font-size:13px;font-weight:bold;">${tr('总账单')}</td>
+                                        <td align="right" style="padding:10px;color:#1e293b;font-size:13px;font-weight:bold;">${(res.totalPeriod || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    
+                                    <tr bgcolor="#2e5266">
+                                        <td colspan="2" align="center" style="padding:15px;color:#ffffff;font-size:13px;font-weight:bold;">${tr('估计年度总额')}: ${(res.totalAnnual || 0).toFixed(2)} €</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- FOOTER -->
+                        <tr>
+                            <td bgcolor="#f8fafc" style="padding:15px;text-align:center;">
+                                <p style="margin:0;color:#64748b;font-size:13px;">${tr('所有文本均为中文 · 可直接使用')}</p>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    </body>
+                    </html>
+                `;
+                
+                // Copiar al portapapeles
+                const tempElement = document.createElement('div');
+                tempElement.contentEditable = true;
+                tempElement.innerHTML = htmlContent;
+                tempElement.style.position = 'fixed';
+                tempElement.style.left = '-9999px';
+                document.body.appendChild(tempElement);
+                
+                const range = document.createRange();
+                range.selectNodeContents(tempElement);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                
+                let success = document.execCommand('copy');
+                document.body.removeChild(tempElement);
+                
+                if (success) {
+                    window.showMessageModal(tr("✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio."));
+                    document.getElementById('send-offer-modal').classList.add('hidden');
+                    document.getElementById('send-offer-modal').classList.remove('flex');
+                } else {
+                    window.showErrorModal(tr("No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte."));
+                }
+                
+                return;
+            } catch (e) {
+                console.error("Error al copiar HTML traducido:", e);
+                window.showErrorModal(`Error: ${e.message}`);
+                return;
+            }
                 
                 try {
                     // Extraer datos principales del DOM
@@ -19686,6 +19970,35 @@ ${clientName}
                 "Volver": { en: "Back", zh: "返回", de: "Zurück", fr: "Retour" },
                 "Calcular Ahorro": { en: "Calculate Savings", zh: "计算节省", de: "Ersparnis berechnen", fr: "Calculer les Économies" },
                 "Energía": { en: "Energy", zh: "能源", de: "Energie", fr: "Énergie" },
+                "能源": { en: "Energy", zh: "能源", de: "Energie", fr: "Énergie" },
+                "引领节省和能源效率": { en: "Leading savings and energy efficiency", zh: "引领节省和能源效率", de: "Führend bei Einsparungen und Energieeffizienz", fr: "Leader en économies et efficacité énergétique" },
+                "为您提供的最佳选择": { en: "The best option for you", zh: "为您提供的最佳选择", de: "Die beste Option für Sie", fr: "La meilleure option pour vous" },
+                "您的预计年度节省": { en: "Your estimated annual savings", zh: "您的预计年度节省", de: "Ihre geschätzte jährliche Ersparnis", fr: "Vos économies annuelles estimées" },
+                "您的当前账单": { en: "Your current bill", zh: "您的当前账单", de: "Ihre aktuelle Rechnung", fr: "Votre facture actuelle" },
+                "您的新DRK成本": { en: "Your new DRK cost", zh: "您的新DRK成本", de: "Ihre neuen DRK-Kosten", fr: "Votre nouveau coût DRK" },
+                "提取数据": { en: "Extracted data", zh: "提取数据", de: "Extrahierte Daten", fr: "Données extraites" },
+                "期间": { en: "Period", zh: "期间", de: "Zeitraum", fr: "Période" },
+                "天": { en: "days", zh: "天", de: "Tage", fr: "jours" },
+                "日期": { en: "Date", zh: "日期", de: "Datum", fr: "Date" },
+                "期间消耗 (kWh)": { en: "Period consumption (kWh)", zh: "期间消耗 (kWh)", de: "Verbrauch im Zeitraum (kWh)", fr: "Consommation de la période (kWh)" },
+                "峰值": { en: "Peak", zh: "峰值", de: "Spitzenlast", fr: "Pointe" },
+                "平段": { en: "Mid-peak", zh: "平段", de: "Mittellast", fr: "Heures pleines" },
+                "谷段": { en: "Off-peak", zh: "谷段", de: "Schwachlast", fr: "Heures creuses" },
+                "总消耗": { en: "Total consumption", zh: "总消耗", de: "Gesamtverbrauch", fr: "Consommation totale" },
+                "签约功率 (kW)": { en: "Contracted power (kW)", zh: "签约功率 (kW)", de: "Vertragsleistung (kW)", fr: "Puissance contractée (kW)" },
+                "合并报价价格": { en: "Combined offer prices", zh: "合并报价价格", de: "Kombinierte Angebotspreise", fr: "Prix de l'offre combinée" },
+                "资费 2.0 TD": { en: "Tariff 2.0 TD", zh: "资费 2.0 TD", de: "Tarif 2.0 TD", fr: "Tarif 2.0 TD" },
+                "日": { en: "day", zh: "日", de: "Tag", fr: "jour" },
+                "能源 (€/kWh)": { en: "Energy (€/kWh)", zh: "能源 (€/kWh)", de: "Energie (€/kWh)", fr: "Énergie (€/kWh)" },
+                "显示的价格来自中标报价。": { en: "Displayed prices are from the winning offer.", zh: "显示的价格来自中标报价。", de: "Angezeigte Preise stammen aus dem Gewinner-Angebot.", fr: "Les prix affichés proviennent de l'offre gagnante." },
+                "官方计算": { en: "Official calculation", zh: "官方计算", de: "Offizielle Berechnung", fr: "Calcul officiel" },
+                "模拟": { en: "Simulation", zh: "模拟", de: "Simulation", fr: "Simulation" },
+                "功率 (€/kW 日)": { en: "Power (€/kW day)", zh: "功率 (€/kW 日)", de: "Leistung (€/kW Tag)", fr: "Puissance (€/kW jour)" },
+                "功率小计": { en: "Power subtotal", zh: "功率小计", de: "Leistung Zwischensumme", fr: "Sous-total puissance" },
+                "增值税（21%）": { en: "VAT (21%)", zh: "增值税（21%）", de: "MwSt. (21%)", fr: "TVA (21%)" },
+                "总账单": { en: "Total bill", zh: "总账单", de: "Gesamtrechnung", fr: "Facture totale" },
+                "估计年度总额": { en: "Estimated annual total", zh: "估计年度总额", de: "Geschätzte Jahressumme", fr: "Total annuel estimé" },
+                "所有文本均为中文 · 可直接使用": { en: "All text in current language · Ready to use", zh: "所有文本均为中文 · 可直接使用", de: "Alle Texte in aktueller Sprache · Sofort einsatzbereit", fr: "Tout le texte dans la langue actuelle · Prêt à l'emploi" },
                 "Selector": { en: "Selector", zh: "选择器", de: "Auswahl", fr: "Sélecteur" },
                 "MULTICUPS": { en: "MULTICUPS", zh: "多合同", de: "MULTICUPS", fr: "MULTICUPS" },
                 "GAS": { en: "GAS", zh: "天然气", de: "GAS", fr: "GAZ" },
