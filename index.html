@@ -245,12 +245,12 @@
                             <circle class="drk-ring" cx="55" cy="45" r="35" stroke="#00A859"/>
                         </svg>
                     </div>
-                    <h2 class="text-3xl font-black text-drk-900 mb-2 text-center">DRK COMPARADOR</h2>
-                    <p class="text-slate-500 mb-6 text-center">Selecciona el tipo de suministro.</p>
+                    <h2 id="inicio-title" class="text-3xl font-black text-drk-900 mb-2 text-center">DRK COMPARADOR</h2>
+                    <p id="inicio-subtitle" class="text-slate-500 mb-6 text-center">Selecciona el tipo de suministro.</p>
                     
                     <!-- SELECTOR DE SERVICIO -->
                     <div class="pt-4 border-t border-slate-200">
-                        <p class="text-sm font-bold text-drk-800 mb-4 text-center uppercase tracking-wider">TIPO DE SUMINISTRO</p>
+                        <p id="inicio-supply-label" class="text-sm font-bold text-drk-800 mb-4 text-center uppercase tracking-wider">TIPO DE SUMINISTRO</p>
                         <div class="grid grid-cols-2 gap-4 mb-4">
                             <button onclick="goToElectricidad()" style="padding: 2rem; border-radius: 1.5rem; border: 4px solid #cbd5e1; background: white; text-align: center; cursor: pointer;">
                                 <div style="font-size: 3rem; margin-bottom: 0.75rem;">⚡</div>
@@ -4503,7 +4503,7 @@
                 doc.setTextColor(40, 60, 80);
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'bold');
-                doc.text('ESTUDIO DE AHORRO', pageWidth - margin, 12, { align: 'right' });
+                doc.text(tr('ESTUDIO DE AHORRO'), pageWidth - margin, 12, { align: 'right' });
                 
                 doc.setFontSize(11);
                 doc.setTextColor(255, 255, 255);
@@ -4528,7 +4528,7 @@
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(10);
                 doc.setTextColor(75, 85, 99);
-                doc.text('CLIENTE: ' + clientName.toUpperCase(), margin, yPos);
+                doc.text(tr('CLIENTE:') + ' ' + clientName.toUpperCase(), margin, yPos);
                 yPos += 6;
                 doc.text('CUPS TOTALES: ' + (resFijo.isMulti ? resFijo.cups : '1'), margin, yPos);
                 yPos += 12;
@@ -4793,7 +4793,7 @@
                     doc.setTextColor(255, 255, 255);
                     doc.setFontSize(6);
                     doc.setFont('helvetica', 'bold');
-                    doc.text('POTENCIA:', x + 3, y + 4);
+                    doc.text(tr('POTENCIA:'), x + 3, y + 4);
                     doc.setFont('helvetica', 'normal');
                     doc.setFontSize(5.5);
                     
@@ -5168,7 +5168,7 @@
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(10);
                 doc.setTextColor(75, 85, 99);
-                doc.text('CLIENTE: ' + clientName.toUpperCase(), margin, yPos);
+                doc.text(tr('CLIENTE:') + ' ' + clientName.toUpperCase(), margin, yPos);
                 yPos += 6;
                 doc.text('CUPS TOTALES: ' + res.cups, margin, yPos);
                 yPos += 12;
@@ -5522,7 +5522,7 @@
                     doc.setTextColor(255, 255, 255);
                     doc.setFontSize(6);
                     doc.setFont('helvetica', 'bold');
-                    doc.text('POTENCIA:', x + 3, y + 4);
+                    doc.text(tr('POTENCIA:'), x + 3, y + 4);
                     doc.setFont('helvetica', 'normal');
                     doc.setFontSize(5.5);
                     
@@ -6790,7 +6790,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 doc.setTextColor(40, 60, 80);
                 doc.setFontSize(11);
                 doc.setFont('helvetica', 'bold');
-                doc.text('ESTUDIO DE AHORRO', pageWidth - margin - 3, yPos + 5, { align: 'right' });
+                doc.text(tr('ESTUDIO DE AHORRO'), pageWidth - margin - 3, yPos + 5, { align: 'right' });
                 
                 doc.setFontSize(14);
                 doc.setFont('helvetica', 'bold');
@@ -6811,7 +6811,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'bold');
-                doc.text('ESTUDIO DE AHORRO', margin + 5, yPos + 5.5);
+                doc.text(tr('ESTUDIO DE AHORRO'), margin + 5, yPos + 5.5);
                 
                 // Caja blanca con borde azul
                 doc.setFillColor(255, 255, 255);
@@ -7138,7 +7138,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         doc.setTextColor(255, 255, 255);
                         doc.setFontSize(6);
                         doc.setFont('helvetica', 'bold');
-                        doc.text('POTENCIA:', x + 3, y + 4);
+                        doc.text(tr('POTENCIA:'), x + 3, y + 4);
                         doc.setFont('helvetica', 'normal');
                         doc.setFontSize(5.5);
                         
@@ -7314,7 +7314,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             // === POTENCIA (con título) ===
                             doc.setFontSize(7);
                             doc.setFont('helvetica', 'bold');
-                            doc.text('POTENCIA:', margin + 5, yPos);
+                            doc.text(tr('POTENCIA:'), margin + 5, yPos);
                             yPos += 4;
                             
                             doc.setFont('helvetica', 'normal');
@@ -7477,7 +7477,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             
                             // POTENCIA (con título)
                             doc.setFontSize(7);
-                            doc.text('POTENCIA:', margin + 3, yPos);
+                            doc.text(tr('POTENCIA:'), margin + 3, yPos);
                             yPos += 4;
                             
                             doc.setFont('helvetica', 'normal');
@@ -7520,7 +7520,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             
                             // POTENCIA (con título)
                             doc.setFontSize(7);
-                            doc.text('POTENCIA:', margin + 3, yPos);
+                            doc.text(tr('POTENCIA:'), margin + 3, yPos);
                             yPos += 4;
                             
                             doc.setFont('helvetica', 'normal');
@@ -7744,7 +7744,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setTextColor(255, 255, 255);
                     doc.setFontSize(9);
                     doc.setFont('helvetica', 'bold');
-                    doc.text('POTENCIA:', margin + 5, yPos + 6);
+                    doc.text(tr('POTENCIA:'), margin + 5, yPos + 6);
                     yPos += 9;
                     
                     doc.setFont('helvetica', 'normal');
@@ -7773,7 +7773,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setTextColor(255, 255, 255);
                     doc.setFontSize(9);
                     doc.setFont('helvetica', 'bold');
-                    doc.text('ENERGIA:', margin + 5, yPos);
+                    doc.text(tr('ENERGIA:'), margin + 5, yPos);
                     yPos += 5;
                     
                     doc.setFont('helvetica', 'normal');
@@ -7843,7 +7843,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     // Subtotal potencia
                     doc.setFont('helvetica', 'bold');
                     doc.setTextColor(...primaryColor);
-                    doc.text('SUBTOTAL POTENCIA', margin + 2, yPos);
+                    doc.text(tr('SUBTOTAL POTENCIA'), margin + 2, yPos);
                     doc.text(`${num(res.subPower, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 8;
                     
@@ -7919,14 +7919,14 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     // Base imponible
                     doc.setFont('helvetica', 'bold');
                     doc.setFontSize(10);
-                    doc.text('BASE IMPONIBLE', margin + 2, yPos);
+                    doc.text(tr('BASE IMPONIBLE'), margin + 2, yPos);
                     doc.text(`${num(res.baseImp, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 5;
                     
                     // IVA
                     doc.setFont('helvetica', 'normal');
                     doc.setFontSize(9);
-                    doc.text('IVA (21%)', margin + 2, yPos);
+                    doc.text(tr('IVA (21%)'), margin + 2, yPos);
                     doc.text(`${num(res.costIVA, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 7;
                     
@@ -17258,7 +17258,7 @@ ${clientName}
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(12);
             doc.setTextColor(40, 60, 80);
-            doc.text('ESTUDIO DE AHORRO', pageWidth - margin, 15, { align: 'right' });
+            doc.text(tr('ESTUDIO DE AHORRO'), pageWidth - margin, 15, { align: 'right' });
             doc.setFontSize(16);
             doc.setTextColor(255, 255, 255);
             doc.text('COMPARATIVA', pageWidth - margin, 25, { align: 'right' });
@@ -17275,7 +17275,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('ESTUDIO DE AHORRO', margin + 5, yPos + 7);
+            doc.text(tr('ESTUDIO DE AHORRO'), margin + 5, yPos + 7);
             
             yPos += 12;
             
@@ -17291,7 +17291,7 @@ ${clientName}
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text('CLIENTE: ' + clientName, margin + 5, yPos + 13);
+            doc.text(tr('CLIENTE:') + ' ' + clientName, margin + 5, yPos + 13);
             doc.text('TARIFA: ' + currentGasTariff, margin + 5, yPos + 18);
             
             doc.setFont('helvetica', 'bold');
@@ -17466,7 +17466,7 @@ ${clientName}
             yPos += 6;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('SUBTOTAL POTENCIA', margin + 5, yPos);
+            doc.text(tr('SUBTOTAL POTENCIA'), margin + 5, yPos);
             doc.text(eur(bestResult.total_fijo), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 10;
             
@@ -17502,12 +17502,12 @@ ${clientName}
             yPos += 6;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('BASE IMPONIBLE', margin, yPos);
+            doc.text(tr('BASE IMPONIBLE'), margin, yPos);
             doc.text(eur(subtotalBase + bestResult.impuesto_hidrocarburo), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 6;
             
             doc.setFont('helvetica', 'normal');
-            doc.text('IVA (21%)', margin, yPos);
+            doc.text(tr('IVA (21%)'), margin, yPos);
             doc.text(eur(bestResult.iva), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 10;
             
@@ -17647,7 +17647,7 @@ ${clientName}
             doc.setTextColor(40, 60, 80);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text('ESTUDIO DE AHORRO', pageWidth - 12, 12, { align: 'right' });
+            doc.text(tr('ESTUDIO DE AHORRO'), pageWidth - 12, 12, { align: 'right' });
             
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(11);
@@ -17666,7 +17666,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(9);
             doc.setFont('helvetica', 'bold');
-            doc.text('ESTUDIO DE AHORRO', 17, y + 5.5);
+            doc.text(tr('ESTUDIO DE AHORRO'), 17, y + 5.5);
             
             // Caja blanca con borde
             doc.setFillColor(255, 255, 255);
@@ -17896,7 +17896,7 @@ ${clientName}
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('SUBTOTAL POTENCIA', leftX + 3, leftY);
+            doc.text(tr('SUBTOTAL POTENCIA'), leftX + 3, leftY);
             doc.text(eur(resFijo.total_fijo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
@@ -17932,12 +17932,12 @@ ${clientName}
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('BASE IMPONIBLE', leftX, leftY);
+            doc.text(tr('BASE IMPONIBLE'), leftX, leftY);
             doc.text(eur(subtotalBase + resFijo.impuesto_hidrocarburo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text('IVA (21%)', leftX, leftY);
+            doc.text(tr('IVA (21%)'), leftX, leftY);
             doc.text(eur(resFijo.iva), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
@@ -17994,7 +17994,7 @@ ${clientName}
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('SUBTOTAL POTENCIA', rightX + 3, rightY);
+            doc.text(tr('SUBTOTAL POTENCIA'), rightX + 3, rightY);
             doc.text(eur(resIndexed.total_fijo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
@@ -18030,12 +18030,12 @@ ${clientName}
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('BASE IMPONIBLE', rightX, rightY);
+            doc.text(tr('BASE IMPONIBLE'), rightX, rightY);
             doc.text(eur(subtotalBaseIndex + resIndexed.impuesto_hidrocarburo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text('IVA (21%)', rightX, rightY);
+            doc.text(tr('IVA (21%)'), rightX, rightY);
             doc.text(eur(resIndexed.iva), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
@@ -18223,7 +18223,7 @@ ${clientName}
             doc.setTextColor(40, 60, 80);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('ESTUDIO DE AHORRO', pageWidth - 12, 16, { align: 'right' });
+            doc.text(tr('ESTUDIO DE AHORRO'), pageWidth - 12, 16, { align: 'right' });
             
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(13);
@@ -18240,7 +18240,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('ESTUDIO DE AHORRO', 105, y + 8, { align: 'center' });
+            doc.text(tr('ESTUDIO DE AHORRO'), 105, y + 8, { align: 'center' });
             
             // Recuadro con borde verde oliva para info del cliente
             y += 18;
@@ -18261,7 +18261,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
             doc.setTextColor(100, 110, 100);
-            doc.text('CLIENTE: ' + clientName + '', 25, y);
+            doc.text(tr('CLIENTE:') + ' ' + clientName + '', 25, y);
             
             y += 5;
             doc.text('CUPS: ES0021000020679723GY', 25, y);
@@ -18269,7 +18269,7 @@ ${clientName}
             // Texto "COMERCIAL: <cz" en la esquina derecha
             doc.setTextColor(130, 140, 130);
             doc.setFontSize(8);
-            doc.text('COMERCIAL: ' + comercialCode + '', 185, y, { align: 'right' });
+            doc.text(tr('COMERCIAL:') + ' ' + comercialCode + '', 185, y, { align: 'right' });
             
             y += 15;
             
@@ -18409,7 +18409,7 @@ ${clientName}
             y += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('SUBTOTAL POTENCIA', 15, y);
+            doc.text(tr('SUBTOTAL POTENCIA'), 15, y);
             doc.text(eur(bestResult.total_fijo), 195, y, { align: 'right' });
             y += 10;
             
@@ -18443,12 +18443,12 @@ ${clientName}
             y += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('BASE IMPONIBLE', 12, y);
+            doc.text(tr('BASE IMPONIBLE'), 12, y);
             doc.text(eur(subtotalBase + bestResult.impuesto_hidrocarburo), 195, y, { align: 'right' });
             y += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text('IVA (21%)', 12, y);
+            doc.text(tr('IVA (21%)'), 12, y);
             doc.text(eur(bestResult.iva), 195, y, { align: 'right' });
             y += 10;
             
@@ -18554,7 +18554,7 @@ ${clientName}
             doc.setTextColor(40, 60, 80);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('ESTUDIO DE AHORRO', pageWidth - 12, 16, { align: 'right' });
+            doc.text(tr('ESTUDIO DE AHORRO'), pageWidth - 12, 16, { align: 'right' });
             
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(13);
@@ -18571,7 +18571,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text('ESTUDIO DE AHORRO', 25, y + 5.5);
+            doc.text(tr('ESTUDIO DE AHORRO'), 25, y + 5.5);
             
             y += 8;
             
@@ -18591,7 +18591,7 @@ ${clientName}
             doc.setTextColor(80, 80, 80);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text('CLIENTE: ' + clientName, 25, y + 12);
+            doc.text(tr('CLIENTE:') + ' ' + clientName, 25, y + 12);
             doc.text('CUPS: ES0021000020679723GY', 25, y + 17);
             
             // Comercial en caja destacada (derecha)
@@ -18600,7 +18600,7 @@ ${clientName}
             doc.setTextColor(119, 132, 109);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text('COMERCIAL: ' + comercialCode, pageWidth - 20 - 43, y + 14.5);
+            doc.text(tr('COMERCIAL:') + ' ' + comercialCode, pageWidth - 20 - 43, y + 14.5);
             
             y += 25;
             
@@ -18798,7 +18798,7 @@ ${clientName}
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('SUBTOTAL POTENCIA', leftX + 3, leftY);
+            doc.text(tr('SUBTOTAL POTENCIA'), leftX + 3, leftY);
             doc.text(eur(resFijo.total_fijo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
@@ -18834,12 +18834,12 @@ ${clientName}
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('BASE IMPONIBLE', leftX, leftY);
+            doc.text(tr('BASE IMPONIBLE'), leftX, leftY);
             doc.text(eur(subtotalBase + resFijo.impuesto_hidrocarburo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text('IVA (21%)', leftX, leftY);
+            doc.text(tr('IVA (21%)'), leftX, leftY);
             doc.text(eur(resFijo.iva), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
@@ -18896,7 +18896,7 @@ ${clientName}
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('SUBTOTAL POTENCIA', rightX + 3, rightY);
+            doc.text(tr('SUBTOTAL POTENCIA'), rightX + 3, rightY);
             doc.text(eur(resIndexed.total_fijo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
@@ -18932,12 +18932,12 @@ ${clientName}
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text('BASE IMPONIBLE', rightX, rightY);
+            doc.text(tr('BASE IMPONIBLE'), rightX, rightY);
             doc.text(eur(subtotalBaseIndex + resIndexed.impuesto_hidrocarburo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text('IVA (21%)', rightX, rightY);
+            doc.text(tr('IVA (21%)'), rightX, rightY);
             doc.text(eur(resIndexed.iva), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
@@ -19313,6 +19313,9 @@ ${clientName}
                 if (!TR[text] || !TR[text][lang]) return text;
                 return TR[text][lang];
             }
+            
+            // Hacer tr() global
+            window.tr = tr;
 
             // Función exhaustiva de traducción
             function translateAll() {
@@ -19321,6 +19324,22 @@ ${clientName}
                 if (accentEl) accentEl.textContent = tr('Energía');
                 const subtitleEl = document.getElementById('app-subtitle');
                 if (subtitleEl) subtitleEl.textContent = tr('Selector');
+
+                // Traducir elementos específicos por ID
+                const elementIds = [
+                    'inicio-title', 'inicio-subtitle', 'inicio-supply-label',
+                    'landing-title', 'savings-label', 'gas-results-subtitle'
+                ];
+                
+                elementIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && el.textContent.trim()) {
+                        const translated = tr(el.textContent.trim());
+                        if (translated !== el.textContent.trim()) {
+                            el.textContent = translated;
+                        }
+                    }
+                });
 
                 // Traducir TODO el DOM por contenido
                 const walker = document.createTreeWalker(
@@ -19342,7 +19361,10 @@ ${clientName}
 
                 // Traducir todos los nodos encontrados
                 nodesToTranslate.forEach(({node, original}) => {
-                    node.textContent = node.textContent.replace(original, tr(original));
+                    const newText = tr(original);
+                    if (node.textContent.includes(original)) {
+                        node.textContent = node.textContent.replace(original, newText);
+                    }
                 });
             }
 
@@ -19351,6 +19373,13 @@ ${clientName}
                 change: function(newLang) {
                     lang = newLang;
                     localStorage.setItem('appLanguage', newLang);
+                    
+                    // Actualizar window.tr con el nuevo idioma
+                    window.tr = function(text) {
+                        if (!TR[text] || !TR[text][newLang]) return text;
+                        return TR[text][newLang];
+                    };
+                    
                     if (document.getElementById('language-selector')) {
                         document.getElementById('language-selector').value = newLang;
                     }
