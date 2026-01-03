@@ -4182,17 +4182,17 @@
                 <div class="bg-white p-6 font-mono text-xs md:text-sm text-slate-600 leading-relaxed">
                     <div class="text-center border-b-2 border-dashed border-slate-300 pb-4 mb-4">
                         <h4 class="font-bold text-lg text-slate-800 uppercase">${offer.name}</h4>
-                        <p>Simulación ${res.dias_facturados} días</p>
+                        <p>${tr('Simulación')} ${res.dias_facturados} ${tr('días')}</p>
                     </div>
                     
                     <div class="mb-4">
-                        <p class="font-bold text-slate-800 mb-1">POTENCIA (€/kW Día)</p>
+                        <p class="font-bold text-slate-800 mb-1">${tr('POTENCIA')} (€/kW ${tr('Día')})</p>
                         ${powerBreakdown}
-                        <div class="flex justify-between font-bold ${brand.SECONDARY_TEXT} border-t mt-1 pt-1"><span>Subtotal Potencia</span><span>${num(res.subPower, 2)} €</span></div>
+                        <div class="flex justify-between font-bold ${brand.SECONDARY_TEXT} border-t mt-1 pt-1"><span>${tr('Subtotal Potencia')}</span><span>${num(res.subPower, 2)} €</span></div>
                     </div>
 
                     <div class="mb-4">
-                        <p class="font-bold text-slate-800 mb-1">ENERGÍA (€/kWh)</p>
+                        <p class="font-bold text-slate-800 mb-1">${tr('ENERGÍA')} (€/kWh)</p>
                         ${energyBreakdown}
                         <div class="flex justify-between font-bold ${brand.SECONDARY_TEXT} border-t mt-1 pt-1"><span${tr("Subtotal Energía (Bruto)")}</span><span>${num(res.subEnergy, 2)} €</span></div>
                         ${discountRowsHtml}
@@ -4220,24 +4220,24 @@
                 if (tariffType === '2.0TD') {
                     preciosHTML = `
                         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm text-sm mb-6">
-                            <h4 class="font-bold text-lg text-slate-800 mb-3">Precios de la Oferta Consolidada</h4>
+                            <h4 class="font-bold text-lg text-slate-800 mb-3">${tr('Precios de la Oferta Consolidada')}</h4>
                             <div class="p-3 bg-white rounded-lg border border-slate-200">
-                                <h5 class="font-black text-sm text-slate-700 border-b pb-1 mb-2">Tarifa 2.0 TD - ${nombreCompleto}</h5>
+                                <h5 class="font-black text-sm text-slate-700 border-b pb-1 mb-2">${tr('Tarifa')} 2.0 TD - ${nombreCompleto}</h5>
                                 <div class="grid grid-cols-2 gap-x-4 text-xs">
-                                    <p class="text-slate-500">P1 (€/kW/día):</p>
+                                    <p class="text-slate-500">P1 (€/kW/${tr('día')}):</p>
                                     <p class="font-mono font-bold text-right">${numPriceFormula(res.powerCosts[0].priceDay)}</p>
-                                    <p class="text-slate-500">P2 (€/kW/día):</p>
+                                    <p class="text-slate-500">P2 (€/kW/${tr('día')}):</p>
                                     <p class="font-mono font-bold text-right">${numPriceFormula(res.powerCosts[1].priceDay)}</p>
-                                    <p class="text-slate-500 mt-2 col-span-2 font-bold text-green-600">ENERGÍA (€/kWh)</p>
-                                    <p class="text-slate-500">E1 (Punta):</p>
+                                    <p class="text-slate-500 mt-2 col-span-2 font-bold text-green-600">${tr('ENERGÍA')} (€/kWh)</p>
+                                    <p class="text-slate-500">E1 (${tr('Punta')}):</p>
                                     <p class="font-mono font-bold text-right">${numPriceFormula(res.energyCosts[0].price)}</p>
-                                    <p class="text-slate-500">E2 (Llano):</p>
+                                    <p class="text-slate-500">E2 (${tr('Llano')}):</p>
                                     <p class="font-mono font-bold text-right">${numPriceFormula(res.energyCosts[1].price)}</p>
-                                    <p class="text-slate-500">E3 (Valle):</p>
+                                    <p class="text-slate-500">E3 (${tr('Valle')}):</p>
                                     <p class="font-mono font-bold text-right">${numPriceFormula(res.energyCosts[2].price)}</p>
                                 </div>
                             </div>
-                            <p class="text-xs text-slate-500 mt-2">*Los precios mostrados son de la oferta ganadora.</p>
+                            <p class="text-xs text-slate-500 mt-2">*${tr('Los precios mostrados son de la oferta ganadora.')}</p>
                         </div>
                     `;
                 } else if (tariffType === '3.0TD') {
@@ -4271,10 +4271,10 @@
             const detailsContainer = document.getElementById('details-container');
 
             detailsContainer.innerHTML = `
-                <h3 id="extracted-data-header" class="text-lg font-bold text-slate-800 border-l-4 ${brand.BORDER.replace('border-', 'border-')} pl-3">Datos Extraídos</h3>
+                <h3 id="extracted-data-header" class="text-lg font-bold text-slate-800 border-l-4 ${brand.BORDER.replace('border-', 'border-')} pl-3">${tr('Datos Extraídos')}</h3>
                 <div id="user-consumption-details" class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-sm">${consumptionHTML}</div>
                 ${preciosHTML}
-                <h3 class="text-lg font-bold text-slate-800 border-l-4 border-green-500 pl-3" style="border-left-color: ${brand.QR_CENTER_BG};">Cálculo Oficial</h3>
+                <h3 class="text-lg font-bold text-slate-800 border-l-4 border-green-500 pl-3" style="border-left-color: ${brand.QR_CENTER_BG};">${tr('Cálculo Oficial')}</h3>
                 <div id="cost-breakdown" class="bg-white p-0 rounded-xl border border-slate-200 shadow-sm overflow-hidden text-sm">
                     ${breakdownHTML}
                 </div>
@@ -19658,10 +19658,24 @@ ${clientName}
                 // Datos Extraídos
                 "Periodo": { en: "Period", zh: "期间", de: "Zeitraum", fr: "Période" },
                 "días": { en: "days", zh: "天", de: "Tage", fr: "jours" },
+                "día": { en: "day", zh: "日", de: "Tag", fr: "jour" },
+                "Día": { en: "Day", zh: "日", de: "Tag", fr: "Jour" },
                 "Fechas": { en: "Dates", zh: "日期", de: "Daten", fr: "Dates" },
                 "Consumo por Periodo (kWh)": { en: "Consumption per Period (kWh)", zh: "期间消耗 (kWh)", de: "Verbrauch pro Zeitraum (kWh)", fr: "Consommation par Période (kWh)" },
                 "Total Consumo": { en: "Total Consumption", zh: "总消耗", de: "Gesamtverbrauch", fr: "Consommation Totale" },
                 "Potencia Contratada (kW)": { en: "Contracted Power (kW)", zh: "签约功率 (kW)", de: "Vertragsleistung (kW)", fr: "Puissance Contractée (kW)" },
+                
+                // Interfaz de resultados
+                "Datos Extraídos": { en: "Extracted Data", zh: "提取数据", de: "Extrahierte Daten", fr: "Données Extraites" },
+                "Cálculo Oficial": { en: "Official Calculation", zh: "官方计算", de: "Offizielle Berechnung", fr: "Calcul Officiel" },
+                "Simulación": { en: "Simulation", zh: "模拟", de: "Simulation", fr: "Simulation" },
+                "Subtotal Potencia": { en: "Power Subtotal", zh: "功率小计", de: "Leistung Zwischensumme", fr: "Sous-total Puissance" },
+                "Precios de la Oferta Consolidada": { en: "Consolidated Offer Prices", zh: "合并报价价格", de: "Konsolidierte Angebotspreise", fr: "Prix de l'Offre Consolidée" },
+                "Tarifa": { en: "Tariff", zh: "资费", de: "Tarif", fr: "Tarif" },
+                "Punta": { en: "Peak", zh: "峰值", de: "Spitze", fr: "Pointe" },
+                "Llano": { en: "Flat", zh: "平段", de: "Flach", fr: "Plat" },
+                "Valle": { en: "Valley", zh: "谷段", de: "Tal", fr: "Vallée" },
+                "Los precios mostrados son de la oferta ganadora.": { en: "The prices shown are from the winning offer.", zh: "显示的价格来自中标报价。", de: "Die angezeigten Preise stammen aus dem gewinnenden Angebot.", fr: "Les prix affichés proviennent de l'offre gagnante." },
                 
                 // Botones estándar (para traducción automática)
                 "Aceptar": { en: "Accept", zh: "接受", de: "Akzeptieren", fr: "Accepter" },
