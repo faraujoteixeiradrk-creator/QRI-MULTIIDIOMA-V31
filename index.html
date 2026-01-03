@@ -8787,14 +8787,14 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             </div>
                             
                             <ol style="margin: 20px 0; padding-left: 20px; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; font-size: 14px; color: #374151; line-height: 2;">
-                                <li>Haz clic en el botón de abajo</li>
-                                <li>Se abrirá tu cliente de email</li>
-                                <li><strong style="color: ${isPowerCup ? '#3f6212' : '#0c4a6e'};">Adjunta documentación del CUPS</strong></li>
-                                <li>Envía el email</li>
+                                <li>${tr('Haz clic en el botón de abajo')}</li>
+                                <li>${tr('Se abrirá tu cliente de email')}</li>
+                                <li><strong style="color: ${isPowerCup ? '#3f6212' : '#0c4a6e'};">${tr('Adjunta la documentación requerida')}</strong></li>
+                                <li>${tr('Envía el email')}</li>
                             </ol>
                             
                             <a href="${formalizationLink}" style="display: inline-block; background-color: ${RED_CTA}; color: white; padding: 18px 40px; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: bold; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); margin: 20px 0;">
-                                ✅ CONFIRMAR OFERTA CONSOLIDADA
+                                ${tr('✅ CONFIRMAR Y ENVIAR')}
                             </a>
                             
                             <div style="margin-top: 20px; padding: 15px; background-color: #f3f4f6; border-radius: 8px;">
@@ -9309,14 +9309,14 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             </div>
                             
                             <ol style="margin: 20px 0; padding-left: 20px; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; font-size: 14px; color: #374151; line-height: 2;">
-                                <li>Haz clic en el botón de abajo</li>
-                                <li>Se abrirá tu cliente de email</li>
-                                <li><strong style="color: ${isPowerCup ? '#3f6212' : '#0c4a6e'};">Adjunta documentación de los ${res.cups} CUPS</strong></li>
-                                <li>Envía el email</li>
+                                <li>${tr('Haz clic en el botón de abajo')}</li>
+                                <li>${tr('Se abrirá tu cliente de email')}</li>
+                                <li><strong style="color: ${isPowerCup ? '#3f6212' : '#0c4a6e'};">${tr('Adjunta la documentación requerida')}</strong></li>
+                                <li>${tr('Envía el email')}</li>
                             </ol>
                             
                             <a href="${formalizationLink}" style="display: inline-block; background-color: ${RED_CTA}; color: white; padding: 18px 40px; border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: bold; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); margin: 20px 0;">
-                                ✅ CONFIRMAR OFERTA CONSOLIDADA
+                                ${tr('✅ CONFIRMAR Y ENVIAR')}
                             </a>
                             
                             <div style="margin-top: 20px; padding: 15px; background-color: #f3f4f6; border-radius: 8px;">
@@ -9714,20 +9714,20 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
 
                     <tr><td colspan="2" style="text-align: center; padding: 20px; background-color: #f8f9fa;">
                         <div style="max-width: 500px; margin: 0 auto; padding: 20px; background: white; border-radius: 10px; border: 2px solid ${D_PRIMARY_MED};">
-                            <p style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: ${D_PRIMARY_DARK};">📧 Para confirmar esta oferta:</p>
+                            <p style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: ${D_PRIMARY_DARK};">${tr('📧 Para confirmar esta oferta:')}</p>
                             <p style="margin: 0 0 15px 0; font-size: 13px; color: #555; line-height: 1.6;">
-                                1. Haz clic en el botón de abajo<br>
-                                2. Se abrirá tu cliente de email<br>
-                                3. <strong style="color: ${D_PRIMARY_DARK};">Adjunta la documentación requerida</strong><br>
-                                4. Envía el email
+                                1. ${tr('Haz clic en el botón de abajo')}<br>
+                                2. ${tr('Se abrirá tu cliente de email')}<br>
+                                3. <strong style="color: ${D_PRIMARY_DARK};">${tr('Adjunta la documentación requerida')}</strong><br>
+                                4. ${tr('Envía el email')}
                             </p>
-                            <a href="${formalizationLink}" style="${btnStyle}">✅ CONFIRMAR Y ENVIAR</a>
+                            <a href="${formalizationLink}" style="${btnStyle}">${tr('✅ CONFIRMAR Y ENVIAR')}</a>
                             <p style="margin: 15px 0 0 0; font-size: 11px; color: #666; line-height: 1.5;">
-                                📄 <strong>Documentación necesaria:</strong><br>
-                                DNI/CIF · Última factura · Email · Teléfono · IBAN
+                                ${tr('📄 <strong>Documentación necesaria:</strong><br>')}
+                                ${tr('DNI/CIF · Última factura · Email · Teléfono · IBAN')}
                             </p>
                         </div>
-                        <p style="font-size: 10px; color: #999; margin-top: 15px;">[Colaborador: ${commercialCode}] | Este resumen es una simulación basada en su última factura.</p>
+                        <p style="font-size: 10px; color: #999; margin-top: 15px;">[Colaborador: ${commercialCode}] | ${tr('Este resumen es una simulacion')} ${tr('basada en su ultima factura')}.</p>
                     </td></tr>
 
                     <tr><td colspan="2" style="padding: 0; height: 10px;"><div style="${footerStyle}"></div></td></tr>
@@ -10069,17 +10069,17 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
 
                     <tr><td colspan="2" style="text-align: center; padding: 20px; background-color: #f8f9fa;">
                         <div style="max-width: 500px; margin: 0 auto; padding: 20px; background: white; border-radius: 10px; border: 2px solid ${D_PRIMARY_MED};">
-                            <p style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: ${D_PRIMARY_DARK};">📊 Para formalizar esta oferta consolidada:</p>
+                            <p style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: ${D_PRIMARY_DARK};">${tr('📧 Para confirmar esta oferta:')}</p>
                             <p style="margin: 0 0 15px 0; font-size: 13px; color: #555; line-height: 1.6;">
-                                1. Haz clic en el botón de abajo<br>
-                                2. Se abrirá tu cliente de email<br>
-                                3. <strong style="color: ${D_PRIMARY_DARK};">Adjunta documentación de los ${individualResults.length} CUPS</strong><br>
-                                4. Envía el email
+                                1. ${tr('Haz clic en el botón de abajo')}<br>
+                                2. ${tr('Se abrirá tu cliente de email')}<br>
+                                3. <strong style="color: ${D_PRIMARY_DARK};">${tr('Adjunta la documentación requerida')}</strong><br>
+                                4. ${tr('Envía el email')}
                             </p>
-                            <a href="${formalizationLink}" style="${btnStyle}">✅ CONFIRMAR OFERTA CONSOLIDADA</a>
+                            <a href="${formalizationLink}" style="${btnStyle}">${tr('✅ CONFIRMAR Y ENVIAR')}</a>
                             <p style="margin: 15px 0 0 0; font-size: 11px; color: #666; line-height: 1.5;">
-                                📄 <strong>Por cada CUPS adjuntar:</strong><br>
-                                DNI/CIF · Última factura · Email · Teléfono · IBAN
+                                ${tr('📄 <strong>Documentación necesaria:</strong><br>')}
+                                ${tr('DNI/CIF · Última factura · Email · Teléfono · IBAN')}
                             </p>
                         </div>
                         <p style="font-size: 10px; color: #999; margin-top: 15px;">[Colaborador: ${commercialCode}] | Este resumen es una simulación consolidada de ${individualResults.length} suministros.</p>
@@ -15179,15 +15179,15 @@ ${clientName}
         
         <!-- BOTÓN CONFIRMAR Y ENVIAR -->
         <div style="background:#ffffff;padding:30px;margin:30px;border-radius:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1)">
-            <p style="margin:0 0 20px 0;font-size:18px;color:#1e293b;font-weight:bold">📋 Para confirmar esta oferta:</p>
-            <p style="margin:0 0 10px 0;font-size:14px;color:#64748b">Haz clic en el botón de abajo</p>
-            <p style="margin:0 0 20px 0;font-size:14px;color:#64748b">Se abrirá tu cliente de email</p>
-            <p style="margin:0 0 20px 0;font-size:14px;color:#64748b;font-weight:bold">Adjunta la documentación requerida</p>
-            <p style="margin:0 0 25px 0;font-size:14px;color:#64748b">Envía el email</p>
+            <p style="margin:0 0 20px 0;font-size:18px;color:#1e293b;font-weight:bold">${tr('📋 Para confirmar esta oferta:')}</p>
+            <p style="margin:0 0 10px 0;font-size:14px;color:#64748b">${tr('Haz clic en el botón de abajo')}</p>
+            <p style="margin:0 0 20px 0;font-size:14px;color:#64748b">${tr('Se abrirá tu cliente de email')}</p>
+            <p style="margin:0 0 20px 0;font-size:14px;color:#64748b;font-weight:bold">${tr('Adjunta la documentación requerida')}</p>
+            <p style="margin:0 0 25px 0;font-size:14px;color:#64748b">${tr('Envía el email')}</p>
             
             <a href="${generateMailtoLink(comercialCode, clientName, clientPhone, clientEmail, dualSupplies, results, isPowerCup, brandName, totalSavings, totalOriginalBill, totalNew)}" 
                style="display:inline-block;background:#22c55e;color:white;text-decoration:none;padding:16px 40px;border-radius:8px;font-size:16px;font-weight:bold;box-shadow:0 4px 6px rgba(34,197,94,0.3)">
-                ✅ CONFIRMAR Y ENVIAR
+                ${tr('✅ CONFIRMAR Y ENVIAR')}
             </a>
         </div>
         
@@ -17062,19 +17062,19 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="border: 3px solid ${primaryColor}; border-radius: 12px; margin: 30px 40px; width: calc(100% - 80px);">
                     <tr>
                         <td style="padding: 30px; text-align: center;">
-                            <p style="margin: 0 0 20px 0; font-size: 18px; font-weight: bold; color: ${primaryColor};">📧 Para confirmar esta oferta:</p>
+                            <p style="margin: 0 0 20px 0; font-size: 18px; font-weight: bold; color: ${primaryColor};">${tr('📧 Para confirmar esta oferta:')}</p>
                             <ol style="text-align: left; display: inline-block; font-size: 14px; line-height: 1.8; color: #333;">
-                                <li>Haz clic en el botón de abajo</li>
-                                <li>Se abrirá tu cliente de email</li>
-                                <li><strong style="color: ${primaryColor};">Adjunta la documentación requerida</strong></li>
-                                <li>Envía el email</li>
+                                <li>${tr('Haz clic en el botón de abajo')}</li>
+                                <li>${tr('Se abrirá tu cliente de email')}</li>
+                                <li><strong style="color: ${primaryColor};">${tr('Adjunta la documentación requerida')}</strong></li>
+                                <li>${tr('Envía el email')}</li>
                             </ol>
                             
                             <table cellpadding="0" cellspacing="0" style="margin: 20px auto;">
                                 <tr>
                                     <td style="background-color: #dc2626; border-radius: 8px; text-align: center;">
                                         <a href="mailto:contratacion@example.com?subject=Confirmación Oferta GAS - ${tariffName}&body=Adjunto documentación requerida para confirmar la oferta." style="display: inline-block; padding: 15px 40px; color: white; text-decoration: none; font-weight: bold; font-size: 16px;">
-                                            ✓ CONFIRMAR Y ENVIAR
+                                            ${tr('✅ CONFIRMAR Y ENVIAR')}
                                         </a>
                                     </td>
                                 </tr>
@@ -17438,19 +17438,19 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="border: 3px solid ${accentColor}; border-radius: 12px; margin: 30px 40px 40px 40px; width: calc(100% - 80px);">
                     <tr>
                         <td style="padding: 30px; text-align: center;">
-                            <p style="margin: 0 0 20px 0; font-size: 18px; font-weight: bold; color: ${primaryColor};">📊 Para formalizar esta oferta:</p>
+                            <p style="margin: 0 0 20px 0; font-size: 18px; font-weight: bold; color: ${primaryColor};">${tr('📧 Para confirmar esta oferta:')}</p>
                             <ol style="text-align: left; display: inline-block; font-size: 14px; line-height: 2; color: #333; margin: 0 0 20px 0;">
-                                <li>Haz clic en el botón de abajo</li>
-                                <li>Se abrirá tu cliente de email</li>
-                                <li><strong style="color: ${primaryColor};">Adjunta documentación del CUPS</strong></li>
-                                <li>Envía el email</li>
+                                <li>${tr('Haz clic en el botón de abajo')}</li>
+                                <li>${tr('Se abrirá tu cliente de email')}</li>
+                                <li><strong style="color: ${primaryColor};">${tr('Adjunta la documentación requerida')}</strong></li>
+                                <li>${tr('Envía el email')}</li>
                             </ol>
                             
                             <table cellpadding="0" cellspacing="0" style="margin: 20px auto;">
                                 <tr>
                                     <td style="background-color: #dc2626; border-radius: 8px; text-align: center;">
                                         <a href="mailto:contratacion@example.com?subject=Confirmación Oferta GAS Comparativa&body=Adjunto documentación requerida." style="display: inline-block; padding: 15px 40px; color: white; text-decoration: none; font-weight: bold; font-size: 16px;">
-                                            ✓ CONFIRMAR OFERTA CONSOLIDADA
+                                            ${tr('✅ CONFIRMAR Y ENVIAR')}
                                         </a>
                                     </td>
                                 </tr>
@@ -19796,6 +19796,17 @@ ${clientName}
                 "Última factura (menos de 3 meses de antigüedad)": { en: "Latest invoice (less than 3 months old)", zh: "最新账单（不超过3个月）", de: "Letzte Rechnung (weniger als 3 Monate alt)", fr: "Dernière facture (moins de 3 mois d'ancienneté)" },
                 "Autorización de cambio de titular (si aplica)": { en: "Authorization to change holder (if applicable)", zh: "更换持有人授权（如适用）", de: "Genehmigung zur Änderung des Inhabers (falls zutreffend)", fr: "Autorisation de changement de titulaire (le cas échéant)" },
                 "Documento generado automáticamente - DRK Energía": { en: "Automatically generated document - DRK Energy", zh: "自动生成的文件 - DRK 能源", de: "Automatisch generiertes Dokument - DRK Energie", fr: "Document généré automatiquement - DRK Énergie" },
+                "Para confirmar esta oferta:": { en: "To confirm this offer:", zh: "确认此报价：", de: "Um dieses Angebot zu bestätigen:", fr: "Pour confirmer cette offre :" },
+                "📋 Para confirmar esta oferta:": { en: "📋 To confirm this offer:", zh: "📋 确认此报价：", de: "📋 Um dieses Angebot zu bestätigen:", fr: "📋 Pour confirmer cette offre :" },
+                "📧 Para confirmar esta oferta:": { en: "📧 To confirm this offer:", zh: "📧 确认此报价：", de: "📧 Um dieses Angebot zu bestätigen:", fr: "📧 Pour confirmer cette offre :" },
+                "Haz clic en el botón de abajo": { en: "Click the button below", zh: "点击下方按钮", de: "Klicken Sie auf die Schaltfläche unten", fr: "Cliquez sur le bouton ci-dessous" },
+                "Se abrirá tu cliente de email": { en: "Your email client will open", zh: "将打开您的电子邮件客户端", de: "Ihr E-Mail-Client wird geöffnet", fr: "Votre client de messagerie s'ouvrira" },
+                "Adjunta la documentación requerida": { en: "Attach the required documentation", zh: "附上所需文件", de: "Fügen Sie die erforderlichen Unterlagen bei", fr: "Joignez la documentation requise" },
+                "Envía el email": { en: "Send the email", zh: "发送电子邮件", de: "E-Mail senden", fr: "Envoyez l'e-mail" },
+                "✅ CONFIRMAR Y ENVIAR": { en: "✅ CONFIRM AND SEND", zh: "✅ 确认并发送", de: "✅ BESTÄTIGEN UND SENDEN", fr: "✅ CONFIRMER ET ENVOYER" },
+                "CONFIRMAR Y ENVIAR": { en: "CONFIRM AND SEND", zh: "确认并发送", de: "BESTÄTIGEN UND SENDEN", fr: "CONFIRMER ET ENVOYER" },
+                "📄 <strong>Documentación necesaria:</strong><br>": { en: "📄 <strong>Required documentation:</strong><br>", zh: "📄 <strong>所需文件：</strong><br>", de: "📄 <strong>Erforderliche Unterlagen:</strong><br>", fr: "📄 <strong>Documentation nécessaire :</strong><br>" },
+                "DNI/CIF · Última factura · Email · Teléfono · IBAN": { en: "ID/Tax ID · Latest invoice · Email · Phone · IBAN", zh: "身份证/税号 · 最新账单 · 电子邮件 · 电话 · IBAN", de: "Personalausweis/Steuernummer · Letzte Rechnung · E-Mail · Telefon · IBAN", fr: "Carte d'identité/n° fiscal · Dernière facture · E-mail · Téléphone · IBAN" },
                 "Este resumen es una simulacion": { en: "This summary is a simulation", zh: "此摘要为模拟", de: "Diese Zusammenfassung ist eine Simulation", fr: "Ce résumé est une simulation" },
                 "basada en su ultima factura": { en: "based on your latest invoice", zh: "基于您的最新账单", de: "basierend auf Ihrer letzten Rechnung", fr: "basée sur votre dernière facture" },
                 "Foto del DNI/CIF (anverso y reverso)": { en: "Photo of ID/Tax ID (front and back)", zh: "身份证/税号照片（正反面）", de: "Foto des Personalausweises/Steuernummer (Vorder- und Rückseite)", fr: "Photo de la carte d'identité/numéro fiscal (recto et verso)" },
