@@ -11454,7 +11454,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             <p class="text-sm text-slate-600">${displaySubtitle}</p>
                         </div>
                         <div class="text-right flex-shrink-0">
-                            <p class="text-xs text-slate-500">Ahorro anual</p>
+                            <p class="text-xs text-slate-500">${tr('Ahorro anual')}</p>
                             <p class="text-xl font-black text-green-600">${eur(offer.savings)}</p>
                         </div>
                     </div>
@@ -13921,7 +13921,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             container.innerHTML = `
                 <!-- Resumen por tipo -->
                 <div class="bg-slate-50 rounded-xl p-4 mb-4">
-                    <h3 class="text-sm font-bold text-slate-700 mb-3">Resumen de suministros</h3>
+                    <h3 class="text-sm font-bold text-slate-700 mb-3">${tr('Resumen de suministros')}</h3>
                     <div class="space-y-3">
                         ${dualSupplies.map((s, idx) => {
                             // CORREGIDO: Usar s.totalAnnual directamente (ya tiene la lógica correcta)
@@ -13963,15 +13963,15 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                     <!-- Desglose GAS -->
                                     <div class="bg-slate-50 rounded p-2 space-y-1 text-xs">
                                         <div class="flex justify-between">
-                                            <span>Término fijo (${gb.dias} días)</span>
+                                            <span>${tr('Término fijo (')}${gb.dias} ${tr('días')})</span>
                                             <span>${formatEuro(gb.termino_fijo)}</span>
                                         </div>
                                         <div class="flex justify-between">
-                                            <span>Energía (${gb.kwh} kWh)</span>
+                                            <span>${tr('Energía')} (${gb.kwh} kWh)</span>
                                             <span>${formatEuro(gb.energia)}</span>
                                         </div>
                                         <div class="flex justify-between">
-                                            <span>Imp. hidrocarburos</span>
+                                            <span>${tr('Imp. hidrocarburos')}</span>
                                             <span>${formatEuro(gb.impuesto_hidrocarburos)}</span>
                                         </div>
                                         <div class="flex justify-between">
@@ -13979,14 +13979,14 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                             <span>${formatEuro(gb.iva)}</span>
                                         </div>
                                         <div class="flex justify-between font-semibold pt-1 border-t border-slate-200">
-                                            <span>TOTAL MENSUAL</span>
+                                            <span>${tr('TOTAL MENSUAL')}</span>
                                             <span>${formatEuro(gb.total)}</span>
                                         </div>
                                     </div>
                                     
                                     <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-200">
-                                        <span class="text-xs text-slate-600">Factura actual: ${formatEuro(originalBill / 12)}/mes</span>
-                                        <span class="text-xs font-semibold ${savings > 0 ? 'text-green-600' : 'text-slate-500'}">Ahorro: ${formatEuro(Math.max(0, savings))}/año</span>
+                                        <span class="text-xs text-slate-600">${tr('Factura actual:')} ${formatEuro(originalBill / 12)}${tr('/mes')}</span>
+                                        <span class="text-xs font-semibold ${savings > 0 ? 'text-green-600' : 'text-slate-500'}">${tr('Ahorro:')} ${formatEuro(Math.max(0, savings))}${tr('/año')}</span>
                                     </div>
                                 </div>
                             `;
@@ -14011,15 +14011,15 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                     <!-- Desglose ELECTRICIDAD -->
                                     <div class="bg-slate-50 rounded p-2 space-y-1 text-xs">
                                         <div class="flex justify-between">
-                                            <span>Potencia (${eb.dias} días)</span>
+                                            <span>${tr('Potencia')} (${eb.dias} ${tr('días')})</span>
                                             <span>${formatEuro(eb.subPower)}</span>
                                         </div>
                                         <div class="flex justify-between">
-                                            <span>Energía (${totalKwh.toFixed(0)} kWh)</span>
+                                            <span>${tr('Energía')} (${totalKwh.toFixed(0)} kWh)</span>
                                             <span>${formatEuro(eb.subEnergy)}</span>
                                         </div>
                                         <div class="flex justify-between">
-                                            <span>Imp. eléctrico (5.113%)</span>
+                                            <span>${tr('Imp. eléctrico (5.113%)')}</span>
                                             <span>${formatEuro(eb.costIE)}</span>
                                         </div>
                                         <div class="flex justify-between">
@@ -14027,14 +14027,14 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                             <span>${formatEuro(eb.costIVA)}</span>
                                         </div>
                                         <div class="flex justify-between font-semibold pt-1 border-t border-slate-200">
-                                            <span>TOTAL PERIODO</span>
+                                            <span>${tr('TOTAL PERIODO')}</span>
                                             <span>${formatEuro(eb.totalPeriod)}</span>
                                         </div>
                                     </div>
                                     
                                     <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-200">
-                                        <span class="text-xs text-slate-600">Factura actual: ${formatEuro(originalBill / 12)}/mes</span>
-                                        <span class="text-xs font-semibold ${savings > 0 ? 'text-green-600' : 'text-slate-500'}">Ahorro: ${formatEuro(Math.max(0, savings))}/año</span>
+                                        <span class="text-xs text-slate-600">${tr('Factura actual:')} ${formatEuro(originalBill / 12)}${tr('/mes')}</span>
+                                        <span class="text-xs font-semibold ${savings > 0 ? 'text-green-600' : 'text-slate-500'}">${tr('Ahorro:')} ${formatEuro(Math.max(0, savings))}${tr('/año')}</span>
                                     </div>
                                 </div>
                             `;
@@ -19564,7 +19564,22 @@ ${clientName}
                 "Esperando Pegado (Ctrl+V)": { en: "Waiting for Paste (Ctrl+V)", zh: "等待粘贴（Ctrl+V）", de: "Warten auf Einfügen (Strg+V)", fr: "En attente de Coller (Ctrl+V)" },
                 "Con el cuadro de texto invisible enfocado, pulse Ctrl+V (o Cmd+V) para pegar la imagen de la factura.": { en: "With the invisible text box focused, press Ctrl+V (or Cmd+V) to paste the invoice image.", zh: "在不可见文本框聚焦时，按Ctrl+V（或Cmd+V）粘贴发票图像。", de: "Drücken Sie bei fokussiertem unsichtbaren Textfeld Strg+V (oder Cmd+V), um das Rechnungsbild einzufügen.", fr: "Avec la zone de texte invisible focalisée, appuyez sur Ctrl+V (ou Cmd+V) pour coller l'image de la facture." },
                 "Continuar Pegando": { en: "Continue Pasting", zh: "继续粘贴", de: "Weiter einfügen", fr: "Continuer à coller" },
-                "Cancelar Pegado": { en: "Cancel Paste", zh: "取消粘贴", de: "Einfügen abbrechen", fr: "Annuler le Collage" }
+                "Cancelar Pegado": { en: "Cancel Paste", zh: "取消粘贴", de: "Einfügen abbrechen", fr: "Annuler le Collage" },
+                
+                // Textos de tarjetas de resultados
+                "Ahorro anual": { en: "Annual savings", zh: "年度节省", de: "Jährliche Einsparungen", fr: "Économies annuelles" },
+                "Resumen de suministros": { en: "Supplies summary", zh: "供应摘要", de: "Zusammenfassung der Versorgungen", fr: "Résumé des approvisionnements" },
+                "Término fijo": { en: "Fixed term", zh: "固定期限", de: "Feste Laufzeit", fr: "Terme fixe" },
+                "días": { en: "days", zh: "天", de: "Tage", fr: "jours" },
+                "Imp. hidrocarburos": { en: "Hydrocarbon tax", zh: "碳氢化合物税", de: "Kohlenwasserstoffsteuer", fr: "Taxe sur les hydrocarbures" },
+                "TOTAL MENSUAL": { en: "MONTHLY TOTAL", zh: "月度总计", de: "MONAT GESAMT", fr: "TOTAL MENSUEL" },
+                "Factura actual:": { en: "Current bill:", zh: "当前账单：", de: "Aktuelle Rechnung:", fr: "Facture actuelle :" },
+                "Ahorro:": { en: "Savings:", zh: "节省：", de: "Einsparungen:", fr: "Économies :" },
+                "/mes": { en: "/month", zh: "/月", de: "/Monat", fr: "/mois" },
+                "/año": { en: "/year", zh: "/年", de: "/Jahr", fr: "/an" },
+                "Término fijo (": { en: "Fixed term (", zh: "固定期限（", de: "Feste Laufzeit (", fr: "Terme fixe (" },
+                "Imp. eléctrico (5.113%)": { en: "Electricity tax (5.113%)", zh: "电力税（5.113%）", de: "Stromsteuer (5.113%)", fr: "Taxe sur l'électricité (5.113%)" },
+                "TOTAL PERIODO": { en: "PERIOD TOTAL", zh: "期间总计", de: "ZEITRAUM GESAMT", fr: "TOTAL PÉRIODE" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
