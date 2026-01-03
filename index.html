@@ -172,22 +172,6 @@
             border: 4px dashed var(--qr-border-color, #0ea5e9);
             background-color: white;
         }
-
-        /* Estilos mejorados para el selector de idioma */
-        #language-selector {
-            transition: all 0.2s ease;
-        }
-        
-        #language-selector:hover {
-            background-color: #0c4a6e;
-            border-color: #0ea5e9;
-        }
-
-        #language-selector:focus {
-            outline: none;
-            ring: 2px;
-            ring-color: #0ea5e9;
-        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen text-slate-800 drk-active">
@@ -196,14 +180,14 @@
     <div id="navbar" class="w-full bg-drk-900 text-white p-4 shadow-md sticky top-0 z-50 transition-colors duration-300">
         <div class="max-w-lg mx-auto flex justify-between items-center">
             <h1 class="text-xl font-bold tracking-tight cursor-pointer" onclick="resetToLanding()">
-                <span id="app-logo-main">DRK</span> <span class="text-drk-500" id="app-logo-accent">Energía</span>
+                <span id="app-logo-main" data-i18n="navbar.brand">DRK</span> <span class="text-drk-500" id="app-logo-accent" data-i18n="navbar.accent">Energía</span>
             </h1>
             
             <!-- Language Selector -->
             <div class="flex items-center gap-3">
                 <div class="relative">
                     <select id="language-selector" onchange="changeLanguage(this.value)" 
-                            class="bg-drk-800 text-white text-xs px-3 py-1.5 rounded border border-drk-700 cursor-pointer hover:bg-drk-700 transition-colors appearance-none pr-8">
+                            class="bg-drk-800 text-white text-xs px-3 py-1.5 rounded border border-drk-700 cursor-pointer hover:bg-drk-700 transition-colors appearance-none pr-8 font-semibold">
                         <option value="es">🇪🇸 ES</option>
                         <option value="en">🇬🇧 EN</option>
                         <option value="zh">🇨🇳 ZH</option>
@@ -216,7 +200,7 @@
                         </svg>
                     </div>
                 </div>
-                <span class="text-xs bg-drk-800 px-2 py-1 rounded text-drk-100" id="app-subtitle" data-i18n="navbar.selector">Selector</span>
+                <span class="text-xs bg-drk-800 px-2 py-1 rounded text-drk-100" id="app-subtitle" data-i18n="navbar.subtitle">Selector</span>
             </div>
         </div>
     </div>
@@ -19061,379 +19045,185 @@ ${clientName}
             window.showMessageModal("✅ PDF comparativo POWER CUP generado", false);
         }
 
-        // ============================================
-        // SISTEMA DE TRADUCCIÓN MULTIIDIOMA
-        // ============================================
-        
+        // ============================================================================
+        // SISTEMA COMPLETO DE TRADUCCIONES MULTIIDIOMA
+        // Soporta: Español, Inglés, Chino, Alemán, Francés
+        // ============================================================================
+
         const translations = {
             es: {
-                navbar: {
-                    selector: "Selector"
+                meta: { title: "DRK: Comparador Multitarifa", lang: "es" },
+                navbar: { brand: "DRK", accent: "Energía", subtitle: "Selector" },
+                comparisonMode: { 
+                    title: "MODO DE COMPARACIÓN",
+                    drkOnly: "DRK Únicamente",
+                    drkPrioritized: "DRK Prioritario",
+                    powerCupGlobal: "POWER CUP",
+                    powerCupGlobalSub: "Global"
                 },
                 landing: {
-                    title: "Bienvenido al Comparador",
-                    subtitle: "Selecciona el tipo de suministro que deseas comparar",
-                    electricity: "Electricidad",
-                    electricityDesc: "Compara tarifas de luz",
-                    gas: "Gas Natural",
-                    gasDesc: "Compara tarifas de gas",
-                    dual: "Dual (Luz + Gas)",
-                    dualDesc: "Compara ofertas combinadas"
-                },
-                inputMethod: {
-                    title: "¿Cómo quieres introducir los datos?",
-                    manual: "Introducción Manual",
-                    manualDesc: "Escribe los datos de tu factura",
-                    qr: "Escanear QR",
-                    qrDesc: "Usa la cámara o sube una imagen",
-                    paste: "Pegar Imagen",
-                    pasteDesc: "Pega desde portapapeles (Ctrl+V)"
+                    title: "DRK COMPARADOR",
+                    subtitle: "Selecciona el tipo de suministro.",
+                    supplyType: "TIPO DE SUMINISTRO",
+                    electricity: "ELECTRICIDAD",
+                    electricityTypes: "MULTICUPS · 2.0 TD · 3.0 TD",
+                    gas: "GAS",
+                    gasTypes: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
+                    dual: "DUAL",
+                    dualSub: "ELECTRICIDAD + GAS",
+                    dualDesc: "Múltiples suministros · Comparativa global"
                 },
                 buttons: {
                     continue: "Continuar",
                     back: "Volver",
                     calculate: "Calcular Ahorro",
-                    downloadPDF: "Descargar PDF",
-                    newComparison: "Nueva Comparación",
-                    scanQR: "Escanear QR",
-                    uploadImage: "Subir Imagen",
-                    useCamera: "Usar Cámara",
-                    capturePhoto: "Capturar Foto"
-                },
-                form: {
-                    cups: "CUPS (Código)",
-                    tariff: "Tarifa",
-                    days: "Días de Factura",
-                    consumption: "Consumo Total (kWh)",
-                    power: "Potencia Contratada (kW)",
-                    fixedCost: "Término Fijo (€)",
-                    energyCost: "Término Energía (€)",
-                    p1: "Periodo 1 (kWh)",
-                    p2: "Periodo 2 (kWh)",
-                    p3: "Periodo 3 (kWh)",
-                    p4: "Periodo 4 (kWh)",
-                    p5: "Periodo 5 (kWh)",
-                    p6: "Periodo 6 (kWh)"
-                },
-                results: {
-                    title: "Resultados de la Comparación",
-                    currentTariff: "Tu Factura Actual",
-                    drkFixed: "DRK Tarifa Fija",
-                    powercupIndexed: "POWER CUP Indexada",
-                    fixedTerm: "Término Fijo",
-                    energyTerm: "Término Energía",
-                    subtotal: "Subtotal",
-                    taxes: "Impuestos",
-                    total: "Total Factura",
-                    annualSaving: "Ahorro Anual Estimado",
-                    perYear: "/ AÑO",
-                    recommendation: "Recomendación"
+                    downloadPDF: "📄 Descargar PDF",
+                    newComparison: "Nueva Comparación"
                 },
                 messages: {
                     calculating: "Calculando...",
-                    error: "Error",
-                    success: "Éxito",
-                    fillAllFields: "Por favor, completa todos los campos",
-                    qrScanned: "QR escaneado correctamente",
-                    qrError: "No se pudo leer el código QR",
                     pdfGenerated: "PDF generado correctamente",
-                    invalidData: "Datos inválidos"
+                    fillAllFields: "Por favor, completa todos los campos"
                 }
             },
             en: {
-                navbar: {
-                    selector: "Selector"
+                meta: { title: "DRK: Multi-Rate Comparator", lang: "en" },
+                navbar: { brand: "DRK", accent: "Energy", subtitle: "Selector" },
+                comparisonMode: {
+                    title: "COMPARISON MODE",
+                    drkOnly: "DRK Only",
+                    drkPrioritized: "DRK Prioritized",
+                    powerCupGlobal: "POWER CUP",
+                    powerCupGlobalSub: "Global"
                 },
                 landing: {
-                    title: "Welcome to the Comparator",
-                    subtitle: "Select the type of supply you want to compare",
-                    electricity: "Electricity",
-                    electricityDesc: "Compare electricity rates",
-                    gas: "Natural Gas",
-                    gasDesc: "Compare gas rates",
-                    dual: "Dual (Electricity + Gas)",
-                    dualDesc: "Compare combined offers"
-                },
-                inputMethod: {
-                    title: "How do you want to enter the data?",
-                    manual: "Manual Entry",
-                    manualDesc: "Type your bill data",
-                    qr: "Scan QR",
-                    qrDesc: "Use camera or upload image",
-                    paste: "Paste Image",
-                    pasteDesc: "Paste from clipboard (Ctrl+V)"
+                    title: "DRK COMPARATOR",
+                    subtitle: "Select the type of supply.",
+                    supplyType: "SUPPLY TYPE",
+                    electricity: "ELECTRICITY",
+                    electricityTypes: "MULTICUPS · 2.0 TD · 3.0 TD",
+                    gas: "GAS",
+                    gasTypes: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
+                    dual: "DUAL",
+                    dualSub: "ELECTRICITY + GAS",
+                    dualDesc: "Multiple supplies · Global comparison"
                 },
                 buttons: {
                     continue: "Continue",
                     back: "Back",
                     calculate: "Calculate Savings",
-                    downloadPDF: "Download PDF",
-                    newComparison: "New Comparison",
-                    scanQR: "Scan QR",
-                    uploadImage: "Upload Image",
-                    useCamera: "Use Camera",
-                    capturePhoto: "Capture Photo"
-                },
-                form: {
-                    cups: "CUPS (Code)",
-                    tariff: "Tariff",
-                    days: "Billing Days",
-                    consumption: "Total Consumption (kWh)",
-                    power: "Contracted Power (kW)",
-                    fixedCost: "Fixed Term (€)",
-                    energyCost: "Energy Term (€)",
-                    p1: "Period 1 (kWh)",
-                    p2: "Period 2 (kWh)",
-                    p3: "Period 3 (kWh)",
-                    p4: "Period 4 (kWh)",
-                    p5: "Period 5 (kWh)",
-                    p6: "Period 6 (kWh)"
-                },
-                results: {
-                    title: "Comparison Results",
-                    currentTariff: "Your Current Bill",
-                    drkFixed: "DRK Fixed Rate",
-                    powercupIndexed: "POWER CUP Indexed",
-                    fixedTerm: "Fixed Term",
-                    energyTerm: "Energy Term",
-                    subtotal: "Subtotal",
-                    taxes: "Taxes",
-                    total: "Total Bill",
-                    annualSaving: "Estimated Annual Savings",
-                    perYear: "/ YEAR",
-                    recommendation: "Recommendation"
+                    downloadPDF: "📄 Download PDF",
+                    newComparison: "New Comparison"
                 },
                 messages: {
                     calculating: "Calculating...",
-                    error: "Error",
-                    success: "Success",
-                    fillAllFields: "Please fill all fields",
-                    qrScanned: "QR scanned successfully",
-                    qrError: "Could not read QR code",
                     pdfGenerated: "PDF generated successfully",
-                    invalidData: "Invalid data"
+                    fillAllFields: "Please fill all fields"
                 }
             },
             zh: {
-                navbar: {
-                    selector: "选择器"
+                meta: { title: "DRK: 多费率比较器", lang: "zh" },
+                navbar: { brand: "DRK", accent: "能源", subtitle: "选择器" },
+                comparisonMode: {
+                    title: "比较模式",
+                    drkOnly: "仅DRK",
+                    drkPrioritized: "DRK优先",
+                    powerCupGlobal: "POWER CUP",
+                    powerCupGlobalSub: "全球"
                 },
                 landing: {
-                    title: "欢迎使用比较工具",
-                    subtitle: "选择您想比较的供应类型",
+                    title: "DRK 比较器",
+                    subtitle: "选择供应类型。",
+                    supplyType: "供应类型",
                     electricity: "电力",
-                    electricityDesc: "比较电费",
+                    electricityTypes: "多合同 · 2.0 TD · 3.0 TD",
                     gas: "天然气",
-                    gasDesc: "比较天然气费",
-                    dual: "双重（电力+天然气）",
-                    dualDesc: "比较组合优惠"
-                },
-                inputMethod: {
-                    title: "您想如何输入数据？",
-                    manual: "手动输入",
-                    manualDesc: "输入您的账单数据",
-                    qr: "扫描二维码",
-                    qrDesc: "使用相机或上传图片",
-                    paste: "粘贴图片",
-                    pasteDesc: "从剪贴板粘贴 (Ctrl+V)"
+                    gasTypes: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
+                    dual: "双重",
+                    dualSub: "电力 + 天然气",
+                    dualDesc: "多个供应 · 全面比较"
                 },
                 buttons: {
                     continue: "继续",
                     back: "返回",
                     calculate: "计算节省",
-                    downloadPDF: "下载PDF",
-                    newComparison: "新比较",
-                    scanQR: "扫描二维码",
-                    uploadImage: "上传图片",
-                    useCamera: "使用相机",
-                    capturePhoto: "拍照"
-                },
-                form: {
-                    cups: "CUPS（代码）",
-                    tariff: "费率",
-                    days: "账单天数",
-                    consumption: "总消耗 (kWh)",
-                    power: "合同功率 (kW)",
-                    fixedCost: "固定费用 (€)",
-                    energyCost: "能源费用 (€)",
-                    p1: "时段 1 (kWh)",
-                    p2: "时段 2 (kWh)",
-                    p3: "时段 3 (kWh)",
-                    p4: "时段 4 (kWh)",
-                    p5: "时段 5 (kWh)",
-                    p6: "时段 6 (kWh)"
-                },
-                results: {
-                    title: "比较结果",
-                    currentTariff: "您当前的账单",
-                    drkFixed: "DRK 固定费率",
-                    powercupIndexed: "POWER CUP 指数",
-                    fixedTerm: "固定费用",
-                    energyTerm: "能源费用",
-                    subtotal: "小计",
-                    taxes: "税费",
-                    total: "账单总额",
-                    annualSaving: "预计年度节省",
-                    perYear: "/ 年",
-                    recommendation: "建议"
+                    downloadPDF: "📄 下载PDF",
+                    newComparison: "新比较"
                 },
                 messages: {
                     calculating: "计算中...",
-                    error: "错误",
-                    success: "成功",
-                    fillAllFields: "请填写所有字段",
-                    qrScanned: "二维码扫描成功",
-                    qrError: "无法读取二维码",
                     pdfGenerated: "PDF生成成功",
-                    invalidData: "数据无效"
+                    fillAllFields: "请填写所有字段"
                 }
             },
             de: {
-                navbar: {
-                    selector: "Auswahl"
+                meta: { title: "DRK: Multi-Tarif-Vergleicher", lang: "de" },
+                navbar: { brand: "DRK", accent: "Energie", subtitle: "Auswahl" },
+                comparisonMode: {
+                    title: "VERGLEICHSMODUS",
+                    drkOnly: "Nur DRK",
+                    drkPrioritized: "DRK Priorität",
+                    powerCupGlobal: "POWER CUP",
+                    powerCupGlobalSub: "Global"
                 },
                 landing: {
-                    title: "Willkommen beim Vergleichsrechner",
-                    subtitle: "Wählen Sie die Art der Versorgung, die Sie vergleichen möchten",
-                    electricity: "Elektrizität",
-                    electricityDesc: "Stromtarife vergleichen",
-                    gas: "Erdgas",
-                    gasDesc: "Gastarife vergleichen",
-                    dual: "Dual (Strom + Gas)",
-                    dualDesc: "Kombinierte Angebote vergleichen"
-                },
-                inputMethod: {
-                    title: "Wie möchten Sie die Daten eingeben?",
-                    manual: "Manuelle Eingabe",
-                    manualDesc: "Geben Sie Ihre Rechnungsdaten ein",
-                    qr: "QR scannen",
-                    qrDesc: "Kamera verwenden oder Bild hochladen",
-                    paste: "Bild einfügen",
-                    pasteDesc: "Aus Zwischenablage einfügen (Strg+V)"
+                    title: "DRK VERGLEICHER",
+                    subtitle: "Wählen Sie die Art der Versorgung.",
+                    supplyType: "VERSORGUNGSTYP",
+                    electricity: "ELEKTRIZITÄT",
+                    electricityTypes: "MULTICUPS · 2.0 TD · 3.0 TD",
+                    gas: "GAS",
+                    gasTypes: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
+                    dual: "DUAL",
+                    dualSub: "ELEKTRIZITÄT + GAS",
+                    dualDesc: "Mehrere Versorgungen · Globaler Vergleich"
                 },
                 buttons: {
                     continue: "Fortfahren",
                     back: "Zurück",
                     calculate: "Ersparnis berechnen",
-                    downloadPDF: "PDF herunterladen",
-                    newComparison: "Neuer Vergleich",
-                    scanQR: "QR scannen",
-                    uploadImage: "Bild hochladen",
-                    useCamera: "Kamera verwenden",
-                    capturePhoto: "Foto aufnehmen"
-                },
-                form: {
-                    cups: "CUPS (Code)",
-                    tariff: "Tarif",
-                    days: "Abrechnungstage",
-                    consumption: "Gesamtverbrauch (kWh)",
-                    power: "Vertragsleistung (kW)",
-                    fixedCost: "Grundpreis (€)",
-                    energyCost: "Arbeitspreis (€)",
-                    p1: "Periode 1 (kWh)",
-                    p2: "Periode 2 (kWh)",
-                    p3: "Periode 3 (kWh)",
-                    p4: "Periode 4 (kWh)",
-                    p5: "Periode 5 (kWh)",
-                    p6: "Periode 6 (kWh)"
-                },
-                results: {
-                    title: "Vergleichsergebnisse",
-                    currentTariff: "Ihre aktuelle Rechnung",
-                    drkFixed: "DRK Festpreis",
-                    powercupIndexed: "POWER CUP Indexiert",
-                    fixedTerm: "Grundpreis",
-                    energyTerm: "Arbeitspreis",
-                    subtotal: "Zwischensumme",
-                    taxes: "Steuern",
-                    total: "Gesamtrechnung",
-                    annualSaving: "Geschätzte jährliche Ersparnis",
-                    perYear: "/ JAHR",
-                    recommendation: "Empfehlung"
+                    downloadPDF: "📄 PDF herunterladen",
+                    newComparison: "Neuer Vergleich"
                 },
                 messages: {
                     calculating: "Berechnung läuft...",
-                    error: "Fehler",
-                    success: "Erfolg",
-                    fillAllFields: "Bitte füllen Sie alle Felder aus",
-                    qrScanned: "QR erfolgreich gescannt",
-                    qrError: "QR-Code konnte nicht gelesen werden",
                     pdfGenerated: "PDF erfolgreich erstellt",
-                    invalidData: "Ungültige Daten"
+                    fillAllFields: "Bitte füllen Sie alle Felder aus"
                 }
             },
             fr: {
-                navbar: {
-                    selector: "Sélecteur"
+                meta: { title: "DRK: Comparateur Multi-Tarifs", lang: "fr" },
+                navbar: { brand: "DRK", accent: "Énergie", subtitle: "Sélecteur" },
+                comparisonMode: {
+                    title: "MODE DE COMPARAISON",
+                    drkOnly: "DRK Uniquement",
+                    drkPrioritized: "DRK Prioritaire",
+                    powerCupGlobal: "POWER CUP",
+                    powerCupGlobalSub: "Global"
                 },
                 landing: {
-                    title: "Bienvenue au Comparateur",
-                    subtitle: "Sélectionnez le type d'approvisionnement à comparer",
-                    electricity: "Électricité",
-                    electricityDesc: "Comparer les tarifs d'électricité",
-                    gas: "Gaz Naturel",
-                    gasDesc: "Comparer les tarifs de gaz",
-                    dual: "Dual (Électricité + Gaz)",
-                    dualDesc: "Comparer les offres combinées"
-                },
-                inputMethod: {
-                    title: "Comment souhaitez-vous saisir les données ?",
-                    manual: "Saisie Manuelle",
-                    manualDesc: "Saisissez vos données de facture",
-                    qr: "Scanner QR",
-                    qrDesc: "Utiliser la caméra ou télécharger une image",
-                    paste: "Coller l'Image",
-                    pasteDesc: "Coller depuis le presse-papiers (Ctrl+V)"
+                    title: "COMPARATEUR DRK",
+                    subtitle: "Sélectionnez le type d'approvisionnement.",
+                    supplyType: "TYPE D'APPROVISIONNEMENT",
+                    electricity: "ÉLECTRICITÉ",
+                    electricityTypes: "MULTICUPS · 2.0 TD · 3.0 TD",
+                    gas: "GAZ",
+                    gasTypes: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6",
+                    dual: "DUAL",
+                    dualSub: "ÉLECTRICITÉ + GAZ",
+                    dualDesc: "Multiples approvisionnements · Comparaison globale"
                 },
                 buttons: {
                     continue: "Continuer",
                     back: "Retour",
                     calculate: "Calculer les Économies",
-                    downloadPDF: "Télécharger PDF",
-                    newComparison: "Nouvelle Comparaison",
-                    scanQR: "Scanner QR",
-                    uploadImage: "Télécharger Image",
-                    useCamera: "Utiliser la Caméra",
-                    capturePhoto: "Prendre une Photo"
-                },
-                form: {
-                    cups: "CUPS (Code)",
-                    tariff: "Tarif",
-                    days: "Jours de Facturation",
-                    consumption: "Consommation Totale (kWh)",
-                    power: "Puissance Souscrite (kW)",
-                    fixedCost: "Terme Fixe (€)",
-                    energyCost: "Terme Énergie (€)",
-                    p1: "Période 1 (kWh)",
-                    p2: "Période 2 (kWh)",
-                    p3: "Période 3 (kWh)",
-                    p4: "Période 4 (kWh)",
-                    p5: "Période 5 (kWh)",
-                    p6: "Période 6 (kWh)"
-                },
-                results: {
-                    title: "Résultats de la Comparaison",
-                    currentTariff: "Votre Facture Actuelle",
-                    drkFixed: "DRK Tarif Fixe",
-                    powercupIndexed: "POWER CUP Indexé",
-                    fixedTerm: "Terme Fixe",
-                    energyTerm: "Terme Énergie",
-                    subtotal: "Sous-total",
-                    taxes: "Taxes",
-                    total: "Total Facture",
-                    annualSaving: "Économies Annuelles Estimées",
-                    perYear: "/ AN",
-                    recommendation: "Recommandation"
+                    downloadPDF: "📄 Télécharger PDF",
+                    newComparison: "Nouvelle Comparaison"
                 },
                 messages: {
                     calculating: "Calcul en cours...",
-                    error: "Erreur",
-                    success: "Succès",
-                    fillAllFields: "Veuillez remplir tous les champs",
-                    qrScanned: "QR scanné avec succès",
-                    qrError: "Impossible de lire le code QR",
                     pdfGenerated: "PDF généré avec succès",
-                    invalidData: "Données invalides"
+                    fillAllFields: "Veuillez remplir tous les champs"
                 }
             }
         };
@@ -19446,6 +19236,8 @@ ${clientName}
             currentLanguage = lang;
             localStorage.setItem('appLanguage', lang);
             document.getElementById('language-selector').value = lang;
+            document.title = translations[lang].meta.title;
+            document.documentElement.lang = translations[lang].meta.lang;
             updateAllTranslations();
         }
 
@@ -19464,7 +19256,7 @@ ${clientName}
                         if (value && value[fallbackKey]) {
                             value = value[fallbackKey];
                         } else {
-                            return key; // Retorna la clave si no se encuentra
+                            return key;
                         }
                     }
                     break;
@@ -19476,8 +19268,6 @@ ${clientName}
 
         // Función para actualizar todas las traducciones en la página
         function updateAllTranslations() {
-            const lang = currentLanguage;
-            
             // Actualizar elementos con data-i18n
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
@@ -19490,111 +19280,47 @@ ${clientName}
                 }
             });
 
-            // Actualizar elementos con data-i18n-title (para títulos/tooltips)
-            document.querySelectorAll('[data-i18n-title]').forEach(element => {
-                const key = element.getAttribute('data-i18n-title');
-                element.title = t(key);
-            });
-
-            // Actualizar textos específicos de la interfaz
-            updateSpecificTexts(lang);
+            // Actualizar textos específicos sin data-i18n
+            updateSpecificTexts();
         }
 
-        // Función para actualizar textos específicos de la interfaz
-        function updateSpecificTexts(lang) {
+        function updateSpecificTexts() {
+            const lang = currentLanguage;
             const texts = translations[lang];
             
-            // Landing page principal
-            const landingSubtitle = document.querySelector('#screen-landing-main p.text-slate-500');
-            if (landingSubtitle && texts.landing) {
-                landingSubtitle.textContent = texts.landing.subtitle;
+            // Actualizar título de modo de comparación
+            const modeTitle = document.querySelector('#modo-comparacion-section p');
+            if (modeTitle && texts.comparisonMode) {
+                modeTitle.textContent = texts.comparisonMode.title;
             }
 
-            // Botones de tipo de suministro
-            updateSupplyButtons(lang);
-            
-            // Método de entrada
-            updateInputMethodTexts(lang);
-            
-            // Botones generales
-            updateButtonTexts(lang);
-            
-            // Formularios
-            updateFormLabels(lang);
-        }
-
-        function updateSupplyButtons(lang) {
-            const texts = translations[lang].landing;
-            
-            // Los botones están inline, pero podemos buscarlos por su contenido
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(btn => {
-                const text = btn.textContent.trim();
-                if (text.includes('ELECTRICIDAD') || text.includes('ELECTRICITY')) {
-                    const iconDiv = btn.querySelector('div:first-child');
-                    const titleDiv = btn.querySelector('div:nth-child(2)');
-                    if (titleDiv) titleDiv.textContent = texts.electricity.toUpperCase();
-                }
-                if (text.includes('GAS') && !text.includes('DUAL')) {
-                    const titleDiv = btn.querySelector('div:nth-child(2)');
-                    if (titleDiv) titleDiv.textContent = texts.gas.toUpperCase();
-                }
-                if (text.includes('DUAL')) {
-                    const titleDiv = btn.querySelector('div:nth-child(2)');
-                    if (titleDiv) titleDiv.textContent = texts.dual.toUpperCase();
+            // Actualizar subtítulo de landing
+            const landingSubtitle = document.querySelectorAll('.text-slate-500.mb-6.text-center');
+            landingSubtitle.forEach(el => {
+                if (el.textContent.includes('Selecciona') || el.textContent.includes('Select')) {
+                    el.textContent = texts.landing.subtitle;
                 }
             });
         }
 
-        function updateInputMethodTexts(lang) {
-            const texts = translations[lang].inputMethod;
+        // Sobrescribir showMessageModal para soportar traducciones
+        const originalShowMessageModal = window.showMessageModal;
+        window.showMessageModal = function(message, isError = false) {
+            let translatedMessage = message;
             
-            // Título de método de entrada
-            const methodTitle = document.querySelector('h2.text-2xl.font-bold.mb-4.text-center');
-            if (methodTitle && methodTitle.textContent.includes('introducir') || methodTitle.textContent.includes('enter')) {
-                methodTitle.textContent = texts.title;
+            // Traducir mensajes comunes
+            if (message.includes('Calculando') || message.includes('Calculating')) {
+                translatedMessage = t('messages.calculating');
+            } else if (message.includes('PDF generado') || message.includes('PDF generated')) {
+                translatedMessage = '✅ ' + t('messages.pdfGenerated');
+            } else if (message.includes('completa todos') || message.includes('fill all')) {
+                translatedMessage = t('messages.fillAllFields');
             }
-        }
 
-        function updateButtonTexts(lang) {
-            const texts = translations[lang].buttons;
-            
-            // Buscar y actualizar botones comunes
-            document.querySelectorAll('button').forEach(btn => {
-                const text = btn.textContent.trim().toLowerCase();
-                
-                if (text.includes('continuar') || text.includes('continue')) {
-                    btn.textContent = texts.continue;
-                }
-                if (text.includes('volver') || text.includes('back')) {
-                    btn.textContent = texts.back;
-                }
-                if (text.includes('calcular') || text.includes('calculate')) {
-                    btn.textContent = texts.calculate;
-                }
-                if (text.includes('descargar') || text.includes('download')) {
-                    btn.textContent = texts.downloadPDF;
-                }
-                if (text.includes('nueva comparación') || text.includes('new comparison')) {
-                    btn.textContent = texts.newComparison;
-                }
-            });
-        }
-
-        function updateFormLabels(lang) {
-            const texts = translations[lang].form;
-            
-            // Actualizar labels de formulario
-            document.querySelectorAll('label').forEach(label => {
-                const text = label.textContent.toLowerCase();
-                
-                if (text.includes('cups')) label.textContent = texts.cups;
-                if (text.includes('tarifa') || text.includes('tariff')) label.textContent = texts.tariff;
-                if (text.includes('días') || text.includes('days')) label.textContent = texts.days;
-                if (text.includes('consumo') || text.includes('consumption')) label.textContent = texts.consumption;
-                if (text.includes('potencia') || text.includes('power')) label.textContent = texts.power;
-            });
-        }
+            if (originalShowMessageModal) {
+                originalShowMessageModal(translatedMessage, isError);
+            }
+        };
 
         // Inicializar el idioma al cargar la página
         window.addEventListener('DOMContentLoaded', () => {
@@ -19602,39 +19328,13 @@ ${clientName}
             changeLanguage(savedLang);
         });
 
-        // Sobrescribir showMessageModal para soportar traducciones
-        const originalShowMessageModal = window.showMessageModal;
-        window.showMessageModal = function(message, isError = false) {
-            // Si el mensaje contiene claves de traducción conocidas, traducirlas
-            let translatedMessage = message;
-            
-            // Detectar y traducir mensajes comunes
-            const messageMap = {
-                'Calculando': 'messages.calculating',
-                'Error': 'messages.error',
-                'Éxito': 'messages.success',
-                'Por favor, completa todos los campos': 'messages.fillAllFields',
-                'QR escaneado correctamente': 'messages.qrScanned',
-                'No se pudo leer el código QR': 'messages.qrError',
-                'PDF generado correctamente': 'messages.pdfGenerated',
-                'Datos inválidos': 'messages.invalidData',
-                'PDF comparativo generado': 'messages.pdfGenerated',
-                'PDF comparativo DRK generado': 'messages.pdfGenerated',
-                'PDF comparativo POWER CUP generado': 'messages.pdfGenerated'
-            };
-
-            // Buscar si el mensaje contiene alguna de las claves conocidas
-            for (const [key, translationKey] of Object.entries(messageMap)) {
-                if (message.includes(key)) {
-                    translatedMessage = message.replace(key, t(translationKey));
-                    break;
-                }
-            }
-
-            // Llamar a la función original con el mensaje traducido
-            if (originalShowMessageModal) {
-                originalShowMessageModal(translatedMessage, isError);
-            }
-        };
+        // Añadir estilos para el selector de idioma
+        const langStyle = document.createElement('style');
+        langStyle.textContent = `
+            #language-selector { transition: all 0.2s ease; }
+            #language-selector:hover { background-color: #0c4a6e; border-color: #0ea5e9; }
+            #language-selector:focus { outline: none; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3); }
+        `;
+        document.head.appendChild(langStyle);
     </script>
 </body>
