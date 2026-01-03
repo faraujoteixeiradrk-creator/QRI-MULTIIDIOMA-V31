@@ -4503,7 +4503,7 @@
                                     ${res.powerCosts ? res.powerCosts.map(p => `
                                     <tr>
                                         <td style="padding:5px;color:#64748b;">P${p.period} (${(p.kw || 0).toFixed(2)} kW x ${(p.priceDay || 0).toFixed(6)} €/día)</td>
-                                        <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(p.totalPower || 0).toFixed(2)} €</td>
+                                        <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(p.cost || 0).toFixed(2)} €</td>
                                     </tr>
                                     `).join('') : ''}
                                     <tr style="border-top:2px solid #e2e8f0;">
@@ -4517,7 +4517,7 @@
                                     ${res.energyCosts ? res.energyCosts.map((e, i) => `
                                     <tr>
                                         <td style="padding:5px;color:#64748b;">E${e.period} (${i===0 ? tr('峰值') : i===1 ? tr('平段') : tr('谷段')}) (${e.kwh || 0} kWh x ${(e.price || 0).toFixed(6)} €/kWh)</td>
-                                        <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(e.totalEnergy || 0).toFixed(2)} €</td>
+                                        <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(e.cost || 0).toFixed(2)} €</td>
                                     </tr>
                                     `).join('') : ''}
                                     
@@ -6611,7 +6611,7 @@ Desglose mensual estimado:
                     // VALIDACIÓN: Verificar que gasData existe y tiene las propiedades necesarias
                     if (!gasData || !gasData.dias || !gasData.kwh || !gasData.totalCliente) {
                         console.error('❌ ERROR: gasData incompleto o undefined', gasData);
-                        return window.showErrorModal("Error: Los datos de GAS no están completos. Por favor, realice el cálculo de nuevo.");
+                        return window.showErrorModal(tr("Error: Los datos de GAS no están completos. Por favor, realice el cálculo de nuevo."));
                     }
                     
                     // Generar HTML de resultados de GAS
@@ -6678,6 +6678,12 @@ ${i + 1}. ${r.name}
                 } else if (hasElectricityData && !hasDualData) {
                     console.log('✅ Usando datos ELECTRICIDAD individual');
                     tipoSuministro = 'ELECTRICIDAD';
+                    
+                    // VALIDACIÓN: Verificar que lastComparisonResult existe y tiene las propiedades necesarias
+                    if (!lastComparisonResult || !lastComparisonResult.dias_facturados || !lastComparisonResult.energyCosts) {
+                        console.error('❌ ERROR: lastComparisonResult incompleto', lastComparisonResult);
+                        return window.showErrorModal(tr("Error: Los datos de ELECTRICIDAD no están completos. Por favor, realice el cálculo de nuevo."));
+                    }
                     
                     // Verificar si hay ahorro o no
                     const hasPositiveSavings = lastComparisonResult && lastComparisonResult.savings > 0;
@@ -20056,6 +20062,20 @@ ${clientName}
                     fr: "Veuillez joindre les factures du client dans votre réponse à l'e-mail automatique que vous recevrez." 
                 },
                 "📧 ENVIAR SOLICITUD": { en: "📧 SEND REQUEST", zh: "📧 发送请求", de: "📧 ANFRAGE SENDEN", fr: "📧 ENVOYER LA DEMANDE" },
+                
+                // Mensajes de error
+                "Error: Los datos de GAS no están completos. Por favor, realice el cálculo de nuevo.": { 
+                    en: "Error: GAS data is incomplete. Please recalculate.", 
+                    zh: "错误：GAS数据不完整。请重新计算。", 
+                    de: "Fehler: GAS-Daten sind unvollständig. Bitte neu berechnen.", 
+                    fr: "Erreur : Les données GAS sont incomplètes. Veuillez recalculer." 
+                },
+                "Error: Los datos de ELECTRICIDAD no están completos. Por favor, realice el cálculo de nuevo.": { 
+                    en: "Error: ELECTRICITY data is incomplete. Please recalculate.", 
+                    zh: "错误：电力数据不完整。请重新计算。", 
+                    de: "Fehler: ELEKTRIZITÄT-Daten sind unvollständig. Bitte neu berechnen.", 
+                    fr: "Erreur : Les données ÉLECTRICITÉ sont incomplètes. Veuillez recalculer." 
+                },
                 
                 // Modales de resultados
                 "Cálculo Completado": { en: "Calculation Completed", zh: "计算完成", de: "Berechnung abgeschlossen", fr: "Calcul terminé" },
