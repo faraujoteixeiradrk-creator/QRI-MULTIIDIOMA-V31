@@ -1912,6 +1912,11 @@
             
             const secondaryBtn = document.getElementById('secondary-action-btn');
             if (secondaryBtn) secondaryBtn.classList.add('hidden');
+            
+            // CRÍTICO: Traducir contenido del modal
+            if (window.translateAll) {
+                setTimeout(() => window.translateAll(), 50);
+            }
         }
 
         window.showMessageModal = (msg, title="Éxito") => setModalContent(msg, title, false);
@@ -9944,6 +9949,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             if (fijaRadio) {
                 fijaRadio.checked = true;
                 updateBestOptionTariffChoice('fija');
+            }
+            
+            // CRÍTICO: Traducir contenido del modal
+            if (window.translateAll) {
+                setTimeout(() => window.translateAll(), 50);
             }
         }
         
@@ -19423,7 +19433,55 @@ ${clientName}
                 "TÉRMINO ENERGÍA (Precios en €/kWh)": { en: "ENERGY TERM (Prices in €/kWh)", zh: "能源条款（价格€/千瓦时）", de: "ENERGIETERM (Preise in €/kWh)", fr: "TERME ÉNERGIE (Prix en €/kWh)" },
                 "TOTAL FACTURA (60 DÍAS)": { en: "TOTAL BILL (60 DAYS)", zh: "总账单（60天）", de: "GESAMTRECHNUNG (60 TAGE)", fr: "FACTURE TOTALE (60 JOURS)" },
                 "Liderando el ahorro y la": { en: "Leading in savings and", zh: "节约和效率的领导者", de: "Führend bei Einsparungen und", fr: "Leader de l'épargne et de" },
-                "60d": { en: "60d", zh: "60天", de: "60T", fr: "60j" }
+                "60d": { en: "60d", zh: "60天", de: "60T", fr: "60j" },
+                
+                // MULTICUPS - Interfaz completa
+                "Añadir Suministro": { en: "Add Supply", zh: "添加供应", de: "Versorgung hinzufügen", fr: "Ajouter l'approvisionnement" },
+                "Datos Generales": { en: "General Data", zh: "一般数据", de: "Allgemeine Daten", fr: "Données générales" },
+                "Número CUPS": { en: "CUPS Number", zh: "CUPS号码", de: "CUPS-Nummer", fr: "Numéro CUPS" },
+                "Días Facturados": { en: "Billed Days", zh: "计费天数", de: "Berechnete Tage", fr: "Jours facturés" },
+                "Potencias (kW)": { en: "Power (kW)", zh: "功率 (kW)", de: "Leistung (kW)", fr: "Puissance (kW)" },
+                "Energía (kWh)": { en: "Energy (kWh)", zh: "能源 (kWh)", de: "Energie (kWh)", fr: "Énergie (kWh)" },
+                "Total Factura (€)": { en: "Total Bill (€)", zh: "总账单 (€)", de: "Gesamtrechnung (€)", fr: "Facture totale (€)" },
+                "AÑADIR SUMINISTRO MANUAL": { en: "ADD MANUAL SUPPLY", zh: "添加手动供应", de: "MANUELLE VERSORGUNG HINZUFÜGEN", fr: "AJOUTER L'APPROVISIONNEMENT MANUEL" },
+                "Cancelar": { en: "Cancel", zh: "取消", de: "Abbrechen", fr: "Annuler" },
+                
+                // Modales de resultados
+                "Cálculo Completado": { en: "Calculation Completed", zh: "计算完成", de: "Berechnung abgeschlossen", fr: "Calcul terminé" },
+                "We found offers with savings. How do you want to continue?": { en: "We found offers with savings. How do you want to continue?", zh: "我们发现了节省优惠。您想如何继续？", de: "Wir haben Angebote mit Einsparungen gefunden. Wie möchten Sie fortfahren?", fr: "Nous avons trouvé des offres avec des économies. Comment voulez-vous continuer ?" },
+                "Comparar FIJO vs INDEXADO": { en: "Compare FIXED vs INDEXED", zh: "比较固定与指数", de: "FEST vs INDEXIERT vergleichen", fr: "Comparer FIXE vs INDEXÉ" },
+                "Generate dual comparison: fixed rate and DRK INDEX indexed rate (variable market price).": { en: "Generate dual comparison: fixed rate and DRK INDEX indexed rate (variable market price).", zh: "生成双重比较：固定费率和DRK INDEX指数费率（可变市场价格）。", de: "Dual-Vergleich generieren: Festpreis und DRK INDEX indexierter Preis (variabler Marktpreis).", fr: "Générer une comparaison double : tarif fixe et tarif indexé DRK INDEX (prix de marché variable)." },
+                "SEE BEST OPTION": { en: "SEE BEST OPTION", zh: "查看最佳选项", de: "BESTE OPTION SEHEN", fr: "VOIR LA MEILLEURE OPTION" },
+                "Automatically shows the offer with the highest savings and generates the comparison": { en: "Automatically shows the offer with the highest savings and generates the comparison", zh: "自动显示节省最多的优惠并生成比较", de: "Zeigt automatisch das Angebot mit den höchsten Einsparungen und erstellt den Vergleich", fr: "Affiche automatiquement l'offre avec les économies les plus élevées et génère la comparaison" },
+                "CHOOSE FROM RESULTS": { en: "CHOOSE FROM RESULTS", zh: "从结果中选择", de: "AUS ERGEBNISSEN WÄHLEN", fr: "CHOISIR PARMI LES RÉSULTATS" },
+                "Review all offers with positive savings and choose your preferred one": { en: "Review all offers with positive savings and choose your preferred one", zh: "查看所有具有正节省的优惠并选择您喜欢的优惠", de: "Überprüfen Sie alle Angebote mit positiven Einsparungen und wählen Sie Ihr bevorzugtes", fr: "Examinez toutes les offres avec des économies positives et choisissez celle que vous préférez" },
+                "Advice:": { en: "Advice:", zh: "建议：", de: "Rat:", fr: "Conseil :" },
+                "Si quieres ver rápidamente la mejor oferta, elige la primera opción. Si necesitas comparar varias opciones o el cliente tiene preferencias específicas, elige la segunda.": { en: "If you want to quickly see the best offer, choose the first option. If you need to compare multiple options or the client has specific preferences, choose the second.", zh: "如果您想快速查看最佳优惠，请选择第一个选项。如果您需要比较多个选项或客户有特定偏好，请选择第二个。", de: "Wenn Sie schnell das beste Angebot sehen möchten, wählen Sie die erste Option. Wenn Sie mehrere Optionen vergleichen müssen oder der Kunde spezifische Präferenzen hat, wählen Sie die zweite.", fr: "Si vous voulez voir rapidement la meilleure offre, choisissez la première option. Si vous devez comparer plusieurs options ou si le client a des préférences spécifiques, choisissez la seconde." },
+                
+                // Confirmación de suministro añadido
+                "Suministro Añadido": { en: "Supply Added", zh: "供应已添加", de: "Versorgung hinzugefügt", fr: "Approvisionnement ajouté" },
+                "Suministro ES (DRK) añadido. Total:": { en: "Supply ES (DRK) added. Total:", zh: "供应ES（DRK）已添加。总计：", de: "Versorgung ES (DRK) hinzugefügt. Gesamt:", fr: "Approvisionnement ES (DRK) ajouté. Total :" },
+                "Understood": { en: "Understood", zh: "明白了", de: "Verstanden", fr: "Compris" },
+                
+                // Selección MULTICUPS
+                "Volver a selección": { en: "Back to selection", zh: "返回选择", de: "Zurück zur Auswahl", fr: "Retour à la sélection" },
+                "MULTICUPS": { en: "MULTICUPS", zh: "多CUPS", de: "MULTICUPS", fr: "MULTICUPS" },
+                "Selecciona el tipo de contrato que deseas añadir.": { en: "Select the type of contract you want to add.", zh: "选择要添加的合同类型。", de: "Wählen Sie den Vertragstyp aus, den Sie hinzufügen möchten.", fr: "Sélectionnez le type de contrat que vous souhaitez ajouter." },
+                "Total de suministros actuales:": { en: "Total current supplies:", zh: "当前供应总数：", de: "Gesamtzahl aktueller Versorgungen:", fr: "Total des approvisionnements actuels :" },
+                "Permite Escáner QR, Imagen y Entrada Manual": { en: "Allows QR Scanner, Image and Manual Entry", zh: "允许二维码扫描、图像和手动输入", de: "Ermöglicht QR-Scanner, Bild und manuelle Eingabe", fr: "Permet le scanner QR, l'image et la saisie manuelle" },
+                "Solo Entrada de Datos Manual": { en: "Manual Data Entry Only", zh: "仅手动数据输入", de: "Nur manuelle Dateneingabe", fr: "Saisie manuelle des données uniquement" },
+                "FINALIZAR Y COMPARAR": { en: "FINISH AND COMPARE", zh: "完成并比较", de: "ABSCHLIESSEN UND VERGLEICHEN", fr: "TERMINER ET COMPARER" },
+                "Suministros": { en: "Supplies", zh: "供应", de: "Versorgungen", fr: "Approvisionnements" },
+                
+                // Datos Acumulados
+                "Datos Acumulados": { en: "Accumulated Data", zh: "累计数据", de: "Kumulierte Daten", fr: "Données cumulées" },
+                "TOTAL ENERGY": { en: "TOTAL ENERGY", zh: "总能源", de: "GESAMTENERGIE", fr: "ÉNERGIE TOTALE" },
+                "Hogar/Negocio": { en: "Home/Business", zh: "家庭/商业", de: "Haus/Geschäft", fr: "Maison/Entreprise" },
+                "Industria/Gran Consumo": { en: "Industry/High Consumption", zh: "工业/高消耗", de: "Industrie/Großverbrauch", fr: "Industrie/Grande consommation" },
+                "Consumos (kWh)": { en: "Consumption (kWh)", zh: "消耗 (kWh)", de: "Verbrauch (kWh)", fr: "Consommation (kWh)" },
+                "Acumulado": { en: "Accumulated", zh: "累计", de: "Kumuliert", fr: "Accumulé" },
+                "Total Consumo": { en: "Total Consumption", zh: "总消耗", de: "Gesamtverbrauch", fr: "Consommation totale" },
+                "Ahorro:": { en: "Savings:", zh: "节省：", de: "Einsparungen:", fr: "Économies :" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19455,6 +19513,18 @@ ${clientName}
                             'TU FACTURA ACTUAL',
                             'TU NUEVO COSTE DRK',
                             'TU NUEVO COSTE POWER CUP',
+                            
+                            // MULTICUPS
+                            'Datos Generales',
+                            'Potencias (kW)',
+                            'Energía (kWh)',
+                            'Consumos (kWh)',
+                            'Total Consumo',
+                            'Hogar/Negocio',
+                            'Industria/Gran Consumo',
+                            'Acumulado',
+                            'TOTAL ENERGY',
+                            'Datos Acumulados',
                             
                             // TÉRMINOS TÉCNICOS
                             'TÉRMINO POTENCIA (Precio en €/kW Día)',
@@ -19567,6 +19637,44 @@ ${clientName}
                 
                 // Lista exhaustiva de textos a traducir con TODAS las variantes
                 const replacements = [
+                    // MULTICUPS - Interfaz
+                    ['Añadir Suministro', tr('Añadir Suministro')],
+                    ['Datos Generales', tr('Datos Generales')],
+                    ['Número CUPS', tr('Número CUPS')],
+                    ['Días Facturados', tr('Días Facturados')],
+                    ['Potencias (kW)', tr('Potencias (kW)')],
+                    ['Energía (kWh)', tr('Energía (kWh)')],
+                    ['Total Factura (€)', tr('Total Factura (€)')],
+                    ['AÑADIR SUMINISTRO MANUAL', tr('AÑADIR SUMINISTRO MANUAL')],
+                    ['Cancelar', tr('Cancelar')],
+                    
+                    // Modales
+                    ['Cálculo Completado', tr('Cálculo Completado')],
+                    ['Comparar FIJO vs INDEXADO', tr('Comparar FIJO vs INDEXADO')],
+                    ['SEE BEST OPTION', tr('SEE BEST OPTION')],
+                    ['CHOOSE FROM RESULTS', tr('CHOOSE FROM RESULTS')],
+                    ['Suministro Añadido', tr('Suministro Añadido')],
+                    ['Understood', tr('Understood')],
+                    
+                    // MULTICUPS selección
+                    ['Volver a selección', tr('Volver a selección')],
+                    ['MULTICUPS', tr('MULTICUPS')],
+                    ['Selecciona el tipo de contrato que deseas añadir.', tr('Selecciona el tipo de contrato que deseas añadir.')],
+                    ['Total de suministros actuales:', tr('Total de suministros actuales:')],
+                    ['Permite Escáner QR, Imagen y Entrada Manual', tr('Permite Escáner QR, Imagen y Entrada Manual')],
+                    ['Solo Entrada de Datos Manual', tr('Solo Entrada de Datos Manual')],
+                    ['FINALIZAR Y COMPARAR', tr('FINALIZAR Y COMPARAR')],
+                    ['Suministros', tr('Suministros')],
+                    
+                    // Datos Acumulados
+                    ['Datos Acumulados', tr('Datos Acumulados')],
+                    ['TOTAL ENERGY', tr('TOTAL ENERGY')],
+                    ['Hogar/Negocio', tr('Hogar/Negocio')],
+                    ['Industria/Gran Consumo', tr('Industria/Gran Consumo')],
+                    ['Consumos (kWh)', tr('Consumos (kWh)')],
+                    ['Acumulado', tr('Acumulado')],
+                    ['Total Consumo', tr('Total Consumo')],
+                    
                     // GAS - Interfaz
                     ['Selection mode:', tr('Selection mode:')],
                     ['Best rates', tr('Best rates')],
