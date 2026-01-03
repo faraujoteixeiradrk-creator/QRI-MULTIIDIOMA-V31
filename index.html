@@ -1276,7 +1276,7 @@
                     <span id="request-improvement-text">SOLICITAR MEJORA A DRK</span>
                 </button>
                 
-                <button onclick="document.getElementById('details-container').classList.toggle('hidden')" class="text-center text-drk-800 font-bold text-sm hover:underline flex items-center justify-center gap-1" id="details-toggle-btn">Ver desglose detallado del cálculo</button>
+                <button onclick="document.getElementById('details-container').classList.toggle('hidden')" class="text-center text-drk-800 font-bold text-sm hover:underline flex items-center justify-center gap-1" id="details-toggle-btn"><span id="details-toggle-text"></span></button>
             </div>
             
             <div id="details-container" class="hidden space-y-6">
@@ -11867,6 +11867,12 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
         // --- INIT ---
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar texto del botón de desglose
+            const detailsToggleText = document.getElementById('details-toggle-text');
+            if (detailsToggleText) {
+                detailsToggleText.textContent = 'Ver desglose detallado del cálculo';
+            }
+            
             // Setup Event Listeners
             document.getElementById('manual-input-btn').onclick = startManualInputFlow;
             document.getElementById('execute-manual-input-btn').onclick = handleManualInput;
@@ -17267,12 +17273,12 @@ ${clientName}
                 if (currentLang === 'zh') {
                     console.log('🇨🇳 Modo chino detectado - copiando DOM visible');
                     
-                    // Clonar el contenedor de detalles que ya está traducido
-                    const detailsContainer = document.getElementById('details-container');
-                    const savingsContainer = document.querySelector('.bg-gradient-to-r.from-green-600'); // Contenedor de ahorro
+                    // Capturar TODOS los elementos importantes
+                    const resultCard = document.getElementById('result-card'); // Comparativo principal
+                    const detailsContainer = document.getElementById('details-container'); // Detalles
                     
-                    if (!detailsContainer) {
-                        alert('No hay resultados para copiar');
+                    if (!resultCard && !detailsContainer) {
+                        alert('没有要复制的结果 / No results to copy');
                         return;
                     }
                     
@@ -17287,8 +17293,10 @@ ${clientName}
                             <style>
                                 body { font-family: Arial, sans-serif; padding: 20px; background: #f1f5f9; }
                                 .container { max-width: 800px; margin: 0 auto; }
-                                .header { background: linear-gradient(to right, #16a34a, #15803d); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
-                                .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+                                .header { background: linear-gradient(to right, #16a34a, #15803d); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+                                .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+                                h1 { margin: 0; font-size: 32px; font-weight: 900; }
+                                h2 { color: #1e293b; font-size: 24px; font-weight: bold; margin: 20px 0 10px 0; }
                                 h3 { color: #1e293b; font-size: 18px; font-weight: bold; border-left: 4px solid #16a34a; padding-left: 12px; margin: 20px 0 10px 0; }
                                 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
                                 .text-sm { font-size: 14px; }
@@ -17300,18 +17308,22 @@ ${clientName}
                                 .border-t { border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 8px; }
                                 .flex { display: flex; justify-content: space-between; margin-bottom: 4px; }
                                 .mono { font-family: 'Courier New', monospace; }
+                                .text-center { text-align: center; }
+                                .mb-4 { margin-bottom: 16px; }
+                                .mb-6 { margin-bottom: 24px; }
+                                .p-6 { padding: 24px; }
+                                .rounded-xl { border-radius: 12px; }
+                                .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
                             </style>
                         </head>
                         <body>
                             <div class="container">
                                 <div class="header">
-                                    <h1 style="margin: 0; font-size: 32px;">DRK 能源</h1>
+                                    <h1>DRK 能源</h1>
                                     <p style="margin: 10px 0 0 0; opacity: 0.9;">引领节省和能源效率</p>
                                 </div>
-                                ${savingsContainer ? `<div class="content">${savingsContainer.outerHTML}</div>` : ''}
-                                <div class="content">
-                                    ${detailsContainer.innerHTML}
-                                </div>
+                                ${resultCard ? `<div class="content">${resultCard.outerHTML}</div>` : ''}
+                                ${detailsContainer ? `<div class="content">${detailsContainer.outerHTML}</div>` : ''}
                             </div>
                         </body>
                         </html>
@@ -20327,7 +20339,8 @@ ${clientName}
                     'limpiar-filtros-btn', 'cancel-manual-input-btn',
                     'back-offer-selection-btn', 'confirm-offer-selection-btn',
                     'gas-request-improvement-text', 'dual-request-improvement-text', 'request-improvement-text',
-                    'calculation-complete-title', 'calculation-complete-subtitle'
+                    'calculation-complete-title', 'calculation-complete-subtitle',
+                    'details-toggle-text'
                 ];
                 
                 elementIds.forEach(id => {
