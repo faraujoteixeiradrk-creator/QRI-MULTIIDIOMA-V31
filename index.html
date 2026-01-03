@@ -1684,7 +1684,7 @@
             </div>
             
             <!-- Título grande -->
-            <h2 class="text-3xl font-bold text-white mb-3">
+            <h2 id="qr-analyzing-title" class="text-3xl font-bold text-white mb-3">
                 🔍 Analizando QR
             </h2>
             
@@ -1695,14 +1695,14 @@
             
             <!-- Contador de intentos -->
             <div class="bg-white/10 rounded-xl px-6 py-4 inline-block">
-                <p class="text-white text-sm mb-2">Progreso de análisis</p>
+                <p id="qr-progress-label" class="text-white text-sm mb-2">Progreso de análisis</p>
                 <p id="qr-attempt-counter" class="text-2xl font-bold text-green-400">
                     1 / 6
                 </p>
             </div>
             
             <!-- Texto de ayuda -->
-            <p class="text-slate-400 text-sm mt-8 max-w-md mx-auto">
+            <p id="qr-help-text" class="text-slate-400 text-sm mt-8 max-w-md mx-auto">
                 Estamos probando diferentes técnicas para detectar tu código QR. 
                 Esto puede tardar unos segundos...
             </p>
@@ -14796,10 +14796,16 @@ ${clientName}
             console.log('  - clientName:', clientName);
             
             // Generar HTML usando la función auxiliar
-            const html = generateDualHTMLContent(comercialCode, clientName, clientPhone, clientEmail);
+            let html = generateDualHTMLContent(comercialCode, clientName, clientPhone, clientEmail);
             
             if (!html) {
                 return; // Ya se mostró el error en generateDualHTMLContent
+            }
+            
+            // CRÍTICO: Traducir el HTML al idioma seleccionado
+            if (window.translateHTML) {
+                html = window.translateHTML(html);
+                console.log('✅ HTML traducido al idioma:', localStorage.getItem('appLanguage') || 'es');
             }
             
             // Abrir en ventana nueva
@@ -19320,7 +19326,13 @@ ${clientName}
                 "E3 - Valle": { en: "E3 - Valley", zh: "E3 - 谷值", de: "E3 - Tal", fr: "E3 - Vallée" },
                 "PRECIOS DE LA OFERTA:": { en: "OFFER PRICES:", zh: "报价价格：", de: "ANGEBOTSPREISE:", fr: "PRIX DE L'OFFRE :" },
                 "RŸs‡ÿ": { en: "POWER:", zh: "功率：", de: "LEISTUNG:", fr: "PUISSANCE :" },
-                "€/m-ÿ": { en: "ENERGY:", zh: "能源：", de: "ENERGIE:", fr: "ÉNERGIE :" }
+                "€/m-ÿ": { en: "ENERGY:", zh: "能源：", de: "ENERGIE:", fr: "ÉNERGIE :" },
+                
+                // Visor de QR
+                "🔍 Analizando QR": { en: "🔍 Analyzing QR", zh: "🔍 分析二维码", de: "🔍 QR analysieren", fr: "🔍 Analyse du QR" },
+                "Progreso de análisis": { en: "Analysis progress", zh: "分析进度", de: "Analysefortschritt", fr: "Progression de l'analyse" },
+                "Estamos probando diferentes técnicas para detectar tu código QR. Esto puede tardar unos segundos...": { en: "We are trying different techniques to detect your QR code. This may take a few seconds...", zh: "我们正在尝试不同的技术来检测您的二维码。这可能需要几秒钟...", de: "Wir testen verschiedene Techniken, um Ihren QR-Code zu erkennen. Dies kann einige Sekunden dauern...", fr: "Nous testons différentes techniques pour détecter votre code QR. Cela peut prendre quelques secondes..." },
+                "📸 Completa 2x": { en: "📸 Complete 2x", zh: "📸 完成 2x", de: "📸 Abgeschlossen 2x", fr: "📸 Complet 2x" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19338,12 +19350,18 @@ ${clientName}
             window.translateHTML = function(html) {
                 if (!html) return html;
                 
-                // CRÍTICO: Si el idioma es chino, advertir sobre limitaciones
                 const currentLang = localStorage.getItem('appLanguage') || 'es';
+                console.log('🌍 translateHTML called with language:', currentLang);
+                
+                if (currentLang === 'es') {
+                    console.log('✅ Language is Spanish, no translation needed');
+                    return html; // No need to translate if already in Spanish
+                }
                 
                 // Lista exhaustiva de textos a traducir con TODAS las variantes
                 const replacements = [
-                    // Encabezados
+                    // Encabezados - TODAS las variantes
+                    ['DESGLOSE DETALLADO DE LA SIMULACIÓN', tr('DESGLOSE DETALLADO DE LA SIMULACIÓN')],
                     ['LA MEJOR OPCIÓN PARA TI ES', tr('LA MEJOR OPCIÓN PARA TI ES')],
                     ['TU FACTURA ACTUAL', tr('TU FACTURA ACTUAL')],
                     ['TU NUEVO COSTE DRK', tr('TU NUEVO COSTE DRK')],
@@ -19369,13 +19387,13 @@ ${clientName}
                     ['CUPS TOTALES:', tr('CUPS TOTALES:')],
                     ['[NOMBRE COMPLETO CLIENTE]', tr('[NOMBRE COMPLETO CLIENTE]')],
                     
-                    // Términos
-                    ['POTENCIA:', tr('POTENCIA:')],
-                    ['ENERGIA:', tr('ENERGIA:')],
+                    // Términos - MUY IMPORTANTE
                     ['TÉRMINO POTENCIA (Precio en €/kW Día)', tr('TÉRMINO POTENCIA (Precio en €/kW Día)')],
                     ['TÉRMINO POTENCIA', tr('TÉRMINO POTENCIA')],
                     ['TÉRMINO ENERGÍA (Precios en €/kWh)', tr('TÉRMINO ENERGÍA (Precios en €/kWh)')],
                     ['TÉRMINO ENERGÍA', tr('TÉRMINO ENERGÍA')],
+                    ['POTENCIA:', tr('POTENCIA:')],
+                    ['ENERGIA:', tr('ENERGIA:')],
                     ['Precio en €/kW Día', tr('Precio en €/kW Día')],
                     ['Precios en €/kWh', tr('Precios en €/kWh')],
                     
@@ -19383,8 +19401,11 @@ ${clientName}
                     ['E1 - Punta', tr('E1 - Punta')],
                     ['E2 - Llano', tr('E2 - Llano')],
                     ['E3 - Valle', tr('E3 - Valle')],
+                    ['Punta', tr('Punta')],
+                    ['Llano', tr('Llano')],
+                    ['Valle', tr('Valle')],
                     
-                    // Subtotales
+                    // Subtotales - CRÍTICOS
                     ['SUBTOTAL POTENCIA', tr('SUBTOTAL POTENCIA')],
                     ['POWER SUBTOTAL', tr('SUBTOTAL POTENCIA')],
                     ['SUBTOTAL BASE (P+E)', tr('SUBTOTAL BASE (P+E)')],
@@ -19398,9 +19419,9 @@ ${clientName}
                     ['IVA (21%)', tr('IVA (21%)')],
                     ['VAT (21%)', tr('IVA (21%)')],
                     
-                    // Totales
-                    ['TOTAL FACTURA', tr('TOTAL FACTURA')],
+                    // Totales - MUY IMPORTANTES
                     ['TOTAL FACTURA (60 DÍAS)', tr('TOTAL FACTURA') + ' (60 ' + tr('DÍAS') + ')'],
+                    ['TOTAL FACTURA', tr('TOTAL FACTURA')],
                     ['TOTAL AÑO (PROYECTADO)', tr('TOTAL AÑO (PROYECTADO)')],
                     ['TOTAL YEAR (PROJECTED)', tr('TOTAL AÑO (PROYECTADO)')],
                     ['Total Periodo', tr('Total Periodo')],
@@ -19426,30 +19447,43 @@ ${clientName}
                     // Ofertas
                     ['PRECIOS DE LA OFERTA:', tr('PRECIOS DE LA OFERTA:')],
                     ['DESGLOSE DETALLADO DE LA SIMULACIÓN', tr('DESGLOSE DETALLADO DE LA SIMULACIÓN')],
-                    ['DESGLOSE DETALLADO', tr('DESGLOSE DETALLADO')],
-                    
-                    // Unidades - estas son críticas
-                    [' días)', ' ' + tr('días') + ')'],
-                    [' DÍAS)', ' ' + tr('DÍAS') + ')'],
-                    ['/mes', '/' + tr('mes')],
-                    ['/año', '/' + tr('año')],
-                    ['días', tr('días')],
-                    ['DÍAS', tr('DÍAS')],
-                    ['mes', tr('mes')],
-                    ['año', tr('año')]
+                    ['DESGLOSE DETALLADO', tr('DESGLOSE DETALLADO')]
                 ];
                 
                 // Aplicar reemplazos
                 let result = html;
+                let replacedCount = 0;
+                
                 replacements.forEach(([original, translated]) => {
                     if (original && translated && original !== translated) {
-                        // Escape special regex characters
+                        const escaped = original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(escaped, 'gi'); // Case insensitive
+                        const matches = result.match(regex);
+                        if (matches) {
+                            result = result.replace(regex, translated);
+                            replacedCount += matches.length;
+                            console.log(`✅ Replaced "${original}" → "${translated}" (${matches.length} times)`);
+                        }
+                    }
+                });
+                
+                // Traducir unidades al final (para evitar conflictos)
+                const unitReplacements = [
+                    [' días)', ' ' + tr('días') + ')'],
+                    [' DÍAS)', ' ' + tr('DÍAS') + ')'],
+                    ['/mes', '/' + tr('mes')],
+                    ['/año', '/' + tr('año')]
+                ];
+                
+                unitReplacements.forEach(([original, translated]) => {
+                    if (original && translated && original !== translated) {
                         const escaped = original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                         const regex = new RegExp(escaped, 'g');
                         result = result.replace(regex, translated);
                     }
                 });
                 
+                console.log(`🎉 Total replacements made: ${replacedCount}`);
                 return result;
             };
 
@@ -19464,14 +19498,16 @@ ${clientName}
                 // Traducir elementos específicos por ID
                 const elementIds = [
                     'inicio-title', 'inicio-subtitle', 'inicio-supply-label',
-                    'landing-title', 'savings-label', 'gas-results-subtitle'
+                    'landing-title', 'savings-label', 'gas-results-subtitle',
+                    'qr-analyzing-title', 'qr-progress-label', 'qr-help-text'
                 ];
                 
                 elementIds.forEach(id => {
                     const el = document.getElementById(id);
                     if (el && el.textContent.trim()) {
-                        const translated = tr(el.textContent.trim());
-                        if (translated !== el.textContent.trim()) {
+                        const original = el.textContent.trim();
+                        const translated = tr(original);
+                        if (translated !== original) {
                             el.textContent = translated;
                         }
                     }
