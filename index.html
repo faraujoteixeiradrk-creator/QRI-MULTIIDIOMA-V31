@@ -6640,6 +6640,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
         // --- GENERACIÓN DE PDF PROFESIONAL COMPLETO ---
         
         async function handleGeneratePDF() {
+            // NUEVO: Mostrar advertencia si el idioma es chino
+            if (window.showChinesePDFWarning && !window.showChinesePDFWarning()) {
+                return; // Usuario canceló
+            }
+            
             console.log('handleGeneratePDF llamada', {
                 lastComparisonResult: lastComparisonResult,
                 lastIndexedResult: lastIndexedResult,
@@ -19642,10 +19647,71 @@ ${clientName}
             window.tr = tr;
             
             // CRÍTICO: Interceptor global de jsPDF para traducir automáticamente
+            // NUEVO: Helper para agregar nota sobre Unicode en PDFs chinos
+            window.addChineseUnicodePDFNote = function(doc, pageWidth) {
+                const currentLang = localStorage.getItem('appLanguage') || 'es';
+                if (currentLang === 'zh') {
+                    // Agregar nota discreta en la esquina superior
+                    doc.setFontSize(7);
+                    doc.setTextColor(150, 150, 150);
+                    doc.text('注意：某些字符可能无法正确显示', pageWidth / 2, 5, { align: 'center' });
+                    doc.setTextColor(0, 0, 0); // Restaurar color
+                }
+            };
+            
+            // NUEVO: Mostrar advertencia antes de generar PDF en chino
+            window.showChinesePDFWarning = function() {
+                const currentLang = localStorage.getItem('appLanguage') || 'es';
+                if (currentLang === 'zh') {
+                    const message = '⚠️ 重要提示\n\n' +
+                        'PDF文件对中文字符的支持有限。\n\n' +
+                        '为了更好的显示效果，建议：\n' +
+                        '• 使用网页界面（100%支持中文）\n' +
+                        '• 通过电子邮件发送HTML版本\n' +
+                        '• 或切换到英语/西班牙语生成PDF\n\n' +
+                        '是否仍要继续生成PDF？';
+                    
+                    return confirm(message);
+                }
+                return true; // Para otros idiomas, continuar sin advertencia
+            };
+            
             window.setupPDFTranslation = function(doc) {
                 if (!doc || !doc.text) return doc;
                 
+                // NUEVO: Configurar fuente según idioma
+                const currentLang = localStorage.getItem('appLanguage') || 'es';
+                
+                // Para chino, configurar mejor soporte Unicode
+                if (currentLang === 'zh') {
+                    try {
+                        // Mostrar advertencia en consola
+                        console.log('📄 Generando PDF en chino...');
+                        console.log('⚠️ LIMITACIÓN: jsPDF tiene soporte limitado para caracteres chinos.');
+                        console.log('💡 SUGERENCIA: Para mejor compatibilidad:');
+                        console.log('   • Use la interfaz web (100% funcional)');
+                        console.log('   • Envíe el HTML por email');
+                        console.log('   • O cambie a inglés/español para PDFs');
+                        
+                        // Intentar usar courier que tiene algo mejor de soporte Unicode
+                        doc.setFont('courier');
+                    } catch (e) {
+                        console.warn('No se pudo configurar fuente Unicode:', e);
+                    }
+                }
+                
                 const originalText = doc.text.bind(doc);
+                const originalSetFont = doc.setFont.bind(doc);
+                
+                // Interceptar setFont para usar courier en chino
+                doc.setFont = function(fontName, fontStyle) {
+                    if (currentLang === 'zh') {
+                        // Para chino, forzar courier
+                        return originalSetFont.call(doc, 'courier', fontStyle || 'normal');
+                    }
+                    return originalSetFont.call(doc, fontName, fontStyle);
+                };
+                
                 doc.text = function(text, x, y, options) {
                     // Traducir solo strings, no objetos ni arrays
                     if (typeof text === 'string' && window.tr) {
