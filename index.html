@@ -1423,31 +1423,31 @@
         <!-- 9.5. Request Improvement Modal (Nuevo) -->
         <div id="request-improvement-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center p-4 z-50 backdrop-blur-sm">
             <div class="bg-white p-6 rounded-2xl shadow-2xl max-w-sm w-full">
-                <h3 class="text-xl font-bold text-drk-800 mb-4">Solicitar Mejora a DRK</h3>
-                <p class="text-sm text-slate-600 mb-4">Complete los datos para que el equipo de Back Office pueda revisar este comparativo y buscar una mejor opción.</p>
+                <h3 class="text-xl font-bold text-drk-800 mb-4" data-i18n="Request Improvement from DRK">Solicitar Mejora a DRK</h3>
+                <p class="text-sm text-slate-600 mb-4" data-i18n="Complete los datos para que el equipo de Back Office pueda revisar este comparativo y buscar una mejor opción.">Complete los datos para que el equipo de Back Office pueda revisar este comparativo y buscar una mejor opción.</p>
                 
-                <input type="text" id="improvement-comercial-code" placeholder="CÓDIGO COMERCIAL (Obligatorio)" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
-                <input type="text" id="improvement-client-name" placeholder="Nombre Cliente" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
-                <input type="text" id="improvement-client-cups" placeholder="CUPS" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
-                <input type="tel" id="improvement-client-phone" placeholder="Teléfono" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
-                <input type="email" id="improvement-client-email" placeholder="Email" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
-                <textarea id="improvement-observations" placeholder="Observaciones (opcional)" rows="3" class="w-full mb-4 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none resize-none"></textarea>
+                <input type="text" id="improvement-comercial-code" data-i18n-placeholder="CÓDIGO COMERCIAL (Obligatorio)" placeholder="CÓDIGO COMERCIAL (Obligatorio)" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                <input type="text" id="improvement-client-name" data-i18n-placeholder="Nombre Cliente" placeholder="Nombre Cliente" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                <input type="text" id="improvement-client-cups" data-i18n-placeholder="CUPS" placeholder="CUPS" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                <input type="tel" id="improvement-client-phone" data-i18n-placeholder="Teléfono" placeholder="Teléfono" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                <input type="email" id="improvement-client-email" data-i18n-placeholder="Email" placeholder="Email" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                <textarea id="improvement-observations" data-i18n-placeholder="Observaciones (opcional)" placeholder="Observaciones (opcional)" rows="3" class="w-full mb-4 p-3 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none resize-none"></textarea>
                 
                 <!-- Recordatorio -->
                 <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
                     <div class="flex items-start gap-2">
                         <span class="text-blue-600 text-xl">📎</span>
                         <div class="text-xs text-blue-800">
-                            <p class="font-bold mb-1">RECORDATORIO:</p>
-                            <p class="leading-relaxed">Por favor, adjunte las facturas del cliente en su respuesta al email automático que recibirá.</p>
+                            <p class="font-bold mb-1" data-i18n="RECORDATORIO:">RECORDATORIO:</p>
+                            <p class="leading-relaxed" data-i18n="Por favor, adjunte las facturas del cliente en su respuesta al email automático que recibirá.">Por favor, adjunte las facturas del cliente en su respuesta al email automático que recibirá.</p>
                         </div>
                     </div>
                 </div>
                 
-                <button id="execute-improvement-request-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-black py-3 rounded-xl shadow-md mb-3">
+                <button id="execute-improvement-request-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-black py-3 rounded-xl shadow-md mb-3" data-i18n="📧 ENVIAR SOLICITUD">
                     📧 ENVIAR SOLICITUD
                 </button>
-                <button onclick="document.getElementById('request-improvement-modal').classList.add('hidden'); document.getElementById('request-improvement-modal').classList.remove('flex');" class="w-full bg-slate-200 font-bold py-3 rounded-xl text-sm">Cancelar</button>
+                <button onclick="document.getElementById('request-improvement-modal').classList.add('hidden'); document.getElementById('request-improvement-modal').classList.remove('flex');" class="w-full bg-slate-200 font-bold py-3 rounded-xl text-sm" data-i18n="Cancelar">Cancelar</button>
             </div>
         </div>
 
@@ -6607,6 +6607,12 @@ Desglose mensual estimado:
                     console.log('✅ Usando datos GAS individual');
                     tipoSuministro = 'GAS';
                     const gasData = window.lastGasComparisonResult;
+                    
+                    // VALIDACIÓN: Verificar que gasData existe y tiene las propiedades necesarias
+                    if (!gasData || !gasData.dias || !gasData.kwh || !gasData.totalCliente) {
+                        console.error('❌ ERROR: gasData incompleto o undefined', gasData);
+                        return window.showErrorModal("Error: Los datos de GAS no están completos. Por favor, realice el cálculo de nuevo.");
+                    }
                     
                     // Generar HTML de resultados de GAS
                     htmlContent = `
@@ -20026,6 +20032,30 @@ ${clientName}
                 "AÑADIR SUMINISTRO MANUAL": { en: "ADD MANUAL SUPPLY", zh: "添加手动供应", de: "MANUELLE VERSORGUNG HINZUFÜGEN", fr: "AJOUTER L'APPROVISIONNEMENT MANUEL" },
                 "AÑADIR SUMINISTRO": { en: "ADD SUPPLY", zh: "添加供应", de: "VERSORGUNG HINZUFÜGEN", fr: "AJOUTER L'APPROVISIONNEMENT" },
                 "Cancelar": { en: "Cancel", zh: "取消", de: "Abbrechen", fr: "Annuler" },
+                
+                // Modal Request Improvement
+                "Request Improvement from DRK": { en: "Request Improvement from DRK", zh: "向DRK请求改进", de: "Verbesserung von DRK anfordern", fr: "Demander une amélioration à DRK" },
+                "Solicitar Mejora a DRK": { en: "Request Improvement from DRK", zh: "向DRK请求改进", de: "Verbesserung von DRK anfordern", fr: "Demander une amélioration à DRK" },
+                "Complete los datos para que el equipo de Back Office pueda revisar este comparativo y buscar una mejor opción.": { 
+                    en: "Complete the data so that the Back Office team can review this comparison and find a better option.", 
+                    zh: "填写数据，以便后台团队审查此比较并找到更好的选择。", 
+                    de: "Vervollständigen Sie die Daten, damit das Back-Office-Team diesen Vergleich überprüfen und eine bessere Option finden kann.", 
+                    fr: "Complétez les données pour que l'équipe du Back Office puisse examiner cette comparaison et trouver une meilleure option." 
+                },
+                "CÓDIGO COMERCIAL (Obligatorio)": { en: "COMMERCIAL CODE (Required)", zh: "商业代码（必填）", de: "HANDELSCODE (Erforderlich)", fr: "CODE COMMERCIAL (Obligatoire)" },
+                "Nombre Cliente": { en: "Client Name", zh: "客户名称", de: "Kundenname", fr: "Nom du client" },
+                "CUPS": { en: "CUPS", zh: "CUPS", de: "CUPS", fr: "CUPS" },
+                "Teléfono": { en: "Phone", zh: "电话", de: "Telefon", fr: "Téléphone" },
+                "Email": { en: "Email", zh: "邮箱", de: "E-Mail", fr: "Email" },
+                "Observaciones (opcional)": { en: "Observations (optional)", zh: "备注（可选）", de: "Anmerkungen (optional)", fr: "Observations (facultatif)" },
+                "RECORDATORIO:": { en: "REMINDER:", zh: "提醒：", de: "ERINNERUNG:", fr: "RAPPEL :" },
+                "Por favor, adjunte las facturas del cliente en su respuesta al email automático que recibirá.": { 
+                    en: "Please attach the client's invoices in your reply to the automatic email you will receive.", 
+                    zh: "请在您收到的自动电子邮件回复中附上客户的发票。", 
+                    de: "Bitte fügen Sie die Rechnungen des Kunden in Ihrer Antwort auf die automatische E-Mail bei, die Sie erhalten werden.", 
+                    fr: "Veuillez joindre les factures du client dans votre réponse à l'e-mail automatique que vous recevrez." 
+                },
+                "📧 ENVIAR SOLICITUD": { en: "📧 SEND REQUEST", zh: "📧 发送请求", de: "📧 ANFRAGE SENDEN", fr: "📧 ENVOYER LA DEMANDE" },
                 
                 // Modales de resultados
                 "Cálculo Completado": { en: "Calculation Completed", zh: "计算完成", de: "Berechnung abgeschlossen", fr: "Calcul terminé" },
