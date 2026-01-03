@@ -642,12 +642,12 @@
                     <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner" style="background: linear-gradient(135deg, #f0f9ff 0%, #f7fee7 100%);">
                         <span class="text-4xl">⚡🔥</span>
                     </div>
-                    <h2 class="text-3xl font-black mb-2 text-center" style="background: linear-gradient(135deg, #0ea5e9 0%, #84cc16 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">DUAL</h2>
-                    <p class="text-slate-500 mb-6 text-center">Gestiona múltiples suministros de Electricidad y Gas</p>
+                    <h2 id="dual-title" class="text-3xl font-black mb-2 text-center" style="background: linear-gradient(135deg, #0ea5e9 0%, #84cc16 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">DUAL</h2>
+                    <p id="dual-subtitle" class="text-slate-500 mb-6 text-center">Gestiona múltiples suministros de Electricidad y Gas</p>
                     
                     <!-- Lista de suministros añadidos -->
                     <div id="dual-supplies-list" class="mb-6">
-                        <p class="text-sm font-bold text-slate-700 mb-3">Suministros añadidos: <span id="dual-supplies-count" class="text-drk-600">0</span></p>
+                        <p class="text-sm font-bold text-slate-700 mb-3"><span id="dual-supplies-label">Suministros añadidos:</span> <span id="dual-supplies-count" class="text-drk-600">0</span></p>
                         <div id="dual-supplies-container" class="space-y-2">
                             <!-- Los suministros se añadirán aquí dinámicamente -->
                         </div>
@@ -655,7 +655,7 @@
                     
                     <!-- Botones de acción -->
                     <div class="space-y-3">
-                        <button onclick="dualAddSupply()" class="w-full py-4 text-white font-bold rounded-xl shadow-lg transition-all" style="background: linear-gradient(135deg, #0ea5e9 0%, #84cc16 100%);">
+                        <button id="dual-add-btn" onclick="dualAddSupply()" class="w-full py-4 text-white font-bold rounded-xl shadow-lg transition-all" style="background: linear-gradient(135deg, #0ea5e9 0%, #84cc16 100%);">
                             + Añadir Suministro
                         </button>
                         
@@ -663,7 +663,7 @@
                             Calcular Comparativa Global
                         </button>
                         
-                        <button onclick="dualReset()" class="w-full py-2 text-sm text-slate-500 hover:text-slate-700 transition-colors">
+                        <button id="dual-reset-btn" onclick="dualReset()" class="w-full py-2 text-sm text-slate-500 hover:text-slate-700 transition-colors">
                             Limpiar todo
                         </button>
                     </div>
@@ -1500,7 +1500,7 @@
                             
                             <!-- Selector de tipo de tarifa (SOLO para DRK Individual) -->
                             <div id="best-option-tariff-selector" class="hidden border-t-2 border-slate-200 bg-slate-50 p-4">
-                                <p class="text-sm font-bold text-slate-700 mb-3">🎯 ¿Qué tipo de tarifa DRK quieres ver?</p>
+                                <p id="tariff-selector-title" class="text-sm font-bold text-slate-700 mb-3">🎯 ¿Qué tipo de tarifa DRK quieres ver?</p>
                                 <div class="space-y-2">
                                     <!-- Tarifa FIJA -->
                                     <label class="flex items-center gap-3 p-3 rounded-lg border-2 border-drk-500 bg-drk-50 cursor-pointer transition hover:bg-drk-100" id="best-fija-label">
@@ -1513,8 +1513,8 @@
                                             onchange="updateBestOptionTariffChoice('fija')"
                                         >
                                         <div class="flex-1">
-                                            <p class="font-bold text-sm text-slate-900">⚡ Tarifa FIJA</p>
-                                            <p class="text-xs text-slate-600">Precio fijo estable (excluye DRK INDEX)</p>
+                                            <p id="tarifa-fija-title" class="font-bold text-sm text-slate-900">⚡ Tarifa FIJA</p>
+                                            <p id="tarifa-fija-desc" class="text-xs text-slate-600">Precio fijo estable (excluye DRK INDEX)</p>
                                         </div>
                                     </label>
                                     
@@ -1528,14 +1528,14 @@
                                             onchange="updateBestOptionTariffChoice('indexada')"
                                         >
                                         <div class="flex-1">
-                                            <p class="font-bold text-sm text-slate-900">🌱 Tarifa INDEXADA (DRK INDEX)</p>
-                                            <p class="text-xs text-slate-600">Solo muestra DRK INDEX del mercado</p>
+                                            <p id="tarifa-indexada-title" class="font-bold text-sm text-slate-900">🌱 Tarifa INDEXADA (DRK INDEX)</p>
+                                            <p id="tarifa-indexada-desc" class="text-xs text-slate-600">Solo muestra DRK INDEX del mercado</p>
                                         </div>
                                     </label>
                                 </div>
                                 
                                 <!-- Botón de confirmación -->
-                                <button onclick="selectBestOptionWithChoice()" class="w-full mt-3 bg-drk-600 hover:bg-drk-700 text-white font-bold py-3 rounded-lg transition">
+                                <button id="tariff-selector-continue-btn" onclick="selectBestOptionWithChoice()" class="w-full mt-3 bg-drk-600 hover:bg-drk-700 text-white font-bold py-3 rounded-lg transition">
                                     Continuar con esta opción →
                                 </button>
                             </div>
@@ -13741,7 +13741,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             count.textContent = dualSupplies.length;
             
             if (dualSupplies.length === 0) {
-                container.innerHTML = '<p class="text-sm text-slate-400 text-center py-4">No hay suministros añadidos</p>';
+                container.innerHTML = `<p class="text-sm text-slate-400 text-center py-4">${tr('No hay suministros añadidos')}</p>`;
                 calculateBtn.disabled = true;
                 calculateBtn.classList.add('opacity-50', 'cursor-not-allowed');
             } else {
@@ -19516,7 +19516,23 @@ ${clientName}
                 "Comparar FIJO vs INDEXADO": { en: "Compare FIXED vs INDEXED", zh: "比较固定与指数", de: "FEST vs INDEXIERT vergleichen", fr: "Comparer FIXE vs INDEXÉ" },
                 "RESUMEN DE TODOS LOS SUMINISTROS": { en: "SUMMARY OF ALL SUPPLIES", zh: "所有供应摘要", de: "ZUSAMMENFASSUNG ALLER VERSORGUNGEN", fr: "RÉSUMÉ DE TOUS LES APPROVISIONNEMENTS" },
                 "RESUMEN DE SUMINISTROS INCLUIDOS": { en: "SUMMARY OF INCLUDED SUPPLIES", zh: "包含供应摘要", de: "ZUSAMMENFASSUNG DER ENTHALTENEN VERSORGUNGEN", fr: "RÉSUMÉ DES APPROVISIONNEMENTS INCLUS" },
-                "LA MEJOR OPCIÓN PARA TI ES": { en: "THE BEST OPTION FOR YOU IS", zh: "最适合您的选项是", de: "DIE BESTE OPTION FÜR SIE IST", fr: "LA MEILLEURE OPTION POUR VOUS EST" }
+                "LA MEJOR OPCIÓN PARA TI ES": { en: "THE BEST OPTION FOR YOU IS", zh: "最适合您的选项是", de: "DIE BESTE OPTION FÜR SIE IST", fr: "LA MEILLEURE OPTION POUR VOUS EST" },
+                
+                // Selector de tarifa DRK
+                "¿Qué tipo de tarifa DRK quieres ver?": { en: "What type of DRK rate do you want to see?", zh: "您想查看哪种类型的DRK费率？", de: "Welchen DRK-Tariftyp möchten Sie sehen?", fr: "Quel type de tarif DRK souhaitez-vous voir ?" },
+                "Tarifa FIJA": { en: "FIXED Rate", zh: "固定费率", de: "FESTPREIS-Tarif", fr: "Tarif FIXE" },
+                "Precio fijo estable (excluye DRK INDEX)": { en: "Stable fixed price (excludes DRK INDEX)", zh: "稳定固定价格（不包括DRK INDEX）", de: "Stabiler Festpreis (ohne DRK INDEX)", fr: "Prix fixe stable (exclut DRK INDEX)" },
+                "Tarifa INDEXADA (DRK INDEX)": { en: "INDEXED Rate (DRK INDEX)", zh: "指数费率（DRK INDEX）", de: "INDEXIERTER Tarif (DRK INDEX)", fr: "Tarif INDEXÉ (DRK INDEX)" },
+                "Solo muestra DRK INDEX del mercado": { en: "Only shows market DRK INDEX", zh: "仅显示市场DRK INDEX", de: "Zeigt nur Markt-DRK INDEX", fr: "Affiche uniquement le DRK INDEX du marché" },
+                "Continuar con esta opción →": { en: "Continue with this option →", zh: "继续此选项→", de: "Mit dieser Option fortfahren →", fr: "Continuer avec cette option →" },
+                
+                // DUAL
+                "Gestiona múltiples suministros de Electricidad y Gas": { en: "Manage multiple Electricity and Gas supplies", zh: "管理多个电力和天然气供应", de: "Verwalten Sie mehrere Strom- und Gasversorgungen", fr: "Gérer plusieurs approvisionnements en électricité et gaz" },
+                "Suministros añadidos:": { en: "Supplies added:", zh: "已添加的供应：", de: "Hinzugefügte Versorgungen:", fr: "Approvisionnements ajoutés :" },
+                "No hay suministros añadidos": { en: "No supplies added", zh: "未添加供应", de: "Keine Versorgungen hinzugefügt", fr: "Aucun approvisionnement ajouté" },
+                "+ Añadir Suministro": { en: "+ Add Supply", zh: "+ 添加供应", de: "+ Versorgung hinzufügen", fr: "+ Ajouter un approvisionnement" },
+                "Calcular Comparativa Global": { en: "Calculate Global Comparison", zh: "计算全局比较", de: "Globalen Vergleich berechnen", fr: "Calculer la comparaison globale" },
+                "Limpiar todo": { en: "Clear all", zh: "清除全部", de: "Alles löschen", fr: "Tout effacer" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19926,7 +19942,11 @@ ${clientName}
                     'qr-analyzing-title', 'qr-progress-label', 'qr-help-text',
                     'multicups-datos-generales', 'multicups-potencias', 'multicups-energia',
                     'qr-confirm-title', 'qr-confirm-subtitle', 'confirm-save-supply-btn',
-                    'finalize-btn-text', 'finalize-suministros-text'
+                    'finalize-btn-text', 'finalize-suministros-text',
+                    'tariff-selector-title', 'tarifa-fija-title', 'tarifa-fija-desc',
+                    'tarifa-indexada-title', 'tarifa-indexada-desc', 'tariff-selector-continue-btn',
+                    'dual-title', 'dual-subtitle', 'dual-supplies-label',
+                    'dual-add-btn', 'dual-calculate-btn', 'dual-reset-btn'
                 ];
                 
                 elementIds.forEach(id => {
