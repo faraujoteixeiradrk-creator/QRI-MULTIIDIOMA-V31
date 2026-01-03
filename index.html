@@ -4531,7 +4531,7 @@
                                     </tr>
                                     <tr>
                                         <td style="padding:5px;color:#64748b;">Imp. Eléc. (5,113%)</td>
-                                        <td align="right" style="padding:5px;color:#1e293b;">${(res.impElec || 0).toFixed(2)} €</td>
+                                        <td align="right" style="padding:5px;color:#1e293b;">${(res.costIE || 0).toFixed(2)} €</td>
                                     </tr>
                                     <tr style="border-top:1px solid #cbd5e1;">
                                         <td></td>
@@ -4539,7 +4539,7 @@
                                     </tr>
                                     <tr>
                                         <td style="padding:5px;color:#64748b;">${tr('增值税（21%）')}</td>
-                                        <td align="right" style="padding:5px;color:#1e293b;">${(res.iva || 0).toFixed(2)} €</td>
+                                        <td align="right" style="padding:5px;color:#1e293b;">${(res.costIVA || 0).toFixed(2)} €</td>
                                     </tr>
                                     <tr style="border-top:3px solid #1e293b;" bgcolor="#f8fafc">
                                         <td style="padding:10px;color:#1e293b;font-size:13px;font-weight:bold;">${tr('总账单')}</td>
@@ -6203,7 +6203,11 @@
                 let desglose = '';
                 let tipoSuministro = '';
                 
-                // CASO 1: Datos DUAL (PRIORIDAD - si hay datos DUAL, usar esos)
+                // DETERMINAR QUÉ TIPO DE CÁLCULO SE HIZO ÚLTIMO
+                // Prioridad: DUAL > ELECTRICIDAD > GAS
+                // Esto evita errores cuando hay datos de múltiples tipos
+                
+                // CASO 1: Datos DUAL (MÁXIMA PRIORIDAD)
                 if (hasDualData) {
                     console.log('✅ Usando datos DUAL');
                     tipoSuministro = 'DUAL (ELECTRICIDAD + GAS)';
@@ -6602,79 +6606,7 @@ Desglose mensual estimado:
   Ahorro mensual: ${(dualResults.totalSavings / 12).toFixed(2)} €/mes
 `;
                 
-                // CASO 2: Datos de GAS (solo si NO es DUAL)
-                } else if (hasGasData && !hasDualData) {
-                    console.log('✅ Usando datos GAS individual');
-                    tipoSuministro = 'GAS';
-                    const gasData = window.lastGasComparisonResult;
-                    
-                    // VALIDACIÓN: Verificar que gasData existe y tiene las propiedades necesarias
-                    if (!gasData || !gasData.dias || !gasData.kwh || !gasData.totalCliente) {
-                        console.error('❌ ERROR: gasData incompleto o undefined', gasData);
-                        return window.showErrorModal(tr("Error: Los datos de GAS no están completos. Por favor, realice el cálculo de nuevo."));
-                    }
-                    
-                    // Generar HTML de resultados de GAS
-                    htmlContent = `
-                        <div style="font-family: Arial, sans-serif; max-width: 800px;">
-                            <h2 style="color: #DC2626; text-align: center;">🔥 RESULTADO COMPARATIVA GAS</h2>
-                            <div style="background-color: #FEE2E2; border: 3px solid #DC2626; border-radius: 12px; padding: 24px; margin: 20px 0;">
-                                <h3 style="color: #DC2626; text-align: center; font-size: 24px;">LA MEJOR OPCIÓN ES</h3>
-                                <h2 style="color: #991B1B; text-align: center; font-size: 36px; margin: 16px 0;">Tu Tarifa Actual</h2>
-                                <p style="text-align: center; color: #DC2626; font-size: 18px;">Es la mejor opción detectada</p>
-                            </div>
-                            
-                            <div style="background-color: white; border: 2px solid #FCA5A5; border-radius: 12px; padding: 20px; margin: 16px 0;">
-                                <h4 style="color: #DC2626; text-align: center; font-size: 20px;">¡ENHORABUENA!</h4>
-                                <p style="text-align: center; color: #991B1B; font-weight: bold;">Actualmente estás en una buena tarifa.</p>
-                                <p style="text-align: center; color: #DC2626;">Seguiremos estudiando el mercado y te avisaremos cuando encontremos alguna tarifa que se adapte a tu perfil de consumo.</p>
-                            </div>
-                            
-                            <div style="background-color: #FEE2E2; border-radius: 12px; padding: 16px; margin-top: 16px;">
-                                <h3 style="color: #991B1B; margin-bottom: 12px;">📊 TU COSTE ACTUAL CONSOLIDADO</h3>
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <tr style="border-bottom: 1px solid #FCA5A5;">
-                                        <td style="padding: 8px; font-weight: bold;">Periodo analizado:</td>
-                                        <td style="padding: 8px; text-align: right;">${gasData.dias} días</td>
-                                    </tr>
-                                    <tr style="border-bottom: 1px solid #FCA5A5;">
-                                        <td style="padding: 8px; font-weight: bold;">Tipo de tarifa GAS:</td>
-                                        <td style="padding: 8px; text-align: right;">${gasData.tariffType}</td>
-                                    </tr>
-                                    <tr style="border-bottom: 2px solid #DC2626;">
-                                        <td style="padding: 8px; font-weight: bold;">Consumo total:</td>
-                                        <td style="padding: 8px; text-align: right; font-weight: bold;">${gasData.kwh} kWh</td>
-                                    </tr>
-                                    <tr style="background-color: #FECACA;">
-                                        <td style="padding: 12px; font-size: 18px; font-weight: bold; color: #991B1B;">Total factura:</td>
-                                        <td style="padding: 12px; font-size: 24px; text-align: right; color: #991B1B; font-weight: bold;">${gasData.totalCliente.toFixed(2)} €</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding: 12px; font-size: 16px; font-weight: bold; color: #991B1B;">Estimación anual:</td>
-                                        <td style="padding: 12px; font-size: 20px; text-align: right; color: #991B1B; font-weight: bold;">${(gasData.totalCliente * 365 / gasData.dias).toFixed(2)} €/año</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Generar desglose de GAS
-                    desglose = `TIPO DE SUMINISTRO: GAS
-TARIFA: ${gasData.tariffType}
-PERIODO ANALIZADO: ${gasData.dias} días
-CONSUMO: ${gasData.kwh} kWh
-TOTAL FACTURA ACTUAL: ${gasData.totalCliente.toFixed(2)} €
-
-MEJOR AHORRO DETECTADO: ${gasData.bestSaving.toFixed(2)} € (NEGATIVO - Cliente ya tiene buena tarifa)
-
-TARIFAS ANALIZADAS:
-${gasData.results.map((r, i) => `
-${i + 1}. ${r.name}
-   - Total: ${r.total.toFixed(2)} €
-   - Ahorro anual: ${r.ahorro_anual.toFixed(2)} €
-`).join('')}`;
-                
-                // CASO 3: Datos de ELECTRICIDAD (solo si NO es DUAL ni GAS)
+                // CASO 2: Datos de ELECTRICIDAD (prioridad sobre GAS - más común)
                 } else if (hasElectricityData && !hasDualData) {
                     console.log('✅ Usando datos ELECTRICIDAD individual');
                     tipoSuministro = 'ELECTRICIDAD';
@@ -20802,6 +20734,20 @@ ${clientName}
                 if (searchInput) {
                     searchInput.placeholder = tr('Escribe nombre de comercializadora...');
                 }
+                
+                // CRÍTICO: Traducir placeholders del modal Request Improvement
+                const modalInputs = [
+                    { id: 'improvement-comercial-code', text: 'CÓDIGO COMERCIAL (Obligatorio)' },
+                    { id: 'improvement-client-name', text: 'Nombre Cliente' },
+                    { id: 'improvement-client-cups', text: 'CUPS' },
+                    { id: 'improvement-client-phone', text: 'Teléfono' },
+                    { id: 'improvement-client-email', text: 'Email' },
+                    { id: 'improvement-observations', text: 'Observaciones (opcional)' }
+                ];
+                modalInputs.forEach(({id, text}) => {
+                    const el = document.getElementById(id);
+                    if (el) el.placeholder = tr(text);
+                });
                 
                 // CRÍTICO: Traducir opciones del select de ordenación
                 const sortSelect = document.getElementById('offer-sort-select');
