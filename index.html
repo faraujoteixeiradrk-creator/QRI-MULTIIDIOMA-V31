@@ -1192,17 +1192,18 @@
                 /* Animación suave para el botón (sin parpadeo agresivo) */
                 @keyframes buttonGlow {
                     0%, 100% { 
-                        box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+                        box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.4);
                         transform: scale(1);
                     }
                     50% { 
-                        box-shadow: 0 4px 25px rgba(34, 197, 94, 0.6);
-                        transform: scale(1.02);
+                        box-shadow: 0 0 30px rgba(34, 197, 94, 0.8), 0 0 60px rgba(34, 197, 94, 0.6);
+                        transform: scale(1.05);
                     }
                 }
                 
                 .button-detected {
-                    animation: buttonGlow 2s ease-in-out infinite;
+                    animation: buttonGlow 1.5s ease-in-out infinite !important;
+                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6) !important;
                 }
             </style>
             <p class="text-center text-sm text-slate-600 mb-2 font-semibold">👆 Pulsa la lupa cuando veas el marco azul</p>
@@ -13131,17 +13132,26 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     powerLabel.textContent = '✅ QR DETECTADO';
                     powerBar.className = 'bg-gradient-to-r from-green-500 to-green-600 h-full transition-all duration-300';
                     
-                    // Cambiar botón flotante circular a verde
+                    // Cambiar botón flotante circular a verde - FORZAR SIEMPRE
                     if (captureBtn) {
                         const innerCircle = captureBtn.querySelector('div');
                         if (innerCircle) {
-                            innerCircle.className = 'w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center button-detected';
-                            innerCircle.innerHTML = `
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            `;
+                            // Micro-delay para asegurar que el DOM esté listo
+                            setTimeout(() => {
+                                // Forzar clase verde con animación
+                                innerCircle.className = 'w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center button-detected';
+                                innerCircle.innerHTML = `
+                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                `;
+                                console.log('✅ Botón verde activado con animación');
+                            }, 10);
+                        } else {
+                            console.warn('⚠️ No se encontró innerCircle');
                         }
+                    } else {
+                        console.warn('⚠️ No se encontró captureBtn');
                     }
                 }
             } else {
@@ -13158,10 +13168,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     }
                     qrRegionDetected = null;
                     
-                    // Restaurar botón flotante circular a azul
+                    // Restaurar botón flotante circular a azul - SIEMPRE resetear
                     if (captureBtn) {
                         const innerCircle = captureBtn.querySelector('div');
-                        if (innerCircle && innerCircle.className.includes('green')) {
+                        if (innerCircle) {
+                            // Resetear siempre, sin condiciones
                             innerCircle.className = 'w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center';
                             innerCircle.innerHTML = `
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
