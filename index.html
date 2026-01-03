@@ -4113,9 +4113,9 @@
             res.energyCosts.forEach(e => {
                 let label = `E${e.period}`;
                 if (tariffType === '2.0TD') {
-                    if (e.period === 1) label += ' (Punta)';
-                    if (e.period === 2) label += ' (Llano)';
-                    if (e.period === 3) label += ' (Valle)';
+                    if (e.period === 1) label += ` (${tr('Punta')})`;
+                    if (e.period === 2) label += ` (${tr('Llano')})`;
+                    if (e.period === 3) label += ` (${tr('Valle')})`;
                 }
                 if(e.kwh > 0 || e.period <= config.periods) {
                     energyRows += `<div class="flex justify-between text-xs mb-1"><span>${label}</span><span class="font-mono">${num(e.kwh, 0)} kWh</span></div>`;
@@ -14234,6 +14234,84 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
         
         // Función: Copiar HTML comparativo al portapapeles
         function copyDualHTML() {
+            const currentLang = localStorage.getItem('appLanguage') || 'es';
+            
+            // NUEVO: Para CHINO, copiar directamente el DOM visible
+            if (currentLang === 'zh') {
+                console.log('🇨🇳 Modo chino detectado - copiando DOM DUAL visible');
+                
+                const resultsContainer = document.getElementById('dual-results-container');
+                if (!resultsContainer) {
+                    alert('没有要复制的结果 / No results to copy');
+                    return;
+                }
+                
+                // Crear HTML completo con estilos
+                const htmlContent = `
+                    <!DOCTYPE html>
+                    <html lang="zh">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>DRK 能源 - DUAL 比较结果</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; background: #f1f5f9; }
+                            .container { max-width: 1000px; margin: 0 auto; }
+                            .header { background: linear-gradient(135deg, #0ea5e9 0%, #84cc16 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+                            .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+                            h1 { margin: 0; font-size: 36px; font-weight: 900; }
+                            h3 { color: #1e293b; font-size: 18px; font-weight: bold; }
+                            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+                            .text-sm { font-size: 14px; }
+                            .font-bold { font-weight: bold; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <div class="header">
+                                <h1>DRK 能源 - DUAL</h1>
+                                <p style="margin: 10px 0 0 0; opacity: 0.9;">多重供应管理</p>
+                            </div>
+                            <div class="content">
+                                ${resultsContainer.innerHTML}
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                `;
+                
+                // Copiar al portapapeles
+                const tempContainer = document.createElement('div');
+                tempContainer.style.position = 'fixed';
+                tempContainer.style.left = '-9999px';
+                tempContainer.innerHTML = htmlContent;
+                document.body.appendChild(tempContainer);
+                
+                const range = document.createRange();
+                range.selectNodeContents(tempContainer);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        alert('✅ 成功！HTML已复制（中文）\n✅ Success! HTML copied (Chinese)\n\n可以粘贴到电子邮件\nYou can paste into email');
+                        console.log('✅ DOM DUAL copiado en chino');
+                    } else {
+                        throw new Error('execCommand falló');
+                    }
+                } catch (err) {
+                    console.error('Error:', err);
+                    alert('❌ 复制失败 / Copy failed');
+                } finally {
+                    selection.removeAllRanges();
+                    document.body.removeChild(tempContainer);
+                }
+                return;
+            }
+            
+            // Para otros idiomas, proceso normal
             const comercialCode = document.getElementById('comercial-code').value.trim();
             if (!comercialCode) {
                 alert('Por favor, introduce el código comercial (obligatorio)');
@@ -17182,8 +17260,66 @@ ${clientName}
         // Función para copiar HTML al portapapeles
         window.copyHTMLToClipboard = async function() {
             try {
-                const htmlContent = window.currentHTMLContent;
                 const currentLang = localStorage.getItem('appLanguage') || 'es';
+                let htmlContent;
+                
+                // NUEVO: Para CHINO, copiar directamente el DOM visible (ya traducido)
+                if (currentLang === 'zh') {
+                    console.log('🇨🇳 Modo chino detectado - copiando DOM visible');
+                    
+                    // Clonar el contenedor de detalles que ya está traducido
+                    const detailsContainer = document.getElementById('details-container');
+                    const savingsContainer = document.querySelector('.bg-gradient-to-r.from-green-600'); // Contenedor de ahorro
+                    
+                    if (!detailsContainer) {
+                        alert('No hay resultados para copiar');
+                        return;
+                    }
+                    
+                    // Crear HTML completo con estilos embebidos
+                    htmlContent = `
+                        <!DOCTYPE html>
+                        <html lang="zh">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>DRK 能源 - 比较结果</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; padding: 20px; background: #f1f5f9; }
+                                .container { max-width: 800px; margin: 0 auto; }
+                                .header { background: linear-gradient(to right, #16a34a, #15803d); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; }
+                                .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+                                h3 { color: #1e293b; font-size: 18px; font-weight: bold; border-left: 4px solid #16a34a; padding-left: 12px; margin: 20px 0 10px 0; }
+                                .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+                                .text-sm { font-size: 14px; }
+                                .text-xs { font-size: 12px; }
+                                .font-bold { font-weight: bold; }
+                                .text-slate-500 { color: #64748b; }
+                                .text-slate-700 { color: #334155; }
+                                .text-slate-800 { color: #1e293b; }
+                                .border-t { border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 8px; }
+                                .flex { display: flex; justify-content: space-between; margin-bottom: 4px; }
+                                .mono { font-family: 'Courier New', monospace; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="container">
+                                <div class="header">
+                                    <h1 style="margin: 0; font-size: 32px;">DRK 能源</h1>
+                                    <p style="margin: 10px 0 0 0; opacity: 0.9;">引领节省和能源效率</p>
+                                </div>
+                                ${savingsContainer ? `<div class="content">${savingsContainer.outerHTML}</div>` : ''}
+                                <div class="content">
+                                    ${detailsContainer.innerHTML}
+                                </div>
+                            </div>
+                        </body>
+                        </html>
+                    `;
+                } else {
+                    // Para otros idiomas, usar el HTML generado como antes
+                    htmlContent = window.currentHTMLContent;
+                }
                 
                 // MÉTODO 1: Intentar con ClipboardItem (navegadores modernos)
                 try {
