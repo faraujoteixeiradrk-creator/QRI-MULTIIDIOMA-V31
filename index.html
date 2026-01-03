@@ -1303,13 +1303,13 @@
                 </div>
 
                 <div class="border-b border-slate-200 pb-3 mb-4 bg-slate-50 p-3 rounded-lg">
-                    <h4 class="font-bold text-slate-800 mb-2">Datos Generales</h4>
+                    <h4 id="multicups-datos-generales" class="font-bold text-slate-800 mb-2">Datos Generales</h4>
                     <input type="text" id="input-cups" placeholder="Número CUPS" class="w-full mb-3 p-3 rounded-lg border border-slate-300 text-sm focus:outline-none focus:border-2 focus:focus:border-drk-500">
                     <input type="number" id="input-billing-days" placeholder="Días Facturados" class="w-full p-3 rounded-lg border border-slate-300 text-sm focus:outline-none focus:border-2 focus:focus:border-drk-500">
                 </div>
                 
                 <div class="border-b border-slate-200 pb-3 mb-3">
-                    <h4 class="font-bold text-slate-800 mb-2">Potencias (kW)</h4>
+                    <h4 id="multicups-potencias" class="font-bold text-slate-800 mb-2">Potencias (kW)</h4>
                     <div class="grid grid-cols-2 gap-2">
                         <input type="number" step="0.01" id="input-p1-kw" placeholder="P1" class="p-2 border rounded text-sm focus:outline-none focus:border-2 focus:focus:border-drk-500">
                         <input type="number" step="0.01" id="input-p2-kw" placeholder="P2" class="p-2 border rounded text-sm focus:outline-none focus:border-2 focus:focus:border-drk-500">
@@ -1321,7 +1321,7 @@
                 </div>
                 
                 <div class="border-b border-slate-200 pb-3 mb-3">
-                    <h4 class="font-bold text-slate-800 mb-2">Energía (kWh)</h4>
+                    <h4 id="multicups-energia" class="font-bold text-slate-800 mb-2">Energía (kWh)</h4>
                     <div class="grid grid-cols-2 gap-2">
                         <input type="number" step="1" id="input-e1-kwh" placeholder="E1" class="p-2 border rounded text-sm focus:outline-none focus:border-2 focus:focus:border-drk-500">
                         <input type="number" step="1" id="input-e2-kwh" placeholder="E2" class="p-2 border rounded text-sm focus:outline-none focus:border-2 focus:focus:border-drk-500">
@@ -9860,8 +9860,8 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             if (isMultiCupsMode) {
                 // MODO MULTICUPS: Ocultamos el selector ya que el tipo es conocido
                 selectorWrapper.classList.add('hidden');
-                modalTitleEl.textContent = `Añadir Suministro #${multiCupsData.length + 1} (${tariffToConfigure} Manual)`;
-                document.getElementById('execute-manual-input-btn').textContent = "AÑADIR SUMINISTRO";
+                modalTitleEl.textContent = tr('Añadir Suministro') + ` #${multiCupsData.length + 1} (${tariffToConfigure} Manual)`;
+                document.getElementById('execute-manual-input-btn').textContent = tr('AÑADIR SUMINISTRO');
                 
                 // Forzar la selección del tipo de CUPS seleccionado en la vista SAGA
                 // Solo si el tipo existe en el selector (2.0TD o 3.0TD)
@@ -9882,6 +9882,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             document.getElementById('manual-input-modal').classList.remove('hidden');
             document.getElementById('manual-input-modal').classList.add('flex');
             document.getElementById('input-cups').focus();
+            
+            // CRÍTICO: Traducir contenido del modal
+            if (window.translateAll) {
+                setTimeout(() => window.translateAll(), 50);
+            }
         }
 
         function updateComparisonMode(newMode) {
@@ -19444,6 +19449,7 @@ ${clientName}
                 "Energía (kWh)": { en: "Energy (kWh)", zh: "能源 (kWh)", de: "Energie (kWh)", fr: "Énergie (kWh)" },
                 "Total Factura (€)": { en: "Total Bill (€)", zh: "总账单 (€)", de: "Gesamtrechnung (€)", fr: "Facture totale (€)" },
                 "AÑADIR SUMINISTRO MANUAL": { en: "ADD MANUAL SUPPLY", zh: "添加手动供应", de: "MANUELLE VERSORGUNG HINZUFÜGEN", fr: "AJOUTER L'APPROVISIONNEMENT MANUEL" },
+                "AÑADIR SUMINISTRO": { en: "ADD SUPPLY", zh: "添加供应", de: "VERSORGUNG HINZUFÜGEN", fr: "AJOUTER L'APPROVISIONNEMENT" },
                 "Cancelar": { en: "Cancel", zh: "取消", de: "Abbrechen", fr: "Annuler" },
                 
                 // Modales de resultados
@@ -19481,7 +19487,14 @@ ${clientName}
                 "Consumos (kWh)": { en: "Consumption (kWh)", zh: "消耗 (kWh)", de: "Verbrauch (kWh)", fr: "Consommation (kWh)" },
                 "Acumulado": { en: "Accumulated", zh: "累计", de: "Kumuliert", fr: "Accumulé" },
                 "Total Consumo": { en: "Total Consumption", zh: "总消耗", de: "Gesamtverbrauch", fr: "Consommation totale" },
-                "Ahorro:": { en: "Savings:", zh: "节省：", de: "Einsparungen:", fr: "Économies :" }
+                "Ahorro:": { en: "Savings:", zh: "节省：", de: "Einsparungen:", fr: "Économies :" },
+                
+                // Secciones del PDF
+                "POTENCIA": { en: "POWER", zh: "功率", de: "LEISTUNG", fr: "PUISSANCE" },
+                "ENERGÍA": { en: "ENERGY", zh: "能源", de: "ENERGIE", fr: "ÉNERGIE" },
+                "Punta": { en: "Peak", zh: "峰值", de: "Spitze", fr: "Pointe" },
+                "Llano": { en: "Standard", zh: "标准", de: "Standard", fr: "Standard" },
+                "Valle": { en: "Valley", zh: "谷值", de: "Tal", fr: "Vallée" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19590,7 +19603,11 @@ ${clientName}
                             'POTENCIA:',
                             'TÉRMINO FIJO (Precio en €/día)',
                             'Precio fijo diario (€/día):',
-                            'Precio energía (€/kWh):'
+                            'Precio energía (€/kWh):',
+                            
+                            // Secciones del PDF (sin dos puntos)
+                            'POTENCIA',
+                            'ENERGÍA'
                         ];
                         
                         let translated = text;
@@ -19674,6 +19691,13 @@ ${clientName}
                     ['Consumos (kWh)', tr('Consumos (kWh)')],
                     ['Acumulado', tr('Acumulado')],
                     ['Total Consumo', tr('Total Consumo')],
+                    
+                    // Secciones del PDF (sin dos puntos para evitar conflictos)
+                    ['POTENCIA', tr('POTENCIA')],
+                    ['ENERGÍA', tr('ENERGÍA')],
+                    ['Punta', tr('Punta')],
+                    ['Llano', tr('Llano')],
+                    ['Valle', tr('Valle')],
                     
                     // GAS - Interfaz
                     ['Selection mode:', tr('Selection mode:')],
@@ -19860,7 +19884,8 @@ ${clientName}
                 const elementIds = [
                     'inicio-title', 'inicio-subtitle', 'inicio-supply-label',
                     'landing-title', 'savings-label', 'gas-results-subtitle',
-                    'qr-analyzing-title', 'qr-progress-label', 'qr-help-text'
+                    'qr-analyzing-title', 'qr-progress-label', 'qr-help-text',
+                    'multicups-datos-generales', 'multicups-potencias', 'multicups-energia'
                 ];
                 
                 elementIds.forEach(id => {
