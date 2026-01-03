@@ -19308,7 +19308,19 @@ ${clientName}
                 // Traducciones adicionales para PDFs
                 "COMPARATIVA": { en: "COMPARISON", zh: "比较", de: "VERGLEICH", fr: "COMPARAISON" },
                 "mes": { en: "month", zh: "月", de: "Monat", fr: "mois" },
-                "DÍAS": { en: "DAYS", zh: "天", de: "TAGE", fr: "JOURS" }
+                "DÍAS": { en: "DAYS", zh: "天", de: "TAGE", fr: "JOURS" },
+                
+                // Más traducciones del PDF
+                "POWER SUBTOTAL": { en: "POWER SUBTOTAL", zh: "功率小计", de: "LEISTUNG ZWISCHENSUMME", fr: "SOUS-TOTAL PUISSANCE" },
+                "TAXABLE BASE": { en: "TAXABLE BASE", zh: "应税基数", de: "STEUERBEMESSUNGSGRUNDLAGE", fr: "BASE IMPOSABLE" },
+                "TOTAL FACTURA (60 DÍAS)": { en: "TOTAL BILL (60 DAYS)", zh: "总账单（60天）", de: "GESAMTRECHNUNG (60 TAGE)", fr: "FACTURE TOTALE (60 JOURS)" },
+                "TOTAL YEAR (PROJECTED)": { en: "TOTAL YEAR (PROJECTED)", zh: "年度总计（预计）", de: "GESAMTJAHR (PROGNOSTIZIERT)", fr: "TOTAL ANNÉE (PROJETÉ)" },
+                "E1 - Punta": { en: "E1 - Peak", zh: "E1 - 峰值", de: "E1 - Spitze", fr: "E1 - Pointe" },
+                "E2 - Llano": { en: "E2 - Standard", zh: "E2 - 标准", de: "E2 - Standard", fr: "E2 - Standard" },
+                "E3 - Valle": { en: "E3 - Valley", zh: "E3 - 谷值", de: "E3 - Tal", fr: "E3 - Vallée" },
+                "PRECIOS DE LA OFERTA:": { en: "OFFER PRICES:", zh: "报价价格：", de: "ANGEBOTSPREISE:", fr: "PRIX DE L'OFFRE :" },
+                "RŸs‡ÿ": { en: "POWER:", zh: "功率：", de: "LEISTUNG:", fr: "PUISSANCE :" },
+                "€/m-ÿ": { en: "ENERGY:", zh: "能源：", de: "ENERGIE:", fr: "ÉNERGIE :" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19326,90 +19338,119 @@ ${clientName}
             window.translateHTML = function(html) {
                 if (!html) return html;
                 
-                // Lista exhaustiva de textos a traducir
-                const textsToTranslate = {
-                    // Encabezados principales
-                    'LA MEJOR OPCIÓN PARA TI ES': tr('LA MEJOR OPCIÓN PARA TI ES'),
-                    'TU FACTURA ACTUAL': tr('TU FACTURA ACTUAL'),
-                    'TU NUEVO COSTE DRK': tr('TU NUEVO COSTE DRK'),
-                    'TU NUEVO COSTE POWER CUP': tr('TU NUEVO COSTE POWER CUP'),
-                    'TU AHORRO ANUAL ESTIMADO': tr('TU AHORRO ANUAL ESTIMADO'),
-                    'TU AHORRO ANUAL FIJO': tr('TU AHORRO ANUAL FIJO'),
-                    'TU AHORRO ANUAL INDEXADO': tr('TU AHORRO ANUAL INDEXADO'),
+                // CRÍTICO: Si el idioma es chino, advertir sobre limitaciones
+                const currentLang = localStorage.getItem('appLanguage') || 'es';
+                
+                // Lista exhaustiva de textos a traducir con TODAS las variantes
+                const replacements = [
+                    // Encabezados
+                    ['LA MEJOR OPCIÓN PARA TI ES', tr('LA MEJOR OPCIÓN PARA TI ES')],
+                    ['TU FACTURA ACTUAL', tr('TU FACTURA ACTUAL')],
+                    ['TU NUEVO COSTE DRK', tr('TU NUEVO COSTE DRK')],
+                    ['TU NUEVO COSTE POWER CUP', tr('TU NUEVO COSTE POWER CUP')],
+                    ['TU AHORRO ANUAL ESTIMADO', tr('TU AHORRO ANUAL ESTIMADO')],
+                    ['TU AHORRO ANUAL FIJO', tr('TU AHORRO ANUAL FIJO')],
+                    ['TU AHORRO ANUAL INDEXADO', tr('TU AHORRO ANUAL INDEXADO')],
                     
-                    // Headers y secciones
-                    'ESTUDIO DE AHORRO': tr('ESTUDIO DE AHORRO'),
-                    'COMPARATIVA PROFESIONAL': tr('COMPARATIVA PROFESIONAL'),
-                    'COMPARATIVA': tr('COMPARATIVA'),
-                    'PROFESIONAL': tr('PROFESIONAL'),
-                    'Liderando el ahorro y la eficiencia energética.': tr('Liderando el ahorro y la eficiencia energética.'),
-                    'Asesoría Energética': tr('Asesoría Energética'),
-                    'Ofrece el mayor ahorro consolidado con': tr('Ofrece el mayor ahorro consolidado con'),
+                    // Headers
+                    ['ESTUDIO DE AHORRO', tr('ESTUDIO DE AHORRO')],
+                    ['COMPARATIVA PROFESIONAL', tr('COMPARATIVA PROFESIONAL')],
+                    ['COMPARATIVA', tr('COMPARATIVA')],
+                    ['PROFESIONAL', tr('PROFESIONAL')],
+                    ['Liderando el ahorro y la eficiencia energética.', tr('Liderando el ahorro y la eficiencia energética.')],
+                    ['eficiencia energética.', tr('eficiencia energética.')],
+                    ['Asesoría Energética', tr('Asesoría Energética')],
+                    ['Ofrece el mayor ahorro consolidado con', tr('Ofrece el mayor ahorro consolidado con')],
                     
-                    // Datos del cliente
-                    'CLIENTE:': tr('CLIENTE:'),
-                    'CUPS:': tr('CUPS:'),
-                    'COMERCIAL:': tr('COMERCIAL:'),
-                    'CUPS TOTALES:': tr('CUPS TOTALES:'),
+                    // Cliente
+                    ['CLIENTE:', tr('CLIENTE:')],
+                    ['CUPS:', tr('CUPS:')],
+                    ['COMERCIAL:', tr('COMERCIAL:')],
+                    ['CUPS TOTALES:', tr('CUPS TOTALES:')],
+                    ['[NOMBRE COMPLETO CLIENTE]', tr('[NOMBRE COMPLETO CLIENTE]')],
                     
-                    // Términos técnicos
-                    'POTENCIA:': tr('POTENCIA:'),
-                    'ENERGIA:': tr('ENERGIA:'),
-                    'TÉRMINO POTENCIA': tr('TÉRMINO POTENCIA'),
-                    'TÉRMINO ENERGÍA': tr('TÉRMINO ENERGÍA'),
-                    'Precio en €/kW Día': tr('Precio en €/kW Día'),
-                    'Precios en €/kWh': tr('Precios en €/kWh'),
+                    // Términos
+                    ['POTENCIA:', tr('POTENCIA:')],
+                    ['ENERGIA:', tr('ENERGIA:')],
+                    ['TÉRMINO POTENCIA (Precio en €/kW Día)', tr('TÉRMINO POTENCIA (Precio en €/kW Día)')],
+                    ['TÉRMINO POTENCIA', tr('TÉRMINO POTENCIA')],
+                    ['TÉRMINO ENERGÍA (Precios en €/kWh)', tr('TÉRMINO ENERGÍA (Precios en €/kWh)')],
+                    ['TÉRMINO ENERGÍA', tr('TÉRMINO ENERGÍA')],
+                    ['Precio en €/kW Día', tr('Precio en €/kW Día')],
+                    ['Precios en €/kWh', tr('Precios en €/kWh')],
+                    
+                    // Períodos específicos
+                    ['E1 - Punta', tr('E1 - Punta')],
+                    ['E2 - Llano', tr('E2 - Llano')],
+                    ['E3 - Valle', tr('E3 - Valle')],
                     
                     // Subtotales
-                    'SUBTOTAL POTENCIA': tr('SUBTOTAL POTENCIA'),
-                    'SUBTOTAL BASE (P+E)': tr('SUBTOTAL BASE (P+E)'),
-                    'BASE IMPONIBLE': tr('BASE IMPONIBLE'),
-                    'Subtotal Energía (Bruto)': tr('Subtotal Energía (Bruto)'),
-                    'Subtotal Energía (Neto)': tr('Subtotal Energía (Neto)'),
+                    ['SUBTOTAL POTENCIA', tr('SUBTOTAL POTENCIA')],
+                    ['POWER SUBTOTAL', tr('SUBTOTAL POTENCIA')],
+                    ['SUBTOTAL BASE (P+E)', tr('SUBTOTAL BASE (P+E)')],
+                    ['BASE IMPONIBLE', tr('BASE IMPONIBLE')],
+                    ['TAXABLE BASE', tr('BASE IMPONIBLE')],
+                    ['Subtotal Energía (Bruto)', tr('Subtotal Energía (Bruto)')],
+                    ['Subtotal Energía (Neto)', tr('Subtotal Energía (Neto)')],
                     
-                    // Impuestos y totales
-                    'Imp. Eléc.': tr('Imp. Eléc.'),
-                    'IVA (21%)': tr('IVA (21%)'),
-                    'TOTAL FACTURA': tr('TOTAL FACTURA'),
-                    'TOTAL AÑO (PROYECTADO)': tr('TOTAL AÑO (PROYECTADO)'),
-                    'Total Periodo': tr('Total Periodo'),
-                    'Estimado Mensual': tr('Estimado Mensual'),
+                    // Impuestos
+                    ['Imp. Eléc.', tr('Imp. Eléc.')],
+                    ['IVA (21%)', tr('IVA (21%)')],
+                    ['VAT (21%)', tr('IVA (21%)')],
                     
-                    // GAS
-                    'Resultados GAS': tr('Resultados GAS'),
-                    'Comparativa de tarifas': tr('Comparativa de tarifas'),
-                    'Término fijo': tr('Término fijo'),
-                    'Impuesto hidrocarburos': tr('Impuesto hidrocarburos'),
+                    // Totales
+                    ['TOTAL FACTURA', tr('TOTAL FACTURA')],
+                    ['TOTAL FACTURA (60 DÍAS)', tr('TOTAL FACTURA') + ' (60 ' + tr('DÍAS') + ')'],
+                    ['TOTAL AÑO (PROYECTADO)', tr('TOTAL AÑO (PROYECTADO)')],
+                    ['TOTAL YEAR (PROJECTED)', tr('TOTAL AÑO (PROYECTADO)')],
+                    ['Total Periodo', tr('Total Periodo')],
+                    ['Estimado Mensual', tr('Estimado Mensual')],
+                    
+                    // GAS específico
+                    ['Resultados GAS', tr('Resultados GAS')],
+                    ['Comparativa de tarifas', tr('Comparativa de tarifas')],
+                    ['Término fijo', tr('Término fijo')],
+                    ['Término fijo:', tr('Término fijo:')],
+                    ['Impuesto hidrocarburos', tr('Impuesto hidrocarburos')],
                     
                     // Documentación
-                    'PARA FORMALIZAR ESTE CONTRATO:': tr('PARA FORMALIZAR ESTE CONTRATO:'),
-                    'Responde a este email adjuntando la siguiente documentacion:': tr('Responde a este email adjuntando la siguiente documentacion:'),
-                    'Este resumen es una simulacion': tr('Este resumen es una simulacion'),
-                    'basada en su ultima factura': tr('basada en su ultima factura'),
-                    'consolidada de': tr('consolidada de'),
-                    'suministros': tr('suministros'),
-                    'Colaborador:': tr('Colaborador:'),
+                    ['PARA FORMALIZAR ESTE CONTRATO:', tr('PARA FORMALIZAR ESTE CONTRATO:')],
+                    ['Responde a este email adjuntando la siguiente documentacion:', tr('Responde a este email adjuntando la siguiente documentacion:')],
+                    ['Responde a este email adjuntando la documentacion de los', tr('Responde a este email adjuntando la documentacion de los')],
+                    ['Este resumen es una simulacion', tr('Este resumen es una simulacion')],
+                    ['basada en su ultima factura', tr('basada en su ultima factura')],
+                    ['consolidada de', tr('consolidada de')],
+                    ['suministros', tr('suministros')],
+                    ['Colaborador:', tr('Colaborador:')],
                     
-                    // Otros
-                    'DESGLOSE DETALLADO': tr('DESGLOSE DETALLADO'),
-                    'días': tr('días'),
-                    'DÍAS': tr('DÍAS'),
-                    'mes': tr('mes'),
-                    'año': tr('año')
-                };
+                    // Ofertas
+                    ['PRECIOS DE LA OFERTA:', tr('PRECIOS DE LA OFERTA:')],
+                    ['DESGLOSE DETALLADO DE LA SIMULACIÓN', tr('DESGLOSE DETALLADO DE LA SIMULACIÓN')],
+                    ['DESGLOSE DETALLADO', tr('DESGLOSE DETALLADO')],
+                    
+                    // Unidades - estas son críticas
+                    [' días)', ' ' + tr('días') + ')'],
+                    [' DÍAS)', ' ' + tr('DÍAS') + ')'],
+                    ['/mes', '/' + tr('mes')],
+                    ['/año', '/' + tr('año')],
+                    ['días', tr('días')],
+                    ['DÍAS', tr('DÍAS')],
+                    ['mes', tr('mes')],
+                    ['año', tr('año')]
+                ];
                 
-                // Reemplazar cada texto
-                let translatedHTML = html;
-                Object.keys(textsToTranslate).forEach(original => {
-                    const translated = textsToTranslate[original];
-                    if (translated !== original) {
-                        // Usar regex global case-sensitive
-                        const regex = new RegExp(original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
-                        translatedHTML = translatedHTML.replace(regex, translated);
+                // Aplicar reemplazos
+                let result = html;
+                replacements.forEach(([original, translated]) => {
+                    if (original && translated && original !== translated) {
+                        // Escape special regex characters
+                        const escaped = original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(escaped, 'g');
+                        result = result.replace(regex, translated);
                     }
                 });
                 
-                return translatedHTML;
+                return result;
             };
 
             // Función exhaustiva de traducción
@@ -19475,6 +19516,11 @@ ${clientName}
                         return TR[text][newLang];
                     };
                     
+                    // Advertencia para chino sobre PDFs
+                    if (newLang === 'zh') {
+                        console.warn('⚠️ AVISO: Los PDFs en chino pueden mostrar caracteres incorrectamente. La interfaz web funcionará correctamente.');
+                    }
+                    
                     if (document.getElementById('language-selector')) {
                         document.getElementById('language-selector').value = newLang;
                     }
@@ -19489,7 +19535,8 @@ ${clientName}
                     setTimeout(() => translateAll(), 500);
                 },
                 translate: tr,
-                retranslate: translateAll
+                retranslate: translateAll,
+                getCurrentLang: function() { return lang; }
             };
 
             // Interceptar navegación
