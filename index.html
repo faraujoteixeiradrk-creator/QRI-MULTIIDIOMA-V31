@@ -4307,6 +4307,11 @@
             console.log(`🌐 Generando HTML traducido para idioma: ${currentLang}`);
             
             try {
+                // Detectar marca activa
+                const brand = activeBrand;
+                const isDrk = brand.NAME.includes('DRK');
+                const brandColor = isDrk ? '#2e5266' : '#3f6212'; // DRK azul, POWER CUP verde
+                
                 // Extraer datos principales del DOM
                 const offerName = document.getElementById('best-offer-name')?.textContent || 'DRK FIJO 4';
                 const savingsAmount = document.getElementById('savings-estimate')?.textContent || '0 €';
@@ -4327,15 +4332,15 @@
                     <table width="700" cellpadding="0" cellspacing="0" align="center" style="background:#ffffff;">
                         <!-- HEADER -->
                         <tr>
-                            <td bgcolor="#2e5266" style="padding:30px;text-align:center;">
-                                <h1 style="margin:0;color:#ffffff;font-size:32px;">DRK ${tr('能源')}</h1>
-                                <p style="margin:10px 0 0 0;color:#ffffff;font-size:15px;">${tr('引领节省和能源效率')}</p>
+                            <td bgcolor="${brandColor}" style="padding:30px;text-align:center;">
+                                <h1 style="margin:0;color:#ffffff;font-size:32px;">${brand.FULL_NAME}</h1>
+                                <p style="margin:10px 0 0 0;color:#ffffff;font-size:15px;">${tr('Liderando el ahorro y la eficiencia energética')}</p>
                             </td>
                         </tr>
                         
                         <!-- OFERTA -->
                         <tr>
-                            <td bgcolor="#2e5266" style="padding:15px;text-align:center;">
+                            <td bgcolor="${brandColor}" style="padding:15px;text-align:center;">
                                 <p style="margin:0;color:#ffffff;font-size:11px;">${tr('为您提供的最佳选择')}</p>
                                 <h2 style="margin:5px 0 0 0;color:#ffffff;font-size:22px;">${offerName}</h2>
                             </td>
@@ -4359,7 +4364,7 @@
                                             <p style="margin:0;color:#dc2626;font-size:18px;font-weight:bold;text-decoration:line-through;">${oldCost}</p>
                                         </td>
                                         <td width="50%" style="padding:20px;text-align:center;">
-                                            <p style="margin:0 0 10px 0;color:#2e5266;font-size:10px;font-weight:bold;">${tr('您的新DRK成本')}</p>
+                                            <p style="margin:0 0 10px 0;color:${brandColor};font-size:10px;font-weight:bold;">${tr('您的新DRK成本')}</p>
                                             <p style="margin:0 0 5px 0;color:#1e293b;font-size:20px;font-weight:bold;">${monthlyText}</p>
                                             <p style="margin:0;color:#1e293b;font-size:16px;font-weight:bold;">${newCost}</p>
                                         </td>
@@ -4371,7 +4376,7 @@
                         <!-- DETALLES TÍTULO -->
                         <tr>
                             <td style="padding:20px 20px 10px 20px;">
-                                <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">${tr('提取数据')}</h3>
+                                <h3 style="margin:0;padding-left:10px;border-left:4px solid ${brandColor};color:#1e293b;font-size:16px;">${tr('提取数据')}</h3>
                             </td>
                         </tr>
                         
@@ -4396,7 +4401,7 @@
                         <!-- CONSUMOS -->
                         <tr>
                             <td style="padding:15px 20px 5px 20px;">
-                                <p style="margin:0;color:#2e5266;font-size:14px;font-weight:bold;">${tr('期间消耗 (kWh)')}</p>
+                                <p style="margin:0;color:${brandColor};font-size:14px;font-weight:bold;">${tr('期间消耗 (kWh)')}</p>
                             </td>
                         </tr>
                         <tr>
@@ -4409,8 +4414,8 @@
                                     </tr>
                                     `).join('') : ''}
                                     <tr style="border-top:1px solid #e2e8f0;">
-                                        <td style="padding:8px 0;color:#2e5266;font-size:13px;font-weight:bold;">${tr('总消耗')}</td>
-                                        <td align="right" style="padding:8px 0;color:#2e5266;font-size:13px;font-weight:bold;">${res.energyCosts ? res.energyCosts.reduce((sum, e) => sum + (e.kwh || 0), 0) : 0} kWh</td>
+                                        <td style="padding:8px 0;color:${brandColor};font-size:13px;font-weight:bold;">${tr('总消耗')}</td>
+                                        <td align="right" style="padding:8px 0;color:${brandColor};font-size:13px;font-weight:bold;">${res.energyCosts ? res.energyCosts.reduce((sum, e) => sum + (e.kwh || 0), 0) : 0} kWh</td>
                                     </tr>
                                 </table>
                             </td>
@@ -4419,7 +4424,7 @@
                         <!-- POTENCIAS -->
                         <tr>
                             <td style="padding:15px 20px 5px 20px;">
-                                <p style="margin:0;color:#2e5266;font-size:14px;font-weight:bold;">${tr('签约功率 (kW)')}</p>
+                                <p style="margin:0;color:${brandColor};font-size:14px;font-weight:bold;">${tr('签约功率 (kW)')}</p>
                             </td>
                         </tr>
                         <tr>
@@ -4438,7 +4443,7 @@
                         <!-- PRECIOS TÍTULO -->
                         <tr>
                             <td style="padding:20px 20px 10px 20px;">
-                                <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">${tr('合并报价价格')}</h3>
+                                <h3 style="margin:0;padding-left:10px;border-left:4px solid ${brandColor};color:#1e293b;font-size:16px;">${tr('合并报价价格')}</h3>
                             </td>
                         </tr>
                         
@@ -4476,7 +4481,7 @@
                         <!-- CÁLCULO TÍTULO -->
                         <tr>
                             <td style="padding:20px 20px 10px 20px;">
-                                <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">${tr('官方计算')}</h3>
+                                <h3 style="margin:0;padding-left:10px;border-left:4px solid ${brandColor};color:#1e293b;font-size:16px;">${tr('官方计算')}</h3>
                             </td>
                         </tr>
                         
@@ -4540,7 +4545,7 @@
                                         <td align="right" style="padding:10px;color:#1e293b;font-size:13px;font-weight:bold;">${(res.totalPeriod || 0).toFixed(2)} €</td>
                                     </tr>
                                     
-                                    <tr bgcolor="#2e5266">
+                                    <tr bgcolor="${brandColor}">
                                         <td colspan="2" align="center" style="padding:15px;color:#ffffff;font-size:13px;font-weight:bold;">${tr('估计年度总额')}: ${(res.totalAnnual || 0).toFixed(2)} €</td>
                                     </tr>
                                 </table>
