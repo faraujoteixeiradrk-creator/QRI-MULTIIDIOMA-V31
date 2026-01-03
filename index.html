@@ -19408,7 +19408,14 @@ ${clientName}
                 "Subtotal Energía (Bruto)": { en: "Energy Subtotal (Gross)", zh: "能源小计（总计）", de: "Energie Zwischensumme (Brutto)", fr: "Sous-total Énergie (Brut)" },
                 "Imp. Hidrocarburos": { en: "Hydrocarbon Tax", zh: "碳氢化合物税", de: "Kohlenwasserstoffsteuer", fr: "Taxe Hydrocarbures" },
                 "TOTAL FACTURA (30 DÍAS)": { en: "TOTAL BILL (30 DAYS)", zh: "总账单（30天）", de: "GESAMTRECHNUNG (30 TAGE)", fr: "FACTURE TOTALE (30 JOURS)" },
-                "Precio fijo": { en: "Fixed price", zh: "固定价格", de: "Festpreis", fr: "Prix fixe" }
+                "Precio fijo": { en: "Fixed price", zh: "固定价格", de: "Festpreis", fr: "Prix fixe" },
+                
+                // Variaciones con paréntesis completos (muy importantes para PDFs)
+                "TÉRMINO POTENCIA (Precio en €/kW Día)": { en: "POWER TERM (Price in €/kW Day)", zh: "功率条款（价格€/千瓦天）", de: "LEISTUNGSTERM (Preis in €/kW Tag)", fr: "TERME PUISSANCE (Prix en €/kW Jour)" },
+                "TÉRMINO ENERGÍA (Precios en €/kWh)": { en: "ENERGY TERM (Prices in €/kWh)", zh: "能源条款（价格€/千瓦时）", de: "ENERGIETERM (Preise in €/kWh)", fr: "TERME ÉNERGIE (Prix en €/kWh)" },
+                "TOTAL FACTURA (60 DÍAS)": { en: "TOTAL BILL (60 DAYS)", zh: "总账单（60天）", de: "GESAMTRECHNUNG (60 TAGE)", fr: "FACTURE TOTALE (60 JOURS)" },
+                "Liderando el ahorro y la": { en: "Leading in savings and", zh: "节约和效率的领导者", de: "Führend bei Einsparungen und", fr: "Leader de l'épargne et de" },
+                "60d": { en: "60d", zh: "60天", de: "60T", fr: "60j" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19430,9 +19437,56 @@ ${clientName}
                 doc.text = function(text, x, y, options) {
                     // Traducir solo strings, no objetos ni arrays
                     if (typeof text === 'string' && window.tr) {
-                        const translated = window.tr(text);
-                        if (translated && translated !== text) {
-                            console.log(`📝 PDF: "${text}" → "${translated}"`);
+                        // Lista de patrones a buscar y reemplazar
+                        const patterns = [
+                            'DESGLOSE DETALLADO DE LA SIMULACIÓN',
+                            'TÉRMINO POTENCIA',
+                            'TÉRMINO ENERGÍA',
+                            'Precio en €/kW Día',
+                            'Precios en €/kWh',
+                            'E1 - Punta',
+                            'E2 - Llano', 
+                            'E3 - Valle',
+                            'Subtotal Energía (Bruto)',
+                            'Subtotal Energía (Neto)',
+                            'SUBTOTAL BASE (P+E)',
+                            'BASE IMPONIBLE',
+                            'Imp. Eléc.',
+                            'IVA (21%)',
+                            'TOTAL FACTURA',
+                            'TU AHORRO ANUAL ESTIMADO ES:',
+                            'TU FACTURA ACTUAL',
+                            'TU NUEVO COSTE',
+                            'Liderando el ahorro y la',
+                            'eficiencia energética.',
+                            'ESTUDIO DE AHORRO',
+                            'COMPARATIVA PROFESIONAL',
+                            'CLIENTE:',
+                            'COMERCIAL:',
+                            'CUPS:',
+                            'Total Periodo',
+                            'Estimado Mensual'
+                        ];
+                        
+                        let translated = text;
+                        
+                        // Buscar y reemplazar cada patrón
+                        patterns.forEach(pattern => {
+                            if (translated.includes(pattern)) {
+                                const translatedPattern = window.tr(pattern);
+                                if (translatedPattern !== pattern) {
+                                    translated = translated.replace(new RegExp(pattern, 'g'), translatedPattern);
+                                    console.log(`📝 PDF Pattern: "${pattern}" → "${translatedPattern}"`);
+                                }
+                            }
+                        });
+                        
+                        // También intentar traducir el texto completo
+                        const fullTranslation = window.tr(text);
+                        if (fullTranslation !== text) {
+                            console.log(`📝 PDF Full: "${text}" → "${fullTranslation}"`);
+                            text = fullTranslation;
+                        } else if (translated !== text) {
                             text = translated;
                         }
                     }
@@ -19471,6 +19525,12 @@ ${clientName}
                     ['📋 Por nombre', tr('📋 Por nombre')],
                     ['Calcular tarifas seleccionadas', tr('Calcular tarifas seleccionadas')],
                     
+                    // Variaciones con paréntesis (CRÍTICAS para PDFs)
+                    ['TÉRMINO POTENCIA (Precio en €/kW Día)', tr('TÉRMINO POTENCIA (Precio en €/kW Día)')],
+                    ['TÉRMINO ENERGÍA (Precios en €/kWh)', tr('TÉRMINO ENERGÍA (Precios en €/kWh)')],
+                    ['TOTAL FACTURA (60 DÍAS)', tr('TOTAL FACTURA (60 DÍAS)')],
+                    ['Liderando el ahorro y la', tr('Liderando el ahorro y la')],
+                    
                     // GAS - Resultados
                     ['Fixed term (30 days)', tr('Fixed term (30 days)')],
                     ['Energía (500 kWh)', tr('Energía (500 kWh)')],
@@ -19497,6 +19557,7 @@ ${clientName}
                     
                     // Encabezados - TODAS las variantes
                     ['DESGLOSE DETALLADO DE LA SIMULACIÓN', tr('DESGLOSE DETALLADO DE LA SIMULACIÓN')],
+                    ['TU AHORRO ANUAL ESTIMADO ES:', tr('TU AHORRO ANUAL ESTIMADO ES:')],
                     ['LA MEJOR OPCIÓN PARA TI ES', tr('LA MEJOR OPCIÓN PARA TI ES')],
                     ['TU FACTURA ACTUAL', tr('TU FACTURA ACTUAL')],
                     ['TU NUEVO COSTE DRK', tr('TU NUEVO COSTE DRK')],
