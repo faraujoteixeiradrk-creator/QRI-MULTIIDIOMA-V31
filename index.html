@@ -4301,6 +4301,102 @@
                 return window.showErrorModal("Primero realice una comparación.");
             }
             
+            const currentLang = localStorage.getItem('appLanguage') || 'es';
+            
+            // NUEVO: Para CHINO, copiar directamente el DOM visible
+            if (currentLang === 'zh') {
+                console.log('🇨🇳 Modo chino detectado - copiando DOM visible en handleCopyOffer');
+                
+                try {
+                    // Capturar TODOS los elementos importantes
+                    const resultCard = document.getElementById('result-card'); // Comparativo principal
+                    const detailsContainer = document.getElementById('details-container'); // Detalles
+                    
+                    if (!resultCard && !detailsContainer) {
+                        return window.showErrorModal('没有要复制的结果 / No results to copy');
+                    }
+                    
+                    // Crear HTML completo con estilos embebidos
+                    const htmlContent = `
+                        <!DOCTYPE html>
+                        <html lang="zh">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>DRK 能源 - 比较结果</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; padding: 20px; background: #f1f5f9; }
+                                .container { max-width: 800px; margin: 0 auto; }
+                                .header { background: linear-gradient(to right, #16a34a, #15803d); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+                                .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+                                h1 { margin: 0; font-size: 32px; font-weight: 900; }
+                                h2 { color: #1e293b; font-size: 24px; font-weight: bold; margin: 20px 0 10px 0; }
+                                h3 { color: #1e293b; font-size: 18px; font-weight: bold; border-left: 4px solid #16a34a; padding-left: 12px; margin: 20px 0 10px 0; }
+                                .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+                                .text-sm { font-size: 14px; }
+                                .text-xs { font-size: 12px; }
+                                .font-bold { font-weight: bold; }
+                                .text-slate-500 { color: #64748b; }
+                                .text-slate-700 { color: #334155; }
+                                .text-slate-800 { color: #1e293b; }
+                                .border-t { border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 8px; }
+                                .flex { display: flex; justify-content: space-between; margin-bottom: 4px; }
+                                .mono { font-family: 'Courier New', monospace; }
+                                .text-center { text-align: center; }
+                                .mb-4 { margin-bottom: 16px; }
+                                .mb-6 { margin-bottom: 24px; }
+                                .p-6 { padding: 24px; }
+                                .rounded-xl { border-radius: 12px; }
+                                .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="container">
+                                <div class="header">
+                                    <h1>DRK 能源</h1>
+                                    <p style="margin: 10px 0 0 0; opacity: 0.9;">引领节省和能源效率</p>
+                                </div>
+                                ${resultCard ? `<div class="content">${resultCard.outerHTML}</div>` : ''}
+                                ${detailsContainer ? `<div class="content">${detailsContainer.outerHTML}</div>` : ''}
+                            </div>
+                        </body>
+                        </html>
+                    `;
+                    
+                    // Copiar al portapapeles
+                    const tempElement = document.createElement('div');
+                    tempElement.contentEditable = true;
+                    tempElement.innerHTML = htmlContent;
+                    tempElement.style.position = 'fixed';
+                    tempElement.style.left = '-9999px';
+                    document.body.appendChild(tempElement);
+                    
+                    const range = document.createRange();
+                    range.selectNodeContents(tempElement);
+                    const sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    
+                    let success = document.execCommand('copy');
+                    document.body.removeChild(tempElement);
+                    
+                    if (success) {
+                        window.showMessageModal(tr("✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio."));
+                        document.getElementById('send-offer-modal').classList.add('hidden');
+                        document.getElementById('send-offer-modal').classList.remove('flex');
+                    } else {
+                        window.showErrorModal(tr("No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte."));
+                    }
+                    
+                    return;
+                } catch (e) {
+                    console.error("Error al copiar DOM en chino:", e);
+                    window.showErrorModal(`Error: ${e.message}`);
+                    return;
+                }
+            }
+            
+            // Para otros idiomas, continuar con el proceso normal
             const commercialCode = document.getElementById('comercial-code-input').value.trim();
             if (!commercialCode) return window.showErrorModal("Indique el Código Comercial.");
 
