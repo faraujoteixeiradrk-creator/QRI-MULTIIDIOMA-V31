@@ -1471,10 +1471,10 @@
                                 onchange="toggleIndexedComparison(this.checked)"
                             >
                             <div class="flex-1">
-                                <p class="font-black text-base text-slate-900 mb-1 group-hover:text-drk-600 transition">
+                                <p id="compare-fijo-indexado-title" class="font-black text-base text-slate-900 mb-1 group-hover:text-drk-600 transition">
                                     ⚡ Comparar FIJO vs INDEXADO
                                 </p>
-                                <p class="text-sm text-slate-600">
+                                <p id="compare-fijo-indexado-desc" class="text-sm text-slate-600">
                                     Genera comparativa dual: tarifa fija y tarifa indexada DRK INDEX (precio variable del mercado).
                                 </p>
                             </div>
@@ -1558,9 +1558,8 @@
                     
                     <!-- Info adicional -->
                     <div class="mt-6 p-4 bg-slate-50 rounded-lg">
-                        <p class="text-xs text-slate-600">
-                            💡 <strong>Consejo:</strong> Si quieres ver rápidamente la mejor oferta, elige la primera opción. 
-                            Si necesitas comparar varias opciones o el cliente tiene preferencias específicas, elige la segunda.
+                        <p id="advice-text" class="text-xs text-slate-600">
+                            💡 <strong id="advice-label">Consejo:</strong> <span id="advice-content">Si quieres ver rápidamente la mejor oferta, elige la primera opción. Si necesitas comparar varias opciones o el cliente tiene preferencias específicas, elige la segunda.</span>
                         </p>
                     </div>
                 </div>
@@ -19532,7 +19531,13 @@ ${clientName}
                 "No hay suministros añadidos": { en: "No supplies added", zh: "未添加供应", de: "Keine Versorgungen hinzugefügt", fr: "Aucun approvisionnement ajouté" },
                 "+ Añadir Suministro": { en: "+ Add Supply", zh: "+ 添加供应", de: "+ Versorgung hinzufügen", fr: "+ Ajouter un approvisionnement" },
                 "Calcular Comparativa Global": { en: "Calculate Global Comparison", zh: "计算全局比较", de: "Globalen Vergleich berechnen", fr: "Calculer la comparaison globale" },
-                "Limpiar todo": { en: "Clear all", zh: "清除全部", de: "Alles löschen", fr: "Tout effacer" }
+                "Limpiar todo": { en: "Clear all", zh: "清除全部", de: "Alles löschen", fr: "Tout effacer" },
+                
+                // Textos del modal de decisión
+                "Consejo:": { en: "Advice:", zh: "建议：", de: "Rat:", fr: "Conseil :" },
+                "Si quieres ver rápidamente la mejor oferta, elige la primera opción. Si necesitas comparar varias opciones o el cliente tiene preferencias específicas, elige la segunda.": { en: "If you want to quickly see the best offer, choose the first option. If you need to compare multiple options or the client has specific preferences, choose the second.", zh: "如果您想快速查看最佳优惠，请选择第一个选项。如果您需要比较多个选项或客户有特定偏好，请选择第二个。", de: "Wenn Sie schnell das beste Angebot sehen möchten, wählen Sie die erste Option. Wenn Sie mehrere Optionen vergleichen müssen oder der Kunde spezifische Präferenzen hat, wählen Sie die zweite.", fr: "Si vous voulez voir rapidement la meilleure offre, choisissez la première option. Si vous devez comparer plusieurs options ou si le client a des préférences spécifiques, choisissez la seconde." },
+                "⚡ Comparar FIJO vs INDEXADO": { en: "⚡ Compare FIXED vs INDEXED", zh: "⚡ 比较固定与指数", de: "⚡ FEST vs INDEXIERT vergleichen", fr: "⚡ Comparer FIXE vs INDEXÉ" },
+                "Genera comparativa dual: tarifa fija y tarifa indexada DRK INDEX (precio variable del mercado).": { en: "Generate dual comparison: fixed rate and DRK INDEX indexed rate (variable market price).", zh: "生成双重比较：固定费率和DRK INDEX指数费率（可变市场价格）。", de: "Dual-Vergleich generieren: Festpreis und DRK INDEX indexierter Tarif (variabler Marktpreis).", fr: "Générer une comparaison duale : tarif fixe et tarif indexé DRK INDEX (prix variable du marché)." }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19946,7 +19951,9 @@ ${clientName}
                     'tariff-selector-title', 'tarifa-fija-title', 'tarifa-fija-desc',
                     'tarifa-indexada-title', 'tarifa-indexada-desc', 'tariff-selector-continue-btn',
                     'dual-title', 'dual-subtitle', 'dual-supplies-label',
-                    'dual-add-btn', 'dual-calculate-btn', 'dual-reset-btn'
+                    'dual-add-btn', 'dual-calculate-btn', 'dual-reset-btn',
+                    'advice-label', 'advice-content',
+                    'compare-fijo-indexado-title', 'compare-fijo-indexado-desc'
                 ];
                 
                 elementIds.forEach(id => {
