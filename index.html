@@ -52,267 +52,6 @@
             }
         }
     </script>
-    
-    <!-- SISTEMA MULTIIDIOMA -->
-    <script>
-        // === SISTEMA DE TRADUCCION MULTIIDIOMA (6 IDIOMAS) ===
-        let currentLang = localStorage.getItem('appLang') || 'es';
-        
-        const TRANSLATIONS = {
-            es: { energy: "Energía", selector: "Selector", comparator: "COMPARADOR", selectSupply: "Selecciona el tipo de suministro", 
-                  supplyType: "TIPO DE SUMINISTRO", electricity: "ELECTRICIDAD", gas: "GAS", dual: "DUAL",
-                  scanQR: "ESCANEAR QR", uploadQR: "SUBIR QR", manualEntry: "ENTRADA MANUAL", calculate: "CALCULAR",
-                  cancel: "Cancelar", close: "Cerrar", copyComparison: "COPIAR COMPARATIVO", generatePDF: "GENERAR PDF",
-                  invoiceData: "Datos de la Factura de GAS", tariff: "Tarifa", cups: "CUPS", cupsOptional: "<span data-i18n="cupsOptional">CUPS (Opcional)</span>",
-                  billingDays: "<span data-i18n="billingDays">Días de facturación</span>", kwhConsumed: "<span data-i18n="kwhConsumed">kWh consumidos</span>", currentInvoiceTotal: "<span data-i18n="currentInvoiceTotal">Total factura actual (€)</span>",
-                  compareIndexedFixed: "<span data-i18n="compareIndexedFixed">Comparar Indexada vs Fija</span>", selectionMode: "<span data-i18n="selectionMode">Modo de selección:</span>",
-                  yourSavings: "TUS AHORROS", annualSavings: "AHORRO ANUAL", monthlySavings: "AHORRO MENSUAL",
-                  currentInvoice: "FACTURA ACTUAL", withDRK: "CON DRK", withPowerCup: "CON POWER CUP",
-                  year: "AÑO", month: "MES", comparisonReport: "INFORME COMPARATIVO", 
-                  invoiceComparison: "COMPARACIÓN DE FACTURA", fixedTariff: "TARIFA FIJA", indexedTariff: "TARIFA INDEXADA",
-                  days: "Días", type: "Tipo", fixedTerm: "TÉRMINO FIJO", fixedPrice: "Precio fijo",
-                  powerSubtotal: "SUBTOTAL POTENCIA", energyTerm: "TÉRMINO ENERGÍA", energy: "Energía",
-                  grossEnergySubtotal: "Subtotal Energía (Bruto)", baseSubtotal: "SUBTOTAL BASE (P+E)",
-                  hydrocarbonTax: "Imp. Hidrocarburos", taxableBase: "BASE IMPONIBLE", iva: "IVA",
-                  invoiceTotal: "TOTAL FACTURA", projectedYear: "TOTAL AÑO (PROYECTADO)",
-                  estimatedAnnualSaving: "TU AHORRO ANUAL ESTIMADO ES:", whatsTheDifference: "CUAL ES LA DIFERENCIA?",
-                  whyFixed: "POR QUE TARIFA FIJA?", whyIndexed: "POR QUE TARIFA INDEXADA?"
-            ,
-            fixedExpl1: "• Implica un precio fijo por los kilovatios que",
-            fixedExpl2: "  consumes (kWh).",
-            fixedExpl3: "• El precio se mantiene estable,",
-            fixedExpl4: "  independientemente de cómo se comporten los",
-            fixedExpl5: "  precios en el mercado eléctrico.",
-            fixedExpl6: "• Cuando el precio del mercado está alto, el",
-            fixedExpl7: "  cliente está protegido frente a sobresaltos.",
-            fixedExpl8: "• No tendrás que estar pendiente de las",
-            fixedExpl9: "  variaciones del mercado y podrás seguir",
-            fixedExpl10: "  usando la electricidad como siempre.",
-            indexExpl1: "• Implica un precio variable por los kilovatios",
-            indexExpl2: "  que consumes (kWh) cada mes.",
-            indexExpl3: "• Es la tarifa más justa, ya que pagas el coste",
-            indexExpl4: "  real de la energía mes a mes.",
-            indexExpl5: "• Al contratarla, el cliente evita pagar",
-            indexExpl6: "  márgenes adicionales cuando el precio de la",
-            indexExpl7: "  electricidad es más barato.",
-            indexExpl8: "• A largo plazo, con un indexado 100%",
-            indexExpl9: "  funcional, se puede obtener un ahorro",
-            indexExpl10: "  aproximado de hasta un 20% en épocas de",
-            indexExpl11: "  mejor precio." },
-            
-            en: { energy: "Energy", selector: "Selector", comparator: "COMPARATOR", selectSupply: "Select the type of supply",
-                  supplyType: "SUPPLY TYPE", electricity: "ELECTRICITY", gas: "GAS", dual: "DUAL",
-                  scanQR: "SCAN QR", uploadQR: "UPLOAD QR", manualEntry: "MANUAL ENTRY", calculate: "CALCULATE",
-                  cancel: "Cancel", close: "Close", copyComparison: "COPY COMPARISON", generatePDF: "GENERATE PDF",
-                  invoiceData: "GAS Invoice Data", tariff: "Tariff", cups: "CUPS", cupsOptional: "CUPS (Optional)",
-                  billingDays: "Billing days", kwhConsumed: "kWh consumed", currentInvoiceTotal: "Current invoice total (€)",
-                  compareIndexedFixed: "Compare Indexed vs Fixed", selectionMode: "Selection mode:",
-                  yourSavings: "YOUR SAVINGS", annualSavings: "ANNUAL SAVINGS", monthlySavings: "MONTHLY SAVINGS",
-                  currentInvoice: "CURRENT INVOICE", withDRK: "WITH DRK", withPowerCup: "WITH POWER CUP",
-                  year: "YEAR", month: "MONTH", comparisonReport: "COMPARISON REPORT",
-                  invoiceComparison: "INVOICE COMPARISON", fixedTariff: "FIXED TARIFF", indexedTariff: "INDEXED TARIFF",
-                  days: "Days", type: "Type", fixedTerm: "FIXED TERM", fixedPrice: "Fixed price",
-                  powerSubtotal: "POWER SUBTOTAL", energyTerm: "ENERGY TERM", energy: "Energy",
-                  grossEnergySubtotal: "Energy Subtotal (Gross)", baseSubtotal: "BASE SUBTOTAL (P+E)",
-                  hydrocarbonTax: "Hydrocarbon Tax", taxableBase: "TAXABLE BASE", iva: "VAT",
-                  invoiceTotal: "TOTAL INVOICE", projectedYear: "PROJECTED YEAR TOTAL",
-                  estimatedAnnualSaving: "YOUR ESTIMATED ANNUAL SAVING IS:", whatsTheDifference: "WHAT'S THE DIFFERENCE?",
-                  whyFixed: "WHY FIXED TARIFF?", whyIndexed: "WHY INDEXED TARIFF?"
-            ,
-            fixedExpl1: "• Implies a fixed price for the kilowatts you",
-            fixedExpl2: "  consume (kWh).",
-            fixedExpl3: "• The price remains stable, regardless of how",
-            fixedExpl4: "  the electricity market prices behave.",
-            fixedExpl5: "• When market prices are high, the customer",
-            fixedExpl6: "  is protected from surprises.",
-            fixedExpl7: "• You won't need to worry about market",
-            fixedExpl8: "  variations and can continue using",
-            fixedExpl9: "  electricity as usual.",
-            indexExpl1: "• Implies a variable price for the kilowatts",
-            indexExpl2: "  you consume (kWh) each month.",
-            indexExpl3: "• It's the fairest tariff, as you pay the real",
-            indexExpl4: "  cost of energy month by month.",
-            indexExpl5: "• By contracting it, customers avoid paying",
-            indexExpl6: "  additional margins when electricity",
-            indexExpl7: "  prices are cheaper.",
-            indexExpl8: "• Long-term, with 100% functional indexing,",
-            indexExpl9: "  you can obtain savings of approximately up",
-            indexExpl10: "  to 20% during better price periods." },
-            
-            fr: { energy: "Énergie", selector: "Sélecteur", comparator: "COMPARATEUR", selectSupply: "Sélectionnez le type d'approvisionnement",
-                  supplyType: "TYPE D'APPROVISIONNEMENT", electricity: "ÉLECTRICITÉ", gas: "GAZ", dual: "DOUBLE",
-                  scanQR: "SCANNER QR", uploadQR: "TÉLÉCHARGER QR", manualEntry: "SAISIE MANUELLE", calculate: "CALCULER",
-                  cancel: "Annuler", close: "Fermer", copyComparison: "COPIER LA COMPARAISON", generatePDF: "GÉNÉRER PDF",
-                  invoiceData: "Données de la Facture GAZ", tariff: "Tarif", cups: "CUPS", cupsOptional: "CUPS (Facultatif)",
-                  billingDays: "Jours de facturation", kwhConsumed: "kWh consommés", currentInvoiceTotal: "Total facture actuelle (€)",
-                  compareIndexedFixed: "Comparer Indexé vs Fixe", selectionMode: "Mode de sélection:",
-                  yourSavings: "VOS ÉCONOMIES", annualSavings: "ÉCONOMIES ANNUELLES", monthlySavings: "ÉCONOMIES MENSUELLES",
-                  currentInvoice: "FACTURE ACTUELLE", withDRK: "AVEC DRK", withPowerCup: "AVEC POWER CUP",
-                  year: "AN", month: "MOIS", comparisonReport: "RAPPORT COMPARATIF",
-                  invoiceComparison: "COMPARAISON DE FACTURE", fixedTariff: "TARIF FIXE", indexedTariff: "TARIF INDEXÉ",
-                  days: "Jours", type: "Type", fixedTerm: "TERME FIXE", fixedPrice: "Prix fixe",
-                  powerSubtotal: "SOUS-TOTAL PUISSANCE", energyTerm: "TERME ÉNERGIE", energy: "Énergie",
-                  grossEnergySubtotal: "Sous-total Énergie (Brut)", baseSubtotal: "SOUS-TOTAL BASE (P+E)",
-                  hydrocarbonTax: "Taxe Hydrocarbures", taxableBase: "BASE IMPOSABLE", iva: "TVA",
-                  invoiceTotal: "TOTAL FACTURE", projectedYear: "TOTAL ANNÉE (PROJETÉ)",
-                  estimatedAnnualSaving: "VOTRE ÉCONOMIE ANNUELLE ESTIMÉE EST:", whatsTheDifference: "QUELLE EST LA DIFFÉRENCE?",
-                  whyFixed: "POURQUOI TARIF FIXE?", whyIndexed: "POURQUOI TARIF INDEXÉ?"
-            ,
-            fixedExpl1: "• Implique un prix fixe pour les kilowatts",
-            fixedExpl2: "  que vous consommez (kWh).",
-            fixedExpl3: "• Le prix reste stable, indépendamment de",
-            fixedExpl4: "  l'évolution des prix du marché électrique.",
-            fixedExpl5: "• Lorsque le prix du marché est élevé, le",
-            fixedExpl6: "  client est protégé contre les surprises.",
-            fixedExpl7: "• Vous n'aurez pas besoin de suivre les",
-            fixedExpl8: "  variations du marché et pourrez continuer",
-            fixedExpl9: "  à utiliser l'électricité comme d'habitude.",
-            indexExpl1: "• Implique un prix variable pour les kilowatts",
-            indexExpl2: "  que vous consommez (kWh) chaque mois.",
-            indexExpl3: "• C'est le tarif le plus juste, car vous payez",
-            indexExpl4: "  le coût réel de l'énergie mois par mois.",
-            indexExpl5: "• En le contractant, le client évite de payer",
-            indexExpl6: "  des marges supplémentaires lorsque le prix",
-            indexExpl7: "  de l'électricité est moins cher.",
-            indexExpl8: "• À long terme, avec une indexation 100%",
-            indexExpl9: "  fonctionnelle, vous pouvez obtenir des",
-            indexExpl10: "  économies d'environ 20% pendant les",
-            indexExpl11: "  périodes de meilleurs prix." },
-            
-            pt: { energy: "Energia", selector: "Seletor", comparator: "COMPARADOR", selectSupply: "Selecione o tipo de fornecimento",
-                  supplyType: "TIPO DE FORNECIMENTO", electricity: "ELETRICIDADE", gas: "GÁS", dual: "DUPLO",
-                  scanQR: "ESCANEAR QR", uploadQR: "CARREGAR QR", manualEntry: "ENTRADA MANUAL", calculate: "CALCULAR",
-                  cancel: "Cancelar", close: "Fechar", copyComparison: "COPIAR COMPARATIVO", generatePDF: "GERAR PDF",
-                  invoiceData: "Dados da Fatura de GÁS", tariff: "Tarifa", cups: "CUPS", cupsOptional: "<span data-i18n="cupsOptional">CUPS (Opcional)</span>",
-                  billingDays: "Dias de faturação", kwhConsumed: "<span data-i18n="kwhConsumed">kWh consumidos</span>", currentInvoiceTotal: "Total fatura atual (€)",
-                  compareIndexedFixed: "Comparar Indexada vs Fixa", selectionMode: "Modo de seleção:",
-                  yourSavings: "SUAS ECONOMIAS", annualSavings: "ECONOMIA ANUAL", monthlySavings: "ECONOMIA MENSAL",
-                  currentInvoice: "FATURA ATUAL", withDRK: "COM DRK", withPowerCup: "COM POWER CUP",
-                  year: "ANO", month: "MÊS", comparisonReport: "RELATÓRIO COMPARATIVO",
-                  invoiceComparison: "COMPARAÇÃO DE FATURA", fixedTariff: "TARIFA FIXA", indexedTariff: "TARIFA INDEXADA",
-                  days: "Dias", type: "Tipo", fixedTerm: "TERMO FIXO", fixedPrice: "Preço fixo",
-                  powerSubtotal: "SUBTOTAL POTÊNCIA", energyTerm: "TERMO ENERGIA", energy: "Energia",
-                  grossEnergySubtotal: "Subtotal Energia (Bruto)", baseSubtotal: "SUBTOTAL BASE (P+E)",
-                  hydrocarbonTax: "Imp. Hidrocarbonetos", taxableBase: "BASE TRIBUTÁVEL", iva: "IVA",
-                  invoiceTotal: "TOTAL FATURA", projectedYear: "TOTAL ANO (PROJETADO)",
-                  estimatedAnnualSaving: "SUA ECONOMIA ANUAL ESTIMADA É:", whatsTheDifference: "QUAL É A DIFERENÇA?",
-                  whyFixed: "POR QUE TARIFA FIXA?", whyIndexed: "POR QUE TARIFA INDEXADA?"
-            ,
-            fixedExpl1: "• Implica um preço fixo pelos quilowatts",
-            fixedExpl2: "  que você consome (kWh).",
-            fixedExpl3: "• O preço permanece estável, independentemente",
-            fixedExpl4: "  de como os preços do mercado elétrico se",
-            fixedExpl5: "  comportem.",
-            fixedExpl6: "• Quando o preço do mercado está alto, o",
-            fixedExpl7: "  cliente está protegido contra surpresas.",
-            fixedExpl8: "• Você não precisará acompanhar as",
-            fixedExpl9: "  variações do mercado e poderá continuar",
-            fixedExpl10: "  usando a eletricidade como sempre.",
-            indexExpl1: "• Implica um preço variável pelos quilowatts",
-            indexExpl2: "  que você consome (kWh) a cada mês.",
-            indexExpl3: "• É a tarifa mais justa, pois você paga o",
-            indexExpl4: "  custo real da energia mês a mês.",
-            indexExpl5: "• Ao contratá-la, o cliente evita pagar",
-            indexExpl6: "  margens adicionais quando o preço da",
-            indexExpl7: "  eletricidade está mais barato.",
-            indexExpl8: "• A longo prazo, com indexação 100%",
-            indexExpl9: "  funcional, você pode obter uma economia",
-            indexExpl10: "  aproximada de até 20% em períodos de",
-            indexExpl11: "  melhor preço." },
-            
-            de: { energy: "Energie", selector: "Selektor", comparator: "VERGLEICHER", selectSupply: "Wählen Sie die Art der Versorgung",
-                  supplyType: "VERSORGUNGSART", electricity: "STROM", gas: "GAS", dual: "DUAL",
-                  scanQR: "QR SCANNEN", uploadQR: "QR HOCHLADEN", manualEntry: "MANUELLE EINGABE", calculate: "BERECHNEN",
-                  cancel: "Abbrechen", close: "Schließen", copyComparison: "VERGLEICH KOPIEREN", generatePDF: "PDF ERSTELLEN",
-                  invoiceData: "GAS-Rechnungsdaten", tariff: "Tarif", cups: "CUPS", cupsOptional: "CUPS (Optional)",
-                  billingDays: "Abrechnungstage", kwhConsumed: "Verbrauchte kWh", currentInvoiceTotal: "Aktuelle Rechnung gesamt (€)",
-                  compareIndexedFixed: "Indexiert vs. Fest vergleichen", selectionMode: "Auswahlmodus:",
-                  yourSavings: "IHRE ERSPARNISSE", annualSavings: "JÄHRLICHE ERSPARNISSE", monthlySavings: "MONATLICHE ERSPARNISSE",
-                  currentInvoice: "AKTUELLE RECHNUNG", withDRK: "MIT DRK", withPowerCup: "MIT POWER CUP",
-                  year: "JAHR", month: "MONAT", comparisonReport: "VERGLEICHSBERICHT",
-                  invoiceComparison: "RECHNUNGSVERGLEICH", fixedTariff: "FESTTARIF", indexedTariff: "INDEXIERTER TARIF",
-                  days: "Tage", type: "Typ", fixedTerm: "FESTBETRAG", fixedPrice: "Festpreis",
-                  powerSubtotal: "LEISTUNG ZWISCHENSUMME", energyTerm: "ENERGIEBETRAG", energy: "Energie",
-                  grossEnergySubtotal: "Energie Zwischensumme (Brutto)", baseSubtotal: "BASIS ZWISCHENSUMME (P+E)",
-                  hydrocarbonTax: "Kohlenwasserstoffsteuer", taxableBase: "STEUERBASIS", iva: "MwSt",
-                  invoiceTotal: "RECHNUNGSGESAMT", projectedYear: "PROJIZIERTES JAHRESGESAMT",
-                  estimatedAnnualSaving: "IHRE GESCHÄTZTE JÄHRLICHE ERSPARNIS IST:", whatsTheDifference: "WAS IST DER UNTERSCHIED?",
-                  whyFixed: "WARUM FESTTARIF?", whyIndexed: "WARUM INDEXIERTER TARIF?"
-            ,
-            fixedExpl1: "• Bedeutet einen festen Preis für die",
-            fixedExpl2: "  Kilowattstunden, die Sie verbrauchen (kWh).",
-            fixedExpl3: "• Der Preis bleibt stabil, unabhängig davon,",
-            fixedExpl4: "  wie sich die Strommarktpreise verhalten.",
-            fixedExpl5: "• Wenn der Marktpreis hoch ist, ist der",
-            fixedExpl6: "  Kunde vor Überraschungen geschützt.",
-            fixedExpl7: "• Sie müssen die Marktschwankungen nicht",
-            fixedExpl8: "  verfolgen und können den Strom wie",
-            fixedExpl9: "  gewohnt weiter nutzen.",
-            indexExpl1: "• Bedeutet einen variablen Preis für die",
-            indexExpl2: "  Kilowattstunden, die Sie jeden Monat",
-            indexExpl3: "  verbrauchen (kWh).",
-            indexExpl4: "• Es ist der fairste Tarif, da Sie die",
-            indexExpl5: "  tatsächlichen Energiekosten Monat für",
-            indexExpl6: "  Monat zahlen.",
-            indexExpl7: "• Durch die Vertragsabschluss vermeidet der",
-            indexExpl8: "  Kunde zusätzliche Aufschläge, wenn der",
-            indexExpl9: "  Strompreis günstiger ist.",
-            indexExpl10: "• Langfristig können Sie mit 100%",
-            indexExpl11: "  funktionaler Indexierung Einsparungen von",
-            indexExpl12: "  etwa bis zu 20% in Zeiten besserer Preise",
-            indexExpl13: "  erzielen." },
-            
-            zh: { energy: "能源", selector: "选择器", comparator: "比较器", selectSupply: "选择供应类型",
-                  supplyType: "供应类型", electricity: "电力", gas: "天然气", dual: "双重",
-                  scanQR: "扫描二维码", uploadQR: "上传二维码", manualEntry: "手动输入", calculate: "计算",
-                  cancel: "取消", close: "关闭", copyComparison: "复制比较", generatePDF: "生成PDF",
-                  invoiceData: "天然气账单数据", tariff: "费率", cups: "CUPS", cupsOptional: "CUPS（可选）",
-                  billingDays: "计费天数", kwhConsumed: "消耗的千瓦时", currentInvoiceTotal: "当前账单总额(€)",
-                  compareIndexedFixed: "比较指数化与固定", selectionMode: "选择模式：",
-                  yourSavings: "您的节省", annualSavings: "年度节省", monthlySavings: "月度节省",
-                  currentInvoice: "当前账单", withDRK: "使用DRK", withPowerCup: "使用POWER CUP",
-                  year: "年", month: "月", comparisonReport: "比较报告",
-                  invoiceComparison: "账单比较", fixedTariff: "固定费率", indexedTariff: "指数化费率",
-                  days: "天数", type: "类型", fixedTerm: "固定期限", fixedPrice: "固定价格",
-                  powerSubtotal: "电力小计", energyTerm: "能源期限", energy: "能源",
-                  grossEnergySubtotal: "能源小计（毛额）", baseSubtotal: "基础小计(P+E)",
-                  hydrocarbonTax: "碳氢化合物税", taxableBase: "应税基础", iva: "增值税",
-                  invoiceTotal: "账单总额", projectedYear: "预计年度总额",
-                  estimatedAnnualSaving: "您的预计年度节省为：", whatsTheDifference: "有什么区别？",
-                  whyFixed: "为什么选择固定费率？", whyIndexed: "为什么选择指数化费率？"
-            ,
-            fixedExpl1: "• 意味着您消耗的千瓦时 (kWh) 有",
-            fixedExpl2: "  固定价格。",
-            fixedExpl3: "• 价格保持稳定，不受电力市场",
-            fixedExpl4: "  价格波动的影响。",
-            fixedExpl5: "• 当市场价格高时，客户可以避免",
-            fixedExpl6: "  意外情况。",
-            fixedExpl7: "• 您不需要关注市场波动，可以像",
-            fixedExpl8: "  往常一样继续使用电力。",
-            indexExpl1: "• 意味着您每月消耗的千瓦时 (kWh)",
-            indexExpl2: "  有可变价格。",
-            indexExpl3: "• 这是最公平的费率，因为您按月",
-            indexExpl4: "  支付能源的实际成本。",
-            indexExpl5: "• 通过签约，当电价更便宜时，客户",
-            indexExpl6: "  可以避免支付额外的利润。",
-            indexExpl7: "• 从长远来看，通过 100% 功能性",
-            indexExpl8: "  指数化，您可以在价格更好的时期",
-            indexExpl9: "  获得约 20% 的节省。" }
-        };
-        
-        function tr(key) { return TRANSLATIONS[currentLang]?.[key] || TRANSLATIONS['es']?.[key] || key; }
-        function setLang(lang) { currentLang = lang; localStorage.setItem('appLang', lang); updateLangUI(); }
-        function updateLangUI() {
-            document.getElementById('language-selector').value = currentLang;
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = tr(key);
-                else el.textContent = tr(key);
-            });
-        }
-        window.addEventListener('DOMContentLoaded', () => { updateLangUI(); });
-    </script>
-
     <style>
         /* === SISTEMA PANTALLAS === */
         .screen { display: none; }
@@ -441,18 +180,27 @@
     <div id="navbar" class="w-full bg-drk-900 text-white p-4 shadow-md sticky top-0 z-50 transition-colors duration-300">
         <div class="max-w-lg mx-auto flex justify-between items-center">
             <h1 class="text-xl font-bold tracking-tight cursor-pointer" onclick="resetToLanding()">
-                <span id="app-logo-main">DRK</span> <span class="text-drk-500" id="app-logo-accent" data-i18n="energy">Energía</span>
+                <span id="app-logo-main">DRK</span> <span class="text-drk-500" id="app-logo-accent">Energía</span>
             </h1>
+            
+            <!-- Language Selector -->
             <div class="flex items-center gap-3">
-                <select id="language-selector" onchange="setLang(this.value)" class="text-xs bg-drk-800 px-2 py-1 rounded text-drk-100 cursor-pointer border border-drk-700 focus:outline-none">
-                    <option value="es">🇪🇸</option>
-                    <option value="en">🇬🇧</option>
-                    <option value="fr">🇫🇷</option>
-                    <option value="pt">🇵🇹</option>
-                    <option value="de">🇩🇪</option>
-                    <option value="zh">🇨🇳</option>
-                </select>
-                <span class="text-xs bg-drk-800 px-2 py-1 rounded text-drk-100" id="app-subtitle" data-i18n="selector">Selector</span>
+                <div class="relative">
+                    <select id="language-selector" onchange="if(window.LANG) window.LANG.change(this.value)" 
+                            class="bg-drk-800 text-white text-xs px-3 py-1.5 rounded border border-drk-700 cursor-pointer hover:bg-drk-700 transition-colors appearance-none pr-8 font-semibold">
+                        <option value="es">🇪🇸 ES</option>
+                        <option value="en">🇬🇧 EN</option>
+                        <option value="zh">🇨🇳 ZH</option>
+                        <option value="de">🇩🇪 DE</option>
+                        <option value="fr">🇫🇷 FR</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+                <span class="text-xs bg-drk-800 px-2 py-1 rounded text-drk-100" id="app-subtitle">Selector</span>
             </div>
         </div>
     </div>
@@ -497,22 +245,22 @@
                             <circle class="drk-ring" cx="55" cy="45" r="35" stroke="#00A859"/>
                         </svg>
                     </div>
-                    <h2 class="text-3xl font-black text-drk-900 mb-2 text-center">DRK <span data-i18n="comparator">COMPARADOR</span></h2>
-                    <p class="text-slate-500 mb-6 text-center" data-i18n="selectSupply">Selecciona el tipo de suministro.</p>
+                    <h2 class="text-3xl font-black text-drk-900 mb-2 text-center">DRK COMPARADOR</h2>
+                    <p class="text-slate-500 mb-6 text-center">Selecciona el tipo de suministro.</p>
                     
                     <!-- SELECTOR DE SERVICIO -->
                     <div class="pt-4 border-t border-slate-200">
-                        <p class="text-sm font-bold text-drk-800 mb-4 text-center uppercase tracking-wider" data-i18n="supplyType">TIPO DE SUMINISTRO</p>
+                        <p class="text-sm font-bold text-drk-800 mb-4 text-center uppercase tracking-wider">TIPO DE SUMINISTRO</p>
                         <div class="grid grid-cols-2 gap-4 mb-4">
                             <button onclick="goToElectricidad()" style="padding: 2rem; border-radius: 1.5rem; border: 4px solid #cbd5e1; background: white; text-align: center; cursor: pointer;">
                                 <div style="font-size: 3rem; margin-bottom: 0.75rem;">⚡</div>
-                                <div style="font-size: 1.25rem; font-weight: 900; color: #1e3a8a;" data-i18n="electricity">ELECTRICIDAD</div>
+                                <div style="font-size: 1.25rem; font-weight: 900; color: #1e3a8a;">ELECTRICIDAD</div>
                                 <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem;">MULTICUPS · 2.0 TD · 3.0 TD</div>
                             </button>
                             
                             <button onclick="goToGas()" style="padding: 2rem; border-radius: 1.5rem; border: 4px solid #cbd5e1; background: white; text-align: center; cursor: pointer;">
                                 <div style="font-size: 3rem; margin-bottom: 0.75rem;">🔥</div>
-                                <div style="font-size: 1.25rem; font-weight: 900; color: #dc2626;" data-i18n="gas">GAS</div>
+                                <div style="font-size: 1.25rem; font-weight: 900; color: #dc2626;">GAS</div>
                                 <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem;">RL1 · RL2 · RL3 · RL4 · RL5 · RL6</div>
                             </button>
                         </div>
@@ -686,14 +434,14 @@
         <div id="gas-manual-input-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md border-t-4 border-red-500 max-h-[90vh] overflow-y-auto">
                 <div class="p-6">
-                    <h3 class="text-2xl font-black text-red-600 mb-2 text-center" data-i18n="invoiceData">Datos de la Factura de GAS</h3>
+                    <h3 class="text-2xl font-black text-red-600 mb-2 text-center">Datos de la Factura de GAS</h3>
                     <p class="text-sm text-slate-500 mb-4 text-center">Tarifa: <span id="gas-selected-tariff" class="font-bold text-red-600"></span></p>
                     
                     <div class="space-y-4">
                         <!-- CUPS de GAS -->
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">
-                                <span data-i18n="cupsOptional">CUPS (Opcional)</span>
+                                CUPS (Opcional)
                             </label>
                             <input 
                                 type="text" 
@@ -704,10 +452,10 @@
                             <p class="text-xs text-slate-500 mt-1">Se incluirá en el PDF si lo proporcionas</p>
                         </div>
                         
-                        <!-- <span data-i18n="billingDays">Días de facturación</span> -->
+                        <!-- Días de facturación -->
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">
-                                <span data-i18n="billingDays">Días de facturación</span>
+                                Días de facturación
                             </label>
                             <input 
                                 type="number" 
@@ -719,10 +467,10 @@
                             >
                         </div>
                         
-                        <!-- <span data-i18n="kwhConsumed">kWh consumidos</span> -->
+                        <!-- kWh consumidos -->
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">
-                                <span data-i18n="kwhConsumed">kWh consumidos</span>
+                                kWh consumidos
                             </label>
                             <input 
                                 type="number" 
@@ -737,7 +485,7 @@
                         <!-- Total cliente -->
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2">
-                                <span data-i18n="currentInvoiceTotal">Total factura actual (€)</span>
+                                Total factura actual (€)
                             </label>
                             <input 
                                 type="number" 
@@ -749,7 +497,7 @@
                             >
                         </div>
                         
-                        <!-- SELECTOR: <span data-i18n="compareIndexedFixed">Comparar Indexada vs Fija</span> -->
+                        <!-- SELECTOR: Comparar Indexada vs Fija -->
                         <div class="pt-4 border-t border-slate-200">
                             <label class="flex items-center gap-3 cursor-pointer">
                                 <input 
@@ -758,7 +506,7 @@
                                     class="w-5 h-5 text-red-600 rounded focus:ring-red-500"
                                     onchange="toggleGasComparisonMode()"
                                 >
-                                <span class="text-sm font-bold text-slate-700"><span data-i18n="compareIndexedFixed">Comparar Indexada vs Fija</span></span>
+                                <span class="text-sm font-bold text-slate-700">Comparar Indexada vs Fija</span>
                             </label>
                             <p class="text-xs text-slate-500 mt-1 ml-8">
                                 Activa para comparar automáticamente tarifa indexada DRK contra tarifas fijas.
@@ -767,7 +515,7 @@
                         
                         <!-- OPCIONES DE SELECCIÓN -->
                         <div class="pt-4 border-t border-slate-200">
-                            <p class="text-sm font-bold text-slate-700 mb-3"><span data-i18n="selectionMode">Modo de selección:</span></p>
+                            <p class="text-sm font-bold text-slate-700 mb-3">Modo de selección:</p>
                             
                             <!-- Opción 1: Mejores tarifas -->
                             <label class="flex items-start gap-3 mb-3 cursor-pointer p-3 border-2 border-slate-200 rounded-lg hover:border-red-300 transition">
@@ -860,6 +608,14 @@
                     <!-- Contenedor de resultados -->
                     <div id="gas-results-container" class="mt-6">
                         <!-- Los resultados se insertarán aquí -->
+                    </div>
+                    
+                    <!-- NUEVO: Botón para solicitar mejora cuando no hay ahorro en GAS -->
+                    <div id="gas-request-improvement-container" style="display:none;" class="mt-6">
+                        <button id="gas-request-improvement-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <span>SOLICITAR MEJORA A DRK</span>
+                        </button>
                     </div>
                     
                     <!-- NUEVO: Botón para añadir a DUAL (solo visible en modo DUAL) -->
@@ -1069,6 +825,14 @@
                     
                     <!-- Botones de descarga -->
                     <div class="mt-6 flex flex-col gap-3">
+                        <!-- NUEVO: Botón para solicitar mejora cuando NO hay ahorro en DUAL -->
+                        <div id="dual-request-improvement-container" style="display:none;">
+                            <button id="dual-request-improvement-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-3 mb-3">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                <span>SOLICITAR MEJORA A DRK</span>
+                            </button>
+                        </div>
+                        
                         <button onclick="showClientDataModal()" class="w-full py-3 bg-slate-700 hover:bg-slate-800 text-white rounded-xl font-semibold transition-all text-sm shadow-md flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
@@ -1360,7 +1124,7 @@
         <div id="scanner-view" class="hidden flex-col h-full">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold text-slate-700">Escaneando...</h2>
-                <button id="stop-scan-btn" class="text-red-500 font-bold text-sm bg-red-50 px-3 py-1 rounded-lg"><span data-i18n="cancel">Cancelar</span></button>
+                <button id="stop-scan-btn" class="text-red-500 font-bold text-sm bg-red-50 px-3 py-1 rounded-lg">Cancelar</button>
             </div>
             
             <!-- Indicador de intensidad de escaneo -->
@@ -1572,8 +1336,8 @@
                     <input type="number" step="0.01" id="input-total-bill" placeholder="Total Factura (€)" class="w-full mb-4 p-3 rounded-lg border border-slate-300 text-sm font-bold focus:outline-none focus:border-2 focus:focus:border-drk-500">
                 </div>
                 
-                <button id="execute-manual-input-btn" class="w-full bg-drk-500 hover:bg-drk-600 text-white font-bold py-3 rounded-xl shadow-md mb-3"><span data-i18n="calculate">CALCULAR</span></button>
-                <button onclick="closeManualInputModal()" class="w-full bg-slate-200 text-slate-600 font-bold py-3 rounded-xl text-sm"><span data-i18n="cancel">Cancelar</span></button>
+                <button id="execute-manual-input-btn" class="w-full bg-drk-500 hover:bg-drk-600 text-white font-bold py-3 rounded-xl shadow-md mb-3">CALCULAR</button>
+                <button onclick="closeManualInputModal()" class="w-full bg-slate-200 text-slate-600 font-bold py-3 rounded-xl text-sm">Cancelar</button>
             </div>
         </div>
 
@@ -1595,7 +1359,7 @@
                     </div>
 
                 <button id="confirm-save-supply-btn" class="w-full bg-drk-500 hover:bg-drk-600 text-white font-bold py-3 rounded-xl shadow-md mb-3">AÑADIR A LA LISTA DE CUPS</button>
-                <button onclick="document.getElementById('qr-confirm-modal').classList.add('hidden');" class="w-full bg-slate-200 text-slate-600 font-bold py-3 rounded-xl text-sm"><span data-i18n="cancel">Cancelar</span></button>
+                <button onclick="document.getElementById('qr-confirm-modal').classList.add('hidden');" class="w-full bg-slate-200 text-slate-600 font-bold py-3 rounded-xl text-sm">Cancelar</button>
             </div>
         </div>
 
@@ -1615,7 +1379,7 @@
                 
                 <button id="modal-upload-file-btn" class="w-full bg-drk-800 hover:bg-drk-900 text-white font-bold py-3 px-6 rounded-xl shadow-md mb-3">Subir Imagen</button>
                 <button id="modal-paste-image-btn" class="w-full bg-drk-600 hover:bg-drk-800 text-white font-bold py-3 px-6 rounded-xl shadow-md mb-4">Pegar Imagen (CTRL+V)</button>
-                <button onclick="document.getElementById('qr-options-modal').classList.add('hidden'); document.getElementById('qr-options-modal').classList.remove('flex');" class="w-full bg-slate-200 font-bold py-3 rounded-xl"><span data-i18n="cancel">Cancelar</span></button>
+                <button onclick="document.getElementById('qr-options-modal').classList.add('hidden'); document.getElementById('qr-options-modal').classList.remove('flex');" class="w-full bg-slate-200 font-bold py-3 rounded-xl">Cancelar</button>
             </div>
         </div>
 
@@ -1651,7 +1415,7 @@
                 <button id="execute-pdf-offer-btn" class="w-full bg-drk-600 hover:bg-drk-700 text-white font-black py-3 rounded-xl shadow-md mb-3">
                     📄 CREAR PDF COMPARATIVO
                 </button>
-                <button onclick="document.getElementById('send-offer-modal').classList.add('hidden'); document.getElementById('send-offer-modal').classList.remove('flex');" class="w-full bg-slate-200 font-bold py-3 rounded-xl text-sm"><span data-i18n="cancel">Cancelar</span></button>
+                <button onclick="document.getElementById('send-offer-modal').classList.add('hidden'); document.getElementById('send-offer-modal').classList.remove('flex');" class="w-full bg-slate-200 font-bold py-3 rounded-xl text-sm">Cancelar</button>
             </div>
         </div>
 
@@ -1682,7 +1446,7 @@
                 <button id="execute-improvement-request-btn" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-black py-3 rounded-xl shadow-md mb-3">
                     📧 ENVIAR SOLICITUD
                 </button>
-                <button onclick="document.getElementById('request-improvement-modal').classList.add('hidden'); document.getElementById('request-improvement-modal').classList.remove('flex');" class="w-full bg-slate-200 font-bold py-3 rounded-xl text-sm"><span data-i18n="cancel">Cancelar</span></button>
+                <button onclick="document.getElementById('request-improvement-modal').classList.add('hidden'); document.getElementById('request-improvement-modal').classList.remove('flex');" class="w-full bg-slate-200 font-bold py-3 rounded-xl text-sm">Cancelar</button>
             </div>
         </div>
 
@@ -2420,6 +2184,8 @@
             compareWithIndexed = false;
             bestOptionTariffChoice = 'fija';
             currentTariffType = null; // NUEVO: Resetear tipo de tarifa
+            window.lastGasComparisonResult = null; // NUEVO: Resetear datos de GAS
+            window.dualGlobalResults = null; // NUEVO: Resetear datos DUAL
             
             // DUAL: Limpiar variables DUAL
             window.dualMode = false;
@@ -4299,6 +4065,9 @@
                 // Ocultar columnas de precios
                 document.getElementById('price-columns').style.display = 'none';
                 
+                // NUEVO: Mostrar botón para solicitar mejora a DRK
+                document.getElementById('request-improvement-btn').style.display = 'flex';
+                
                 newCostLabelEl.textContent = "TU COSTE ACTUAL";
                 
                 // Si no hay ahorro, el coste actual es el "bueno", sin tachar
@@ -4316,6 +4085,9 @@
                 
                 // Mostrar columnas de precios
                 document.getElementById('price-columns').style.display = 'grid';
+                
+                // Ocultar botón de solicitar mejora
+                document.getElementById('request-improvement-btn').style.display = 'none';
                 
                 newCostLabelEl.textContent = `TU NUEVO COSTE ${isDrk ? 'DRK' : 'POWER CUP'}`;
                 
@@ -5145,7 +4917,7 @@
                 doc.setTextColor(0, 0, 0);
                 doc.setFontSize(11);
                 doc.setFont('helvetica', 'bold');
-                doc.text(tr('whatsTheDifference'), pageWidth / 2, yPos + 8, { align: 'center' });
+                doc.text('CUAL ES LA DIFERENCIA?', pageWidth / 2, yPos + 8, { align: 'center' });
                 
                 yPos += 15;
                 
@@ -5154,7 +4926,7 @@
                 doc.setFontSize(9);
                 doc.setTextColor(...blueColor);
                 doc.setFont('helvetica', 'bold');
-                doc.text(tr('whyFixed'), leftXPage3 + 2, leftColY);
+                doc.text('POR QUE TARIFA FIJA?', leftXPage3 + 2, leftColY);
                 leftColY += 6;
                 
                 doc.setTextColor(0, 0, 0);
@@ -5186,7 +4958,7 @@
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'bold');
                 doc.setTextColor(...greenColor);
-                doc.text(tr('whyIndexed'), rightXPage3 + 2, rightColY);
+                doc.text('POR QUE TARIFA INDEXADA?', rightXPage3 + 2, rightColY);
                 rightColY += 6;
                 
                 doc.setTextColor(0, 0, 0);
@@ -5999,7 +5771,7 @@
                 doc.setTextColor(0, 0, 0);
                 doc.setFontSize(11);
                 doc.setFont('helvetica', 'bold');
-                doc.text(tr('whatsTheDifference'), pageWidth / 2, yPos + 8, { align: 'center' });
+                doc.text('CUAL ES LA DIFERENCIA?', pageWidth / 2, yPos + 8, { align: 'center' });
                 
                 yPos += 15;
                 
@@ -6008,7 +5780,7 @@
                 doc.setFontSize(9);
                 doc.setTextColor(...blueColor);
                 doc.setFont('helvetica', 'bold');
-                doc.text(tr('whyFixed'), leftX + 2, leftColY);
+                doc.text('POR QUE TARIFA FIJA?', leftX + 2, leftColY);
                 leftColY += 6;
                 
                 doc.setTextColor(0, 0, 0);
@@ -6040,7 +5812,7 @@
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'bold');
                 doc.setTextColor(...greenColor);
-                doc.text(tr('whyIndexed'), rightX + 2, rightColY);
+                doc.text('POR QUE TARIFA INDEXADA?', rightX + 2, rightColY);
                 rightColY += 6;
                 
                 doc.setTextColor(0, 0, 0);
@@ -6090,7 +5862,14 @@
         async function handleRequestImprovement() {
             console.log('handleRequestImprovement llamada');
             
-            if (!lastComparisonResult) {
+            // Verificar si hay datos de ELECTRICIDAD, GAS o DUAL
+            const hasElectricityData = lastComparisonResult !== null;
+            const hasGasData = window.lastGasComparisonResult !== null;
+            const hasDualData = window.dualGlobalResults !== null && typeof dualSupplies !== 'undefined' && dualSupplies && dualSupplies.length >= 2;
+            
+            console.log('Verificando datos:', {hasElectricityData, hasGasData, hasDualData});
+            
+            if (!hasElectricityData && !hasGasData && !hasDualData) {
                 return window.showErrorModal("Primero realice una comparación.");
             }
             
@@ -6107,67 +5886,600 @@
             }
             
             try {
-                // 1. Generar el comparativo HTML (igual que COPIAR COMPARATIVO)
                 let htmlContent = '';
-                if (lastIndexedResult && compareWithIndexed) {
-                    if (lastComparisonResult.isMultiCups) {
-                        htmlContent = generateMultiDualStyledHtmlOffer(commercialCode);
-                    } else {
-                        htmlContent = generateDualStyledHtmlOffer(commercialCode, lastComparisonResult, lastIndexedResult);
+                let desglose = '';
+                let tipoSuministro = '';
+                
+                // CASO 1: Datos DUAL (PRIORIDAD - si hay datos DUAL, usar esos)
+                if (hasDualData) {
+                    console.log('✅ Usando datos DUAL');
+                    tipoSuministro = 'DUAL (ELECTRICIDAD + GAS)';
+                    const dualResults = window.dualGlobalResults;
+                    const isDrk = dualResults.comparisonMode !== 'overall_best';
+                    const brandColor = isDrk ? '#0ea5e9' : '#84cc16';
+                    const brandName = isDrk ? 'DRK' : 'POWER CUP';
+                    
+                    // Separar suministros de electricidad y gas
+                    const electricitySupply = dualSupplies.find(s => s.type === 'electricidad');
+                    const gasSupply = dualSupplies.find(s => s.type === 'gas');
+                    
+                    htmlContent = `
+                        <div style="font-family: Arial, sans-serif; max-width: 900px;">
+                            <h2 style="color: ${brandColor}; text-align: center;">⚡🔥 RESULTADO COMPARATIVA DUAL</h2>
+                            <div style="background: linear-gradient(135deg, ${isDrk ? '#f0f9ff' : '#f7fee7'} 0%, ${isDrk ? '#e0f2fe' : '#ecfccb'} 100%); border: 3px solid ${brandColor}; border-radius: 12px; padding: 24px; margin: 20px 0;">
+                                <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;">LA MEJOR OPCIÓN PARA TI ES</h3>
+                                <h2 style="color: ${isDrk ? '#0c4a6e' : '#365314'}; text-align: center; font-size: 36px; margin: 16px 0;">Tus Tarifas Actuales</h2>
+                                <p style="text-align: center; color: ${brandColor}; font-size: 18px;">Es la mejor opción detectada</p>
+                            </div>
+                            
+                            <div style="background-color: white; border: 2px solid ${isDrk ? '#bfdbfe' : '#d9f99d'}; border-radius: 12px; padding: 20px; margin: 16px 0;">
+                                <h4 style="color: ${brandColor}; text-align: center; font-size: 20px;">¡ENHORABUENA!</h4>
+                                <p style="text-align: center; color: ${isDrk ? '#0c4a6e' : '#365314'}; font-weight: bold; font-size: 18px;">Actualmente estás en buenas tarifas</p>
+                                <p style="text-align: center; color: ${brandColor}; margin-top: 8px;">Tanto en ELECTRICIDAD como en GAS tienes tarifas competitivas.</p>
+                            </div>
+                            
+                            <!-- Detalle ELECTRICIDAD -->
+                            <div style="background-color: #EFF6FF; border-left: 4px solid #3B82F6; border-radius: 8px; padding: 16px; margin: 16px 0;">
+                                <h3 style="color: #1E40AF; margin-bottom: 12px;">⚡ ELECTRICIDAD</h3>
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="border-bottom: 1px solid #BFDBFE;">
+                                        <td style="padding: 8px; font-weight: bold;">Tarifa:</td>
+                                        <td style="padding: 8px; text-align: right;">${electricitySupply?.tariff || 'N/A'}</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #BFDBFE;">
+                                        <td style="padding: 8px; font-weight: bold;">CUPS:</td>
+                                        <td style="padding: 8px; text-align: right; font-family: monospace; font-size: 11px;">${electricitySupply?.cups || 'N/A'}</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #BFDBFE;">
+                                        <td style="padding: 8px; font-weight: bold;">Periodo:</td>
+                                        <td style="padding: 8px; text-align: right;">${electricitySupply?.electricityBreakdown?.dias || 'N/A'} días</td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Consumos por periodo -->
+                                <div style="background-color: #DBEAFE; border-radius: 6px; padding: 12px; margin: 12px 0;">
+                                    <p style="font-weight: bold; color: #1E40AF; margin: 0 0 8px 0; font-size: 14px;">📊 CONSUMOS:</p>
+                                    ${(() => {
+                                        const eb = electricitySupply?.electricityBreakdown;
+                                        if (!eb?.energyCosts || !Array.isArray(eb.energyCosts)) return '<p style="margin:0;font-size:12px;color:#64748B;">No disponible</p>';
+                                        
+                                        let html = '<table style="width:100%; font-size:12px;">';
+                                        let total = 0;
+                                        eb.energyCosts.forEach(item => {
+                                            const kwh = item.kwh || 0;
+                                            total += kwh;
+                                            if (kwh > 0) {
+                                                html += `<tr><td style="padding:4px;">P${item.period}:</td><td style="text-align:right; font-weight:bold;">${kwh.toFixed(0)} kWh</td></tr>`;
+                                            }
+                                        });
+                                        html += `<tr style="border-top:2px solid #3B82F6;"><td style="padding:4px; font-weight:bold;">TOTAL:</td><td style="text-align:right; font-weight:bold; color:#1E40AF;">${total.toFixed(0)} kWh</td></tr>`;
+                                        html += '</table>';
+                                        return html;
+                                    })()}
+                                </div>
+                                
+                                <!-- Potencias contratadas -->
+                                <div style="background-color: #DBEAFE; border-radius: 6px; padding: 12px; margin: 12px 0;">
+                                    <p style="font-weight: bold; color: #1E40AF; margin: 0 0 8px 0; font-size: 14px;">⚡ POTENCIAS CONTRATADAS:</p>
+                                    ${(() => {
+                                        const eb = electricitySupply?.electricityBreakdown;
+                                        if (!eb?.powerCosts || !Array.isArray(eb.powerCosts)) return '<p style="margin:0;font-size:12px;color:#64748B;">No disponible</p>';
+                                        
+                                        let html = '<table style="width:100%; font-size:12px;">';
+                                        eb.powerCosts.forEach(item => {
+                                            const kw = item.kw || 0;
+                                            if (kw > 0) {
+                                                html += `<tr><td style="padding:4px;">P${item.period}:</td><td style="text-align:right; font-weight:bold;">${kw} kW</td></tr>`;
+                                            }
+                                        });
+                                        html += '</table>';
+                                        return html;
+                                    })()}
+                                </div>
+                                
+                                <!-- PRECIOS APLICADOS -->
+                                <div style="background-color: #DBEAFE; border-radius: 6px; padding: 12px; margin: 12px 0;">
+                                    <p style="font-weight: bold; color: #1E40AF; margin: 0 0 8px 0; font-size: 14px;">📋 PRECIOS APLICADOS:</p>
+                                    ${(() => {
+                                        const eb = electricitySupply?.electricityBreakdown;
+                                        let html = '<div style="font-size:12px;">';
+                                        
+                                        // Precios de POTENCIA
+                                        if (eb?.powerCosts && Array.isArray(eb.powerCosts)) {
+                                            html += '<p style="margin:0 0 6px 0; font-weight:bold; color:#1E40AF; font-size:11px;">POTENCIA:</p>';
+                                            html += '<table style="width:100%; margin-bottom:12px;">';
+                                            eb.powerCosts.forEach(item => {
+                                                if ((item.kw || 0) > 0 && item.priceDay) {
+                                                    html += `<tr><td style="padding:2px;">P${item.period}:</td><td style="text-align:right;">${item.priceDay.toFixed(6)} €/kW/día</td></tr>`;
+                                                }
+                                            });
+                                            html += '</table>';
+                                        }
+                                        
+                                        // Precios de ENERGÍA
+                                        if (eb?.energyCosts && Array.isArray(eb.energyCosts)) {
+                                            html += '<p style="margin:0 0 6px 0; font-weight:bold; color:#1E40AF; font-size:11px;">ENERGÍA:</p>';
+                                            html += '<table style="width:100%;">';
+                                            eb.energyCosts.forEach(item => {
+                                                if ((item.kwh || 0) > 0 && item.price) {
+                                                    html += `<tr><td style="padding:2px;">P${item.period}:</td><td style="text-align:right;">${item.price.toFixed(6)} €/kWh</td></tr>`;
+                                                }
+                                            });
+                                            html += '</table>';
+                                        }
+                                        
+                                        html += '</div>';
+                                        return html;
+                                    })()}
+                                </div>
+                                
+                                <!-- Costes del periodo -->
+                                <div style="background-color: #DBEAFE; border-radius: 6px; padding: 12px; margin: 12px 0;">
+                                    <p style="font-weight: bold; color: #1E40AF; margin: 0 0 8px 0; font-size: 14px;">💰 COSTES PERIODO:</p>
+                                    <table style="width: 100%; font-size: 12px;">
+                                        <tr><td style="padding:4px;">Potencia:</td><td style="text-align:right;">${(electricitySupply?.electricityBreakdown?.subPower || 0).toFixed(2)} €</td></tr>
+                                        <tr><td style="padding:4px;">Energía:</td><td style="text-align:right;">${(electricitySupply?.electricityBreakdown?.subEnergy || 0).toFixed(2)} €</td></tr>
+                                        <tr><td style="padding:4px;">Imp. eléctrico:</td><td style="text-align:right;">${(electricitySupply?.electricityBreakdown?.costIE || 0).toFixed(2)} €</td></tr>
+                                        <tr><td style="padding:4px;">IVA (21%):</td><td style="text-align:right;">${(electricitySupply?.electricityBreakdown?.costIVA || 0).toFixed(2)} €</td></tr>
+                                        <tr style="border-top:2px solid #3B82F6; font-weight:bold;">
+                                            <td style="padding:8px 4px 4px 4px;">TOTAL:</td>
+                                            <td style="text-align:right; padding:8px 4px 4px 4px; color:#1E40AF;">${(electricitySupply?.electricityBreakdown?.totalPeriod || 0).toFixed(2)} €</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
+                                    <tr style="background-color: #DBEAFE;">
+                                        <td style="padding: 12px; font-size: 16px; font-weight: bold; color: #1E3A8A;">Coste actual anual:</td>
+                                        <td style="padding: 12px; font-size: 18px; text-align: right; color: #1E3A8A; font-weight: bold;">${(electricitySupply?.originalBillAnnual || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr style="background-color: #DBEAFE;">
+                                        <td style="padding: 12px; font-size: 16px; font-weight: bold; color: #1E3A8A;">Con ${brandName}:</td>
+                                        <td style="padding: 12px; font-size: 18px; text-align: right; color: #1E3A8A; font-weight: bold;">${(electricitySupply?.totalAnnual || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr style="background-color: ${((electricitySupply?.originalBillAnnual || 0) - (electricitySupply?.totalAnnual || 0)) > 0 ? '#D1FAE5' : '#FEE2E2'};">
+                                        <td style="padding: 12px; font-size: 16px; font-weight: bold; color: ${((electricitySupply?.originalBillAnnual || 0) - (electricitySupply?.totalAnnual || 0)) > 0 ? '#065F46' : '#991B1B'};">Ahorro anual:</td>
+                                        <td style="padding: 12px; font-size: 18px; text-align: right; color: ${((electricitySupply?.originalBillAnnual || 0) - (electricitySupply?.totalAnnual || 0)) > 0 ? '#065F46' : '#991B1B'}; font-weight: bold;">${((electricitySupply?.originalBillAnnual || 0) - (electricitySupply?.totalAnnual || 0)).toFixed(2)} €</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <!-- Detalle GAS -->
+                            <div style="background-color: #FEE2E2; border-left: 4px solid #DC2626; border-radius: 8px; padding: 16px; margin: 16px 0;">
+                                <h3 style="color: #991B1B; margin-bottom: 12px;">🔥 GAS</h3>
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="border-bottom: 1px solid #FCA5A5;">
+                                        <td style="padding: 8px; font-weight: bold;">Tarifa:</td>
+                                        <td style="padding: 8px; text-align: right;">${gasSupply?.tariff || 'N/A'}</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #FCA5A5;">
+                                        <td style="padding: 8px; font-weight: bold;">Periodo:</td>
+                                        <td style="padding: 8px; text-align: right;">${gasSupply?.gasBreakdown?.dias || gasSupply?.data?.dias || 'N/A'} días</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #FCA5A5;">
+                                        <td style="padding: 8px; font-weight: bold;">Consumo total:</td>
+                                        <td style="padding: 8px; text-align: right; font-weight: bold;">${gasSupply?.gasBreakdown?.kwh || gasSupply?.data?.kwh || '0'} kWh</td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Precios aplicados -->
+                                <div style="background-color: #FECACA; border-radius: 6px; padding: 12px; margin: 12px 0;">
+                                    <p style="font-weight: bold; color: #991B1B; margin: 0 0 8px 0; font-size: 14px;">📋 PRECIOS APLICADOS:</p>
+                                    <table style="width: 100%; font-size: 12px;">
+                                        <tr>
+                                            <td style="padding:4px;">Término fijo:</td>
+                                            <td style="text-align:right; font-weight:bold;">${(gasSupply?.gasBreakdown?.termino_fijo_diario || gasSupply?.offer?.p_fijo_diario || 0).toFixed(6)} €/día</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:4px;">Precio energía:</td>
+                                            <td style="text-align:right; font-weight:bold;">${(gasSupply?.offer?.p1_price || 0).toFixed(6)} €/kWh</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <!-- Costes del periodo -->
+                                <div style="background-color: #FECACA; border-radius: 6px; padding: 12px; margin: 12px 0;">
+                                    <p style="font-weight: bold; color: #991B1B; margin: 0 0 8px 0; font-size: 14px;">💰 COSTES PERIODO:</p>
+                                    <table style="width: 100%; font-size: 12px;">
+                                        <tr><td style="padding:4px;">Término fijo:</td><td style="text-align:right;">${(gasSupply?.gasBreakdown?.termino_fijo || 0).toFixed(2)} €</td></tr>
+                                        <tr><td style="padding:4px;">Energía:</td><td style="text-align:right;">${(gasSupply?.gasBreakdown?.energia || 0).toFixed(2)} €</td></tr>
+                                        <tr><td style="padding:4px;">Imp. hidrocarburos:</td><td style="text-align:right;">${(gasSupply?.gasBreakdown?.impuesto_hidrocarburos || 0).toFixed(2)} €</td></tr>
+                                        <tr><td style="padding:4px;">IVA (21%):</td><td style="text-align:right;">${(gasSupply?.gasBreakdown?.iva || 0).toFixed(2)} €</td></tr>
+                                        <tr style="border-top:2px solid #DC2626; font-weight:bold;">
+                                            <td style="padding:8px 4px 4px 4px;">TOTAL:</td>
+                                            <td style="text-align:right; padding:8px 4px 4px 4px; color:#991B1B;">${(gasSupply?.gasBreakdown?.total || 0).toFixed(2)} €</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
+                                    <tr style="background-color: #FECACA;">
+                                        <td style="padding: 12px; font-size: 16px; font-weight: bold; color: #7F1D1D;">Coste actual anual:</td>
+                                        <td style="padding: 12px; font-size: 18px; text-align: right; color: #7F1D1D; font-weight: bold;">${(gasSupply?.originalBillAnnual || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr style="background-color: #FECACA;">
+                                        <td style="padding: 12px; font-size: 16px; font-weight: bold; color: #7F1D1D;">Con ${brandName}:</td>
+                                        <td style="padding: 12px; font-size: 18px; text-align: right; color: #7F1D1D; font-weight: bold;">${(gasSupply?.totalAnnual || 0).toFixed(2)} €</td>
+                                    </tr>
+                                    <tr style="background-color: ${((gasSupply?.originalBillAnnual || 0) - (gasSupply?.totalAnnual || 0)) > 0 ? '#D1FAE5' : '#FEE2E2'};">
+                                        <td style="padding: 12px; font-size: 16px; font-weight: bold; color: ${((gasSupply?.originalBillAnnual || 0) - (gasSupply?.totalAnnual || 0)) > 0 ? '#065F46' : '#991B1B'};">Ahorro anual:</td>
+                                        <td style="padding: 12px; font-size: 18px; text-align: right; color: ${((gasSupply?.originalBillAnnual || 0) - (gasSupply?.totalAnnual || 0)) > 0 ? '#065F46' : '#991B1B'}; font-weight: bold;">${((gasSupply?.originalBillAnnual || 0) - (gasSupply?.totalAnnual || 0)).toFixed(2)} €</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            
+                            <!-- Total consolidado -->
+                            <div style="background: linear-gradient(135deg, ${brandColor} 0%, ${isDrk ? '#0369a1' : '#65a30d'} 100%); border-radius: 12px; padding: 20px; margin-top: 20px;">
+                                <h3 style="color: white; text-align: center; margin-bottom: 16px; font-size: 20px;">📊 RESUMEN CONSOLIDADO ANUAL</h3>
+                                
+                                <!-- Factura actual -->
+                                <div style="background-color: white; border-radius: 8px; padding: 16px; margin-bottom: 12px; border: 2px solid ${brandColor};">
+                                    <p style="color: ${brandColor}; font-weight: bold; margin: 0 0 8px 0; font-size: 14px;">FACTURA ACTUAL TOTAL:</p>
+                                    <table style="width: 100%; color: ${isDrk ? '#0c4a6e' : '#365314'};">
+                                        <tr>
+                                            <td style="padding: 4px; font-size: 28px; font-weight: bold; text-align: center; color: ${brandColor};" colspan="2">${(dualResults.totalOriginalBill || 0).toFixed(2)} €/año</td>
+                                        </tr>
+                                        <tr style="border-top: 2px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
+                                            <td style="padding: 8px 4px 4px 4px;">⚡ Electricidad:</td>
+                                            <td style="padding: 8px 4px 4px 4px; text-align: right; font-weight: bold;">${(electricitySupply?.originalBillAnnual || 0).toFixed(2)} €</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 4px;">🔥 Gas:</td>
+                                            <td style="padding: 4px; text-align: right; font-weight: bold;">${(gasSupply?.originalBillAnnual || 0).toFixed(2)} €</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <!-- Con DRK/Power Cup -->
+                                <div style="background-color: white; border-radius: 8px; padding: 16px; margin-bottom: 12px; border: 2px solid ${brandColor};">
+                                    <p style="color: ${brandColor}; font-weight: bold; margin: 0 0 8px 0; font-size: 14px;">CON ${brandName.toUpperCase()}:</p>
+                                    <table style="width: 100%; color: ${isDrk ? '#0c4a6e' : '#365314'};">
+                                        <tr>
+                                            <td style="padding: 4px; font-size: 28px; font-weight: bold; text-align: center; color: ${brandColor};" colspan="2">${((isDrk ? dualResults.totalDRK : dualResults.totalPowerCup) || 0).toFixed(2)} €/año</td>
+                                        </tr>
+                                        <tr style="border-top: 2px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
+                                            <td style="padding: 8px 4px 4px 4px;">⚡ Electricidad:</td>
+                                            <td style="padding: 8px 4px 4px 4px; text-align: right; font-weight: bold;">${(electricitySupply?.totalAnnual || 0).toFixed(2)} €</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 4px;">🔥 Gas:</td>
+                                            <td style="padding: 4px; text-align: right; font-weight: bold;">${(gasSupply?.totalAnnual || 0).toFixed(2)} €</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <!-- Ahorro total -->
+                                <div style="background-color: ${(dualResults.totalSavings || 0) > 0 ? '#D1FAE5' : '#FEE2E2'}; border: 3px solid ${(dualResults.totalSavings || 0) > 0 ? '#10B981' : '#EF4444'}; border-radius: 8px; padding: 16px;">
+                                    <p style="color: ${(dualResults.totalSavings || 0) > 0 ? '#065F46' : '#991B1B'}; font-weight: bold; margin: 0 0 8px 0; font-size: 14px; text-align: center;">${(dualResults.totalSavings || 0) > 0 ? '🎉 AHORRO TOTAL ANUAL' : '⚠️ DIFERENCIA ANUAL'}:</p>
+                                    <p style="color: ${(dualResults.totalSavings || 0) > 0 ? '#065F46' : '#991B1B'}; font-size: 32px; font-weight: bold; text-align: center; margin: 0;">${(dualResults.totalSavings || 0).toFixed(2)} €</p>
+                                    <p style="color: ${(dualResults.totalSavings || 0) > 0 ? '#065F46' : '#991B1B'}; font-size: 14px; text-align: center; margin: 8px 0 0 0;">(${((dualResults.totalSavings || 0) / 12).toFixed(2)} €/mes)</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Generar desglose COMPLETO de DUAL
+                    let desgloseElectricidad = '';
+                    if (electricitySupply) {
+                        const eb = electricitySupply.electricityBreakdown;
+                        const data = electricitySupply.data;
+                        
+                        // Extraer consumos de energyCosts array
+                        let consumoP1 = 0, consumoP2 = 0, consumoP3 = 0;
+                        let consumoTotal = 0;
+                        
+                        if (eb?.energyCosts && Array.isArray(eb.energyCosts)) {
+                            eb.energyCosts.forEach(item => {
+                                if (item.period === 1) consumoP1 = item.kwh || 0;
+                                else if (item.period === 2) consumoP2 = item.kwh || 0;
+                                else if (item.period === 3) consumoP3 = item.kwh || 0;
+                                consumoTotal += item.kwh || 0;
+                            });
+                        }
+                        
+                        // Extraer potencias de powerCosts array
+                        let potenciaP1 = 0, potenciaP2 = 0, potenciaP3 = 0;
+                        let preciosPotencia = '';
+                        
+                        if (eb?.powerCosts && Array.isArray(eb.powerCosts)) {
+                            eb.powerCosts.forEach(item => {
+                                if (item.period === 1) potenciaP1 = item.kw || 0;
+                                else if (item.period === 2) potenciaP2 = item.kw || 0;
+                                else if (item.period === 3) potenciaP3 = item.kw || 0;
+                            });
+                            
+                            // Extraer precios de potencia
+                            preciosPotencia = 'PRECIOS POTENCIA:\n';
+                            eb.powerCosts.forEach(item => {
+                                if ((item.kw || 0) > 0 && item.priceDay) {
+                                    preciosPotencia += `  P${item.period}: ${item.priceDay.toFixed(6)} €/kW/día\n`;
+                                }
+                            });
+                        }
+                        
+                        // Extraer precios de energía
+                        let preciosEnergia = '';
+                        if (eb?.energyCosts && Array.isArray(eb.energyCosts)) {
+                            preciosEnergia = 'PRECIOS ENERGÍA:\n';
+                            eb.energyCosts.forEach(item => {
+                                if ((item.kwh || 0) > 0 && item.price) {
+                                    preciosEnergia += `  P${item.period}: ${item.price.toFixed(6)} €/kWh\n`;
+                                }
+                            });
+                        }
+                        
+                        desgloseElectricidad = `=== ELECTRICIDAD ===
+Tarifa: ${electricitySupply.tariff || 'N/A'}
+CUPS: ${electricitySupply.cups || data?.cups || 'N/A'}
+Periodo: ${eb?.dias || data?.dias_facturados || 'N/A'} días
+
+CONSUMOS:
+${consumoP1 > 0 ? `  P1: ${consumoP1.toFixed(0)} kWh` : ''}
+${consumoP2 > 0 ? `  P2: ${consumoP2.toFixed(0)} kWh` : ''}
+${consumoP3 > 0 ? `  P3: ${consumoP3.toFixed(0)} kWh` : ''}
+  TOTAL ENERGÍA: ${consumoTotal.toFixed(0)} kWh
+
+POTENCIAS CONTRATADAS:
+${potenciaP1 > 0 ? `  P1: ${potenciaP1} kW` : ''}
+${potenciaP2 > 0 ? `  P2: ${potenciaP2} kW` : ''}
+${potenciaP3 > 0 ? `  P3: ${potenciaP3} kW` : ''}
+
+${preciosPotencia}
+${preciosEnergia}
+COSTES PERIODO:
+  Potencia: ${eb?.subPower?.toFixed(2) || '0.00'} €
+  Energía: ${eb?.subEnergy?.toFixed(2) || '0.00'} €
+  Impuesto eléctrico (5.113%): ${eb?.costIE?.toFixed(2) || '0.00'} €
+  IVA (21%): ${eb?.costIVA?.toFixed(2) || '0.00'} €
+  TOTAL PERIODO: ${eb?.totalPeriod?.toFixed(2) || '0.00'} €
+
+COSTES ANUALES:
+  Factura actual anual: ${(electricitySupply.originalBillAnnual || 0).toFixed(2)} €
+  Con ${brandName} pagarías: ${(electricitySupply.totalAnnual || 0).toFixed(2)} €
+  Ahorro anual: ${((electricitySupply.originalBillAnnual || 0) - (electricitySupply.totalAnnual || 0)).toFixed(2)} €`;
                     }
-                } else {
-                    if (lastComparisonResult.isMulti) {
-                        htmlContent = generateMultiStyledHtmlOffer(commercialCode);
-                    } else {
-                        htmlContent = generateStyledHtmlOffer(commercialCode);
+                    
+                    let desgloseGas = '';
+                    if (gasSupply) {
+                        const gData = gasSupply.data;
+                        const gBreakdown = gasSupply.gasBreakdown; // Usar gasBreakdown en lugar de results
+                        
+                        desgloseGas = `
+=== GAS ===
+Tarifa: ${gasSupply.tariff || 'N/A'}
+Periodo: ${gData?.dias || gBreakdown?.dias || 'N/A'} días
+Consumo: ${gData?.kwh || gBreakdown?.kwh || 0} kWh
+
+PRECIOS APLICADOS:
+  Término fijo: ${(gBreakdown?.termino_fijo_diario || gasSupply?.offer?.p_fijo_diario || 0).toFixed(6)} €/día
+  Precio energía: ${(gasSupply?.offer?.p1_price || 0).toFixed(6)} €/kWh
+
+COSTES PERIODO:
+  Término fijo: ${gBreakdown?.termino_fijo?.toFixed(2) || 'N/A'} €
+  Energía: ${gBreakdown?.energia?.toFixed(2) || 'N/A'} €
+  Impuesto hidrocarburos: ${gBreakdown?.impuesto_hidrocarburos?.toFixed(2) || 'N/A'} €
+  IVA (21%): ${gBreakdown?.iva?.toFixed(2) || 'N/A'} €
+  TOTAL PERIODO: ${gBreakdown?.total?.toFixed(2) || 'N/A'} €
+
+COSTES ANUALES:
+  Factura actual anual: ${(gasSupply.originalBillAnnual || 0).toFixed(2)} €
+  Con ${brandName} pagarías: ${(gasSupply.totalAnnual || 0).toFixed(2)} €
+  Ahorro anual: ${((gasSupply.originalBillAnnual || 0) - (gasSupply.totalAnnual || 0)).toFixed(2)} €`;
                     }
+                    
+                    desglose = `TIPO DE SUMINISTRO: DUAL (ELECTRICIDAD + GAS)
+MODO: ${brandName}
+
+${desgloseElectricidad}
+${desgloseGas}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+=== RESUMEN CONSOLIDADO ===
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Factura actual total anual: ${(dualResults.totalOriginalBill || 0).toFixed(2)} €
+Con ${brandName} pagarías: ${(isDrk ? dualResults.totalDRK : dualResults.totalPowerCup).toFixed(2)} €
+Ahorro total anual: ${(dualResults.totalSavings || 0).toFixed(2)} €
+
+${(dualResults.totalSavings || 0) <= 0 ? 'IMPORTANTE: El cliente ya está en buenas tarifas tanto en electricidad como en gas.' : ''}
+
+Desglose mensual estimado:
+  Factura actual: ${(dualResults.totalOriginalBill / 12).toFixed(2)} €/mes
+  Con ${brandName}: ${((isDrk ? dualResults.totalDRK : dualResults.totalPowerCup) / 12).toFixed(2)} €/mes
+  Ahorro mensual: ${(dualResults.totalSavings / 12).toFixed(2)} €/mes
+`;
+                
+                // CASO 2: Datos de GAS (solo si NO es DUAL)
+                } else if (hasGasData && !hasDualData) {
+                    console.log('✅ Usando datos GAS individual');
+                    tipoSuministro = 'GAS';
+                    const gasData = window.lastGasComparisonResult;
+                    
+                    // Generar HTML de resultados de GAS
+                    htmlContent = `
+                        <div style="font-family: Arial, sans-serif; max-width: 800px;">
+                            <h2 style="color: #DC2626; text-align: center;">🔥 RESULTADO COMPARATIVA GAS</h2>
+                            <div style="background-color: #FEE2E2; border: 3px solid #DC2626; border-radius: 12px; padding: 24px; margin: 20px 0;">
+                                <h3 style="color: #DC2626; text-align: center; font-size: 24px;">LA MEJOR OPCIÓN ES</h3>
+                                <h2 style="color: #991B1B; text-align: center; font-size: 36px; margin: 16px 0;">Tu Tarifa Actual</h2>
+                                <p style="text-align: center; color: #DC2626; font-size: 18px;">Es la mejor opción detectada</p>
+                            </div>
+                            
+                            <div style="background-color: white; border: 2px solid #FCA5A5; border-radius: 12px; padding: 20px; margin: 16px 0;">
+                                <h4 style="color: #DC2626; text-align: center; font-size: 20px;">¡ENHORABUENA!</h4>
+                                <p style="text-align: center; color: #991B1B; font-weight: bold;">Actualmente estás en una buena tarifa.</p>
+                                <p style="text-align: center; color: #DC2626;">Seguiremos estudiando el mercado y te avisaremos cuando encontremos alguna tarifa que se adapte a tu perfil de consumo.</p>
+                            </div>
+                            
+                            <div style="background-color: #FEE2E2; border-radius: 12px; padding: 16px; margin-top: 16px;">
+                                <h3 style="color: #991B1B; margin-bottom: 12px;">📊 TU COSTE ACTUAL CONSOLIDADO</h3>
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr style="border-bottom: 1px solid #FCA5A5;">
+                                        <td style="padding: 8px; font-weight: bold;">Periodo analizado:</td>
+                                        <td style="padding: 8px; text-align: right;">${gasData.dias} días</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #FCA5A5;">
+                                        <td style="padding: 8px; font-weight: bold;">Tipo de tarifa GAS:</td>
+                                        <td style="padding: 8px; text-align: right;">${gasData.tariffType}</td>
+                                    </tr>
+                                    <tr style="border-bottom: 2px solid #DC2626;">
+                                        <td style="padding: 8px; font-weight: bold;">Consumo total:</td>
+                                        <td style="padding: 8px; text-align: right; font-weight: bold;">${gasData.kwh} kWh</td>
+                                    </tr>
+                                    <tr style="background-color: #FECACA;">
+                                        <td style="padding: 12px; font-size: 18px; font-weight: bold; color: #991B1B;">Total factura:</td>
+                                        <td style="padding: 12px; font-size: 24px; text-align: right; color: #991B1B; font-weight: bold;">${gasData.totalCliente.toFixed(2)} €</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 12px; font-size: 16px; font-weight: bold; color: #991B1B;">Estimación anual:</td>
+                                        <td style="padding: 12px; font-size: 20px; text-align: right; color: #991B1B; font-weight: bold;">${(gasData.totalCliente * 365 / gasData.dias).toFixed(2)} €/año</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Generar desglose de GAS
+                    desglose = `TIPO DE SUMINISTRO: GAS
+TARIFA: ${gasData.tariffType}
+PERIODO ANALIZADO: ${gasData.dias} días
+CONSUMO: ${gasData.kwh} kWh
+TOTAL FACTURA ACTUAL: ${gasData.totalCliente.toFixed(2)} €
+
+MEJOR AHORRO DETECTADO: ${gasData.bestSaving.toFixed(2)} € (NEGATIVO - Cliente ya tiene buena tarifa)
+
+TARIFAS ANALIZADAS:
+${gasData.results.map((r, i) => `
+${i + 1}. ${r.name}
+   - Total: ${r.total.toFixed(2)} €
+   - Ahorro anual: ${r.ahorro_anual.toFixed(2)} €
+`).join('')}`;
+                
+                // CASO 3: Datos de ELECTRICIDAD (solo si NO es DUAL ni GAS)
+                } else if (hasElectricityData && !hasDualData) {
+                    console.log('✅ Usando datos ELECTRICIDAD individual');
+                    tipoSuministro = 'ELECTRICIDAD';
+                    
+                    // Verificar si hay ahorro o no
+                    const hasPositiveSavings = lastComparisonResult && lastComparisonResult.savings > 0;
+                    
+                    if (!hasPositiveSavings || lastComparisonResult.isNegativeSavings) {
+                        // NO HAY AHORRO: Generar HTML especial
+                        const brand = activeBrand;
+                        const isDrk = brand.NAME.includes('DRK');
+                        const brandColor = isDrk ? '#0ea5e9' : '#84cc16';
+                        const brandName = isDrk ? 'DRK' : 'POWER CUP';
+                        
+                        htmlContent = `
+                            <div style="font-family: Arial, sans-serif; max-width: 800px;">
+                                <h2 style="color: ${brandColor}; text-align: center;">⚡ RESULTADO COMPARATIVA ELECTRICIDAD</h2>
+                                <div style="background-color: ${isDrk ? '#f0f9ff' : '#f7fee7'}; border: 3px solid ${brandColor}; border-radius: 12px; padding: 24px; margin: 20px 0;">
+                                    <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;">LA MEJOR OPCIÓN PARA TI ES</h3>
+                                    <h2 style="color: ${isDrk ? '#0c4a6e' : '#365314'}; text-align: center; font-size: 36px; margin: 16px 0;">Tu Tarifa Actual</h2>
+                                    <p style="text-align: center; color: ${brandColor}; font-size: 18px;">Es la mejor opción detectada</p>
+                                </div>
+                                
+                                <div style="background-color: white; border: 2px solid ${isDrk ? '#bfdbfe' : '#d9f99d'}; border-radius: 12px; padding: 20px; margin: 16px 0;">
+                                    <h4 style="color: ${brandColor}; text-align: center; font-size: 20px;">¡ENHORABUENA!</h4>
+                                    <p style="text-align: center; color: ${isDrk ? '#0c4a6e' : '#365314'}; font-weight: bold;">Actualmente estás en una buena tarifa.</p>
+                                    <p style="text-align: center; color: ${brandColor};">Seguiremos estudiando el mercado y te avisaremos cuando encontremos alguna tarifa que se adapte a tu perfil de consumo.</p>
+                                </div>
+                                
+                                <div style="background-color: ${isDrk ? '#f0f9ff' : '#f7fee7'}; border-radius: 12px; padding: 16px; margin-top: 16px;">
+                                    <h3 style="color: ${brandColor}; margin-bottom: 12px;">📊 TU COSTE ACTUAL CONSOLIDADO</h3>
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <tr style="border-bottom: 1px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
+                                            <td style="padding: 8px; font-weight: bold;">Periodo analizado:</td>
+                                            <td style="padding: 8px; text-align: right;">${lastComparisonResult.dias_facturados || 0} días</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
+                                            <td style="padding: 8px; font-weight: bold;">CUPS:</td>
+                                            <td style="padding: 8px; text-align: right; font-family: monospace; font-size: 11px;">${lastComparisonResult.cups || 'N/A'}</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
+                                            <td style="padding: 8px; font-weight: bold;">Tipo de tarifa:</td>
+                                            <td style="padding: 8px; text-align: right;">${lastComparisonResult.tariffType || 'N/A'}</td>
+                                        </tr>
+                                        <tr style="border-bottom: 2px solid ${brandColor};">
+                                            <td style="padding: 8px; font-weight: bold;">Consumo total energía:</td>
+                                            <td style="padding: 8px; text-align: right; font-weight: bold;">${lastComparisonResult.energyCosts ? lastComparisonResult.energyCosts.reduce((sum, e) => sum + e.kwh, 0).toFixed(0) : 0} kWh</td>
+                                        </tr>
+                                        <tr style="background-color: ${isDrk ? '#dbeafe' : '#ecfccb'};">
+                                            <td style="padding: 12px; font-size: 18px; font-weight: bold; color: ${isDrk ? '#0c4a6e' : '#365314'};">Total periodo:</td>
+                                            <td style="padding: 12px; font-size: 24px; text-align: right; color: ${isDrk ? '#0c4a6e' : '#365314'}; font-weight: bold;">${(lastComparisonResult.importe_total || 0).toFixed(2)} €</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 12px; font-size: 16px; font-weight: bold; color: ${isDrk ? '#0c4a6e' : '#365314'};">Estimación anual:</td>
+                                            <td style="padding: 12px; font-size: 20px; text-align: right; color: ${isDrk ? '#0c4a6e' : '#365314'}; font-weight: bold;">${(lastComparisonResult.originalBillAnnual || 0).toFixed(2)} €/año</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // SÍ HAY AHORRO: Usar funciones existentes
+                        if (lastIndexedResult && compareWithIndexed) {
+                            if (lastComparisonResult.isMultiCups) {
+                                htmlContent = generateMultiDualStyledHtmlOffer(commercialCode);
+                            } else {
+                                htmlContent = generateDualStyledHtmlOffer(commercialCode, lastComparisonResult, lastIndexedResult);
+                            }
+                        } else {
+                            if (lastComparisonResult.isMulti) {
+                                htmlContent = generateMultiStyledHtmlOffer(commercialCode);
+                            } else {
+                                htmlContent = generateStyledHtmlOffer(commercialCode);
+                            }
+                        }
+                    }
+                    
+                    // 2. Generar desglose detallado de cálculos
+                    desglose = generateCalculationBreakdown(lastComparisonResult);
                 }
                 
-                // 2. Generar desglose detallado de cálculos
-                const desglose = generateCalculationBreakdown(lastComparisonResult);
+                // 3. Preparar el contenido del email (MUY CORTO para evitar límites de mailto)
+                const emailSubject = `Solicitud Mejora ${tipoSuministro} - ${clientName || 'Cliente'} - ${cups || 'Sin CUPS'}`;
                 
-                // 3. Preparar el contenido del email
-                const emailSubject = `Solicitud Mejora - ${clientName || 'Cliente'} - ${cups || 'Sin CUPS'}`;
-                
-                const emailBody = `SOLICITUD DE MEJORA DE COMPARATIVO
-                
-El comercial ${commercialCode} solicita una mejora de este comparativo.
+                const emailBody = `SOLICITUD DE MEJORA - ${tipoSuministro}
 
-DATOS DEL CLIENTE:
-- Nombre: ${clientName || 'No proporcionado'}
-- CUPS: ${cups || 'No proporcionado'}
-- Teléfono: ${phone || 'No proporcionado'}
-- Email: ${email || 'No proporcionado'}
-${observations ? `- Observaciones: ${observations}` : ''}
+Comercial: ${commercialCode}
+Cliente: ${clientName || 'No proporcionado'}
+CUPS: ${cups || 'No proporcionado'}
 
-RECORDATORIO: Por favor adjuntar las facturas del cliente.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ INSTRUCCIONES IMPORTANTES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
--------------------------------------------
-COMPARATIVO:
--------------------------------------------
+1. PEGAR contenido completo (Ctrl+V) debajo de este texto
+   → El contenido está copiado en el portapapeles
 
-${htmlContent.replace(/<[^>]*>/g, '').substring(0, 1000)}...
+2. ADJUNTAR facturas OBLIGATORIAS:
+   📄 Factura usada para el estudio
+   📄 Factura más actualizada del cliente
 
-(Ver versión completa HTML en el email)
+3. ENVIAR email
 
--------------------------------------------
-DESGLOSE DETALLADO DE CÁLCULOS:
--------------------------------------------
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-${desglose}
+[PEGAR AQUÍ EL CONTENIDO COMPLETO CON CTRL+V]
+
 `;
 
-                // 4. Crear mailto con múltiples destinatarios
+                // 4. Crear mailto con múltiples destinatarios (LIMITADO para evitar cortes)
                 const recipients = 'F.araujo@drk.es,rguerra@drk.es,l.grande@drk.es';
-                const mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody.substring(0, 1800))}`;
+                const mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody.substring(0, 900))}`;
                 
                 // 5. Copiar HTML completo al portapapeles para pegar en el email
                 const tempElement = document.createElement('div');
                 tempElement.contentEditable = true;
                 tempElement.innerHTML = `
                     <div style="font-family: Arial, sans-serif;">
-                        <h2 style="color: #E50000;">SOLICITUD DE MEJORA DE COMPARATIVO</h2>
+                        <h2 style="color: #E50000;">SOLICITUD DE MEJORA DE COMPARATIVO - ${tipoSuministro}</h2>
                         <p><strong>El comercial ${commercialCode} solicita una mejora de este comparativo.</strong></p>
+                        
+                        <div style="background-color: #E0F2FE; border-left: 4px solid #0EA5E9; padding: 12px; margin: 16px 0;">
+                            <p style="margin: 0; font-weight: bold;">📋 TIPO DE SUMINISTRO: ${tipoSuministro}</p>
+                        </div>
                         
                         <h3>DATOS DEL CLIENTE:</h3>
                         <ul>
@@ -6178,9 +6490,19 @@ ${desglose}
                             ${observations ? `<li><strong>Observaciones:</strong> ${observations}</li>` : ''}
                         </ul>
                         
-                        <div style="background-color: #FEF3C7; border-left: 4px solid #F59E0B; padding: 12px; margin: 16px 0;">
-                            <p style="margin: 0; font-weight: bold;">📎 RECORDATORIO:</p>
-                            <p style="margin: 4px 0 0 0;">Por favor adjuntar las facturas del cliente.</p>
+                        <div style="background-color: #FEF3C7; border: 2px solid #F59E0B; border-radius: 8px; padding: 16px; margin: 20px 0;">
+                            <h3 style="margin: 0 0 12px 0; color: #92400E; font-size: 18px;">⚠️ IMPORTANTE - FACTURAS A ADJUNTAR:</h3>
+                            <div style="background-color: white; padding: 12px; border-radius: 6px; margin-bottom: 8px;">
+                                <p style="margin: 0; font-weight: bold; color: #92400E;">📄 1. La factura UTILIZADA para realizar este estudio</p>
+                                <p style="margin: 4px 0 0 0; font-size: 13px; color: #78350F;">Esta es la factura que el comercial ha analizado para hacer la comparativa</p>
+                            </div>
+                            <div style="background-color: white; padding: 12px; border-radius: 6px;">
+                                <p style="margin: 0; font-weight: bold; color: #92400E;">📄 2. La factura MÁS ACTUALIZADA del cliente</p>
+                                <p style="margin: 4px 0 0 0; font-size: 13px; color: #78350F;">Si es la misma factura que la del estudio, adjuntar solo una vez</p>
+                            </div>
+                            <p style="margin: 12px 0 0 0; font-size: 12px; color: #92400E; font-style: italic;">
+                                ℹ️ Estas facturas son necesarias para que Back Office pueda verificar los datos y mejorar el comparativo
+                            </p>
                         </div>
                         
                         <hr style="margin: 24px 0;">
@@ -6212,16 +6534,29 @@ ${desglose}
                 
                 // 7. Mostrar mensaje de éxito
                 if (success) {
-                    window.showMessageModal(`✅ Email preparado y contenido copiado al portapapeles.
+                    window.showMessageModal(`✅ ¡LISTO! Email abierto y contenido copiado.
 
-Se ha abierto su cliente de correo con:
-- Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
-- Asunto ya incluido
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📋 PASOS PARA ENVIAR LA SOLICITUD:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Por favor:
-1. Pegue (Ctrl+V) el contenido completo en el cuerpo del email
-2. Adjunte las facturas del cliente
-3. Envíe el email`);
+1️⃣ En el email que se acaba de abrir:
+   → Coloque el cursor debajo de "[PEGAR AQUÍ...]"
+   → Presione Ctrl+V (o Cmd+V en Mac)
+   → Se pegará TODO el comparativo completo
+
+2️⃣ ADJUNTE LAS FACTURAS (OBLIGATORIO):
+   📄 Factura usada para hacer el estudio
+   📄 Factura más actualizada del cliente
+   (Si son la misma, adjuntar solo una vez)
+
+3️⃣ Revise que todo esté correcto y ENVÍE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
+
+⚠️ IMPORTANTE: Sin las facturas adjuntas, Back Office NO podrá procesar la solicitud.`);
                     
                     // Cerrar modal
                     document.getElementById('request-improvement-modal').classList.add('hidden');
@@ -6250,34 +6585,38 @@ Por favor:
             
             breakdown += `TIPO: ${result.tariffType || 'N/A'}\n`;
             breakdown += `CUPS: ${result.cups || 'N/A'}\n`;
-            breakdown += `DÍAS: ${result.days || 'N/A'}\n\n`;
+            breakdown += `DÍAS: ${result.dias_facturados || result.days || 'N/A'}\n\n`;
             
             breakdown += `COSTES DE POTENCIA:\n`;
-            if (result.powerCosts) {
-                Object.entries(result.powerCosts).forEach(([period, cost]) => {
-                    breakdown += `  ${period}: ${cost.toFixed(2)} €\n`;
+            if (result.powerCosts && Array.isArray(result.powerCosts)) {
+                result.powerCosts.forEach(item => {
+                    if (item.kw > 0) {
+                        breakdown += `  P${item.period}: ${(item.cost || 0).toFixed(2)} € (${item.kw} kW x ${(item.priceDay || 0).toFixed(6)} €/día)\n`;
+                    }
                 });
-                breakdown += `  TOTAL POTENCIA: ${result.subPower?.toFixed(2) || '0.00'} €\n\n`;
+                breakdown += `  TOTAL POTENCIA: ${(result.subPower || 0).toFixed(2)} €\n\n`;
             }
             
             breakdown += `COSTES DE ENERGÍA:\n`;
-            if (result.energyCosts) {
-                Object.entries(result.energyCosts).forEach(([period, cost]) => {
-                    breakdown += `  ${period}: ${cost.toFixed(2)} €\n`;
+            if (result.energyCosts && Array.isArray(result.energyCosts)) {
+                result.energyCosts.forEach(item => {
+                    if (item.kwh > 0) {
+                        breakdown += `  E${item.period}: ${(item.cost || 0).toFixed(2)} € (${item.kwh} kWh x ${(item.price || 0).toFixed(6)} €/kWh)\n`;
+                    }
                 });
-                breakdown += `  TOTAL ENERGÍA: ${result.subEnergyNet?.toFixed(2) || '0.00'} €\n\n`;
+                breakdown += `  TOTAL ENERGÍA: ${(result.subEnergyNet || 0).toFixed(2)} €\n\n`;
             }
             
             breakdown += `IMPUESTOS Y OTROS:\n`;
-            breakdown += `  Impuesto Eléctrico: ${result.elec_tax?.toFixed(2) || '0.00'} €\n`;
-            breakdown += `  IVA: ${result.vat?.toFixed(2) || '0.00'} €\n`;
-            breakdown += `  Alquiler Contador: ${result.rental?.toFixed(2) || '0.00'} €\n\n`;
+            breakdown += `  Impuesto Eléctrico: ${(result.elec_tax || 0).toFixed(2)} €\n`;
+            breakdown += `  IVA: ${(result.vat || 0).toFixed(2)} €\n`;
+            breakdown += `  Alquiler Contador: ${(result.rental || 0).toFixed(2)} €\n\n`;
             
             breakdown += `TOTALES:\n`;
             breakdown += `  Subtotal: ${(result.subtotal || 0).toFixed(2)} €\n`;
-            breakdown += `  TOTAL PERIODO: ${result.importe_total?.toFixed(2) || '0.00'} €\n`;
-            breakdown += `  TOTAL ANUAL: ${result.totalAnnual?.toFixed(2) || '0.00'} €\n`;
-            breakdown += `  AHORRO: ${result.savings?.toFixed(2) || '0.00'} €\n`;
+            breakdown += `  TOTAL PERIODO: ${(result.importe_total || 0).toFixed(2)} €\n`;
+            breakdown += `  TOTAL ANUAL: ${(result.totalAnnual || result.originalBillAnnual || 0).toFixed(2)} €\n`;
+            breakdown += `  AHORRO: ${(result.savings || 0).toFixed(2)} €\n`;
             
             return breakdown;
         }
@@ -7504,7 +7843,7 @@ Por favor:
                     // Subtotal potencia
                     doc.setFont('helvetica', 'bold');
                     doc.setTextColor(...primaryColor);
-                    doc.text(tr('powerSubtotal'), margin + 2, yPos);
+                    doc.text('SUBTOTAL POTENCIA', margin + 2, yPos);
                     doc.text(`${num(res.subPower, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 8;
                     
@@ -7512,7 +7851,7 @@ Por favor:
                     doc.setTextColor(0, 0, 0);
                     doc.setFontSize(10);
                     doc.setFont('helvetica', 'bold');
-                    doc.text(tr('energyTerm') + ' (Precios en €/kWh)', margin, yPos);
+                    doc.text('TÉRMINO ENERGÍA (Precios en €/kWh)', margin, yPos);
                     yPos += 6;
                     
                     doc.setFontSize(8);
@@ -7536,7 +7875,7 @@ Por favor:
                     // Subtotal energía bruto
                     doc.setFont('helvetica', 'bold');
                     doc.setTextColor(80, 80, 80);
-                    doc.text(tr('grossEnergySubtotal'), margin + 2, yPos);
+                    doc.text('Subtotal Energía (Bruto)', margin + 2, yPos);
                     doc.text(`${num(res.subEnergy, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 5;
                     
@@ -7567,7 +7906,7 @@ Por favor:
                     doc.setFontSize(9);
                     
                     // Subtotal base
-                    doc.text(tr('baseSubtotal'), margin + 2, yPos);
+                    doc.text('SUBTOTAL BASE (P+E)', margin + 2, yPos);
                     doc.text(`${num(res.subBase, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 5;
                     
@@ -7580,14 +7919,14 @@ Por favor:
                     // Base imponible
                     doc.setFont('helvetica', 'bold');
                     doc.setFontSize(10);
-                    doc.text(tr('taxableBase'), margin + 2, yPos);
+                    doc.text('BASE IMPONIBLE', margin + 2, yPos);
                     doc.text(`${num(res.baseImp, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 5;
                     
                     // IVA
                     doc.setFont('helvetica', 'normal');
                     doc.setFontSize(9);
-                    doc.text(tr('iva') + ' (21%)', margin + 2, yPos);
+                    doc.text('IVA (21%)', margin + 2, yPos);
                     doc.text(`${num(res.costIVA, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 7;
                     
@@ -7604,7 +7943,7 @@ Por favor:
                     // Total año
                     doc.setTextColor(...primaryColor);
                     doc.setFontSize(10);
-                    doc.text(tr('projectedYear'), margin + 2, yPos);
+                    doc.text('TOTAL AÑO (PROYECTADO)', margin + 2, yPos);
                     doc.text(eur(res.totalAnnual), pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 8;
                 }
@@ -7625,7 +7964,7 @@ Por favor:
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(10);
                 doc.setFont('helvetica', 'bold');
-                doc.text(tr('estimatedAnnualSaving'), margin + 5, yPos + 7);
+                doc.text('TU AHORRO ANUAL ESTIMADO ES:', margin + 5, yPos + 7);
                 
                 doc.setFontSize(22);
                 doc.text(`${savingsText} / AÑO`, margin + 5, yPos + 16);
@@ -11557,6 +11896,32 @@ Por favor:
                 }
             };
             
+            // NUEVO: Event listener para botón de solicitar mejora en GAS
+            const gasImprovementBtn = document.getElementById('gas-request-improvement-btn');
+            if (gasImprovementBtn) {
+                gasImprovementBtn.onclick = () => {
+                    if (window.lastGasComparisonResult) {
+                        document.getElementById('request-improvement-modal').classList.remove('hidden');
+                        document.getElementById('request-improvement-modal').classList.add('flex');
+                    } else {
+                        window.showErrorModal("Por favor, analice una factura primero.");
+                    }
+                };
+            }
+            
+            // NUEVO: Event listener para botón de solicitar mejora en DUAL
+            const dualImprovementBtn = document.getElementById('dual-request-improvement-btn');
+            if (dualImprovementBtn) {
+                dualImprovementBtn.onclick = () => {
+                    if (window.dualGlobalResults && dualSupplies.length >= 2) {
+                        document.getElementById('request-improvement-modal').classList.remove('hidden');
+                        document.getElementById('request-improvement-modal').classList.add('flex');
+                    } else {
+                        window.showErrorModal("Por favor, realice una comparación DUAL primero.");
+                    }
+                };
+            }
+            
             document.getElementById('execute-improvement-request-btn').addEventListener('click', handleRequestImprovement);
 
             document.getElementById('qr-toggle-checkbox').addEventListener('change', (e) => {
@@ -13166,6 +13531,10 @@ Por favor:
             // Desactivar modo DUAL (solo activo cuando se navega desde dualSelectTariff)
             window.dualMode = false;
             checkDualMode(); // Actualizar visibilidad del botón DUAL
+            
+            // Limpiar resultados anteriores de GAS
+            window.lastGasComparisonResult = null;
+            
             hideAllScreens();
             document.getElementById('screen-gas').classList.add('active');
             // Ocultar el modo de comparación (ya está seleccionado)
@@ -13650,7 +14019,18 @@ Por favor:
                 </div>
                 
                 <!-- Tarjeta AHORRO TOTAL (SOLO si NO es modo Power Cup) -->
-                ${results.comparisonMode !== 'overall_best' ? `
+                ${(() => {
+                    // Verificar si TODOS los suministros tienen ahorro <= 0
+                    let allWithoutSavings = true;
+                    dualSupplies.forEach(s => {
+                        const currentCost = s.totalAnnual || 0;
+                        const originalBill = s.originalBillAnnual || 0;
+                        const savings = originalBill - currentCost;
+                        if (savings > 0) allWithoutSavings = false;
+                    });
+                    
+                    if (results.comparisonMode !== 'overall_best' && results.totalSavings > 0 && !allWithoutSavings) {
+                        return `
                 <div class="rounded-2xl shadow-2xl p-6 mb-6" style="background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%); border: 2px solid #5BA3F5;">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-2xl font-bold text-white">💰 Ahorro Total</h3>
@@ -13672,10 +14052,40 @@ Por favor:
                         <p class="text-sm text-white opacity-80 mt-2">${(results.totalSavings / 12).toFixed(2).replace('.', ',')} € al mes</p>
                     </div>
                 </div>
-                ` : ''}
+                        `;
+                    } else if (results.comparisonMode !== 'overall_best' && allWithoutSavings) {
+                        return `
+                <div class="rounded-2xl shadow-2xl p-6 mb-6" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border: 2px solid #0ea5e9;">
+                    <div class="text-center text-white">
+                        <h3 class="text-3xl font-bold mb-4">¡ENHORABUENA!</h3>
+                        <div class="bg-white bg-opacity-10 rounded-xl p-6 mb-4">
+                            <p class="text-xl font-bold mb-3">Actualmente estás en buenas tarifas</p>
+                            <p class="text-base opacity-90">Tanto en ELECTRICIDAD como en GAS tienes tarifas competitivas.</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 rounded-xl p-4">
+                            <p class="text-sm opacity-80">📊 Factura actual total anual:</p>
+                            <p class="text-3xl font-bold mt-2">${formatEuro(results.totalOriginalBill)}</p>
+                        </div>
+                    </div>
+                </div>
+                        `;
+                    }
+                    return '';
+                })()}
                 
                 <!-- Tarjeta AHORRO TOTAL para Power Cup (SOLO si es modo Power Cup) -->
-                ${results.comparisonMode === 'overall_best' ? `
+                ${(() => {
+                    // Verificar si TODOS los suministros tienen ahorro <= 0
+                    let allWithoutSavings = true;
+                    dualSupplies.forEach(s => {
+                        const currentCost = s.totalAnnual || 0;
+                        const originalBill = s.originalBillAnnual || 0;
+                        const savings = originalBill - currentCost;
+                        if (savings > 0) allWithoutSavings = false;
+                    });
+                    
+                    if (results.comparisonMode === 'overall_best' && results.totalSavings > 0 && !allWithoutSavings) {
+                        return `
                 <div class="bg-gradient-to-br from-powercup-600 to-powercup-800 text-white rounded-2xl shadow-2xl p-6 border-2 border-powercup-500 mb-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-2xl font-bold">💰 Ahorro Total</h3>
@@ -13697,8 +14107,53 @@ Por favor:
                         <p class="text-sm text-powercup-100 mt-2">${(results.totalSavings / 12).toFixed(2).replace('.', ',')} € al mes</p>
                     </div>
                 </div>
-                ` : ''}
+                        `;
+                    } else if (results.comparisonMode === 'overall_best' && allWithoutSavings) {
+                        return `
+                <div class="bg-gradient-to-br from-powercup-600 to-powercup-800 text-white rounded-2xl shadow-2xl p-6 border-2 border-powercup-500 mb-6">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold mb-4">¡ENHORABUENA!</h3>
+                        <div class="bg-white bg-opacity-10 rounded-xl p-6 mb-4">
+                            <p class="text-xl font-bold mb-3">Actualmente estás en buenas tarifas</p>
+                            <p class="text-base opacity-90">Tanto en ELECTRICIDAD como en GAS tienes tarifas competitivas.</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 rounded-xl p-4">
+                            <p class="text-sm opacity-80">📊 Factura actual total anual:</p>
+                            <p class="text-3xl font-bold mt-2">${formatEuro(results.totalOriginalBill)}</p>
+                        </div>
+                    </div>
+                </div>
+                        `;
+                    }
+                    return '';
+                })()}
             `;
+            
+            // NUEVO: Mostrar/ocultar botón de solicitar mejora
+            // Verificar si AMBOS suministros tienen ahorro <= 0
+            let allSuppliesWithoutSavings = true;
+            
+            dualSupplies.forEach(s => {
+                const isPowerCupMode = results.comparisonMode === 'overall_best';
+                const currentCost = s.totalAnnual || 0;
+                const originalBill = s.originalBillAnnual || 0;
+                const savings = originalBill - currentCost;
+                
+                if (savings > 0) {
+                    allSuppliesWithoutSavings = false;
+                }
+            });
+            
+            const dualImprovementBtn = document.getElementById('dual-request-improvement-container');
+            if (dualImprovementBtn) {
+                if (allSuppliesWithoutSavings) {
+                    dualImprovementBtn.style.display = 'block';
+                    console.log('✅ DUAL: Mostrando botón SOLICITAR MEJORA (ambos sin ahorro)');
+                } else {
+                    dualImprovementBtn.style.display = 'none';
+                    console.log('❌ DUAL: Ocultando botón (al menos uno tiene ahorro)');
+                }
+            }
         }
         
         // Función: Mostrar modal de datos del comercial y cliente
@@ -14884,7 +15339,7 @@ ${clientName}
             let results = [];
             
             if (compareIndexedVsFixed) {
-                // MODO: <span data-i18n="compareIndexedFixed">Comparar Indexada vs Fija</span>
+                // MODO: Comparar Indexada vs Fija
                 // Indexada = name contiene "INDEX" o "DRK INDEX"
                 // Fija = name NO contiene "INDEX" o description contiene "FIJO"/"FIJA"
                 const indexedTariffs = filteredTariffs.filter(t => {
@@ -15610,16 +16065,67 @@ ${clientName}
             // Ordenar por mejor ahorro
             results.sort((a, b) => b.ahorro_anual - a.ahorro_anual);
             
+            // NUEVO: Detectar si NO hay ahorro en ninguna tarifa
+            const bestSaving = results.length > 0 ? results[0].ahorro_anual : 0;
+            const noSavings = bestSaving <= 0;
+            
             let html = '';
             
-            results.forEach((result, index) => {
-                const isPositiveSaving = result.ahorro_anual > 0;
-                const savingClass = isPositiveSaving ? 'text-green-600' : 'text-red-600';
-                
+            // NUEVO: Si no hay ahorro, mostrar mensaje especial
+            if (noSavings) {
                 html += `
-                <div class="mb-6 p-4 border-2 ${isPositiveSaving ? 'border-green-200 bg-green-50' : 'border-slate-200'} rounded-xl">
-                    <h3 class="text-xl font-bold text-drk-900 mb-2">${result.name}</h3>
-                    <p class="text-sm text-slate-600 mb-4">${result.descripcion}</p>
+                <div class="mb-6 p-6 border-4 border-red-500 bg-red-50 rounded-2xl">
+                    <div class="text-center mb-6">
+                        <h3 class="text-3xl font-black text-red-600 mb-4">LA MEJOR OPCIÓN PARA TI ES</h3>
+                        <h2 class="text-5xl font-black text-red-700 mb-3">Tu Tarifa Actual</h2>
+                        <p class="text-lg text-red-600 font-semibold">Es la mejor opción detectada</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl border-2 border-red-200">
+                        <h4 class="text-2xl font-bold text-red-600 mb-3 text-center">¡ENHORABUENA!</h4>
+                        <p class="text-lg leading-tight font-bold text-red-700 text-center mb-3">Actualmente estás en una buena tarifa.</p>
+                        <p class="text-base text-red-600 text-center leading-relaxed">Seguiremos estudiando el mercado y te avisaremos cuando encontremos alguna tarifa que se adapte a tu perfil de consumo.</p>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-red-100 rounded-xl">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-red-800">TU COSTE ACTUAL CONSOLIDADO</span>
+                        </div>
+                        <div class="flex justify-between items-center text-2xl">
+                            <span class="font-bold text-red-700">Total factura:</span>
+                            <span class="font-bold text-red-700">${totalCliente.toFixed(2)} €</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 text-xl">
+                            <span class="font-bold text-red-700">Estimación anual:</span>
+                            <span class="font-bold text-red-700">${(totalCliente * 365 / dias).toFixed(2)} €/año</span>
+                        </div>
+                    </div>
+                </div>
+                `;
+                
+                // Mostrar botón "SOLICITAR MEJORA A DRK" para GAS
+                const gasImprovementContainer = document.getElementById('gas-request-improvement-container');
+                if (gasImprovementContainer) {
+                    gasImprovementContainer.style.display = 'block';
+                }
+                
+            } else {
+                // HAY AHORRO: Mostrar comparativo normal
+                
+                // Ocultar botón de solicitar mejora para GAS
+                const gasImprovementContainer = document.getElementById('gas-request-improvement-container');
+                if (gasImprovementContainer) {
+                    gasImprovementContainer.style.display = 'none';
+                }
+                
+                results.forEach((result, index) => {
+                    const isPositiveSaving = result.ahorro_anual > 0;
+                    const savingClass = isPositiveSaving ? 'text-green-600' : 'text-red-600';
+                    
+                    html += `
+                    <div class="mb-6 p-4 border-2 ${isPositiveSaving ? 'border-green-200 bg-green-50' : 'border-slate-200'} rounded-xl">
+                        <h3 class="text-xl font-bold text-drk-900 mb-2">${result.name}</h3>
+                        <p class="text-sm text-slate-600 mb-4">${result.descripcion}</p>
                     
                     <table class="w-full text-sm">
                         <tr class="border-b">
@@ -15678,10 +16184,26 @@ ${clientName}
                 `;
             });
             
+            } // FIN del else (cuando HAY ahorro)
+            
             // GUARDAR DATOS PARA EXPORTAR (NUEVO)
             const comparisonMode = document.querySelector('input[name="comparison_mode"]:checked')?.value || 'drk_only';
             window.gasExportData = { results, dias, kwh, totalCliente, comparisonMode };
             console.log('💾 Guardando gasExportData:', {results: results.map(r => ({name: r.name, ahorro: r.ahorro_anual})), comparisonMode});
+            
+            // NUEVO: Guardar resultado para solicitud de mejora cuando no hay ahorro
+            if (noSavings) {
+                window.lastGasComparisonResult = {
+                    isGas: true,
+                    results: results,
+                    dias: dias,
+                    kwh: kwh,
+                    totalCliente: totalCliente,
+                    tariffType: currentGasTariff,
+                    bestSaving: bestSaving
+                };
+                console.log('💾 Guardando lastGasComparisonResult para solicitud de mejora:', window.lastGasComparisonResult);
+            }
             
             // NUEVO: Guardar resultados para DUAL
             // Identificar si hay DRK y PowerCup
@@ -15718,40 +16240,42 @@ ${clientName}
                 powercup: window.lastGasPowerCupResult
             });
             
-            // AGREGAR BOTONES DE EXPORTAR (NUEVO)
-            html += `
-                <div class="mt-8 p-6 bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl border-2 border-slate-200">
-                    <h3 class="text-xl font-bold text-drk-900 mb-4 text-center">📤 Exportar Presentación</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Botón PDF -->
-                        <button
-                            onclick="generateGasPDF()"
-                            class="flex items-center justify-center gap-3 px-6 py-4 bg-red-500 text-white rounded-lg font-bold hover:bg-red-600 transition shadow-lg"
-                        >
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                            </svg>
-                            <span>Generar PDF</span>
-                        </button>
+            // AGREGAR BOTONES DE EXPORTAR (solo si HAY ahorro)
+            if (!noSavings) {
+                html += `
+                    <div class="mt-8 p-6 bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl border-2 border-slate-200">
+                        <h3 class="text-xl font-bold text-drk-900 mb-4 text-center">📤 Exportar Presentación</h3>
                         
-                        <!-- Botón HTML -->
-                        <button
-                            onclick="generateGasHTML()"
-                            class="flex items-center justify-center gap-3 px-6 py-4 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-600 transition shadow-lg"
-                        >
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                            <span>Generar HTML para Email</span>
-                        </button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Botón PDF -->
+                            <button
+                                onclick="generateGasPDF()"
+                                class="flex items-center justify-center gap-3 px-6 py-4 bg-red-500 text-white rounded-lg font-bold hover:bg-red-600 transition shadow-lg"
+                            >
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>Generar PDF</span>
+                            </button>
+                            
+                            <!-- Botón HTML -->
+                            <button
+                                onclick="generateGasHTML()"
+                                class="flex items-center justify-center gap-3 px-6 py-4 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-600 transition shadow-lg"
+                            >
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>Generar HTML para Email</span>
+                            </button>
+                        </div>
+                        
+                        <p class="text-xs text-slate-500 text-center mt-4">
+                            Genera documentos profesionales para presentar al cliente
+                        </p>
                     </div>
-                    
-                    <p class="text-xs text-slate-500 text-center mt-4">
-                        Genera documentos profesionales para presentar al cliente
-                    </p>
-                </div>
-            `;
+                `;
+            }
             
             container.innerHTML = html;
             
@@ -16931,35 +17455,35 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text(tr('fixedTerm') + ' (Precio en €/día)', margin, yPos);
+            doc.text('TÉRMINO FIJO (Precio en €/día)', margin, yPos);
             yPos += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
             const p_fijo_diario = bestResult.p_fijo_diario / 365;
-            doc.text(tr('fixedPrice') + ' ('' + dias + ' días x ' + num(p_fijo_diario, 6) + ')', margin + 5, yPos);
+            doc.text('Precio fijo (' + dias + ' días x ' + num(p_fijo_diario, 6) + ')', margin + 5, yPos);
             doc.text(eur(bestResult.total_fijo), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 6;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('powerSubtotal'), margin + 5, yPos);
+            doc.text('SUBTOTAL POTENCIA', margin + 5, yPos);
             doc.text(eur(bestResult.total_fijo), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 10;
             
             // TÉRMINO ENERGÍA
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text(tr('energyTerm') + ' (Precios en €/kWh)', margin, yPos);
+            doc.text('TÉRMINO ENERGÍA (Precios en €/kWh)', margin, yPos);
             yPos += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text(tr('energy') + ' ('' + kwh + ' kWh x ' + num(bestResult.p1_price, 6) + ')', margin + 5, yPos);
+            doc.text('Energía (' + kwh + ' kWh x ' + num(bestResult.p1_price, 6) + ')', margin + 5, yPos);
             doc.text(eur(bestResult.total_energia), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 6;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('grossEnergySubtotal'), margin + 5, yPos);
+            doc.text('Subtotal Energía (Bruto)', margin + 5, yPos);
             doc.text(eur(bestResult.total_energia), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 10;
             
@@ -16967,23 +17491,23 @@ ${clientName}
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
             const subtotalBase = bestResult.total_fijo + bestResult.total_energia;
-            doc.text(tr('baseSubtotal'), margin, yPos);
+            doc.text('SUBTOTAL BASE (P+E)', margin, yPos);
             doc.text(eur(subtotalBase), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-            doc.text(tr('hydrocarbonTax') + ' ('€0,00234 x ' + kwh + ' kWh)', margin, yPos);
+            doc.text('Imp. Hidrocarburos (€0,00234 x ' + kwh + ' kWh)', margin, yPos);
             doc.text(eur(bestResult.impuesto_hidrocarburo), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 6;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('taxableBase'), margin, yPos);
+            doc.text('BASE IMPONIBLE', margin, yPos);
             doc.text(eur(subtotalBase + bestResult.impuesto_hidrocarburo), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 6;
             
             doc.setFont('helvetica', 'normal');
-            doc.text(tr('iva') + ' (21%)', margin, yPos);
+            doc.text('IVA (21%)', margin, yPos);
             doc.text(eur(bestResult.iva), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 10;
             
@@ -16994,7 +17518,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(12);
-            doc.text(tr('invoiceTotal') + ' ('' + dias + ' DÍAS)', margin + 5, yPos + 5);
+            doc.text('TOTAL FACTURA (' + dias + ' DÍAS)', margin + 5, yPos + 5);
             doc.text(eur(bestResult.total), pageWidth - margin - 5, yPos + 5, { align: 'right' });
             
             yPos += 14;
@@ -17002,7 +17526,7 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text(tr('projectedYear'), margin, yPos);
+            doc.text('TOTAL AÑO (PROYECTADO)', margin, yPos);
             doc.text(eur(bestResult.total * 365 / dias), pageWidth - margin - 5, yPos, { align: 'right' });
             
             yPos += 15;
@@ -17014,7 +17538,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text(tr('estimatedAnnualSaving'), margin + 5, yPos + 10);
+            doc.text('TU AHORRO ANUAL ESTIMADO ES:', margin + 5, yPos + 10);
             
             doc.setFontSize(20);
             doc.text(eur(bestResult.ahorro_anual) + '/ AÑO', margin + 5, yPos + 20);
@@ -17351,8 +17875,8 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
             doc.text('[ES0021000020679723GY]', leftX + 3, leftY + 5);
-            doc.text(tr('type') + ': ' + currentGasTariff, leftX + colW - 3, leftY + 5, { align: 'right' });
-            doc.text(tr('days') + ': ' + dias, leftX + colW - 3, leftY + 10, { align: 'right' });
+            doc.text('Tipo: ' + currentGasTariff, leftX + colW - 3, leftY + 5, { align: 'right' });
+            doc.text('Días: ' + dias, leftX + colW - 3, leftY + 10, { align: 'right' });
             doc.setFontSize(8);
             doc.text('DRK - ' + resFijo.name, leftX + 3, leftY + 13);
             
@@ -17361,35 +17885,35 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(tr('fixedTerm') + ' (Precio en €/día)', leftX, leftY);
+            doc.text('TÉRMINO FIJO (Precio en €/día)', leftX, leftY);
             leftY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             const pFijoDiario = resFijo.p_fijo_diario / 365;
-            doc.text(tr('fixedPrice') + ' ('' + dias + ' días x ' + num(pFijoDiario, 6) + ')', leftX + 3, leftY);
+            doc.text('Precio fijo (' + dias + ' días x ' + num(pFijoDiario, 6) + ')', leftX + 3, leftY);
             doc.text(eur(resFijo.total_fijo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('powerSubtotal'), leftX + 3, leftY);
+            doc.text('SUBTOTAL POTENCIA', leftX + 3, leftY);
             doc.text(eur(resFijo.total_fijo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
             // TÉRMINO ENERGÍA
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(tr('energyTerm') + ' (Precios en €/kWh)', leftX, leftY);
+            doc.text('TÉRMINO ENERGÍA (Precios en €/kWh)', leftX, leftY);
             leftY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text(tr('energy') + ' ('' + kwh + ' kWh x ' + num(resFijo.p1_price, 6) + ')', leftX + 3, leftY);
+            doc.text('Energía (' + kwh + ' kWh x ' + num(resFijo.p1_price, 6) + ')', leftX + 3, leftY);
             doc.text(eur(resFijo.total_energia), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('grossEnergySubtotal'), leftX + 3, leftY);
+            doc.text('Subtotal Energía (Bruto)', leftX + 3, leftY);
             doc.text(eur(resFijo.total_energia), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
@@ -17397,23 +17921,23 @@ ${clientName}
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
             const subtotalBase = resFijo.total_fijo + resFijo.total_energia;
-            doc.text(tr('baseSubtotal'), leftX, leftY);
+            doc.text('SUBTOTAL BASE (P+E)', leftX, leftY);
             doc.text(eur(subtotalBase), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text(tr('hydrocarbonTax') + ' ('€0,00234 x ' + kwh + ' kWh)', leftX, leftY);
+            doc.text('Imp. Hidrocarburos (€0,00234 x ' + kwh + ' kWh)', leftX, leftY);
             doc.text(eur(resFijo.impuesto_hidrocarburo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('taxableBase'), leftX, leftY);
+            doc.text('BASE IMPONIBLE', leftX, leftY);
             doc.text(eur(subtotalBase + resFijo.impuesto_hidrocarburo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text(tr('iva') + ' (21%)', leftX, leftY);
+            doc.text('IVA (21%)', leftX, leftY);
             doc.text(eur(resFijo.iva), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
@@ -17423,14 +17947,14 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text(tr('invoiceTotal') + ' ('' + dias + ' DÍAS)', leftX + 3, leftY + 5);
+            doc.text('TOTAL FACTURA (' + dias + ' DÍAS)', leftX + 3, leftY + 5);
             doc.text(eur(resFijo.total), leftX + colW - 3, leftY + 5, { align: 'right' });
             
             leftY += 14;
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text(tr('projectedYear'), leftX, leftY);
+            doc.text('TOTAL AÑO (PROYECTADO)', leftX, leftY);
             doc.text(eur(resFijo.total * 365 / dias), leftX + colW - 2, leftY, { align: 'right' });
             
             leftY += 12;
@@ -17438,7 +17962,7 @@ ${clientName}
             doc.roundedRect(leftX, leftY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text(tr('estimatedAnnualSaving'), leftX + 3, leftY + 8);
+            doc.text('TU AHORRO ANUAL ESTIMADO ES:', leftX + 3, leftY + 8);
             doc.setFontSize(13);
             doc.text(eur(resFijo.ahorro_anual) + '/ AÑO', leftX + 3, leftY + 15);
             
@@ -17449,8 +17973,8 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
             doc.text('[ES0021000020679723GY]', rightX + 3, rightY + 5);
-            doc.text(tr('type') + ': ' + currentGasTariff, rightX + colW - 3, rightY + 5, { align: 'right' });
-            doc.text(tr('days') + ': ' + dias, rightX + colW - 3, rightY + 10, { align: 'right' });
+            doc.text('Tipo: ' + currentGasTariff, rightX + colW - 3, rightY + 5, { align: 'right' });
+            doc.text('Días: ' + dias, rightX + colW - 3, rightY + 10, { align: 'right' });
             doc.setFontSize(8);
             doc.text('DRK INDEX - ' + resIndexed.name, rightX + 3, rightY + 13);
             
@@ -17459,35 +17983,35 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(tr('fixedTerm') + ' (Precio en €/día)', rightX, rightY);
+            doc.text('TÉRMINO FIJO (Precio en €/día)', rightX, rightY);
             rightY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             const pIndexDiario = resIndexed.p_fijo_diario / 365;
-            doc.text(tr('fixedPrice') + ' ('' + dias + ' días x ' + num(pIndexDiario, 6) + ')', rightX + 3, rightY);
+            doc.text('Precio fijo (' + dias + ' días x ' + num(pIndexDiario, 6) + ')', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_fijo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('powerSubtotal'), rightX + 3, rightY);
+            doc.text('SUBTOTAL POTENCIA', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_fijo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
             // TÉRMINO ENERGÍA
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(tr('energyTerm') + ' (Precios en €/kWh)', rightX, rightY);
+            doc.text('TÉRMINO ENERGÍA (Precios en €/kWh)', rightX, rightY);
             rightY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text(tr('energy') + ' ('' + kwh + ' kWh x ' + num(resIndexed.p1_price, 6) + ')', rightX + 3, rightY);
+            doc.text('Energía (' + kwh + ' kWh x ' + num(resIndexed.p1_price, 6) + ')', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_energia), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('grossEnergySubtotal'), rightX + 3, rightY);
+            doc.text('Subtotal Energía (Bruto)', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_energia), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
@@ -17495,23 +18019,23 @@ ${clientName}
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
             const subtotalBaseIndex = resIndexed.total_fijo + resIndexed.total_energia;
-            doc.text(tr('baseSubtotal'), rightX, rightY);
+            doc.text('SUBTOTAL BASE (P+E)', rightX, rightY);
             doc.text(eur(subtotalBaseIndex), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text(tr('hydrocarbonTax') + ' ('€0,00234 x ' + kwh + ' kWh)', rightX, rightY);
+            doc.text('Imp. Hidrocarburos (€0,00234 x ' + kwh + ' kWh)', rightX, rightY);
             doc.text(eur(resIndexed.impuesto_hidrocarburo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('taxableBase'), rightX, rightY);
+            doc.text('BASE IMPONIBLE', rightX, rightY);
             doc.text(eur(subtotalBaseIndex + resIndexed.impuesto_hidrocarburo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text(tr('iva') + ' (21%)', rightX, rightY);
+            doc.text('IVA (21%)', rightX, rightY);
             doc.text(eur(resIndexed.iva), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
@@ -17521,14 +18045,14 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text(tr('invoiceTotal') + ' ('' + dias + ' DÍAS)', rightX + 3, rightY + 5);
+            doc.text('TOTAL FACTURA (' + dias + ' DÍAS)', rightX + 3, rightY + 5);
             doc.text(eur(resIndexed.total), rightX + colW - 3, rightY + 5, { align: 'right' });
             
             rightY += 14;
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text(tr('projectedYear'), rightX, rightY);
+            doc.text('TOTAL AÑO (PROYECTADO)', rightX, rightY);
             doc.text(eur(resIndexed.total * 365 / dias), rightX + colW - 2, rightY, { align: 'right' });
             
             rightY += 12;
@@ -17536,7 +18060,7 @@ ${clientName}
             doc.roundedRect(rightX, rightY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text(tr('estimatedAnnualSaving'), rightX + 3, rightY + 8);
+            doc.text('TU AHORRO ANUAL ESTIMADO ES:', rightX + 3, rightY + 8);
             doc.setFontSize(13);
             doc.text(eur(resIndexed.ahorro_anual) + '/ AÑO', rightX + 3, rightY + 15);
             
@@ -17547,33 +18071,33 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(16);
-            doc.text(tr('whatsTheDifference'), 105, y, { align: 'center' });
+            doc.text('CUAL ES LA DIFERENCIA?', 105, y, { align: 'center' });
             
             y += 15;
             
             // Columna izquierda: FIJA
             doc.setTextColor(59, 130, 246);
             doc.setFontSize(12);
-            doc.text(tr('whyFixed'), leftX, y);
+            doc.text('POR QUE TARIFA FIJA?', leftX, y);
             
             y += 8;
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
             const fijaTexts = [
-                tr('fixedExpl1'),
-                tr('fixedExpl2'),
+                '• Implica un precio fijo por los kilovatios que',
+                '  consumes (kWh).',
                 '',
-                tr('fixedExpl3'),
-                tr('fixedExpl4'),
-                tr('fixedExpl5'),
+                '• El precio se mantiene estable,',
+                '  independientemente de cómo se comporten los',
+                '  precios en el mercado eléctrico.',
                 '',
-                tr('fixedExpl6'),
-                tr('fixedExpl7'),
+                '• Cuando el precio del mercado está alto, el',
+                '  cliente está protegido frente a sobresaltos.',
                 '',
-                tr('fixedExpl8'),
-                tr('fixedExpl9'),
-                tr('fixedExpl10')
+                '• No tendrás que estar pendiente de las',
+                '  variaciones del mercado y podrás seguir',
+                '  usando la electricidad como siempre.'
             ];
             
             fijaTexts.forEach(line => {
@@ -17587,27 +18111,27 @@ ${clientName}
             doc.setTextColor(76, 175, 80);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(12);
-            doc.text(tr('whyIndexed'), rightX, y);
+            doc.text('POR QUE TARIFA INDEXADA?', rightX, y);
             
             y += 8;
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
             const indexTexts = [
-                tr('indexExpl1'),
-                tr('indexExpl2'),
+                '• Implica un precio variable por los kilovatios',
+                '  que consumes (kWh) cada mes.',
                 '',
-                tr('indexExpl3'),
-                tr('indexExpl4'),
+                '• Es la tarifa más justa, ya que pagas el coste',
+                '  real de la energía mes a mes.',
                 '',
-                tr('indexExpl5'),
-                tr('indexExpl6'),
-                tr('indexExpl7'),
+                '• Al contratarla, el cliente evita pagar',
+                '  márgenes adicionales cuando el precio de la',
+                '  electricidad es más barato.',
                 '',
-                tr('indexExpl8'),
-                tr('indexExpl9'),
-                tr('indexExpl10'),
-                tr('indexExpl11') || ''
+                '• A largo plazo, con un indexado 100%',
+                '  funcional, se puede obtener un ahorro',
+                '  aproximado de hasta un 20% en épocas de',
+                '  mejor precio.'
             ];
             
             indexTexts.forEach(line => {
@@ -17874,57 +18398,57 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text(tr('fixedTerm') + ' (Precio en €/día)', 12, y);
+            doc.text('TÉRMINO FIJO (Precio en €/día)', 12, y);
             y += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
             const pFijoDiario = bestResult.p_fijo_diario / 365;
-            doc.text(tr('fixedPrice') + ' ('' + dias + ' días x ' + num(pFijoDiario, 6) + ')', 15, y);
+            doc.text('Precio fijo (' + dias + ' días x ' + num(pFijoDiario, 6) + ')', 15, y);
             doc.text(eur(bestResult.total_fijo), 195, y, { align: 'right' });
             y += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('powerSubtotal'), 15, y);
+            doc.text('SUBTOTAL POTENCIA', 15, y);
             doc.text(eur(bestResult.total_fijo), 195, y, { align: 'right' });
             y += 10;
             
             // TÉRMINO ENERGÍA
             doc.setFontSize(10);
-            doc.text(tr('energyTerm') + ' (Precios en €/kWh)', 12, y);
+            doc.text('TÉRMINO ENERGÍA (Precios en €/kWh)', 12, y);
             y += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
-            doc.text(tr('energy') + ' ('' + kwh + ' kWh x ' + num(bestResult.p1_price, 6) + ')', 15, y);
+            doc.text('Energía (' + kwh + ' kWh x ' + num(bestResult.p1_price, 6) + ')', 15, y);
             doc.text(eur(bestResult.total_energia), 195, y, { align: 'right' });
             y += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('grossEnergySubtotal'), 15, y);
+            doc.text('Subtotal Energía (Bruto)', 15, y);
             doc.text(eur(bestResult.total_energia), 195, y, { align: 'right' });
             y += 10;
             
             // SUBTOTAL BASE
             const subtotalBase = bestResult.total_fijo + bestResult.total_energia;
             doc.setFontSize(10);
-            doc.text(tr('baseSubtotal'), 12, y);
+            doc.text('SUBTOTAL BASE (P+E)', 12, y);
             doc.text(eur(subtotalBase), 195, y, { align: 'right' });
             y += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
-            doc.text(tr('hydrocarbonTax') + ' ('€0,00234 x ' + kwh + ' kWh)', 12, y);
+            doc.text('Imp. Hidrocarburos (€0,00234 x ' + kwh + ' kWh)', 12, y);
             doc.text(eur(bestResult.impuesto_hidrocarburo), 195, y, { align: 'right' });
             y += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('taxableBase'), 12, y);
+            doc.text('BASE IMPONIBLE', 12, y);
             doc.text(eur(subtotalBase + bestResult.impuesto_hidrocarburo), 195, y, { align: 'right' });
             y += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text(tr('iva') + ' (21%)', 12, y);
+            doc.text('IVA (21%)', 12, y);
             doc.text(eur(bestResult.iva), 195, y, { align: 'right' });
             y += 10;
             
@@ -17934,13 +18458,13 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text(tr('invoiceTotal') + ' ('' + dias + ' DÍAS)', 15, y + 5);
+            doc.text('TOTAL FACTURA (' + dias + ' DÍAS)', 15, y + 5);
             doc.text(eur(bestResult.total), 195, y + 5, { align: 'right' });
             
             y += 14;
             doc.setTextColor(0, 0, 0);
             doc.setFontSize(9);
-            doc.text(tr('projectedYear'), 12, y);
+            doc.text('TOTAL AÑO (PROYECTADO)', 12, y);
             doc.text(eur(bestResult.total * 365 / dias), 195, y, { align: 'right' });
             
             y += 12;
@@ -17948,7 +18472,7 @@ ${clientName}
             doc.roundedRect(12, y, 186, 20, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(9);
-            doc.text(tr('estimatedAnnualSaving'), 15, y + 8);
+            doc.text('TU AHORRO ANUAL ESTIMADO ES:', 15, y + 8);
             doc.setFontSize(16);
             doc.text(eur(bestResult.ahorro_anual) + '/ AÑO', 15, y + 16);
             
@@ -18253,8 +18777,8 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
             doc.text('[ES0021000020679723GY]', leftX + 3, leftY + 5);
-            doc.text(tr('type') + ': ' + currentGasTariff, leftX + colW - 3, leftY + 5, { align: 'right' });
-            doc.text(tr('days') + ': ' + dias, leftX + colW - 3, leftY + 10, { align: 'right' });
+            doc.text('Tipo: ' + currentGasTariff, leftX + colW - 3, leftY + 5, { align: 'right' });
+            doc.text('Días: ' + dias, leftX + colW - 3, leftY + 10, { align: 'right' });
             doc.setFontSize(8);
             doc.text('POWER CUP - ' + resFijo.name, leftX + 3, leftY + 13);
             
@@ -18263,35 +18787,35 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(tr('fixedTerm') + ' (Precio en €/día)', leftX, leftY);
+            doc.text('TÉRMINO FIJO (Precio en €/día)', leftX, leftY);
             leftY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             const pFijoDiario = resFijo.p_fijo_diario / 365;
-            doc.text(tr('fixedPrice') + ' ('' + dias + ' días x ' + num(pFijoDiario, 6) + ')', leftX + 3, leftY);
+            doc.text('Precio fijo (' + dias + ' días x ' + num(pFijoDiario, 6) + ')', leftX + 3, leftY);
             doc.text(eur(resFijo.total_fijo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('powerSubtotal'), leftX + 3, leftY);
+            doc.text('SUBTOTAL POTENCIA', leftX + 3, leftY);
             doc.text(eur(resFijo.total_fijo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
             // TÉRMINO ENERGÍA
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(tr('energyTerm') + ' (Precios en €/kWh)', leftX, leftY);
+            doc.text('TÉRMINO ENERGÍA (Precios en €/kWh)', leftX, leftY);
             leftY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text(tr('energy') + ' ('' + kwh + ' kWh x ' + num(resFijo.p1_price, 6) + ')', leftX + 3, leftY);
+            doc.text('Energía (' + kwh + ' kWh x ' + num(resFijo.p1_price, 6) + ')', leftX + 3, leftY);
             doc.text(eur(resFijo.total_energia), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('grossEnergySubtotal'), leftX + 3, leftY);
+            doc.text('Subtotal Energía (Bruto)', leftX + 3, leftY);
             doc.text(eur(resFijo.total_energia), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
@@ -18299,23 +18823,23 @@ ${clientName}
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
             const subtotalBase = resFijo.total_fijo + resFijo.total_energia;
-            doc.text(tr('baseSubtotal'), leftX, leftY);
+            doc.text('SUBTOTAL BASE (P+E)', leftX, leftY);
             doc.text(eur(subtotalBase), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text(tr('hydrocarbonTax') + ' ('€0,00234 x ' + kwh + ' kWh)', leftX, leftY);
+            doc.text('Imp. Hidrocarburos (€0,00234 x ' + kwh + ' kWh)', leftX, leftY);
             doc.text(eur(resFijo.impuesto_hidrocarburo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('taxableBase'), leftX, leftY);
+            doc.text('BASE IMPONIBLE', leftX, leftY);
             doc.text(eur(subtotalBase + resFijo.impuesto_hidrocarburo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text(tr('iva') + ' (21%)', leftX, leftY);
+            doc.text('IVA (21%)', leftX, leftY);
             doc.text(eur(resFijo.iva), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 10;
             
@@ -18325,14 +18849,14 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text(tr('invoiceTotal') + ' ('' + dias + ' DÍAS)', leftX + 3, leftY + 5);
+            doc.text('TOTAL FACTURA (' + dias + ' DÍAS)', leftX + 3, leftY + 5);
             doc.text(eur(resFijo.total), leftX + colW - 3, leftY + 5, { align: 'right' });
             
             leftY += 14;
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text(tr('projectedYear'), leftX, leftY);
+            doc.text('TOTAL AÑO (PROYECTADO)', leftX, leftY);
             doc.text(eur(resFijo.total * 365 / dias), leftX + colW - 2, leftY, { align: 'right' });
             
             leftY += 12;
@@ -18340,7 +18864,7 @@ ${clientName}
             doc.roundedRect(leftX, leftY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text(tr('estimatedAnnualSaving'), leftX + 3, leftY + 8);
+            doc.text('TU AHORRO ANUAL ESTIMADO ES:', leftX + 3, leftY + 8);
             doc.setFontSize(13);
             doc.text(eur(resFijo.ahorro_anual) + '/ AÑO', leftX + 3, leftY + 15);
             
@@ -18351,8 +18875,8 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
             doc.text('[ES0021000020679723GY]', rightX + 3, rightY + 5);
-            doc.text(tr('type') + ': ' + currentGasTariff, rightX + colW - 3, rightY + 5, { align: 'right' });
-            doc.text(tr('days') + ': ' + dias, rightX + colW - 3, rightY + 10, { align: 'right' });
+            doc.text('Tipo: ' + currentGasTariff, rightX + colW - 3, rightY + 5, { align: 'right' });
+            doc.text('Días: ' + dias, rightX + colW - 3, rightY + 10, { align: 'right' });
             doc.setFontSize(8);
             doc.text('POWER CUP INDEX - ' + resIndexed.name, rightX + 3, rightY + 13);
             
@@ -18361,35 +18885,35 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(tr('fixedTerm') + ' (Precio en €/día)', rightX, rightY);
+            doc.text('TÉRMINO FIJO (Precio en €/día)', rightX, rightY);
             rightY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             const pIndexDiario = resIndexed.p_fijo_diario / 365;
-            doc.text(tr('fixedPrice') + ' ('' + dias + ' días x ' + num(pIndexDiario, 6) + ')', rightX + 3, rightY);
+            doc.text('Precio fijo (' + dias + ' días x ' + num(pIndexDiario, 6) + ')', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_fijo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('powerSubtotal'), rightX + 3, rightY);
+            doc.text('SUBTOTAL POTENCIA', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_fijo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
             // TÉRMINO ENERGÍA
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
-            doc.text(tr('energyTerm') + ' (Precios en €/kWh)', rightX, rightY);
+            doc.text('TÉRMINO ENERGÍA (Precios en €/kWh)', rightX, rightY);
             rightY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text(tr('energy') + ' ('' + kwh + ' kWh x ' + num(resIndexed.p1_price, 6) + ')', rightX + 3, rightY);
+            doc.text('Energía (' + kwh + ' kWh x ' + num(resIndexed.p1_price, 6) + ')', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_energia), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('grossEnergySubtotal'), rightX + 3, rightY);
+            doc.text('Subtotal Energía (Bruto)', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_energia), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
@@ -18397,23 +18921,23 @@ ${clientName}
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(9);
             const subtotalBaseIndex = resIndexed.total_fijo + resIndexed.total_energia;
-            doc.text(tr('baseSubtotal'), rightX, rightY);
+            doc.text('SUBTOTAL BASE (P+E)', rightX, rightY);
             doc.text(eur(subtotalBaseIndex), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 6;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
-            doc.text(tr('hydrocarbonTax') + ' ('€0,00234 x ' + kwh + ' kWh)', rightX, rightY);
+            doc.text('Imp. Hidrocarburos (€0,00234 x ' + kwh + ' kWh)', rightX, rightY);
             doc.text(eur(resIndexed.impuesto_hidrocarburo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'bold');
-            doc.text(tr('taxableBase'), rightX, rightY);
+            doc.text('BASE IMPONIBLE', rightX, rightY);
             doc.text(eur(subtotalBaseIndex + resIndexed.impuesto_hidrocarburo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
             doc.setFont('helvetica', 'normal');
-            doc.text(tr('iva') + ' (21%)', rightX, rightY);
+            doc.text('IVA (21%)', rightX, rightY);
             doc.text(eur(resIndexed.iva), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 10;
             
@@ -18423,14 +18947,14 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(10);
-            doc.text(tr('invoiceTotal') + ' ('' + dias + ' DÍAS)', rightX + 3, rightY + 5);
+            doc.text('TOTAL FACTURA (' + dias + ' DÍAS)', rightX + 3, rightY + 5);
             doc.text(eur(resIndexed.total), rightX + colW - 3, rightY + 5, { align: 'right' });
             
             rightY += 14;
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(8);
-            doc.text(tr('projectedYear'), rightX, rightY);
+            doc.text('TOTAL AÑO (PROYECTADO)', rightX, rightY);
             doc.text(eur(resIndexed.total * 365 / dias), rightX + colW - 2, rightY, { align: 'right' });
             
             rightY += 12;
@@ -18438,7 +18962,7 @@ ${clientName}
             doc.roundedRect(rightX, rightY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text(tr('estimatedAnnualSaving'), rightX + 3, rightY + 8);
+            doc.text('TU AHORRO ANUAL ESTIMADO ES:', rightX + 3, rightY + 8);
             doc.setFontSize(13);
             doc.text(eur(resIndexed.ahorro_anual) + '/ AÑO', rightX + 3, rightY + 15);
             
@@ -18449,33 +18973,33 @@ ${clientName}
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(16);
-            doc.text(tr('whatsTheDifference'), 105, y, { align: 'center' });
+            doc.text('CUAL ES LA DIFERENCIA?', 105, y, { align: 'center' });
             
             y += 15;
             
             // Columna izquierda: FIJA
             doc.setTextColor(59, 130, 246);
             doc.setFontSize(12);
-            doc.text(tr('whyFixed'), leftX, y);
+            doc.text('POR QUE TARIFA FIJA?', leftX, y);
             
             y += 8;
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
             const fijaTexts = [
-                tr('fixedExpl1'),
-                tr('fixedExpl2'),
+                '• Implica un precio fijo por los kilovatios que',
+                '  consumes (kWh).',
                 '',
-                tr('fixedExpl3'),
-                tr('fixedExpl4'),
-                tr('fixedExpl5'),
+                '• El precio se mantiene estable,',
+                '  independientemente de cómo se comporten los',
+                '  precios en el mercado eléctrico.',
                 '',
-                tr('fixedExpl6'),
-                tr('fixedExpl7'),
+                '• Cuando el precio del mercado está alto, el',
+                '  cliente está protegido frente a sobresaltos.',
                 '',
-                tr('fixedExpl8'),
-                tr('fixedExpl9'),
-                tr('fixedExpl10')
+                '• No tendrás que estar pendiente de las',
+                '  variaciones del mercado y podrás seguir',
+                '  usando la electricidad como siempre.'
             ];
             
             fijaTexts.forEach(line => {
@@ -18489,27 +19013,27 @@ ${clientName}
             doc.setTextColor(76, 175, 80);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(12);
-            doc.text(tr('whyIndexed'), rightX, y);
+            doc.text('POR QUE TARIFA INDEXADA?', rightX, y);
             
             y += 8;
             doc.setTextColor(0, 0, 0);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
             const indexTexts = [
-                tr('indexExpl1'),
-                tr('indexExpl2'),
+                '• Implica un precio variable por los kilovatios',
+                '  que consumes (kWh) cada mes.',
                 '',
-                tr('indexExpl3'),
-                tr('indexExpl4'),
+                '• Es la tarifa más justa, ya que pagas el coste',
+                '  real de la energía mes a mes.',
                 '',
-                tr('indexExpl5'),
-                tr('indexExpl6'),
-                tr('indexExpl7'),
+                '• Al contratarla, el cliente evita pagar',
+                '  márgenes adicionales cuando el precio de la',
+                '  electricidad es más barato.',
                 '',
-                tr('indexExpl8'),
-                tr('indexExpl9'),
-                tr('indexExpl10'),
-                tr('indexExpl11') || ''
+                '• A largo plazo, con un indexado 100%',
+                '  funcional, se puede obtener un ahorro',
+                '  aproximado de hasta un 20% en épocas de',
+                '  mejor precio.'
             ];
             
             indexTexts.forEach(line => {
@@ -18520,4 +19044,216 @@ ${clientName}
             doc.save('GAS_PowerCup_Dual_' + currentGasTariff + '.pdf');
             window.showMessageModal("✅ PDF comparativo POWER CUP generado", false);
         }
+
+        // ============================================================================
+        // SISTEMA ULTRA-COMPLETO DE TRADUCCIÓN MULTIIDIOMA
+        // Traduce TODO: Pantallas, Modales, Botones, Mensajes
+        // ============================================================================
+
+        (function() {
+            // Mapa COMPLETO de traducciones - TODOS los textos visibles
+            const TR = {
+                "Analizar Factura": { en: "Analyze Invoice", zh: "分析账单", de: "Rechnung analysieren", fr: "Analyser la Facture" },
+                "Escanea el código QR o introduce datos manualmente.": { en: "Scan the QR code or enter data manually.", zh: "扫描二维码或手动输入数据。", de: "Scannen Sie den QR-Code oder geben Sie Daten manuell ein.", fr: "Scannez le code QR ou saisissez les données manuellement." },
+                "ESCANEAR QR AHORA": { en: "SCAN QR NOW", zh: "立即扫描二维码", de: "QR JETZT SCANNEN", fr: "SCANNER QR MAINTENANT" },
+                "OTRAS OPCIONES DE CAPTURA": { en: "OTHER CAPTURE OPTIONS", zh: "其他捕获选项", de: "ANDERE AUFNAHMEOPTIONEN", fr: "AUTRES OPTIONS DE CAPTURE" },
+                "DATOS A MANO": { en: "MANUAL DATA", zh: "手动数据", de: "MANUELLE DATEN", fr: "DONNÉES MANUELLES" },
+                "Volver a selección": { en: "Back to selection", zh: "返回选择", de: "Zurück zur Auswahl", fr: "Retour à la sélection" },
+                "Seleccione Opción QR": { en: "Select QR Option", zh: "选择二维码选项", de: "QR-Option wählen", fr: "Sélectionner l'Option QR" },
+                "Capturar Foto": { en: "Capture Photo", zh: "拍照", de: "Foto aufnehmen", fr: "Capturer une Photo" },
+                "Subir Imagen": { en: "Upload Image", zh: "上传图片", de: "Bild hochladen", fr: "Télécharger une Image" },
+                "Pegar Imagen (CTRL+V)": { en: "Paste Image (CTRL+V)", zh: "粘贴图片 (CTRL+V)", de: "Bild einfügen (STRG+V)", fr: "Coller l'Image (CTRL+V)" },
+                "Cancelar": { en: "Cancel", zh: "取消", de: "Abbrechen", fr: "Annuler" },
+                "Selecciona la tarifa que deseas analizar.": { en: "Select the rate you want to analyze.", zh: "选择您想分析的费率。", de: "Wählen Sie den Tarif, den Sie analysieren möchten.", fr: "Sélectionnez le tarif que vous souhaitez analyser." },
+                "Gestor de múltiples contratos (2.0TD + 3.0TD)": { en: "Multiple contracts manager (2.0TD + 3.0TD)", zh: "多合同管理器 (2.0TD + 3.0TD)", de: "Mehrfachvertrags-Manager (2.0TD + 3.0TD)", fr: "Gestionnaire de contrats multiples (2.0TD + 3.0TD)" },
+                "Hogar / Pequeño Negocio (Individual)": { en: "Home / Small Business (Individual)", zh: "家庭 / 小型企业（单独）", de: "Zuhause / Kleinunternehmen (Einzeln)", fr: "Maison / Petite Entreprise (Individuel)" },
+                "Empresa / Negocio (Individual)": { en: "Company / Business (Individual)", zh: "公司 / 企业（单独）", de: "Unternehmen / Geschäft (Einzeln)", fr: "Entreprise / Commerce (Individuel)" },
+                "Industria / Gran Consumo (Individual)": { en: "Industry / Large Consumption (Individual)", zh: "工业 / 大型消费（单独）", de: "Industrie / Großverbrauch (Einzeln)", fr: "Industrie / Grande Consommation (Individuel)" },
+                "ABRIR EN EL MÓVIL": { en: "OPEN ON MOBILE", zh: "在手机上打开", de: "AUF MOBIL ÖFFNEN", fr: "OUVRIR SUR MOBILE" },
+                "Cálculo Completado": { en: "Calculation Complete", zh: "计算完成", de: "Berechnung abgeschlossen", fr: "Calcul Terminé" },
+                "Hemos encontrado ofertas con ahorro. ¿Cómo quieres continuar?": { en: "We found offers with savings. How do you want to continue?", zh: "我们找到了节省优惠。您想如何继续？", de: "Wir haben Angebote mit Einsparungen gefunden. Wie möchten Sie fortfahren?", fr: "Nous avons trouvé des offres avec des économies. Comment souhaitez-vous continuer ?" },
+                "Comparar FIJO vs INDEXADO": { en: "Compare FIXED vs INDEXED", zh: "比较固定与指数", de: "FEST vs INDEXIERT vergleichen", fr: "Comparer FIXE vs INDEXÉ" },
+                "Genera comparativa dual: tarifa fija y tarifa indexada DRK INDEX (precio variable del mercado).": { en: "Generate dual comparison: fixed rate and DRK INDEX indexed rate (variable market price).", zh: "生成双重比较：固定费率和DRK INDEX指数费率（市场可变价格）。", de: "Dualer Vergleich generieren: Festpreis und DRK INDEX indexierter Tarif (variabler Marktpreis).", fr: "Générer une comparaison duale : tarif fixe et tarif indexé DRK INDEX (prix variable du marché)." },
+                "VER MEJOR OPCIÓN": { en: "SEE BEST OPTION", zh: "查看最佳选项", de: "BESTE OPTION SEHEN", fr: "VOIR LA MEILLEURE OPTION" },
+                "Muestra automáticamente la oferta con mayor ahorro y genera la comparativa": { en: "Automatically shows the offer with the highest savings and generates the comparison", zh: "自动显示节省最多的优惠并生成比较", de: "Zeigt automatisch das Angebot mit den höchsten Einsparungen und generiert den Vergleich", fr: "Affiche automatiquement l'offre avec les économies les plus élevées et génère la comparaison" },
+                "ELEGIR ENTRE RESULTADOS": { en: "CHOOSE FROM RESULTS", zh: "从结果中选择", de: "AUS ERGEBNISSEN WÄHLEN", fr: "CHOISIR PARMI LES RÉSULTATS" },
+                "Revisa todas las ofertas con ahorro positivo y elige la que prefieras": { en: "Review all offers with positive savings and choose your preferred one", zh: "查看所有正节省的优惠并选择您喜欢的", de: "Überprüfen Sie alle Angebote mit positiven Einsparungen und wählen Sie Ihr bevorzugtes", fr: "Examinez toutes les offres avec des économies positives et choisissez celle que vous préférez" },
+                "Consejo:": { en: "Advice:", zh: "建议：", de: "Rat:", fr: "Conseil :" },
+                "¿Qué tipo de tarifa DRK quieres ver?": { en: "What type of DRK rate do you want to see?", zh: "您想查看哪种类型的DRK费率？", de: "Welchen DRK-Tariftyp möchten Sie sehen?", fr: "Quel type de tarif DRK souhaitez-vous voir ?" },
+                "Tarifa FIJA": { en: "FIXED Rate", zh: "固定费率", de: "FESTPREIS-Tarif", fr: "Tarif FIXE" },
+                "Precio fijo estable (excluye DRK INDEX)": { en: "Stable fixed price (excludes DRK INDEX)", zh: "稳定固定价格（不包括DRK INDEX）", de: "Stabiler Festpreis (ohne DRK INDEX)", fr: "Prix fixe stable (exclut DRK INDEX)" },
+                "Tarifa INDEXADA (DRK INDEX)": { en: "INDEXED Rate (DRK INDEX)", zh: "指数费率（DRK INDEX）", de: "INDEXIERTER Tarif (DRK INDEX)", fr: "Tarif INDEXÉ (DRK INDEX)" },
+                "Solo muestra DRK INDEX del mercado": { en: "Only shows market DRK INDEX", zh: "仅显示市场DRK INDEX", de: "Zeigt nur Markt-DRK INDEX", fr: "Affiche uniquement le DRK INDEX du marché" },
+                "Continuar con esta opción →": { en: "Continue with this option →", zh: "继续此选项 →", de: "Mit dieser Option fortfahren →", fr: "Continuer avec cette option →" },
+                "DRK ENERGÍA": { en: "DRK ENERGY", zh: "DRK 能源", de: "DRK ENERGIE", fr: "DRK ÉNERGIE" },
+                "Liderando el ahorro y la eficiencia energética": { en: "Leading savings and energy efficiency", zh: "引领节省和能源效率", de: "Führend bei Einsparungen und Energieeffizienz", fr: "Leader des économies et de l'efficacité énergétique" },
+                "Análisis Completado": { en: "Analysis Complete", zh: "分析完成", de: "Analyse abgeschlossen", fr: "Analyse Terminée" },
+                "Resultado del Estudio": { en: "Study Result", zh: "研究结果", de: "Studienergebnis", fr: "Résultat de l'Étude" },
+                "LA MEJOR OPCIÓN PARA TI ES": { en: "THE BEST OPTION FOR YOU IS", zh: "最适合您的选择是", de: "DIE BESTE OPTION FÜR SIE IST", fr: "LA MEILLEURE OPTION POUR VOUS EST" },
+                "TU AHORRO ANUAL ESTIMADO": { en: "YOUR ESTIMATED ANNUAL SAVINGS", zh: "您的预计年度节省", de: "IHRE GESCHÄTZTE JÄHRLICHE ERSPARNIS", fr: "VOS ÉCONOMIES ANNUELLES ESTIMÉES" },
+                "TU FACTURA ACTUAL": { en: "YOUR CURRENT BILL", zh: "您当前的账单", de: "IHRE AKTUELLE RECHNUNG", fr: "VOTRE FACTURE ACTUELLE" },
+                "Total Periodo": { en: "Period Total", zh: "期间总额", de: "Periodensumme", fr: "Total de la Période" },
+                "TU NUEVO COSTE DRK": { en: "YOUR NEW DRK COST", zh: "您的新DRK成本", de: "IHRE NEUEN DRK-KOSTEN", fr: "VOTRE NOUVEAU COÛT DRK" },
+                "Estimado Mensual": { en: "Monthly Estimate", zh: "每月估算", de: "Monatliche Schätzung", fr: "Estimation Mensuelle" },
+                "Datos del Comercial y Cliente": { en: "Sales Representative and Client Data", zh: "销售代表和客户数据", de: "Vertriebs- und Kundendaten", fr: "Données du Commercial et du Client" },
+                "Rellene sus datos. El resumen profesional de la oferta se copiará a su portapapeles (Ctrl+V).": { en: "Fill in your details. The professional offer summary will be copied to your clipboard (Ctrl+V).", zh: "填写您的详细信息。专业优惠摘要将复制到剪贴板（Ctrl+V）。", de: "Füllen Sie Ihre Daten aus. Die professionelle Angebotsübersicht wird in Ihre Zwischenablage kopiert (Strg+V).", fr: "Remplissez vos données. Le résumé professionnel de l'offre sera copié dans votre presse-papiers (Ctrl+V)." },
+                "CÓDIGO COMERCIAL (Obligatorio)": { en: "SALES CODE (Required)", zh: "销售代码（必填）", de: "VERTRIEBSCODE (Erforderlich)", fr: "CODE COMMERCIAL (Obligatoire)" },
+                "Nombre Cliente": { en: "Client Name", zh: "客户姓名", de: "Kundenname", fr: "Nom du Client" },
+                "Teléfono": { en: "Phone", zh: "电话", de: "Telefon", fr: "Téléphone" },
+                "NOTA PARA USUARIOS DE iPHONE:": { en: "NOTE FOR iPHONE USERS:", zh: "iPHONE用户注意：", de: "HINWEIS FÜR iPHONE-BENUTZER:", fr: "NOTE POUR LES UTILISATEURS D'iPHONE :" },
+                "COPIAR COMPARATIVO (HTML)": { en: "COPY COMPARISON (HTML)", zh: "复制比较（HTML）", de: "VERGLEICH KOPIEREN (HTML)", fr: "COPIER LA COMPARAISON (HTML)" },
+                "CREAR PDF COMPARATIVO": { en: "CREATE PDF COMPARISON", zh: "创建PDF比较", de: "PDF-VERGLEICH ERSTELLEN", fr: "CRÉER UN PDF COMPARATIF" },
+                "MODO DE COMPARACIÓN": { en: "COMPARISON MODE", zh: "比较模式", de: "VERGLEICHSMODUS", fr: "MODE DE COMPARAISON" },
+                "DRK Únicamente": { en: "DRK Only", zh: "仅DRK", de: "Nur DRK", fr: "DRK Uniquement" },
+                "DRK Prioritario": { en: "DRK Prioritized", zh: "DRK优先", de: "DRK Priorität", fr: "DRK Prioritaire" },
+                "Global": { en: "Global", zh: "全球", de: "Global", fr: "Global" },
+                "DRK COMPARADOR": { en: "DRK COMPARATOR", zh: "DRK 比较器", de: "DRK VERGLEICHER", fr: "COMPARATEUR DRK" },
+                "Selecciona el tipo de suministro.": { en: "Select the type of supply.", zh: "选择供应类型。", de: "Wählen Sie die Art der Versorgung.", fr: "Sélectionnez le type d'approvisionnement." },
+                "TIPO DE SUMINISTRO": { en: "SUPPLY TYPE", zh: "供应类型", de: "VERSORGUNGSTYP", fr: "TYPE D'APPROVISIONNEMENT" },
+                "ELECTRICIDAD": { en: "ELECTRICITY", zh: "电力", de: "ELEKTRIZITÄT", fr: "ÉLECTRICITÉ" },
+                "MULTICUPS · 2.0 TD · 3.0 TD": { en: "MULTICUPS · 2.0 TD · 3.0 TD", zh: "多合同 · 2.0 TD · 3.0 TD", de: "MULTICUPS · 2.0 TD · 3.0 TD", fr: "MULTICUPS · 2.0 TD · 3.0 TD" },
+                "RL1 · RL2 · RL3 · RL4 · RL5 · RL6": { en: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6", zh: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6", de: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6", fr: "RL1 · RL2 · RL3 · RL4 · RL5 · RL6" },
+                "ELECTRICIDAD + GAS": { en: "ELECTRICITY + GAS", zh: "电力 + 天然气", de: "ELEKTRIZITÄT + GAS", fr: "ÉLECTRICITÉ + GAZ" },
+                "Múltiples suministros · Comparativa global": { en: "Multiple supplies · Global comparison", zh: "多个供应 · 全面比较", de: "Mehrere Versorgungen · Globaler Vergleich", fr: "Multiples approvisionnements · Comparaison globale" },
+                "Continuar": { en: "Continue", zh: "继续", de: "Fortfahren", fr: "Continuer" },
+                "Volver": { en: "Back", zh: "返回", de: "Zurück", fr: "Retour" },
+                "Calcular Ahorro": { en: "Calculate Savings", zh: "计算节省", de: "Ersparnis berechnen", fr: "Calculer les Économies" },
+                "Energía": { en: "Energy", zh: "能源", de: "Energie", fr: "Énergie" },
+                "Selector": { en: "Selector", zh: "选择器", de: "Auswahl", fr: "Sélecteur" },
+                "MULTICUPS": { en: "MULTICUPS", zh: "多合同", de: "MULTICUPS", fr: "MULTICUPS" },
+                "GAS": { en: "GAS", zh: "天然气", de: "GAS", fr: "GAZ" },
+                "DUAL": { en: "DUAL", zh: "双重", de: "DUAL", fr: "DUAL" },
+                "días": { en: "days", zh: "天", de: "Tage", fr: "jours" },
+                
+                // Botones y acciones PDF/Copiar
+                "Descargar PDF Global": { en: "Download Global PDF", zh: "下载全局PDF", de: "Globales PDF herunterladen", fr: "Télécharger PDF Global" },
+                "Copiar HTML": { en: "Copy HTML", zh: "复制HTML", de: "HTML kopieren", fr: "Copier HTML" },
+                "COPIAR COMPARATIVO": { en: "COPY COMPARISON", zh: "复制比较", de: "VERGLEICH KOPIEREN", fr: "COPIER LA COMPARAISON" },
+                "📋 COPIAR COMPARATIVO (HTML)": { en: "📋 COPY COMPARISON (HTML)", zh: "📋 复制比较（HTML）", de: "📋 VERGLEICH KOPIEREN (HTML)", fr: "📋 COPIER LA COMPARAISON (HTML)" },
+                "📄 CREAR PDF COMPARATIVO": { en: "📄 CREATE PDF COMPARISON", zh: "📄 创建PDF比较", de: "📄 PDF-VERGLEICH ERSTELLEN", fr: "📄 CRÉER UN PDF COMPARATIF" },
+                "📧 COPIAR COMPARATIVO (HTML)": { en: "📧 COPY COMPARISON (HTML)", zh: "📧 复制比较（HTML）", de: "📧 VERGLEICH KOPIEREN (HTML)", fr: "📧 COPIER LA COMPARAISON (HTML)" },
+                
+                // Modales y mensajes
+                "Entendido": { en: "Understood", zh: "明白", de: "Verstanden", fr: "Compris" },
+                "Éxito": { en: "Success", zh: "成功", de: "Erfolg", fr: "Succès" },
+                "¡Atención!": { en: "Attention!", zh: "注意！", de: "Achtung!", fr: "Attention!" },
+                
+                // Mensajes de error y validación
+                "No se detectó ninguna imagen en el portapapeles.": { en: "No image detected in clipboard.", zh: "未在剪贴板中检测到图像。", de: "Kein Bild in der Zwischenablage erkannt.", fr: "Aucune image détectée dans le presse-papiers." },
+                "Añada al menos un suministro.": { en: "Add at least one supply.", zh: "至少添加一个供应。", de: "Fügen Sie mindestens eine Versorgung hinzu.", fr: "Ajoutez au moins un approvisionnement." },
+                "No hay suministros para comparar.": { en: "No supplies to compare.", zh: "没有要比较的供应。", de: "Keine Versorgungen zum Vergleichen.", fr: "Aucun approvisionnement à comparer." },
+                "Primero realice una comparación.": { en: "First perform a comparison.", zh: "请先进行比较。", de: "Führen Sie zuerst einen Vergleich durch.", fr: "Effectuez d'abord une comparaison." },
+                "Indique el Código Comercial.": { en: "Enter the Sales Code.", zh: "输入销售代码。", de: "Geben Sie den Vertriebscode ein.", fr: "Indiquez le Code Commercial." },
+                "No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte.": { en: "Could not copy visual design. Try from a PC or contact support.", zh: "无法复制视觉设计。请从PC尝试或联系支持。", de: "Visuelles Design konnte nicht kopiert werden. Versuchen Sie es von einem PC aus oder kontaktieren Sie den Support.", fr: "Impossible de copier le design visuel. Essayez depuis un PC ou contactez le support." },
+                "No se pudo copiar el contenido. Por favor, contacte a soporte.": { en: "Could not copy content. Please contact support.", zh: "无法复制内容。请联系支持。", de: "Inhalt konnte nicht kopiert werden. Bitte kontaktieren Sie den Support.", fr: "Impossible de copier le contenu. Veuillez contacter le support." },
+                
+                // Mensajes de generación de PDF
+                "⏳ Generando PDF con comparación Fijo vs Indexado... Por favor espere.": { en: "⏳ Generating PDF with Fixed vs Indexed comparison... Please wait.", zh: "⏳ 正在生成固定与指数比较PDF...请稍候。", de: "⏳ PDF mit Vergleich Fest vs. Indexiert wird erstellt... Bitte warten.", fr: "⏳ Génération du PDF avec comparaison Fixe vs Indexé... Veuillez patienter." },
+                "⏳ Generando PDF MULTICUPS con comparación Fijo vs Indexado... Por favor espere.": { en: "⏳ Generating MULTICUPS PDF with Fixed vs Indexed comparison... Please wait.", zh: "⏳ 正在生成多合同固定与指数比较PDF...请稍候。", de: "⏳ MULTICUPS-PDF mit Vergleich Fest vs. Indexiert wird erstellt... Bitte warten.", fr: "⏳ Génération du PDF MULTICUPS avec comparaison Fixe vs Indexé... Veuillez patienter." },
+                "⏳ Generando PDF profesional... Por favor espere.": { en: "⏳ Generating professional PDF... Please wait.", zh: "⏳ 正在生成专业PDF...请稍候。", de: "⏳ Professionelles PDF wird erstellt... Bitte warten.", fr: "⏳ Génération du PDF professionnel... Veuillez patienter." },
+                "⏳ Generando PDF... Por favor espere.": { en: "⏳ Generating PDF... Please wait.", zh: "⏳ 正在生成PDF...请稍候。", de: "⏳ PDF wird erstellt... Bitte warten.", fr: "⏳ Génération du PDF... Veuillez patienter." },
+                "⏳ Generando PDF comparativo...": { en: "⏳ Generating comparison PDF...", zh: "⏳ 正在生成比较PDF...", de: "⏳ Vergleichs-PDF wird erstellt...", fr: "⏳ Génération du PDF comparatif..." },
+                "⏳ Generando PDF POWER CUP...": { en: "⏳ Generating POWER CUP PDF...", zh: "⏳ 正在生成POWER CUP PDF...", de: "⏳ POWER CUP PDF wird erstellt...", fr: "⏳ Génération du PDF POWER CUP..." },
+                "⏳ Generando PDF comparativo POWER CUP...": { en: "⏳ Generating POWER CUP comparison PDF...", zh: "⏳ 正在生成POWER CUP比较PDF...", de: "⏳ POWER CUP Vergleichs-PDF wird erstellt...", fr: "⏳ Génération du PDF comparatif POWER CUP..." },
+                
+                // Mensajes de alertas
+                "❌ No se pudo copiar automáticamente.\\n\\nPor favor, usa el botón \"CREAR PDF COMPARATIVO\" en su lugar.": { en: "❌ Could not copy automatically.\\n\\nPlease use the \"CREATE PDF COMPARISON\" button instead.", zh: "❌ 无法自动复制。\\n\\n请改用\"创建PDF比较\"按钮。", de: "❌ Automatisches Kopieren fehlgeschlagen.\\n\\nBitte verwenden Sie stattdessen die Schaltfläche \"PDF-VERGLEICH ERSTELLEN\".", fr: "❌ Impossible de copier automatiquement.\\n\\nVeuillez utiliser le bouton \"CRÉER UN PDF COMPARATIF\" à la place." },
+                "No se pudo copiar automáticamente.\\n\\n✅ SOLUCIÓN:\\n\\n1. Haz clic derecho sobre el contenido abajo\\n2. Selecciona \"Copiar\"\\n3. Pega en tu correo electrónico\\n\\nO usa Ctrl+A para seleccionar todo y luego Ctrl+C para copiar.": { en: "Could not copy automatically.\\n\\n✅ SOLUTION:\\n\\n1. Right-click on the content below\\n2. Select \"Copy\"\\n3. Paste into your email\\n\\nOr use Ctrl+A to select all and then Ctrl+C to copy.", zh: "无法自动复制。\\n\\n✅ 解决方案：\\n\\n1. 右键单击下面的内容\\n2. 选择\"复制\"\\n3. 粘贴到您的电子邮件\\n\\n或使用Ctrl+A选择全部，然后使用Ctrl+C复制。", de: "Automatisches Kopieren fehlgeschlagen.\\n\\n✅ LÖSUNG:\\n\\n1. Rechtsklick auf den Inhalt unten\\n2. \"Kopieren\" auswählen\\n3. In Ihre E-Mail einfügen\\n\\nOder verwenden Sie Strg+A zum Auswählen und dann Strg+C zum Kopieren.", fr: "Impossible de copier automatiquement.\\n\\n✅ SOLUTION :\\n\\n1. Clic droit sur le contenu ci-dessous\\n2. Sélectionnez \"Copier\"\\n3. Collez dans votre e-mail\\n\\nOu utilisez Ctrl+A pour tout sélectionner puis Ctrl+C pour copier." },
+                "<span style=\"color: #16a34a; font-weight: bold;\">OPCIÓN 1:</span> Haz clic en \"Copiar HTML\" (automático)": { en: "<span style=\"color: #16a34a; font-weight: bold;\">OPTION 1:</span> Click \"Copy HTML\" (automatic)", zh: "<span style=\"color: #16a34a; font-weight: bold;\">选项1：</span> 点击\"复制HTML\"（自动）", de: "<span style=\"color: #16a34a; font-weight: bold;\">OPTION 1:</span> Klicken Sie auf \"HTML kopieren\" (automatisch)", fr: "<span style=\"color: #16a34a; font-weight: bold;\">OPTION 1 :</span> Cliquez sur \"Copier HTML\" (automatique)" }
+            };
+
+            let lang = localStorage.getItem('appLanguage') || 'es';
+
+            // Función para traducir
+            function tr(text) {
+                if (!TR[text] || !TR[text][lang]) return text;
+                return TR[text][lang];
+            }
+
+            // Función exhaustiva de traducción
+            function translateAll() {
+                // Navbar
+                const accentEl = document.getElementById('app-logo-accent');
+                if (accentEl) accentEl.textContent = tr('Energía');
+                const subtitleEl = document.getElementById('app-subtitle');
+                if (subtitleEl) subtitleEl.textContent = tr('Selector');
+
+                // Traducir TODO el DOM por contenido
+                const walker = document.createTreeWalker(
+                    document.body,
+                    NodeFilter.SHOW_TEXT,
+                    null,
+                    false
+                );
+
+                let node;
+                const nodesToTranslate = [];
+                
+                while (node = walker.nextNode()) {
+                    const trimmed = node.textContent.trim();
+                    if (trimmed && TR[trimmed]) {
+                        nodesToTranslate.push({node, original: trimmed});
+                    }
+                }
+
+                // Traducir todos los nodos encontrados
+                nodesToTranslate.forEach(({node, original}) => {
+                    node.textContent = node.textContent.replace(original, tr(original));
+                });
+            }
+
+            // API global
+            window.LANG = {
+                change: function(newLang) {
+                    lang = newLang;
+                    localStorage.setItem('appLanguage', newLang);
+                    if (document.getElementById('language-selector')) {
+                        document.getElementById('language-selector').value = newLang;
+                    }
+                    document.title = tr('DRK COMPARADOR');
+                    translateAll();
+                },
+                translate: tr,
+                retranslate: translateAll
+            };
+
+            // Interceptar navegación
+            const funcsToIntercept = ['hideAllScreens', 'goToInicio', 'goToElectricidad', 'goToGas', 'goToDual', 
+                                       'selectTariffType', 'showOfferDecisionModal', 'showDualResults'];
+            
+            funcsToIntercept.forEach(funcName => {
+                const original = window[funcName];
+                if (original) {
+                    window[funcName] = function() {
+                        const result = original.apply(this, arguments);
+                        setTimeout(() => window.LANG.retranslate(), 100);
+                        return result;
+                    };
+                }
+            });
+
+            // MutationObserver
+            const observer = new MutationObserver((mutations) => {
+                const hasChanges = mutations.some(m => m.addedNodes.length > 0 || m.type === 'childList');
+                if (hasChanges) {
+                    setTimeout(() => window.LANG.retranslate(), 50);
+                }
+            });
+
+            const appEl = document.getElementById('app');
+            if (appEl) {
+                observer.observe(appEl, {childList: true, subtree: true});
+            }
+
+            // Inicializar
+            window.addEventListener('DOMContentLoaded', () => {
+                const savedLang = localStorage.getItem('appLanguage') || 'es';
+                window.LANG.change(savedLang);
+            });
+
+            window.addEventListener('load', () => {
+                setTimeout(() => window.LANG.retranslate(), 200);
+            });
+        })();
     </script>
+</body>
