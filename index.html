@@ -4132,15 +4132,15 @@
 
             const consumptionHTML = `
                 <div class="grid grid-cols-2 gap-4">
-                    <div><p class="text-xs text-slate-500">Periodo</p><p class="font-bold text-slate-700">${res.dias_facturados} días</p></div>
-                    <div><p class="text-xs text-slate-500">Fechas</p><p class="font-bold text-slate-700 text-xs">${res.fechas}</p></div>
+                    <div><p class="text-xs text-slate-500">${tr('Periodo')}</p><p class="font-bold text-slate-700">${res.dias_facturados} ${tr('días')}</p></div>
+                    <div><p class="text-xs text-slate-500">${tr('Fechas')}</p><p class="font-bold text-slate-700 text-xs">${res.fechas}</p></div>
                     <div class="col-span-2 border-t pt-2 mt-2">
-                        <p class="font-bold ${brand.PRIMARY_TEXT} mb-2">Consumo por Periodo (kWh)</p>
+                        <p class="font-bold ${brand.PRIMARY_TEXT} mb-2">${tr('Consumo por Periodo (kWh)')}</p>
                         ${energyRows}
-                        <div class="flex justify-between font-bold ${brand.PRIMARY_TEXT} mt-1 border-t pt-1"><span>Total Consumo</span><span>${num(totalEnergy, 0)} kWh</span></div>  
+                        <div class="flex justify-between font-bold ${brand.PRIMARY_TEXT} mt-1 border-t pt-1"><span>${tr('Total Consumo')}</span><span>${num(totalEnergy, 0)} kWh</span></div>  
                     </div>
                     <div class="col-span-2">
-                        <p class="font-bold ${brand.PRIMARY_TEXT} mb-2">Potencia Contratada (kW)</p>
+                        <p class="font-bold ${brand.PRIMARY_TEXT} mb-2">${tr('Potencia Contratada (kW)')}</p>
                         ${powerRows}
                     </div>
                 </div>
@@ -19655,6 +19655,14 @@ ${clientName}
                 "Procesando...": { en: "Processing...", zh: "处理中...", de: "Verarbeitung...", fr: "Traitement en cours..." },
                 "Generando...": { en: "Generating...", zh: "生成中...", de: "Erstellen...", fr: "Génération..." },
                 
+                // Datos Extraídos
+                "Periodo": { en: "Period", zh: "期间", de: "Zeitraum", fr: "Période" },
+                "días": { en: "days", zh: "天", de: "Tage", fr: "jours" },
+                "Fechas": { en: "Dates", zh: "日期", de: "Daten", fr: "Dates" },
+                "Consumo por Periodo (kWh)": { en: "Consumption per Period (kWh)", zh: "期间消耗 (kWh)", de: "Verbrauch pro Zeitraum (kWh)", fr: "Consommation par Période (kWh)" },
+                "Total Consumo": { en: "Total Consumption", zh: "总消耗", de: "Gesamtverbrauch", fr: "Consommation Totale" },
+                "Potencia Contratada (kW)": { en: "Contracted Power (kW)", zh: "签约功率 (kW)", de: "Vertragsleistung (kW)", fr: "Puissance Contractée (kW)" },
+                
                 // Botones estándar (para traducción automática)
                 "Aceptar": { en: "Accept", zh: "接受", de: "Akzeptieren", fr: "Accepter" },
                 "Guardar": { en: "Save", zh: "保存", de: "Speichern", fr: "Sauvegarder" },
@@ -19711,24 +19719,49 @@ ${clientName}
             window.showChinesePDFWarning = function() {
                 const currentLang = localStorage.getItem('appLanguage') || 'es';
                 if (currentLang === 'zh') {
-                    const message = '❌ 无法生成中文PDF\n' +
+                    const shouldSwitchAuto = confirm(
+                        '❌ 无法生成中文PDF\n' +
                         '❌ Cannot generate PDF in Chinese\n\n' +
                         '原因：PDF格式不支持中文字符\n' +
                         'Reason: PDF format does not support Chinese characters\n\n' +
                         '------------------------\n\n' +
-                        '✅ 推荐解决方案：\n' +
-                        '✅ Recommended solution:\n\n' +
-                        '切换到英语 🇬🇧 → 生成PDF → 切换回中文\n' +
-                        'Switch to English 🇬🇧 → Generate PDF → Switch back\n\n' +
-                        '点击"确定"查看详细步骤\n' +
-                        'Click OK for detailed steps';
+                        '✅ 自动解决方案：\n' +
+                        '✅ Automatic solution:\n\n' +
+                        '1. 自动切换到英语 🇬🇧\n' +
+                        '   Automatically switch to English 🇬🇧\n' +
+                        '2. 生成PDF\n' +
+                        '   Generate PDF\n' +
+                        '3. PDF生成后可以切换回中文\n' +
+                        '   You can switch back to Chinese after PDF\n\n' +
+                        '数字和计算结果将相同。\n' +
+                        'Numbers and calculations will be the same.\n\n' +
+                        '------------------------\n\n' +
+                        '点击"确定"自动切换到英语并生成PDF\n' +
+                        'Click OK to auto-switch to English and generate PDF\n\n' +
+                        '点击"取消"返回\n' +
+                        'Click Cancel to go back'
+                    );
                     
-                    alert(message);
+                    if (shouldSwitchAuto) {
+                        // Cambiar automáticamente a inglés
+                        if (window.LANG && window.LANG.change) {
+                            window.LANG.change('en');
+                            
+                            // Esperar un momento para que se aplique la traducción
+                            setTimeout(() => {
+                                alert('✅ 已切换到英语！\n' +
+                                      '✅ Switched to English!\n\n' +
+                                      '现在将生成PDF...\n' +
+                                      'Now generating PDF...\n\n' +
+                                      'PDF生成后，您可以在右上角切换回中文 🇨🇳\n' +
+                                      'After PDF is generated, you can switch back to Chinese 🇨🇳 in the top-right corner');
+                            }, 100);
+                            
+                            return true; // PERMITIR generación de PDF en inglés
+                        }
+                    }
                     
-                    // Mostrar pasos detallados
-                    window.suggestLanguageChangeForPDF();
-                    
-                    return false; // BLOQUEAR generación de PDF en chino
+                    return false; // BLOQUEAR si usuario cancela
                 }
                 return true; // Para otros idiomas, continuar sin advertencia
             };
