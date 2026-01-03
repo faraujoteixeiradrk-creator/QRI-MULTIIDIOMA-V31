@@ -4389,7 +4389,12 @@
                 window.showMessageModal("⏳ Generando PDF con comparación Fijo vs Indexado... Por favor espere.");
                 
                 const { jsPDF } = window.jspdf;
-                const doc = new jsPDF('p', 'mm', 'a4');
+                let doc = new jsPDF('p', 'mm', 'a4');
+                
+                // CRÍTICO: Activar traducción automática de textos
+                if (window.setupPDFTranslation) {
+                    doc = window.setupPDFTranslation(doc);
+                }
                 
                 const brand = activeBrand;
                 const tariffType = resFijo.originalTariffType || currentTariffType;
@@ -5026,8 +5031,13 @@
                 console.log('🟢 ANTES de obtener jsPDF');
                 const { jsPDF } = window.jspdf;
                 console.log('🟢 DESPUÉS de obtener jsPDF, creando documento...');
-                const doc = new jsPDF('p', 'mm', 'a4');
+                let doc = new jsPDF('p', 'mm', 'a4');
                 console.log('🟢 Documento PDF creado exitosamente');
+                
+                // CRÍTICO: Activar traducción automática de textos
+                if (window.setupPDFTranslation) {
+                    doc = window.setupPDFTranslation(doc);
+                }
                 
                 console.log('✅ PASO 1: Objeto PDF creado');
                 
@@ -17207,7 +17217,12 @@ ${clientName}
             window.showMessageModal("⏳ Generando PDF... Por favor espere.");
             
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'mm', 'a4');
+            let doc = new jsPDF('p', 'mm', 'a4');
+            
+            // CRÍTICO: Activar traducción automática de textos
+            if (window.setupPDFTranslation) {
+                doc = window.setupPDFTranslation(doc);
+            }
             
             const comparisonMode = document.querySelector('input[name="comparison_mode"]:checked').value;
             const isDrk = (comparisonMode === 'drk_only' || comparisonMode === 'drk_prioritized');
@@ -17601,7 +17616,13 @@ ${clientName}
         async function generateGasPDF_Dual(resFijo, resIndexed, dias, kwh, totalCliente, clientName = '[NOMBRE COMPLETO CLIENTE]', comercialCode = 'D=00') {
             window.showMessageModal("⏳ Generando PDF comparativo...");
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'mm', 'a4');
+            let doc = new jsPDF('p', 'mm', 'a4');
+            
+            // CRÍTICO: Activar traducción automática de textos
+            if (window.setupPDFTranslation) {
+                doc = window.setupPDFTranslation(doc);
+            }
+            
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
             const num = (n, d=2) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
             
@@ -18158,6 +18179,15 @@ ${clientName}
             window.showMessageModal("⏳ Generando PDF POWER CUP...");
             
             const { jsPDF } = window.jspdf;
+            
+            // CRÍTICO: Wrapper para traducir textos automáticamente
+            const originalText = doc.text.bind(doc);
+            doc.text = function(text, x, y, options) {
+                if (typeof text === "string" && window.tr) {
+                    text = window.tr(text);
+                }
+                return originalText(text, x, y, options);
+            };
             const doc = new jsPDF('p', 'mm', 'a4');
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
             const num = (n, d=2) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
@@ -19332,7 +19362,53 @@ ${clientName}
                 "🔍 Analizando QR": { en: "🔍 Analyzing QR", zh: "🔍 分析二维码", de: "🔍 QR analysieren", fr: "🔍 Analyse du QR" },
                 "Progreso de análisis": { en: "Analysis progress", zh: "分析进度", de: "Analysefortschritt", fr: "Progression de l'analyse" },
                 "Estamos probando diferentes técnicas para detectar tu código QR. Esto puede tardar unos segundos...": { en: "We are trying different techniques to detect your QR code. This may take a few seconds...", zh: "我们正在尝试不同的技术来检测您的二维码。这可能需要几秒钟...", de: "Wir testen verschiedene Techniken, um Ihren QR-Code zu erkennen. Dies kann einige Sekunden dauern...", fr: "Nous testons différentes techniques pour détecter votre code QR. Cela peut prendre quelques secondes..." },
-                "📸 Completa 2x": { en: "📸 Complete 2x", zh: "📸 完成 2x", de: "📸 Abgeschlossen 2x", fr: "📸 Complet 2x" }
+                "📸 Completa 2x": { en: "📸 Complete 2x", zh: "📸 完成 2x", de: "📸 Abgeschlossen 2x", fr: "📸 Complet 2x" },
+                
+                // GAS - Interfaz completa
+                "Selection mode:": { en: "Selection mode:", zh: "选择模式：", de: "Auswahlmodus:", fr: "Mode de sélection :" },
+                "Best rates": { en: "Best rates", zh: "最优惠费率", de: "Beste Tarife", fr: "Meilleurs tarifs" },
+                "Choose if you want to see the best fixed or indexed rate.": { en: "Choose if you want to see the best fixed or indexed rate.", zh: "选择是否要查看最佳固定或指数费率。", de: "Wählen Sie, ob Sie den besten festen oder indexierten Tarif sehen möchten.", fr: "Choisissez si vous voulez voir le meilleur tarif fixe ou indexé." },
+                "Elegir entre resultados": { en: "Choose from results", zh: "从结果中选择", de: "Aus Ergebnissen wählen", fr: "Choisir parmi les résultats" },
+                "Selecciona manualmente las tarifas que deseas comparar.": { en: "Manually select the rates you want to compare.", zh: "手动选择要比较的费率。", de: "Wählen Sie manuell die Tarife aus, die Sie vergleichen möchten.", fr: "Sélectionnez manuellement les tarifs que vous souhaitez comparer." },
+                "Cancel": { en: "Cancel", zh: "取消", de: "Abbrechen", fr: "Annuler" },
+                "Ver tarifas disponibles": { en: "See available rates", zh: "查看可用费率", de: "Verfügbare Tarife anzeigen", fr: "Voir les tarifs disponibles" },
+                "Selecciona las tarifas a comparar:": { en: "Select rates to compare:", zh: "选择要比较的费率：", de: "Wählen Sie Tarife zum Vergleichen:", fr: "Sélectionnez les tarifs à comparer :" },
+                "Selecciona una o más tarifas para comparar.": { en: "Select one or more rates to compare.", zh: "选择一个或多个费率进行比较。", de: "Wählen Sie einen oder mehrere Tarife zum Vergleichen.", fr: "Sélectionnez un ou plusieurs tarifs à comparer." },
+                "🔍 Buscar comercializadora:": { en: "🔍 Search provider:", zh: "🔍 搜索供应商：", de: "🔍 Anbieter suchen:", fr: "🔍 Rechercher un fournisseur :" },
+                "Escribe el nombre de la comercializadora": { en: "Enter provider name", zh: "输入供应商名称", de: "Anbieternamen eingeben", fr: "Entrez le nom du fournisseur" },
+                "Ordenar por:": { en: "Sort by:", zh: "排序方式：", de: "Sortieren nach:", fr: "Trier par :" },
+                "💰 Mayor ahorro primero": { en: "💰 Highest savings first", zh: "💰 最高节省优先", de: "💰 Höchste Einsparungen zuerst", fr: "💰 Économies les plus élevées d'abord" },
+                "🔻 Menor ahorro primero": { en: "🔻 Lowest savings first", zh: "🔻 最低节省优先", de: "🔻 Niedrigste Einsparungen zuerst", fr: "🔻 Économies les plus faibles d'abord" },
+                "📋 Por nombre": { en: "📋 By name", zh: "📋 按名称", de: "📋 Nach Name", fr: "📋 Par nom" },
+                "Annual savings:": { en: "Annual savings:", zh: "年度节省：", de: "Jährliche Einsparungen:", fr: "Économies annuelles :" },
+                "Calcular tarifas seleccionadas": { en: "Calculate selected rates", zh: "计算所选费率", de: "Ausgewählte Tarife berechnen", fr: "Calculer les tarifs sélectionnés" },
+                
+                // GAS - Resultados
+                "Fixed term (30 days)": { en: "Fixed term (30 days)", zh: "固定期限（30天）", de: "Feste Laufzeit (30 Tage)", fr: "Terme fixe (30 jours)" },
+                "Energía (500 kWh)": { en: "Energy (500 kWh)", zh: "能源（500千瓦时）", de: "Energie (500 kWh)", fr: "Énergie (500 kWh)" },
+                "Hydrocarbon tax": { en: "Hydrocarbon tax", zh: "碳氢化合物税", de: "Kohlenwasserstoffsteuer", fr: "Taxe sur les hydrocarbures" },
+                "Your current bill:": { en: "Your current bill:", zh: "您当前的账单：", de: "Ihre aktuelle Rechnung:", fr: "Votre facture actuelle :" },
+                "With this rate:": { en: "With this rate:", zh: "使用此费率：", de: "Mit diesem Tarif:", fr: "Avec ce tarif :" },
+                "Monthly savings:": { en: "Monthly savings:", zh: "每月节省：", de: "Monatliche Einsparungen:", fr: "Économies mensuelles :" },
+                
+                // GAS - PDF
+                "SAVINGS STUDY": { en: "SAVINGS STUDY", zh: "节省研究", de: "EINSPARUNGSSTUDIE", fr: "ÉTUDE D'ÉCONOMIES" },
+                "COMPARATIVA PROFESIONAL GAS - DRK": { en: "PROFESSIONAL GAS COMPARISON - DRK", zh: "专业天然气比较 - DRK", de: "PROFESSIONELLER GASVERGLEICH - DRK", fr: "COMPARAISON PROFESSIONNELLE GAZ - DRK" },
+                "TARIFA:": { en: "RATE:", zh: "费率：", de: "TARIF:", fr: "TARIF :" },
+                "PRECIOS DE LA OFERTA: DRK - DRK 1": { en: "OFFER PRICES: DRK - DRK 1", zh: "报价价格：DRK - DRK 1", de: "ANGEBOTSPREISE: DRK - DRK 1", fr: "PRIX DE L'OFFRE : DRK - DRK 1" },
+                "TÉRMINO FIJO:": { en: "FIXED TERM:", zh: "固定期限：", de: "FESTE LAUFZEIT:", fr: "TERME FIXE :" },
+                "ENERGÍA:": { en: "ENERGY:", zh: "能源：", de: "ENERGIE:", fr: "ÉNERGIE :" },
+                "Precio fijo diario (€/día):": { en: "Daily fixed price (€/day):", zh: "每日固定价格（€/天）：", de: "Täglicher Festpreis (€/Tag):", fr: "Prix fixe journalier (€/jour) :" },
+                "Precio energía (€/kWh):": { en: "Energy price (€/kWh):", zh: "能源价格（€/千瓦时）：", de: "Energiepreis (€/kWh):", fr: "Prix de l'énergie (€/kWh) :" },
+                "DESGLOSE DETALLADO DE LA SIMULACIÓN (DRK - DRK 1)": { en: "DETAILED BREAKDOWN OF SIMULATION (DRK - DRK 1)", zh: "模拟详细分解（DRK - DRK 1）", de: "DETAILLIERTE AUFSCHLÜSSELUNG DER SIMULATION (DRK - DRK 1)", fr: "DÉTAIL DE LA SIMULATION (DRK - DRK 1)" },
+                "TÉRMINO FIJO (Precio en €/día)": { en: "FIXED TERM (Price in €/day)", zh: "固定期限（价格€/天）", de: "FESTE LAUFZEIT (Preis in €/Tag)", fr: "TERME FIXE (Prix en €/jour)" },
+                "Precio fijo (30 días x 0,001021)": { en: "Fixed price (30 days x 0.001021)", zh: "固定价格（30天 x 0.001021）", de: "Festpreis (30 Tage x 0,001021)", fr: "Prix fixe (30 jours x 0,001021)" },
+                "TÉRMINO ENERGÍA (Precios en €/kWh)": { en: "ENERGY TERM (Prices in €/kWh)", zh: "能源条款（价格€/千瓦时）", de: "ENERGIETERM (Preise in €/kWh)", fr: "TERME ÉNERGIE (Prix en €/kWh)" },
+                "Energía (500 kWh x 0,099369)": { en: "Energy (500 kWh x 0.099369)", zh: "能源（500千瓦时 x 0.099369）", de: "Energie (500 kWh x 0,099369)", fr: "Énergie (500 kWh x 0,099369)" },
+                "Subtotal Energía (Bruto)": { en: "Energy Subtotal (Gross)", zh: "能源小计（总计）", de: "Energie Zwischensumme (Brutto)", fr: "Sous-total Énergie (Brut)" },
+                "Imp. Hidrocarburos": { en: "Hydrocarbon Tax", zh: "碳氢化合物税", de: "Kohlenwasserstoffsteuer", fr: "Taxe Hydrocarbures" },
+                "TOTAL FACTURA (30 DÍAS)": { en: "TOTAL BILL (30 DAYS)", zh: "总账单（30天）", de: "GESAMTRECHNUNG (30 TAGE)", fr: "FACTURE TOTALE (30 JOURS)" },
+                "Precio fijo": { en: "Fixed price", zh: "固定价格", de: "Festpreis", fr: "Prix fixe" }
             };
 
             let lang = localStorage.getItem('appLanguage') || 'es';
@@ -19345,6 +19421,26 @@ ${clientName}
             
             // Hacer tr() global
             window.tr = tr;
+            
+            // CRÍTICO: Interceptor global de jsPDF para traducir automáticamente
+            window.setupPDFTranslation = function(doc) {
+                if (!doc || !doc.text) return doc;
+                
+                const originalText = doc.text.bind(doc);
+                doc.text = function(text, x, y, options) {
+                    // Traducir solo strings, no objetos ni arrays
+                    if (typeof text === 'string' && window.tr) {
+                        const translated = window.tr(text);
+                        if (translated && translated !== text) {
+                            console.log(`📝 PDF: "${text}" → "${translated}"`);
+                            text = translated;
+                        }
+                    }
+                    return originalText(text, x, y, options);
+                };
+                
+                return doc;
+            };
             
             // Función para traducir TODO el HTML generado (usado antes de crear PDFs)
             window.translateHTML = function(html) {
@@ -19360,6 +19456,45 @@ ${clientName}
                 
                 // Lista exhaustiva de textos a traducir con TODAS las variantes
                 const replacements = [
+                    // GAS - Interfaz
+                    ['Selection mode:', tr('Selection mode:')],
+                    ['Best rates', tr('Best rates')],
+                    ['Elegir entre resultados', tr('Elegir entre resultados')],
+                    ['Selecciona manualmente las tarifas que deseas comparar.', tr('Selecciona manualmente las tarifas que deseas comparar.')],
+                    ['Ver tarifas disponibles', tr('Ver tarifas disponibles')],
+                    ['Selecciona las tarifas a comparar:', tr('Selecciona las tarifas a comparar:')],
+                    ['Selecciona una o más tarifas para comparar.', tr('Selecciona una o más tarifas para comparar.')],
+                    ['🔍 Buscar comercializadora:', tr('🔍 Buscar comercializadora:')],
+                    ['Ordenar por:', tr('Ordenar por:')],
+                    ['💰 Mayor ahorro primero', tr('💰 Mayor ahorro primero')],
+                    ['🔻 Menor ahorro primero', tr('🔻 Menor ahorro primero')],
+                    ['📋 Por nombre', tr('📋 Por nombre')],
+                    ['Calcular tarifas seleccionadas', tr('Calcular tarifas seleccionadas')],
+                    
+                    // GAS - Resultados
+                    ['Fixed term (30 days)', tr('Fixed term (30 days)')],
+                    ['Energía (500 kWh)', tr('Energía (500 kWh)')],
+                    ['Hydrocarbon tax', tr('Hydrocarbon tax')],
+                    ['Your current bill:', tr('Your current bill:')],
+                    ['With this rate:', tr('With this rate:')],
+                    ['Monthly savings:', tr('Monthly savings:')],
+                    ['Annual savings:', tr('Annual savings:')],
+                    
+                    // GAS - PDF
+                    ['SAVINGS STUDY', tr('SAVINGS STUDY')],
+                    ['COMPARATIVA PROFESIONAL GAS - DRK', tr('COMPARATIVA PROFESIONAL GAS - DRK')],
+                    ['TARIFA:', tr('TARIFA:')],
+                    ['TÉRMINO FIJO:', tr('TÉRMINO FIJO:')],
+                    ['ENERGÍA:', tr('ENERGÍA:')],
+                    ['Precio fijo diario (€/día):', tr('Precio fijo diario (€/día):')],
+                    ['Precio energía (€/kWh):', tr('Precio energía (€/kWh):')],
+                    ['TÉRMINO FIJO (Precio en €/día)', tr('TÉRMINO FIJO (Precio en €/día)')],
+                    ['TÉRMINO ENERGÍA (Precios en €/kWh)', tr('TÉRMINO ENERGÍA (Precios en €/kWh)')],
+                    ['Subtotal Energía (Bruto)', tr('Subtotal Energía (Bruto)')],
+                    ['Imp. Hidrocarburos', tr('Imp. Hidrocarburos')],
+                    ['TOTAL FACTURA (30 DÍAS)', tr('TOTAL FACTURA (30 DÍAS)')],
+                    ['Precio fijo', tr('Precio fijo')],
+                    
                     // Encabezados - TODAS las variantes
                     ['DESGLOSE DETALLADO DE LA SIMULACIÓN', tr('DESGLOSE DETALLADO DE LA SIMULACIÓN')],
                     ['LA MEJOR OPCIÓN PARA TI ES', tr('LA MEJOR OPCIÓN PARA TI ES')],
