@@ -2284,9 +2284,9 @@
                 el.style.display = isHighVoltage ? 'block' : 'none';
             });
             // Ocultar/Mostrar campos de E1/E2/E3
-            document.getElementById('input-e1-kwh').placeholder = isHighVoltage ? 'E1' : 'E1 (Punta)';
-            document.getElementById('input-e2-kwh').placeholder = isHighVoltage ? 'E2' : 'E2 (Llano)';
-            document.getElementById('input-e3-kwh').placeholder = isHighVoltage ? 'E3' : 'E3 (Valle)';
+            document.getElementById('input-e1-kwh').placeholder = isHighVoltage ? 'E1' : `E1 (${tr('Punta')})`;
+            document.getElementById('input-e2-kwh').placeholder = isHighVoltage ? 'E2' : `E2 (${tr('Llano')})`;
+            document.getElementById('input-e3-kwh').placeholder = isHighVoltage ? 'E3' : `E3 (${tr('Valle')})`;
         }
 
         function selectTariffType(type) {
@@ -3522,9 +3522,9 @@
                     if (kwh > 0) {
                         let label = `E${i}`;
                         if (is20TD) {
-                            if (i === 1) label += ' (Punta)';
-                            if (i === 2) label += ' (Llano)';
-                            if (i === 3) label += ' (Valle)';
+                            if (i === 1) label += ` (${tr('Punta')})`;
+                            if (i === 2) label += ` (${tr('Llano')})`;
+                            if (i === 3) label += ` (${tr('Valle')})`;
                         }
                         energyRows += `<div class="flex justify-between text-xs mb-1"><span>${label} (Acumulado)</span><span class="font-mono">${num(kwh, 0)} kWh</span></div>`;
                         totalGroupEnergy += kwh;
@@ -3615,9 +3615,9 @@
                                 <p class="text-slate-500">P1 (€/kW/día):</p><p class="font-mono font-bold text-right">${numPriceFormula(p1)}</p>
                                 <p class="text-slate-500">P2 (€/kW/día):</p><p class="font-mono font-bold text-right">${numPriceFormula(p2)}</p>
                                 <p class="text-slate-500 mt-2 col-span-2 font-bold text-cta-green-600">ENERGÍA (€/kWh)</p>
-                                <p class="text-slate-500">E1 (Punta):</p><p class="font-mono font-bold text-right">${numPriceFormula(e1)}</p>
-                                <p class="text-slate-500">E2 (Llano):</p><p class="font-mono font-bold text-right">${numPriceFormula(e2)}</p>
-                                <p class="text-slate-500">E3 (Valle):</p><p class="font-mono font-bold text-right">${numPriceFormula(e3)}</p>
+                                <p class="text-slate-500">E1 (${tr('Punta')}):</p><p class="font-mono font-bold text-right">${numPriceFormula(e1)}</p>
+                                <p class="text-slate-500">E2 (${tr('Llano')}):</p><p class="font-mono font-bold text-right">${numPriceFormula(e2)}</p>
+                                <p class="text-slate-500">E3 (${tr('Valle')}):</p><p class="font-mono font-bold text-right">${numPriceFormula(e3)}</p>
                             </div>
                         </div>
                     `);
@@ -3684,9 +3684,9 @@
                 resItem.energyCosts.forEach(e => {
                     let label = `E${e.period}`;
                     if (resItem.originalTariffType === '2.0TD') {
-                        if (e.period === 1) label += ' (Punta)';
-                        if (e.period === 2) label += ' (Llano)';
-                        if (e.period === 3) label += ' (Valle)';
+                        if (e.period === 1) label += ` (${tr('Punta')})`;
+                        if (e.period === 2) label += ` (${tr('Llano')})`;
+                        if (e.period === 3) label += ` (${tr('Valle')})`;
                     }
                     
                     if (e.period <= periods) {
@@ -4159,9 +4159,9 @@
                 if (e.kwh > 0 || e.period <= config.periods) {
                     let label = `E${e.period}`;
                     if (tariffType === '2.0TD') {
-                        if (e.period === 1) label += ' (Punta)';
-                        if (e.period === 2) label += ' (Llano)';
-                        if (e.period === 3) label += ' (Valle)';
+                        if (e.period === 1) label += ` (${tr('Punta')})`;
+                        if (e.period === 2) label += ` (${tr('Llano')})`;
+                        if (e.period === 3) label += ` (${tr('Valle')})`;
                     }
                     energyBreakdown += `<div class="flex justify-between"><span>${label} (${num(e.kwh, 0)} kWh x ${numPriceFormula(e.price)} €/kWh)</span><span>${num(e.cost, 2)} €</span></div>`;
                 }
@@ -4590,294 +4590,9 @@
                 window.showErrorModal(`Error: ${e.message}`);
                 return;
             }
-                
-                try {
-                    // Extraer datos principales del DOM
-                    const offerName = document.getElementById('best-offer-name')?.textContent || 'DRK FIJO 4';
-                    const savingsAmount = document.getElementById('savings-estimate')?.textContent || '0 €';
-                    const oldCost = document.getElementById('old-annual-cost-display')?.textContent || '0 €';
-                    const newCost = document.getElementById('new-annual-cost-display')?.textContent || '0 €';
-                    const monthlyText = document.getElementById('new-monthly-cost-display')?.textContent || '0 €';
-                    
-                    // Extraer datos del cálculo
-                    const res = lastComparisonResult;
-                    
-                    // Crear HTML ULTRA-SIMPLE para Outlook
-                    const htmlContent = `
-                        <!DOCTYPE html>
-                        <html>
-                        <head><meta charset="UTF-8"></head>
-                        <body style="margin:0;padding:20px;font-family:Arial,sans-serif;background:#f1f5f9;">
-                        
-                        <table width="700" cellpadding="0" cellspacing="0" align="center" style="background:#ffffff;">
-                            <!-- HEADER -->
-                            <tr>
-                                <td bgcolor="#2e5266" style="padding:30px;text-align:center;">
-                                    <h1 style="margin:0;color:#ffffff;font-size:32px;">DRK 能源</h1>
-                                    <p style="margin:10px 0 0 0;color:#ffffff;font-size:15px;">引领节省和能源效率</p>
-                                </td>
-                            </tr>
-                            
-                            <!-- OFERTA -->
-                            <tr>
-                                <td bgcolor="#2e5266" style="padding:15px;text-align:center;">
-                                    <p style="margin:0;color:#ffffff;font-size:11px;">为您提供的最佳选择</p>
-                                    <h2 style="margin:5px 0 0 0;color:#ffffff;font-size:22px;">${offerName}</h2>
-                                </td>
-                            </tr>
-                            
-                            <!-- AHORRO -->
-                            <tr>
-                                <td style="padding:25px;text-align:center;border-bottom:1px solid #e2e8f0;">
-                                    <p style="margin:0 0 8px 0;color:#64748b;font-size:11px;font-weight:bold;">您的预计年度节省</p>
-                                    <p style="margin:0;color:#16a34a;font-size:42px;font-weight:bold;">${savingsAmount}</p>
-                                </td>
-                            </tr>
-                            
-                            <!-- COMPARATIVA -->
-                            <tr>
-                                <td style="padding:0;">
-                                    <table width="100%" cellpadding="0" cellspacing="0">
-                                        <tr>
-                                            <td width="50%" style="padding:20px;text-align:center;border-right:1px solid #e2e8f0;">
-                                                <p style="margin:0 0 10px 0;color:#64748b;font-size:10px;font-weight:bold;">您的当前账单</p>
-                                                <p style="margin:0;color:#dc2626;font-size:18px;font-weight:bold;text-decoration:line-through;">${oldCost}</p>
-                                            </td>
-                                            <td width="50%" style="padding:20px;text-align:center;">
-                                                <p style="margin:0 0 10px 0;color:#2e5266;font-size:10px;font-weight:bold;">您的新DRK成本</p>
-                                                <p style="margin:0 0 5px 0;color:#1e293b;font-size:20px;font-weight:bold;">${monthlyText}</p>
-                                                <p style="margin:0;color:#1e293b;font-size:16px;font-weight:bold;">${newCost}</p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            
-                            <!-- DETALLES TÍTULO -->
-                            <tr>
-                                <td style="padding:20px 20px 10px 20px;">
-                                    <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">提取数据</h3>
-                                </td>
-                            </tr>
-                            
-                            <!-- PERIODO Y FECHAS -->
-                            <tr>
-                                <td style="padding:0 20px;">
-                                    <table width="100%" cellpadding="10" cellspacing="0" bgcolor="#f8fafc">
-                                        <tr>
-                                            <td width="50%">
-                                                <p style="margin:0 0 5px 0;color:#64748b;font-size:11px;">期间</p>
-                                                <p style="margin:0;color:#1e293b;font-size:14px;font-weight:bold;">${res.dias_facturados || 60} 天</p>
-                                            </td>
-                                            <td width="50%">
-                                                <p style="margin:0 0 5px 0;color:#64748b;font-size:11px;">日期</p>
-                                                <p style="margin:0;color:#1e293b;font-size:12px;font-weight:bold;">${res.fechas || 'N/A'}</p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            
-                            <!-- CONSUMOS -->
-                            <tr>
-                                <td style="padding:15px 20px 5px 20px;">
-                                    <p style="margin:0;color:#2e5266;font-size:14px;font-weight:bold;">期间消耗 (kWh)</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding:0 20px;">
-                                    <table width="100%" cellpadding="5" cellspacing="0" border="0">
-                                        ${res.energyCosts ? res.energyCosts.map((e, i) => `
-                                        <tr>
-                                            <td style="padding:5px 0;color:#64748b;font-size:12px;">E${e.period} (${i===0 ? '峰值' : i===1 ? '平段' : '谷段'})</td>
-                                            <td align="right" style="padding:5px 0;color:#1e293b;font-size:12px;font-weight:bold;">${e.kwh || 0} kWh</td>
-                                        </tr>
-                                        `).join('') : ''}
-                                        <tr style="border-top:1px solid #e2e8f0;">
-                                            <td style="padding:8px 0;color:#2e5266;font-size:13px;font-weight:bold;">总消耗</td>
-                                            <td align="right" style="padding:8px 0;color:#2e5266;font-size:13px;font-weight:bold;">${res.energyCosts ? res.energyCosts.reduce((sum, e) => sum + (e.kwh || 0), 0) : 0} kWh</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            
-                            <!-- POTENCIAS -->
-                            <tr>
-                                <td style="padding:15px 20px 5px 20px;">
-                                    <p style="margin:0;color:#2e5266;font-size:14px;font-weight:bold;">签约功率 (kW)</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding:0 20px 15px 20px;">
-                                    <table width="100%" cellpadding="5" cellspacing="0">
-                                        ${res.powerCosts ? res.powerCosts.map(p => `
-                                        <tr>
-                                            <td style="padding:5px 0;color:#64748b;font-size:12px;">P${p.period}</td>
-                                            <td align="right" style="padding:5px 0;color:#1e293b;font-size:12px;font-weight:bold;">${(p.kw || 0).toFixed(2)} kW</td>
-                                        </tr>
-                                        `).join('') : ''}
-                                    </table>
-                                </td>
-                            </tr>
-                            
-                            <!-- PRECIOS TÍTULO -->
-                            <tr>
-                                <td style="padding:20px 20px 10px 20px;">
-                                    <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">合并报价价格</h3>
-                                </td>
-                            </tr>
-                            
-                            <!-- PRECIOS -->
-                            <tr>
-                                <td style="padding:0 20px;">
-                                    <table width="100%" cellpadding="10" cellspacing="0" bgcolor="#f8fafc">
-                                        <tr>
-                                            <td colspan="2">
-                                                <p style="margin:0 0 10px 0;color:#1e293b;font-size:13px;font-weight:bold;">资费 2.0 TD - ${offerName}</p>
-                                            </td>
-                                        </tr>
-                                        ${res.powerCosts ? res.powerCosts.map(p => `
-                                        <tr>
-                                            <td style="padding:4px 0;color:#64748b;font-size:11px;">P${p.period} (€/kW/日):</td>
-                                            <td align="right" style="padding:4px 0;color:#1e293b;font-size:11px;font-family:monospace;font-weight:bold;">${(p.priceDay || 0).toFixed(6)}</td>
-                                        </tr>
-                                        `).join('') : ''}
-                                        <tr>
-                                            <td colspan="2" style="padding:8px 0 4px 0;color:#16a34a;font-size:12px;font-weight:bold;">能源 (€/kWh)</td>
-                                        </tr>
-                                        ${res.energyCosts ? res.energyCosts.map((e, i) => `
-                                        <tr>
-                                            <td style="padding:4px 0;color:#64748b;font-size:11px;">E${e.period} (${i===0 ? '峰值' : i===1 ? '平段' : '谷段'}):</td>
-                                            <td align="right" style="padding:4px 0;color:#1e293b;font-size:11px;font-family:monospace;font-weight:bold;">${(e.price || 0).toFixed(6)}</td>
-                                        </tr>
-                                        `).join('') : ''}
-                                        <tr>
-                                            <td colspan="2" style="padding:10px 0 0 0;color:#64748b;font-size:10px;font-style:italic;">*显示的价格来自中标报价。</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            
-                            <!-- CÁLCULO TÍTULO -->
-                            <tr>
-                                <td style="padding:20px 20px 10px 20px;">
-                                    <h3 style="margin:0;padding-left:10px;border-left:4px solid #2e5266;color:#1e293b;font-size:16px;">官方计算</h3>
-                                </td>
-                            </tr>
-                            
-                            <!-- CÁLCULO -->
-                            <tr>
-                                <td style="padding:0 20px 20px 20px;">
-                                    <table width="100%" cellpadding="10" cellspacing="0" border="1" bordercolor="#e2e8f0" style="border-collapse:collapse;font-family:monospace;font-size:11px;">
-                                        <tr>
-                                            <td colspan="2" bgcolor="#f8fafc" align="center" style="padding:10px;">
-                                                <p style="margin:0;color:#1e293b;font-size:14px;font-weight:bold;">DRK</p>
-                                                <p style="margin:5px 0 0 0;color:#64748b;font-size:12px;">模拟 ${res.dias_facturados || 60} 天</p>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr bgcolor="#f8fafc">
-                                            <td colspan="2" style="padding:8px;color:#1e293b;font-size:12px;font-weight:bold;">功率 (€/kW 日)</td>
-                                        </tr>
-                                        ${res.powerCosts ? res.powerCosts.map(p => `
-                                        <tr>
-                                            <td style="padding:5px;color:#64748b;">P${p.period} (${(p.kw || 0).toFixed(2)} kW x ${(p.priceDay || 0).toFixed(6)} €/día)</td>
-                                            <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(p.totalPower || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        `).join('') : ''}
-                                        <tr style="border-top:2px solid #e2e8f0;">
-                                            <td style="padding:8px;color:#3b82f6;font-weight:bold;">功率小计</td>
-                                            <td align="right" style="padding:8px;color:#3b82f6;font-weight:bold;">${(res.subPower || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        
-                                        <tr bgcolor="#f8fafc">
-                                            <td colspan="2" style="padding:8px;color:#1e293b;font-size:12px;font-weight:bold;">能源 (€/kWh)</td>
-                                        </tr>
-                                        ${res.energyCosts ? res.energyCosts.map((e, i) => `
-                                        <tr>
-                                            <td style="padding:5px;color:#64748b;">E${e.period} (${i===0 ? '峰值' : i===1 ? '平段' : '谷段'}) (${e.kwh || 0} kWh x ${(e.price || 0).toFixed(6)} €/kWh)</td>
-                                            <td align="right" style="padding:5px;color:#1e293b;font-weight:bold;">${(e.totalEnergy || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        `).join('') : ''}
-                                        
-                                        <tr style="border-top:1px dashed #cbd5e1;">
-                                            <td></td>
-                                            <td align="right" style="padding:8px;color:#1e293b;font-weight:bold;">${(res.subEnergyNet || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        <tr style="border-top:1px dashed #cbd5e1;">
-                                            <td></td>
-                                            <td align="right" style="padding:8px;color:#1e293b;font-weight:bold;">${(res.subtotalNet || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:5px;color:#64748b;">Imp. Eléc. (5,113%)</td>
-                                            <td align="right" style="padding:5px;color:#1e293b;">${(res.impElec || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        <tr style="border-top:1px solid #cbd5e1;">
-                                            <td></td>
-                                            <td align="right" style="padding:8px;color:#1e293b;font-weight:bold;">${(res.totalSinIVA || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:5px;color:#64748b;">增值税（21%）</td>
-                                            <td align="right" style="padding:5px;color:#1e293b;">${(res.iva || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        <tr style="border-top:3px solid #1e293b;" bgcolor="#f8fafc">
-                                            <td style="padding:10px;color:#1e293b;font-size:13px;font-weight:bold;">总账单</td>
-                                            <td align="right" style="padding:10px;color:#1e293b;font-size:13px;font-weight:bold;">${(res.totalPeriod || 0).toFixed(2)} €</td>
-                                        </tr>
-                                        
-                                        <tr bgcolor="#2e5266">
-                                            <td colspan="2" align="center" style="padding:15px;color:#ffffff;font-size:13px;font-weight:bold;">估计年度总额: ${(res.totalAnnual || 0).toFixed(2)} €</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            
-                            <!-- FOOTER -->
-                            <tr>
-                                <td bgcolor="#f8fafc" style="padding:15px;text-align:center;">
-                                    <p style="margin:0;color:#64748b;font-size:13px;">所有文本均为中文 · 可直接使用</p>
-                                </td>
-                            </tr>
-                        </table>
-                        
-                        </body>
-                        </html>
-                    `;
-                    
-                    // Copiar al portapapeles
-                    const tempElement = document.createElement('div');
-                    tempElement.contentEditable = true;
-                    tempElement.innerHTML = htmlContent;
-                    tempElement.style.position = 'fixed';
-                    tempElement.style.left = '-9999px';
-                    document.body.appendChild(tempElement);
-                    
-                    const range = document.createRange();
-                    range.selectNodeContents(tempElement);
-                    const sel = window.getSelection();
-                    sel.removeAllRanges();
-                    sel.addRange(range);
-                    
-                    let success = document.execCommand('copy');
-                    document.body.removeChild(tempElement);
-                    
-                    if (success) {
-                        window.showMessageModal(tr("✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio."));
-                        document.getElementById('send-offer-modal').classList.add('hidden');
-                        document.getElementById('send-offer-modal').classList.remove('flex');
-                    } else {
-                        window.showErrorModal(tr("No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte."));
-                    }
-                    
-                    return;
-                } catch (e) {
-                    console.error("Error al copiar DOM en chino:", e);
-                    window.showErrorModal(`Error: ${e.message}`);
-                    return;
-                }
-            }
             
-            // Para otros idiomas, continuar con el proceso normal
+            // El código anterior ya manejó todos los idiomas y terminó con return
+            // Este código nunca se ejecutará pero lo dejo por compatibilidad
             const commercialCode = document.getElementById('comercial-code-input').value.trim();
             if (!commercialCode) return window.showErrorModal("Indique el Código Comercial.");
 
@@ -5450,9 +5165,9 @@
                         if (e.kwh > 0) {
                             let periodoNombre = '';
                             if (tariffType === '2.0TD') {
-                                if (i === 0) periodoNombre = ' (Punta)';
-                                else if (i === 1) periodoNombre = ' (Llano)';
-                                else if (i === 2) periodoNombre = ' (Valle)';
+                                if (i === 0) periodoNombre = ` (${tr('Punta')})`;
+                                else if (i === 1) periodoNombre = ` (${tr('Llano')})`;
+                                else if (i === 2) periodoNombre = ` (${tr('Valle')})`;
                             }
                             const texto = `E${i+1}${periodoNombre}: (${num(e.kwh, 0)} kWh x ${num(e.price, 6)} €/kWh)`;
                             doc.text(texto, x + 3, y);
@@ -6184,9 +5899,9 @@
                         if (e.kwh > 0 || e.period <= config.periods) {
                             let label = `E${e.period}`;
                             if (tariffType === '2.0TD') {
-                                if (e.period === 1) label += ' (Punta)';
-                                if (e.period === 2) label += ' (Llano)';
-                                if (e.period === 3) label += ' (Valle)';
+                                if (e.period === 1) label += ` (${tr('Punta')})`;
+                                if (e.period === 2) label += ` (${tr('Llano')})`;
+                                if (e.period === 3) label += ` (${tr('Valle')})`;
                             }
                             const formula = `${label}: (${num(e.kwh, 0)} kWh x ${numPriceFormula(e.price)} €/kWh)`;
                             doc.text(formula, x + 3, y);
@@ -7812,9 +7527,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             if (e.kwh > 0) {
                                 let periodoNombre = '';
                                 if (res.originalTariffType === '2.0TD') {
-                                    if (i === 0) periodoNombre = ' (Punta)';
-                                    else if (i === 1) periodoNombre = ' (Llano)';
-                                    else if (i === 2) periodoNombre = ' (Valle)';
+                                    if (i === 0) periodoNombre = ` (${tr('Punta')})`;
+                                    else if (i === 1) periodoNombre = ` (${tr('Llano')})`;
+                                    else if (i === 2) periodoNombre = ` (${tr('Valle')})`;
                                 }
                                 const texto = `E${i+1}${periodoNombre}: (${num(e.kwh, 0)} kWh x ${num(e.price, 6)} €/kWh)`;
                                 doc.text(texto, x + 3, y);
@@ -8005,9 +7720,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                     checkNewPage(4);
                                     let labelE = `E${e.period}`;
                                     if (supply.originalTariffType === '2.0TD') {
-                                        if (e.period === 1) labelE += ' (Punta)';
-                                        if (e.period === 2) labelE += ' (Llano)';
-                                        if (e.period === 3) labelE += ' (Valle)';
+                                        if (e.period === 1) labelE += ` (${tr('Punta')})`;
+                                        if (e.period === 2) labelE += ` (${tr('Llano')})`;
+                                        if (e.period === 3) labelE += ` (${tr('Valle')})`;
                                     }
                                     doc.text(`${labelE} (${num(e.kwh, 0)} kWh x ${numPriceFormula(e.price)})`, margin + 4, yPos);
                                     doc.text(`${num(e.cost, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
@@ -8384,13 +8099,13 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setFontSize(8);
                     
                     if (tariffType === '2.0TD') {
-                        doc.text(`E1 - Punta (€/kWh):`, margin + 8, yPos);
+                        doc.text(`E1 - ${tr('Punta')} (€/kWh):`, margin + 8, yPos);
                         doc.text(numPriceFormula(offer.p1_price), pageWidth - margin - 8, yPos, { align: 'right' });
                         yPos += 5;
-                        doc.text(`E2 - Llano (€/kWh):`, margin + 8, yPos);
+                        doc.text(`E2 - ${tr('Llano')} (€/kWh):`, margin + 8, yPos);
                         doc.text(numPriceFormula(offer.p2_price), pageWidth - margin - 8, yPos, { align: 'right' });
                         yPos += 5;
-                        doc.text(`E3 - Valle (€/kWh):`, margin + 8, yPos);
+                        doc.text(`E3 - ${tr('Valle')} (€/kWh):`, margin + 8, yPos);
                         doc.text(numPriceFormula(offer.p3_price), pageWidth - margin - 8, yPos, { align: 'right' });
                         yPos += 7;
                     } else {
@@ -8465,9 +8180,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         if (e.kwh > 0 || e.period <= config.periods) {
                             let label = `E${e.period}`;
                             if (tariffType === '2.0TD') {
-                                if (e.period === 1) label += ' - Punta';
-                                if (e.period === 2) label += ' - Llano';
-                                if (e.period === 3) label += ' - Valle';
+                                if (e.period === 1) label += ` - ${tr('Punta')}`;
+                                if (e.period === 2) label += ` - ${tr('Llano')}`;
+                                if (e.period === 3) label += ` - ${tr('Valle')}`;
                             }
                             const formula = `${label} (${num(e.kwh, 0)} kWh x ${numPriceFormula(e.price)})`;
                             doc.text(formula, margin + 2, yPos);
@@ -8755,9 +8470,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 if (e.kwh > 0) {
                     let label = `E${i+1}`;
                     if (resFijo.originalTariffType === '2.0TD') {
-                        if (i === 0) label += ' (Punta)';
-                        else if (i === 1) label += ' (Llano)';
-                        else if (i === 2) label += ' (Valle)';
+                        if (i === 0) label += ` (${tr('Punta')})`;
+                        else if (i === 1) label += ` (${tr('Llano')})`;
+                        else if (i === 2) label += ` (${tr('Valle')})`;
                     }
                     energiaFijoHtml += `
                         <div style="display: flex; justify-content: space-between; padding: 4px 0; font-size: 10px; color: #374151;">
