@@ -3013,12 +3013,12 @@
             });
 
             if (total.savings <= 0) {
-                bestOverallWinner.offer = { name: "Tu Tarifa Actual", description: "Es la mejor opción consolidada", isDrk: false };
+                bestOverallWinner.offer = { name: tr("Tu Tarifa Actual"), description: tr("Es la mejor opción consolidada"), isDrk: false };
                 total.savings = 0; // Ensure consistency
             } else {
                 // Ahorro positivo: Usar un nombre genérico para la cabecera
                 const genericName = activeBrand.NAME.includes('DRK') ? 'DRK Energía' : 'POWER CUP';
-                const genericDescription = `Ofrece el mayor ahorro consolidado con ${genericName}.`;
+                const genericDescription = tr('Ofrece el mayor ahorro consolidado con') + ' ' + genericName + '.';
 
                 bestOverallWinner.offer = { 
                     name: genericName, 
@@ -4869,7 +4869,7 @@
                 // Descripción
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(9);
-                const descripcion = `Ofrece el mayor ahorro consolidado con ${brand.FULL_NAME}.`;
+                const descripcion = tr('Ofrece el mayor ahorro consolidado con') + ' ' + brand.FULL_NAME + '.';
                 doc.text(descripcion, pageWidth / 2, bigBoxY + 37, { align: 'center' });
                 
                 yPos = bigBoxY + bigBoxHeight + 10;
@@ -5514,7 +5514,7 @@
                 // Descripción
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(9);
-                const descripcion = 'Ofrece el mayor ahorro consolidado con ' + brand.FULL_NAME + '.';
+                const descripcion = tr('Ofrece el mayor ahorro consolidado con') + ' ' + brand.FULL_NAME + '.';
                 doc.text(descripcion, pageWidth / 2, bigBoxY + 37, { align: 'center' });
                 
                 yPos = bigBoxY + bigBoxHeight + 10;
@@ -8590,7 +8590,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         <div style="background-color: ${HEADER_BLUE}; color: white; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px;">
                             <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold;">${BRAND_DISPLAY}</h2>
-                            <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.95;">Ofrece el mayor ahorro consolidado con ${brand.NAME.toUpperCase()}.</p>
+                            <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.95;">${tr('Ofrece el mayor ahorro consolidado con')} ${brand.NAME.toUpperCase()}.</p>
                         </div>
                         
                         <!-- TRES COLUMNAS -->
@@ -9136,7 +9136,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         <div style="background-color: ${HEADER_BLUE}; color: white; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px;">
                             <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold;">${BRAND_DISPLAY}</h2>
-                            <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.95;">Ofrece el mayor ahorro consolidado con ${brand.NAME.toUpperCase()}.</p>
+                            <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.95;">${tr('Ofrece el mayor ahorro consolidado con')} ${brand.NAME.toUpperCase()}.</p>
                         </div>
                         
                         <table cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 20px;">
@@ -17590,7 +17590,7 @@ ${clientName}
                         <td style="padding: 25px 40px; text-align: center;">
                             <p style="margin: 0 0 10px 0; font-size: 16px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
                             <h2 style="margin: 0; font-size: 36px; font-weight: bold;">${brandName}</h2>
-                            <p style="margin: 10px 0 0 0; font-size: 14px;">Ofrece el mayor ahorro consolidado con ${brandName}.</p>
+                            <p style="margin: 10px 0 0 0; font-size: 14px;">${tr('Ofrece el mayor ahorro consolidado con')} ${brandName}.</p>
                         </td>
                     </tr>
                 </table>
@@ -18822,7 +18822,7 @@ ${clientName}
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
-            doc.text('Ofrece el mayor ahorro consolidado con DRK ENERGÍA.', pageWidth / 2, y + 33, { align: 'center' });
+            doc.text(tr('Ofrece el mayor ahorro consolidado con') + ' DRK ENERGÍA.', pageWidth / 2, y + 33, { align: 'center' });
             
             y += 55;
             
