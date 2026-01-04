@@ -17764,61 +17764,145 @@ ${clientName}
                 if (currentLang === 'zh') {
                     console.log('🇨🇳 Modo chino detectado - copiando DOM visible');
                     
-                    // Capturar TODOS los elementos importantes
-                    const resultCard = document.getElementById('result-card'); // Comparativo principal
-                    const detailsContainer = document.getElementById('details-container'); // Detalles
+                    // Detectar si estamos en pantalla de GAS o ELECTRICIDAD
+                    const gasContainer = document.getElementById('gas-results-container');
+                    const isGasScreen = gasContainer && gasContainer.innerHTML.trim().length > 100;
                     
-                    if (!resultCard && !detailsContainer) {
-                        alert('没有要复制的结果 / No results to copy');
-                        return;
-                    }
-                    
-                    // Crear HTML completo con estilos embebidos
-                    htmlContent = `
-                        <!DOCTYPE html>
-                        <html lang="zh">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>DRK 能源 - 比较结果</title>
-                            <style>
-                                body { font-family: Arial, sans-serif; padding: 20px; background: #f1f5f9; }
-                                .container { max-width: 800px; margin: 0 auto; }
-                                .header { background: linear-gradient(to right, #16a34a, #15803d); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
-                                .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-                                h1 { margin: 0; font-size: 32px; font-weight: 900; }
-                                h2 { color: #1e293b; font-size: 24px; font-weight: bold; margin: 20px 0 10px 0; }
-                                h3 { color: #1e293b; font-size: 18px; font-weight: bold; border-left: 4px solid #16a34a; padding-left: 12px; margin: 20px 0 10px 0; }
-                                .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-                                .text-sm { font-size: 14px; }
-                                .text-xs { font-size: 12px; }
-                                .font-bold { font-weight: bold; }
-                                .text-slate-500 { color: #64748b; }
-                                .text-slate-700 { color: #334155; }
-                                .text-slate-800 { color: #1e293b; }
-                                .border-t { border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 8px; }
-                                .flex { display: flex; justify-content: space-between; margin-bottom: 4px; }
-                                .mono { font-family: 'Courier New', monospace; }
-                                .text-center { text-align: center; }
-                                .mb-4 { margin-bottom: 16px; }
-                                .mb-6 { margin-bottom: 24px; }
-                                .p-6 { padding: 24px; }
-                                .rounded-xl { border-radius: 12px; }
-                                .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
-                            </style>
-                        </head>
-                        <body>
-                            <div class="container">
-                                <div class="header">
-                                    <h1>DRK 能源</h1>
-                                    <p style="margin: 10px 0 0 0; opacity: 0.9;">引领节省和能源效率</p>
+                    if (isGasScreen) {
+                        // ===== MODO GAS =====
+                        console.log('🔥 Pantalla GAS detectada');
+                        
+                        if (!gasContainer || gasContainer.innerHTML.trim().length < 100) {
+                            alert('没有要复制的结果 / No results to copy');
+                            return;
+                        }
+                        
+                        // Crear HTML completo para GAS con estilos embebidos
+                        htmlContent = `
+                            <!DOCTYPE html>
+                            <html lang="zh">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <title>DRK 能源 - GAS 比较结果</title>
+                                <style>
+                                    body { font-family: Arial, sans-serif; padding: 20px; background: #f1f5f9; }
+                                    .container { max-width: 900px; margin: 0 auto; }
+                                    .header { background: linear-gradient(135deg, #f97316 0%, #dc2626 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+                                    .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+                                    h1 { margin: 0; font-size: 36px; font-weight: 900; }
+                                    h2 { color: #1e293b; font-size: 24px; font-weight: bold; margin: 20px 0 10px 0; }
+                                    h3 { color: #1e293b; font-size: 18px; font-weight: bold; border-left: 4px solid #f97316; padding-left: 12px; margin: 20px 0 10px 0; }
+                                    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+                                    .text-sm { font-size: 14px; }
+                                    .text-xs { font-size: 12px; }
+                                    .font-bold { font-weight: bold; }
+                                    .text-slate-500 { color: #64748b; }
+                                    .text-slate-600 { color: #475569; }
+                                    .text-slate-700 { color: #334155; }
+                                    .text-slate-800 { color: #1e293b; }
+                                    .text-slate-900 { color: #0f172a; }
+                                    .text-green-600 { color: #16a34a; }
+                                    .text-red-600 { color: #dc2626; }
+                                    .text-orange-600 { color: #ea580c; }
+                                    .border-t { border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 8px; }
+                                    .flex { display: flex; justify-content: space-between; margin-bottom: 4px; }
+                                    .mono { font-family: 'Courier New', monospace; }
+                                    .text-center { text-align: center; }
+                                    .mb-2 { margin-bottom: 8px; }
+                                    .mb-3 { margin-bottom: 12px; }
+                                    .mb-4 { margin-bottom: 16px; }
+                                    .mb-6 { margin-bottom: 24px; }
+                                    .mt-4 { margin-top: 16px; }
+                                    .p-4 { padding: 16px; }
+                                    .p-6 { padding: 24px; }
+                                    .rounded { border-radius: 8px; }
+                                    .rounded-lg { border-radius: 10px; }
+                                    .rounded-xl { border-radius: 12px; }
+                                    .shadow { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+                                    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+                                    .bg-white { background-color: white; }
+                                    .bg-slate-50 { background-color: #f8fafc; }
+                                    .bg-orange-50 { background-color: #fff7ed; }
+                                    .bg-green-50 { background-color: #f0fdf4; }
+                                    .border { border: 1px solid #e2e8f0; }
+                                    .border-2 { border: 2px solid #e2e8f0; }
+                                    .border-orange-200 { border-color: #fed7aa; }
+                                    .border-green-200 { border-color: #bbf7d0; }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="container">
+                                    <div class="header">
+                                        <h1>🔥 DRK 能源 - GAS</h1>
+                                        <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 18px;">燃气比较结果 / Gas Comparison Results</p>
+                                    </div>
+                                    <div class="content">
+                                        ${gasContainer.innerHTML}
+                                    </div>
                                 </div>
-                                ${resultCard ? `<div class="content">${resultCard.outerHTML}</div>` : ''}
-                                ${detailsContainer ? `<div class="content">${detailsContainer.outerHTML}</div>` : ''}
-                            </div>
-                        </body>
-                        </html>
-                    `;
+                            </body>
+                            </html>
+                        `;
+                    } else {
+                        // ===== MODO ELECTRICIDAD =====
+                        console.log('⚡ Pantalla ELECTRICIDAD detectada');
+                        
+                        const resultCard = document.getElementById('result-card');
+                        const detailsContainer = document.getElementById('details-container');
+                        
+                        if (!resultCard && !detailsContainer) {
+                            alert('没有要复制的结果 / No results to copy');
+                            return;
+                        }
+                        
+                        // Crear HTML completo con estilos embebidos para ELECTRICIDAD
+                        htmlContent = `
+                            <!DOCTYPE html>
+                            <html lang="zh">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                <title>DRK 能源 - 比较结果</title>
+                                <style>
+                                    body { font-family: Arial, sans-serif; padding: 20px; background: #f1f5f9; }
+                                    .container { max-width: 800px; margin: 0 auto; }
+                                    .header { background: linear-gradient(to right, #16a34a, #15803d); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+                                    .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+                                    h1 { margin: 0; font-size: 32px; font-weight: 900; }
+                                    h2 { color: #1e293b; font-size: 24px; font-weight: bold; margin: 20px 0 10px 0; }
+                                    h3 { color: #1e293b; font-size: 18px; font-weight: bold; border-left: 4px solid #16a34a; padding-left: 12px; margin: 20px 0 10px 0; }
+                                    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+                                    .text-sm { font-size: 14px; }
+                                    .text-xs { font-size: 12px; }
+                                    .font-bold { font-weight: bold; }
+                                    .text-slate-500 { color: #64748b; }
+                                    .text-slate-700 { color: #334155; }
+                                    .text-slate-800 { color: #1e293b; }
+                                    .border-t { border-top: 1px solid #e2e8f0; padding-top: 8px; margin-top: 8px; }
+                                    .flex { display: flex; justify-content: space-between; margin-bottom: 4px; }
+                                    .mono { font-family: 'Courier New', monospace; }
+                                    .text-center { text-align: center; }
+                                    .mb-4 { margin-bottom: 16px; }
+                                    .mb-6 { margin-bottom: 24px; }
+                                    .p-6 { padding: 24px; }
+                                    .rounded-xl { border-radius: 12px; }
+                                    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+                                </style>
+                            </head>
+                            <body>
+                                <div class="container">
+                                    <div class="header">
+                                        <h1>DRK 能源</h1>
+                                        <p style="margin: 10px 0 0 0; opacity: 0.9;">引领节省和能源效率</p>
+                                    </div>
+                                    ${resultCard ? `<div class="content">${resultCard.outerHTML}</div>` : ''}
+                                    ${detailsContainer ? `<div class="content">${detailsContainer.outerHTML}</div>` : ''}
+                                </div>
+                            </body>
+                            </html>
+                        `;
+                    }
                 } else {
                     // Para otros idiomas, usar el HTML generado como antes
                     htmlContent = window.currentHTMLContent;
