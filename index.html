@@ -3472,12 +3472,12 @@
             }
             
             document.getElementById('old-period-cost-display').textContent = eur(res.importe_total);
-            document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + "/año";
+            document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + tr("/año");
             document.getElementById('old-period-days-label').textContent = `${tr('Total Periodo')} (${tr('Variado')})`; // Días varían por factura
             
             
-            document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + "/mes";
-            document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + "/año";
+            document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + tr("/mes");
+            document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + tr("/año");
             
             
             // 2. Nuevo: Resumen de Suministros (Tipo, CUPS, Ahorro Individual)
@@ -4104,11 +4104,11 @@
             }
             
             document.getElementById('old-period-cost-display').textContent = eur(res.importe_total);
-            document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + "/año";
+            document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + tr("/año");
             document.getElementById('old-period-days-label').textContent = `${tr('Total Periodo')} (${res.dias_facturados} ${tr('días')})`;
             
-            document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + "/mes";
-            document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + "/año";
+            document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + tr("/mes");
+            document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + tr("/año");
             
             // 2. Desglose (Datos Extraídos)
             let energyRows = '';
@@ -8234,10 +8234,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(10);
                 doc.setFont('helvetica', 'bold');
-                doc.text('TU AHORRO ANUAL ESTIMADO ES:', margin + 5, yPos + 7);
+                doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), margin + 5, yPos + 7);
                 
                 doc.setFontSize(22);
-                doc.text(`${savingsText} / AÑO`, margin + 5, yPos + 16);
+                doc.text(`${savingsText} ${tr('/ AÑO')}`, margin + 5, yPos + 16);
                 
                 yPos += 30; // Más espacio después de la caja verde (antes 25)
                 
@@ -15201,9 +15201,9 @@ ${clientName}
                     <!-- TU FACTURA ACTUAL -->
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
                         <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr("TU FACTURA ACTUAL")}</p>
-                        <p style="margin:0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${(totalOriginalBill/12).toFixed(2)} ${tr("€/mes")}</p>
+                        <p style="margin:0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${(totalOriginalBill/12).toFixed(2)} ${tr('€/mes')}</p>
                         <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr("Total Periodo")} (31 ${tr('días')})</p>
-                        <p style="margin:20px 0 0 0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${totalOriginalBill.toFixed(2)} ${tr("€/año")}</p>
+                        <p style="margin:20px 0 0 0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${totalOriginalBill.toFixed(2)} ${tr('€/año')}</p>
                     </td>
                     
                     <!-- SEPARADOR VERTICAL -->
@@ -15214,9 +15214,9 @@ ${clientName}
                     <!-- TU NUEVO COSTE -->
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
                         <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr('TU NUEVO COSTE')} ${brandName}</p>
-                        <p style="margin:0;font-size:28px;color:#475569;font-weight:500">${(totalNew/12).toFixed(2)} ${tr("€/mes")}</p>
+                        <p style="margin:0;font-size:28px;color:#475569;font-weight:500">${(totalNew/12).toFixed(2)} ${tr('€/mes')}</p>
                         <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr("Estimado Mensual")}</p>
-                        <p style="margin:20px 0 0 0;font-size:28px;color:#475569;font-weight:500">${totalNew.toFixed(2)} ${tr("€/año")}</p>
+                        <p style="margin:20px 0 0 0;font-size:28px;color:#475569;font-weight:500">${totalNew.toFixed(2)} ${tr('€/año')}</p>
                     </td>
                 </tr>
             </table>
@@ -18612,7 +18612,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', margin + 5, yPos + 10);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), margin + 5, yPos + 10);
             
             doc.setFontSize(20);
             doc.text(eur(bestResult.ahorro_anual) + tr('/ AÑO'), margin + 5, yPos + 20);
@@ -19042,7 +19042,7 @@ ${clientName}
             doc.roundedRect(leftX, leftY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', leftX + 3, leftY + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), leftX + 3, leftY + 8);
             doc.setFontSize(13);
             doc.text(eur(resFijo.ahorro_anual) + tr('/ AÑO'), leftX + 3, leftY + 15);
             
@@ -19140,7 +19140,7 @@ ${clientName}
             doc.roundedRect(rightX, rightY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', rightX + 3, rightY + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), rightX + 3, rightY + 8);
             doc.setFontSize(13);
             doc.text(eur(resIndexed.ahorro_anual) + tr('/ AÑO'), rightX + 3, rightY + 15);
             
@@ -19558,7 +19558,7 @@ ${clientName}
             doc.roundedRect(12, y, 186, 20, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(9);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', 15, y + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), 15, y + 8);
             doc.setFontSize(16);
             doc.text(eur(bestResult.ahorro_anual) + tr('/ AÑO'), 15, y + 16);
             
@@ -19956,7 +19956,7 @@ ${clientName}
             doc.roundedRect(leftX, leftY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', leftX + 3, leftY + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), leftX + 3, leftY + 8);
             doc.setFontSize(13);
             doc.text(eur(resFijo.ahorro_anual) + tr('/ AÑO'), leftX + 3, leftY + 15);
             
@@ -20054,7 +20054,7 @@ ${clientName}
             doc.roundedRect(rightX, rightY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', rightX + 3, rightY + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), rightX + 3, rightY + 8);
             doc.setFontSize(13);
             doc.text(eur(resIndexed.ahorro_anual) + tr('/ AÑO'), rightX + 3, rightY + 15);
             
@@ -20486,6 +20486,8 @@ ${clientName}
                 "Imp. Hidrocarburos": { en: "Hydrocarbon tax", zh: "碳氢化合物税", de: "Kohlenwasserstoffsteuer", fr: "Taxe sur les hydrocarbures" },
                 "€/mes": { en: "€/month", zh: "€/月", de: "€/Monat", fr: "€/mois" },
                 "€/año": { en: "€/year", zh: "€/年", de: "€/Jahr", fr: "€/an" },
+                "/mes": { en: "/month", zh: "/月", de: "/Monat", fr: "/mois" },
+                "/año": { en: "/year", zh: "/年", de: "/Jahr", fr: "/an" },
                 
                 // Más traducciones del PDF
                 "POWER SUBTOTAL": { en: "POWER SUBTOTAL", zh: "功率小计", de: "LEISTUNG ZWISCHENSUMME", fr: "SOUS-TOTAL PUISSANCE" },
