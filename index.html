@@ -15183,14 +15183,31 @@ ${clientName}
             console.log('  - comercialCode:', comercialCode);
             console.log('  - clientName:', clientName);
             
+            // Detectar si está en modo chino
+            const currentLang = localStorage.getItem('appLanguage') || 'es';
+            const wasChineseMode = currentLang === 'zh';
+            
+            // Si está en chino, mostrar mensaje y cambiar temporalmente a inglés
+            if (wasChineseMode) {
+                console.log('🇨🇳 Idioma chino detectado en DUAL - cambiando a inglés para PDF');
+                // Informar al usuario en chino e inglés
+                alert('🇨🇳 生成PDF文件中...\n为了确保字符正确显示，PDF将使用英语生成。\n\n🇬🇧 Generating PDF...\nTo ensure correct character display, the PDF will be generated in English.');
+                // Cambiar temporalmente a inglés
+                window.LANG.change('en', true); // skipReload = true
+            }
+            
             // Generar HTML usando la función auxiliar
             let html = generateDualHTMLContent(comercialCode, clientName, clientPhone, clientEmail);
             
             if (!html) {
+                // Restaurar idioma chino si es necesario
+                if (wasChineseMode) {
+                    window.LANG.change('zh', true);
+                }
                 return; // Ya se mostró el error en generateDualHTMLContent
             }
             
-            // CRÍTICO: Traducir el HTML al idioma seleccionado
+            // CRÍTICO: Traducir el HTML al idioma seleccionado (inglés si era chino)
             if (window.translateHTML) {
                 html = window.translateHTML(html);
                 console.log('✅ HTML traducido al idioma:', localStorage.getItem('appLanguage') || 'es');
@@ -15198,10 +15215,25 @@ ${clientName}
             
             // Abrir en ventana nueva
             const w = window.open('','_blank');
-            if(!w){alert('⚠️ Ventana bloqueada. Permite ventanas emergentes.');return;}
+            if(!w){
+                // Restaurar idioma chino si es necesario
+                if (wasChineseMode) {
+                    window.LANG.change('zh', true);
+                }
+                alert('⚠️ Ventana bloqueada. Permite ventanas emergentes.');
+                return;
+            }
             w.document.write(html);
             w.document.close();
             console.log('✅ PDF completo generado');
+            
+            // Restaurar el idioma chino después de generar el PDF
+            if (wasChineseMode) {
+                setTimeout(() => {
+                    console.log('🔄 Restaurando idioma chino');
+                    window.LANG.change('zh', true);
+                }, 500);
+            }
         }
         
         function showDualConfirm(type, tariff, data, results) {
