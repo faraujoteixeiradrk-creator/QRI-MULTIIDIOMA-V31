@@ -14495,96 +14495,104 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
         
         // Función: Copiar HTML comparativo al portapapeles
         function copyDualHTML() {
-            const currentLang = localStorage.getItem('appLanguage') || 'es';
-            
-            // NUEVO: Para CHINO, generar HTML con TABLAS para Outlook
-            if (currentLang === 'zh') {
-                console.log('🇨🇳 Modo chino detectado - generando HTML DUAL con tablas desde DOM');
+            try {
+                const currentLang = localStorage.getItem('appLanguage') || 'es';
+                console.log('🔍 copyDualHTML llamado, idioma:', currentLang);
                 
-                // Verificar que hay resultados renderizados en el DOM
-                const resultsContainer = document.getElementById('dual-results-container');
-                if (!resultsContainer || resultsContainer.innerHTML.trim().length < 100) {
-                    console.error('❌ No hay resultados renderizados en el DOM');
-                    alert('没有要复制的结果 / No results to copy\n\n请先计算结果 / Please calculate results first');
-                    return;
-                }
-                
-                // Leer datos del DOM o de window.dualSupplies
-                const supplies = window.dualSupplies && window.dualSupplies.length > 0 
-                    ? window.dualSupplies 
-                    : [];
-                
-                if (supplies.length === 0) {
-                    console.warn('⚠️ window.dualSupplies vacío, intentando leer del DOM');
-                    // Si no hay datos en window.dualSupplies, copiar el DOM directamente
-                    const htmlContent = `
-                        <!DOCTYPE html>
-                        <html lang="zh">
-                        <head>
-                            <meta charset="UTF-8">
-                            <style>
-                                body { font-family: Arial, sans-serif; background: #f1f5f9; margin: 0; padding: 20px; }
-                                table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-                            </style>
-                        </head>
-                        <body>
-                            <!-- Encabezado -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #06b6d4 0%, #84cc16 100%); border-radius: 12px; margin-bottom: 20px;">
-                                <tr>
-                                    <td style="padding: 30px; text-align: center;">
-                                        <div style="font-size: 48px; margin-bottom: 10px;">⚡🔥</div>
-                                        <h1 style="margin: 0; font-size: 36px; font-weight: 900; color: white;">COMPARATIVA GLOBAL</h1>
-                                        <p style="margin: 10px 0 0 0; font-size: 18px; color: white; opacity: 0.95;">多重供应管理 / Multi-supply Management</p>
-                                    </td>
-                                </tr>
-                            </table>
-                            
-                            <!-- Contenido del DOM -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background: white; border-radius: 12px; padding: 20px;">
-                                <tr>
-                                    <td>
-                                        ${resultsContainer.innerHTML}
-                                    </td>
-                                </tr>
-                            </table>
-                        </body>
-                        </html>
-                    `;
+                // NUEVO: Para CHINO, generar HTML con TABLAS para Outlook
+                if (currentLang === 'zh') {
+                    console.log('🇨🇳 Modo chino detectado - generando HTML DUAL con tablas desde DOM');
                     
-                    // Copiar al portapapeles
-                    const tempContainer = document.createElement('div');
-                    tempContainer.style.position = 'fixed';
-                    tempContainer.style.left = '-9999px';
-                    tempContainer.innerHTML = htmlContent;
-                    document.body.appendChild(tempContainer);
+                    // Verificar que hay resultados renderizados en el DOM
+                    const resultsContainer = document.getElementById('dual-results-container');
+                    console.log('📦 resultsContainer:', resultsContainer);
+                    console.log('📦 resultsContainer.innerHTML.length:', resultsContainer ? resultsContainer.innerHTML.length : 'null');
                     
-                    const range = document.createRange();
-                    range.selectNodeContents(tempContainer);
-                    const selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                    
-                    try {
-                        const successful = document.execCommand('copy');
-                        if (successful) {
-                            alert('✅ 成功！HTML已复制（中文）\n✅ Success! HTML copied (Chinese)\n\n现在可以粘贴到Outlook！\nNow you can paste into Outlook!');
-                            console.log('✅ HTML DUAL copiado desde DOM');
-                        } else {
-                            throw new Error('execCommand falló');
-                        }
-                    } catch (err) {
-                        console.error('Error:', err);
-                        alert('❌ 复制失败 / Copy failed');
-                    } finally {
-                        selection.removeAllRanges();
-                        document.body.removeChild(tempContainer);
+                    if (!resultsContainer || resultsContainer.innerHTML.trim().length < 100) {
+                        console.error('❌ No hay resultados renderizados en el DOM');
+                        alert('没有要复制的结果 / No results to copy\n\n请先计算结果 / Please calculate results first');
+                        return;
                     }
-                    return;
-                }
-                
-                console.log('📊 window.dualSupplies encontrado con', supplies.length, 'suministros');
-                
-                // Construir HTML con tablas
+                    
+                    // Leer datos del DOM o de window.dualSupplies
+                    const supplies = window.dualSupplies && window.dualSupplies.length > 0 
+                        ? window.dualSupplies 
+                        : [];
+                    
+                    console.log('📊 supplies.length:', supplies.length);
+                    
+                    if (supplies.length === 0) {
+                        console.warn('⚠️ window.dualSupplies vacío, intentando leer del DOM');
+                        // Si no hay datos en window.dualSupplies, copiar el DOM directamente
+                        const htmlContent = `
+                            <!DOCTYPE html>
+                            <html lang="zh">
+                            <head>
+                                <meta charset="UTF-8">
+                                <style>
+                                    body { font-family: Arial, sans-serif; background: #f1f5f9; margin: 0; padding: 20px; }
+                                    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+                                </style>
+                            </head>
+                            <body>
+                                <!-- Encabezado -->
+                                <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #06b6d4 0%, #84cc16 100%); border-radius: 12px; margin-bottom: 20px;">
+                                    <tr>
+                                        <td style="padding: 30px; text-align: center;">
+                                            <div style="font-size: 48px; margin-bottom: 10px;">⚡🔥</div>
+                                            <h1 style="margin: 0; font-size: 36px; font-weight: 900; color: white;">COMPARATIVA GLOBAL</h1>
+                                            <p style="margin: 10px 0 0 0; font-size: 18px; color: white; opacity: 0.95;">多重供应管理 / Multi-supply Management</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Contenido del DOM -->
+                                <table width="100%" cellpadding="0" cellspacing="0" style="background: white; border-radius: 12px; padding: 20px;">
+                                    <tr>
+                                        <td>
+                                            ${resultsContainer.innerHTML}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </body>
+                            </html>
+                        `;
+                        
+                        // Copiar al portapapeles
+                        const tempContainer = document.createElement('div');
+                        tempContainer.style.position = 'fixed';
+                        tempContainer.style.left = '-9999px';
+                        tempContainer.innerHTML = htmlContent;
+                        document.body.appendChild(tempContainer);
+                        
+                        const range = document.createRange();
+                        range.selectNodeContents(tempContainer);
+                        const selection = window.getSelection();
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        
+                        try {
+                            const successful = document.execCommand('copy');
+                            console.log('📋 execCommand copy result:', successful);
+                            if (successful) {
+                                alert('✅ 成功！HTML已复制（中文）\n✅ Success! HTML copied (Chinese)\n\n现在可以粘贴到Outlook！\nNow you can paste into Outlook!');
+                                console.log('✅ HTML DUAL copiado desde DOM');
+                            } else {
+                                throw new Error('execCommand falló');
+                            }
+                        } catch (err) {
+                            console.error('Error en execCommand:', err);
+                            alert('❌ 复制失败 / Copy failed\n\nError: ' + err.message);
+                        } finally {
+                            selection.removeAllRanges();
+                            document.body.removeChild(tempContainer);
+                        }
+                        return;
+                    }
+                    
+                    console.log('📊 window.dualSupplies encontrado con', supplies.length, 'suministros');
+                    
+                    // Construir HTML con tablas
                 let htmlContent = `
                     <!DOCTYPE html>
                     <html lang="zh">
@@ -14869,6 +14877,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 // Limpiar: deseleccionar y eliminar el contenedor temporal
                 selection.removeAllRanges();
                 document.body.removeChild(tempContainer);
+            }
+            } catch (globalError) {
+                console.error('❌ Error global en copyDualHTML:', globalError);
+                console.error('Stack:', globalError.stack);
+                alert('❌ Error al copiar HTML\n\n' + globalError.message + '\n\n请查看控制台获取详细信息\nPlease check console for details');
             }
         }
         
