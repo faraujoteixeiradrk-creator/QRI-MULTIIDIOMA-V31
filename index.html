@@ -8087,7 +8087,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     const fullDesgloseTitle = (tarifaCompleta !== comercializadora) 
                         ? `${comercializadora} - ${tarifaCompleta}` 
                         : comercializadora;
-                    doc.text(`DESGLOSE DETALLADO DE LA SIMULACIÓN (${fullDesgloseTitle})`, margin + 3, yPos + 6.5);
+                    doc.text(`${tr('DESGLOSE DETALLADO DE LA SIMULACIÓN')} (${fullDesgloseTitle})`, margin + 3, yPos + 6.5);
                     
                     yPos += 14;
                     
@@ -8234,10 +8234,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 doc.setTextColor(255, 255, 255);
                 doc.setFontSize(10);
                 doc.setFont('helvetica', 'bold');
-                doc.text('TU AHORRO ANUAL ESTIMADO ES:', margin + 5, yPos + 7);
+                doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), margin + 5, yPos + 7);
                 
                 doc.setFontSize(22);
-                doc.text(`${savingsText} / AÑO`, margin + 5, yPos + 16);
+                doc.text(`${savingsText} ${tr('/ AÑO')}`, margin + 5, yPos + 16);
                 
                 yPos += 30; // Más espacio después de la caja verde (antes 25)
                 
@@ -9549,10 +9549,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 <tr><td colspan="2" style="padding: 0 20px 0 20px; text-align: center;">
                     ${bd.savings > 0 ? `
                     <div style="text-align: center; margin: 15px 0 5px 0;">
-                        <p style="margin: 0; font-size: 16px; color: #555; font-weight: bold;">RESUMEN DE AHORRO FINAL</p>
+                        <p style="margin: 0; font-size: 16px; color: #555; font-weight: bold;">${tr('RESUMEN DE AHORRO FINAL')}</p>
                     </div>
                     <div style="background-color: ${BG_LIGHT}; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 20px;">
-                        <p style="margin: 0; font-size: 14px; color: #555;">TU AHORRO ANUAL ESTIMADO ES:</p>
+                        <p style="margin: 0; font-size: 14px; color: #555;">${tr('TU AHORRO ANUAL ESTIMADO ES:')}</p>
                         <span style="font-size: 32px; font-weight: bold; color: ${GREEN_SAVE_COLOR}; display: block; margin-top: 5px; white-space: nowrap;">${eur(bd.savings)}</span>
                         <p style="font-size: 12px; color: #888;">${tr('/ AÑO')}</p>
                     </div>
@@ -17465,7 +17465,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
                     <tr>
                         <td style="padding: 20px 40px; text-align: center;">
-                            <h2 style="margin: 0 0 20px 0; font-size: 24px; color: #333;">RESUMEN DE AHORRO FINAL</h2>
+                            <h2 style="margin: 0 0 20px 0; font-size: 24px; color: #333;">${tr('RESUMEN DE AHORRO FINAL')}</h2>
                         </td>
                     </tr>
                 </table>
@@ -17473,7 +17473,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${lightBg}; border: 2px solid ${accentColor}; border-radius: 12px; margin: 0 40px 30px 40px; width: calc(100% - 80px);">
                     <tr>
                         <td style="padding: 30px; text-align: center;">
-                            <p style="margin: 0 0 15px 0; font-size: 16px; color: #666;">TU AHORRO ANUAL ESTIMADO ES:</p>
+                            <p style="margin: 0 0 15px 0; font-size: 16px; color: #666;">${tr('TU AHORRO ANUAL ESTIMADO ES:')}</p>
                             <h1 style="margin: 0; font-size: 42px; font-weight: bold; color: #16a34a;">${eur(ahorroAnual)}</h1>
                             <p style="margin: 10px 0 0 0; font-size: 14px; color: #666;">${tr('/ AÑO')}</p>
                         </td>
@@ -18530,7 +18530,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('DESGLOSE DETALLADO DE LA SIMULACIÓN (DRK - ' + bestResult.descripcion.toUpperCase() + ')', margin + 5, yPos + 8);
+            doc.text(tr('DESGLOSE DETALLADO DE LA SIMULACIÓN') + ' (DRK - ' + bestResult.descripcion.toUpperCase() + ')', margin + 5, yPos + 8);
             
             yPos += 18;
             
@@ -18621,7 +18621,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', margin + 5, yPos + 10);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), margin + 5, yPos + 10);
             
             doc.setFontSize(20);
             doc.text(eur(bestResult.ahorro_anual) + tr('/ AÑO'), margin + 5, yPos + 20);
@@ -19051,7 +19051,7 @@ ${clientName}
             doc.roundedRect(leftX, leftY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', leftX + 3, leftY + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), leftX + 3, leftY + 8);
             doc.setFontSize(13);
             doc.text(eur(resFijo.ahorro_anual) + tr('/ AÑO'), leftX + 3, leftY + 15);
             
@@ -19149,7 +19149,7 @@ ${clientName}
             doc.roundedRect(rightX, rightY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', rightX + 3, rightY + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), rightX + 3, rightY + 8);
             doc.setFontSize(13);
             doc.text(eur(resIndexed.ahorro_anual) + tr('/ AÑO'), rightX + 3, rightY + 15);
             
@@ -19485,7 +19485,7 @@ ${clientName}
             doc.setTextColor(255, 255, 255);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.text('DESGLOSE DETALLADO DE LA SIMULACIÓN (' + tariffName + ')', 105, y + 8, { align: 'center' });
+            doc.text(tr('DESGLOSE DETALLADO DE LA SIMULACIÓN') + ' (' + tariffName + ')', 105, y + 8, { align: 'center' });
             
             y += 18;
             
@@ -19567,7 +19567,7 @@ ${clientName}
             doc.roundedRect(12, y, 186, 20, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(9);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', 15, y + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), 15, y + 8);
             doc.setFontSize(16);
             doc.text(eur(bestResult.ahorro_anual) + tr('/ AÑO'), 15, y + 16);
             
@@ -19965,7 +19965,7 @@ ${clientName}
             doc.roundedRect(leftX, leftY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', leftX + 3, leftY + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), leftX + 3, leftY + 8);
             doc.setFontSize(13);
             doc.text(eur(resFijo.ahorro_anual) + tr('/ AÑO'), leftX + 3, leftY + 15);
             
@@ -20063,7 +20063,7 @@ ${clientName}
             doc.roundedRect(rightX, rightY, colW, 18, 2, 2, 'F');
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(7);
-            doc.text('TU AHORRO ANUAL ESTIMADO ES:', rightX + 3, rightY + 8);
+            doc.text(tr('TU AHORRO ANUAL ESTIMADO ES:'), rightX + 3, rightY + 8);
             doc.setFontSize(13);
             doc.text(eur(resIndexed.ahorro_anual) + tr('/ AÑO'), rightX + 3, rightY + 15);
             
