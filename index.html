@@ -999,14 +999,14 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
                             </svg>
-                            📋 COPIAR COMPARATIVO (HTML)
+                            <span data-i18n="📋 COPIAR COMPARATIVO (HTML)">📋 COPIAR COMPARATIVO (HTML)</span>
                         </button>
                         
                         <button onclick="generateDualPDF()" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-3">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                             </svg>
-                            📄 CREAR PDF COMPARATIVO
+                            <span data-i18n="📄 CREAR PDF COMPARATIVO">📄 CREAR PDF COMPARATIVO</span>
                         </button>
                         
                         <button onclick="closeClientDataModal()" class="w-full py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl transition-all">
@@ -14788,7 +14788,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     return;
                 }
             
-                const clientName = document.getElementById('client-name').value.trim() || '[NOMBRE COMPLETO CLIENTE]';
+                const clientName = document.getElementById('client-name').value.trim() || tr('[NOMBRE COMPLETO CLIENTE]');
                 const clientPhone = document.getElementById('client-phone').value.trim() || '';
                 const clientEmail = document.getElementById('client-email').value.trim() || '';
                 
@@ -15383,7 +15383,7 @@ ${clientName}
                 return;
             }
             
-            const clientName = document.getElementById('client-name').value.trim() || '[NOMBRE COMPLETO CLIENTE]';
+            const clientName = document.getElementById('client-name').value.trim() || tr('[NOMBRE COMPLETO CLIENTE]');
             const clientPhone = document.getElementById('client-phone').value.trim() || '';
             const clientEmail = document.getElementById('client-email').value.trim() || '';
             
@@ -15395,7 +15395,11 @@ ${clientName}
         }
         
         // Función: Generar PDF DUAL
-        function dualGeneratePDF(comercialCode = 'D=00', clientName = '[NOMBRE COMPLETO CLIENTE]', clientPhone = '', clientEmail = '') {
+        function dualGeneratePDF(comercialCode = 'D=00', clientName = '', clientPhone = '', clientEmail = '') {
+            // Si clientName está vacío, usar el placeholder traducido
+            if (!clientName) {
+                clientName = tr('[NOMBRE COMPLETO CLIENTE]');
+            }
             console.log('📄 Generando PDF DUAL con datos capturados:');
             console.log('  - comercialCode:', comercialCode);
             console.log('  - clientName:', clientName);
@@ -15411,6 +15415,11 @@ ${clientName}
                 alert('🇨🇳 生成PDF文件中...\n为了确保字符正确显示，PDF将使用英语生成。\n\n🇬🇧 Generating PDF...\nTo ensure correct character display, the PDF will be generated in English.');
                 // Cambiar temporalmente a inglés
                 window.LANG.change('en', true); // skipReload = true
+                
+                // Re-traducir clientName si es el placeholder
+                if (!document.getElementById('client-name').value.trim()) {
+                    clientName = tr('[NOMBRE COMPLETO CLIENTE]');
+                }
             }
             
             // Generar HTML usando la función auxiliar
@@ -20460,6 +20469,7 @@ ${clientName}
                 "¡AHORRA": { en: "SAVE", zh: "节省", de: "SPAREN SIE", fr: "ÉCONOMISEZ" },
                 "CADA MES!": { en: "EVERY MONTH!", zh: "每月！", de: "JEDEN MONAT!", fr: "CHAQUE MOIS !" },
                 "AHORRO:": { en: "SAVINGS:", zh: "节省：", de: "EINSPARUNGEN:", fr: "ÉCONOMIES :" },
+                "TOTAL AHORRO:": { en: "TOTAL SAVINGS:", zh: "总节省：", de: "GESAMTEINSPARUNGEN:", fr: "ÉCONOMIES TOTALES :" },
                 "PRECIOS APLICADOS:": { en: "APPLIED PRICES:", zh: "应用价格：", de: "ANGEWANDTE PREISE:", fr: "PRIX APPLIQUÉS :" },
                 "DESGLOSE DE COSTES": { en: "COST BREAKDOWN", zh: "成本明细", de: "KOSTENAUFSCHLÜSSELUNG", fr: "RÉPARTITION DES COÛTS" },
                 "DESGLOSE GAS": { en: "GAS BREAKDOWN", zh: "燃气明细", de: "GASAUFSCHLÜSSELUNG", fr: "RÉPARTITION GAZ" },
