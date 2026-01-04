@@ -129,7 +129,7 @@
         }
         /* Texto central del QR */
         #qr-visual-container::before { 
-            content: var(--qr-center-text, "DRK"); 
+            content: var(--qr-center-text, "DRK'); 
             position: absolute; 
             top: 50%; 
             left: 50%; 
@@ -553,7 +553,7 @@
                             </label>
                         </div>
                         
-                        <!-- Botones FIJA/INDEXADA (solo cuando selector NO marcado y modo "best") -->
+                        <!-- Botones FIJA/INDEXADA (solo cuando selector NO marcado y modo "best') -->
                         <div id="gas-type-buttons" class="pt-4 border-t border-slate-200 space-y-2">
                             <p class="text-sm font-bold text-slate-700 mb-2">Tipo de tarifa:</p>
                             <button 
@@ -999,14 +999,14 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
                             </svg>
-                            📋 COPIAR COMPARATIVO (HTML)
+                            <span data-i18n="📋 COPIAR COMPARATIVO (HTML)">📋 COPIAR COMPARATIVO (HTML)</span>
                         </button>
                         
                         <button onclick="generateDualPDF()" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-3">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                             </svg>
-                            📄 CREAR PDF COMPARATIVO
+                            <span data-i18n="📄 CREAR PDF COMPARATIVO">📄 CREAR PDF COMPARATIVO</span>
                         </button>
                         
                         <button onclick="closeClientDataModal()" class="w-full py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl transition-all">
@@ -1226,7 +1226,7 @@
 
             <div id="result-card" class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 mb-8 relative">
                 <div id="result-header" class="bg-gradient-to-r from-drk-800 to-drk-600 p-6 text-white text-center relative overflow-hidden">
-                    <p class="uppercase tracking-widest text-xs font-semibold text-drk-100 mb-1" id="best-offer-label"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
+                    <p class="uppercase tracking-widest text-xs font-semibold text-drk-100 mb-1" id="best-offer-label"${tr('LA MEJOR OPCIÓN PARA TI ES')}</p>
                     <h2 id="best-offer-name" class="text-2xl md:text-3xl font-extrabold leading-tight mb-2">Nombre Tarifa</h2>
                     <!-- offer.description del CSV -->
                     <p id="best-offer-desc" class="text-drk-100 text-sm opacity-90">Descripción</p> 
@@ -1239,18 +1239,18 @@
                         </div>
                         <div id="price-columns" class="w-full grid grid-cols-2 text-center text-sm border-b pb-4 border-slate-100">
                             <div class="border-r border-slate-200 pr-2">
-                                <p class="text-slate-400 text-xs font-semibold mb-2 uppercase"${tr("TU FACTURA ACTUAL")}</p>
+                                <p class="text-slate-400 text-xs font-semibold mb-2 uppercase"${tr('TU FACTURA ACTUAL')}</p>
                                 <div class="mb-3">
                                     <p class="text-xl font-bold text-cta-red-500 line-through decoration-cta-red-500/50 decoration-2" id="old-period-cost-display">0,00 €</p>
-                                    <p class="text-xs text-slate-500 font-medium" id="old-period-days-label"${tr("Total Periodo")}</p> 
+                                    <p class="text-xs text-slate-500 font-medium" id="old-period-days-label"${tr('Total Periodo')}</p> 
                                 </div>
                                 <div><p class="text-lg font-bold text-cta-red-500 line-through decoration-cta-red-500/50 decoration-2" id="old-annual-cost-display">0,00 €/año</p></div>
                             </div>
                             <div class="pl-2">
-                                <p class="text-drk-800 text-xs font-semibold mb-2 uppercase" id="new-cost-label"${tr("TU NUEVO COSTE DRK")}</p>
+                                <p class="text-drk-800 text-xs font-semibold mb-2 uppercase" id="new-cost-label"${tr('TU NUEVO COSTE DRK')}</p>
                                 <div class="mb-3">
                                     <p class="text-2xl font-black text-drk-900" id="new-monthly-cost-display">0,00 €/mes</p>
-                                    <p class="text-xs text-drk-800 font-medium" id="monthly-label"${tr("Estimado Mensual")}</p>
+                                    <p class="text-xs text-drk-800 font-medium" id="monthly-label"${tr('Estimado Mensual')}</p>
                                 </div>
                                 <div><p class="text-2xl font-black text-drk-900" id="new-annual-cost-display">0,00 €/año</p></div>
                             </div>
@@ -1920,8 +1920,8 @@
             }
         }
 
-        window.showMessageModal = (msg, title="Éxito") => setModalContent(msg, title, false);
-        window.showErrorModal = (msg, title="¡Atención!") => setModalContent(msg, title, true);
+        window.showMessageModal = (msg, title="Éxito') => setModalContent(msg, title, false);
+        window.showErrorModal = (msg, title="¡Atención!') => setModalContent(msg, title, true);
         
         function cleanupPasteCatcher() {
             const pasteCatcher = document.getElementById('paste-catcher');
@@ -1946,17 +1946,17 @@
             }, 50);
             
             // 2. Establecer contenido del modal
-            setModalContent(tr("Con el cuadro de texto invisible enfocado, pulse Ctrl+V (o Cmd+V) para pegar la imagen de la factura."), tr("Esperando Pegado (Ctrl+V)"), false);
+            setModalContent(tr('Con el cuadro de texto invisible enfocado, pulse Ctrl+V (o Cmd+V) para pegar la imagen de la factura.'), tr('Esperando Pegado (Ctrl+V)'), false);
 
             // 3. Configurar el botón de Cancelar dinámicamente
             let secondaryBtn = document.getElementById('secondary-action-btn');
-            secondaryBtn.textContent = tr("Cancelar Pegado");
+            secondaryBtn.textContent = tr('Cancelar Pegado');
             secondaryBtn.onclick = () => { onCancel(); hideErrorModal(); };
             secondaryBtn.classList.remove('hidden');
             
             // 4. Configurar botón principal para que también cancele
             const mainButton = document.querySelector('#error-modal button:not(#secondary-action-btn)');
-            mainButton.textContent = tr("Continuar Pegando");  
+            mainButton.textContent = tr('Continuar Pegando');  
             mainButton.onclick = () => { hideErrorModal(); };
         }
         
@@ -1988,7 +1988,7 @@
                     }
                 }
                 
-                if (!imageFound) window.showErrorModal("No se detectó ninguna imagen en el portapapeles.");
+                if (!imageFound) window.showErrorModal("No se detectó ninguna imagen en el portapapeles.');
             });
         }
         
@@ -2567,7 +2567,7 @@
 
                 if (!bestOverall) {
                     console.error('No se encontró ningún resultado válido');
-                    return window.showErrorModal("Sin resultados válidos. Asegúrate de que las tarifas están cargadas.");
+                    return window.showErrorModal("Sin resultados válidos. Asegúrate de que las tarifas están cargadas.');
                 }
                 
                 console.log('Best overall:', bestOverall.offer.name, bestOverall.totalAnnual);
@@ -2742,7 +2742,7 @@
                     const currentCost = comparisonMode === 'overall_best' ? powercupCost : drkCost;
                     const originalBill = parseFloat(final.originalBillAnnual) || parseFloat(final.totalBillPeriod) * 12 || 0;
                     
-                    // CORRECCIÓN: Usar final.totalAnnual si existe (ya tiene la lógica de "Tu Tarifa Actual")
+                    // CORRECCIÓN: Usar final.totalAnnual si existe (ya tiene la lógica de "Tu Tarifa Actual')
                     const totalAnnualCost = final.totalAnnual || currentCost;
                     
                     const newSupply = {
@@ -2900,13 +2900,13 @@
         }
 
         function finalizeMultiCups() {
-            if (multiCupsData.length === 0) return window.showErrorModal("Añada al menos un suministro.");
+            if (multiCupsData.length === 0) return window.showErrorModal("Añada al menos un suministro.');
 
             compareMultiOffers();
         }
 
         function compareMultiOffers() {
-            if (multiCupsData.length === 0) return window.showErrorModal("No hay suministros para comparar.");
+            if (multiCupsData.length === 0) return window.showErrorModal("No hay suministros para comparar.');
             
             console.log('=== DIAGNÓSTICO AHORRO CONSOLIDADO ===');
             console.log('Total CUPS:', multiCupsData.length);
@@ -3157,7 +3157,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-drk-100 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
+                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr('PROFESIONAL')}</p>
                         </div>
                     </div>
                 `;
@@ -3177,7 +3177,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-powercup-50 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
+                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr('PROFESIONAL')}</p>
                         </div>
                     </div>
                 `;
@@ -3205,10 +3205,10 @@
                         <!-- COLUMNA 1: TU FACTURA ACTUAL -->
                         <div class="text-center">
                             <div class="bg-slate-600 text-white py-2 px-2 rounded-t-lg">
-                                <p class="text-xs font-bold uppercase"${tr("TU FACTURA ACTUAL")}</p>
+                                <p class="text-xs font-bold uppercase"${tr('TU FACTURA ACTUAL')}</p>
                             </div>
                             <div class="bg-white border-2 border-slate-300 rounded-b-lg p-3">
-                                <p class="text-xs text-slate-500 mb-2 uppercase"${tr("TU FACTURA ACTUAL")}</p>
+                                <p class="text-xs text-slate-500 mb-2 uppercase"${tr('TU FACTURA ACTUAL')}</p>
                                 <p class="text-2xl font-black text-red-600 line-through mb-2">${eur(res.importe_total)}</p>
                                 <p class="text-xs text-slate-500 mb-3">${tr('Total Periodo')} (${res.dias_facturados || 'varios'} ${tr('días')})</p>
                                 <p class="text-2xl font-black text-red-600">${eur(res.originalBillAnnual)}/año</p>
@@ -3223,7 +3223,7 @@
                             <div class="${isDrk ? 'bg-drk-50 border-drk-400' : 'bg-powercup-50 border-powercup-400'} border-2 rounded-b-lg p-3">
                                 <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-2 font-bold">${isDrk ? 'DRK' : 'POWER CUP'} - TARIFAS FIJAS</p>
                                 <p class="text-2xl font-black ${isDrk ? 'text-drk-900' : 'text-powercup-900'} mb-2">${eur(res.totalAnnual / 12)}/mes</p>
-                                <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-3"${tr("Estimado Mensual")}</p>
+                                <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-3"${tr('Estimado Mensual')}</p>
                                 <p class="text-2xl font-black ${isDrk ? 'text-drk-900' : 'text-powercup-900'}">${eur(res.totalAnnual)}/año</p>
                             </div>
                         </div>
@@ -3236,7 +3236,7 @@
                             <div class="bg-green-50 border-2 border-green-400 rounded-b-lg p-3">
                                 <p class="text-xs text-green-700 mb-2 font-bold">${isDrk ? 'DRK' : 'POWER CUP'} - TARIFAS INDEXADAS</p>
                                 <p class="text-2xl font-black text-green-900 mb-2">${eur(totalIndexadoAnual / 12)}/mes</p>
-                                <p class="text-xs text-green-700 mb-3"${tr("Estimado Mensual")}</p>
+                                <p class="text-xs text-green-700 mb-3"${tr('Estimado Mensual')}</p>
                                 <p class="text-2xl font-black text-green-900">${eur(totalIndexadoAnual)}/año</p>
                             </div>
                         </div>
@@ -3381,7 +3381,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-drk-100 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
+                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr('PROFESIONAL')}</p>
                         </div>
                     </div>
                 `;
@@ -3401,7 +3401,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-powercup-50 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
+                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr('PROFESIONAL')}</p>
                         </div>
                     </div>
                 `;
@@ -3413,8 +3413,8 @@
             `;
 
             // MODIFICACIÓN: Mostrar Nombre y Descripción.
-            // Si el nombre es genérico ("Tu Mejor Elección"), solo mostramos el nombre en H2 y la descripción en el párrafo.
-            if (res.isMulti && res.savings > 0 && offer.name !== "Tu Tarifa Actual") {
+            // Si el nombre es genérico ("Tu Mejor Elección'), solo mostramos el nombre en H2 y la descripción en el párrafo.
+            if (res.isMulti && res.savings > 0 && offer.name !== "Tu Tarifa Actual') {
                 document.getElementById('best-offer-name').textContent = offer.name;
                 document.getElementById('best-offer-desc').textContent = offer.description;
             } else {
@@ -3436,7 +3436,7 @@
             if (res.savings <= 0) {
                 // Mensaje especial cuando no hay ahorro
                 document.getElementById('savings-label').textContent = "¡ENHORABUENA!";
-                savingsEl.innerHTML = `<div class="text-lg leading-tight font-bold">${tr("Actualmente estás en una buena tarifa.")}</div><div class="text-sm mt-3 leading-relaxed">${tr("Seguiremos estudiando el mercado y te avisaremos cuando encontremos alguna tarifa que se adapte a tu perfil de consumo.")}</div>`;
+                savingsEl.innerHTML = `<div class="text-lg leading-tight font-bold">${tr('Actualmente estás en una buena tarifa.')}</div><div class="text-sm mt-3 leading-relaxed">${tr('Seguiremos estudiando el mercado y te avisaremos cuando encontremos alguna tarifa que se adapte a tu perfil de consumo.')}</div>`;
                 const colorClass = brand.PRIMARY_TEXT.replace('text-', '');
                 savingsEl.classList.add('text-' + colorClass);
                 savingsEl.classList.remove('text-5xl', 'font-black');
@@ -3472,12 +3472,12 @@
             }
             
             document.getElementById('old-period-cost-display').textContent = eur(res.importe_total);
-            document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + tr("/año");
+            document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + tr('/año');
             document.getElementById('old-period-days-label').textContent = `${tr('Total Periodo')} (${tr('Variado')})`; // Días varían por factura
             
             
-            document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + tr("/mes");
-            document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + tr("/año");
+            document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + tr('/mes');
+            document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + tr('/año');
             
             
             // 2. Nuevo: Resumen de Suministros (Tipo, CUPS, Ahorro Individual)
@@ -3842,7 +3842,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-drk-100 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
+                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr('PROFESIONAL')}</p>
                         </div>
                     </div>
                 `;
@@ -3862,7 +3862,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-powercup-50 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
+                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr('PROFESIONAL')}</p>
                         </div>
                     </div>
                 `;
@@ -3885,10 +3885,10 @@
                         <!-- COLUMNA 1: TU FACTURA ACTUAL -->
                         <div class="text-center">
                             <div class="bg-slate-600 text-white py-2 px-2 rounded-t-lg">
-                                <p class="text-xs font-bold uppercase"${tr("TU FACTURA ACTUAL")}</p>
+                                <p class="text-xs font-bold uppercase"${tr('TU FACTURA ACTUAL')}</p>
                             </div>
                             <div class="bg-white border-2 border-slate-300 rounded-b-lg p-3">
-                                <p class="text-xs text-slate-500 mb-2 uppercase"${tr("TU FACTURA ACTUAL")}</p>
+                                <p class="text-xs text-slate-500 mb-2 uppercase"${tr('TU FACTURA ACTUAL')}</p>
                                 <p class="text-2xl font-black text-red-600 line-through mb-2">${eur(resFijo.originalBillPeriod || resFijo.importe_total)}</p>
                                 <p class="text-xs text-slate-500 mb-3">${tr('Total Periodo')} (${resFijo.dias_facturados || 0} ${tr('días')})</p>
                                 <p class="text-2xl font-black text-red-600">${eur(resFijo.originalBillAnnual)}/año</p>
@@ -3903,7 +3903,7 @@
                             <div class="${isDrk ? 'bg-drk-50 border-drk-400' : 'bg-powercup-50 border-powercup-400'} border-2 rounded-b-lg p-3">
                                 <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-2 font-bold">${resFijo.offer.name}</p>
                                 <p class="text-2xl font-black ${isDrk ? 'text-drk-900' : 'text-powercup-900'} mb-2">${eur(resFijo.totalAnnual / 12)}/mes</p>
-                                <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-3"${tr("Estimado Mensual")}</p>
+                                <p class="text-xs ${isDrk ? 'text-drk-700' : 'text-powercup-700'} mb-3"${tr('Estimado Mensual')}</p>
                                 <p class="text-2xl font-black ${isDrk ? 'text-drk-900' : 'text-powercup-900'}">${eur(resFijo.totalAnnual)}/año</p>
                             </div>
                         </div>
@@ -3916,7 +3916,7 @@
                             <div class="bg-green-50 border-2 border-green-400 rounded-b-lg p-3">
                                 <p class="text-xs text-green-700 mb-2 font-bold">${resIndexed.offer.name}</p>
                                 <p class="text-2xl font-black text-green-900 mb-2">${eur(resIndexed.totalAnnual / 12)}/mes</p>
-                                <p class="text-xs text-green-700 mb-3"${tr("Estimado Mensual")}</p>
+                                <p class="text-xs text-green-700 mb-3"${tr('Estimado Mensual')}</p>
                                 <p class="text-2xl font-black text-green-900">${eur(resIndexed.totalAnnual)}/año</p>
                             </div>
                         </div>
@@ -4015,7 +4015,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-drk-100 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
+                            <p class="text-drk-100 text-base md:text-lg font-bold">${tr('PROFESIONAL')}</p>
                         </div>
                     </div>
                 `;
@@ -4035,7 +4035,7 @@
                         <div class="text-center md:text-right bg-white/10 backdrop-blur-sm rounded-xl p-4">
                             <p class="text-white text-sm md:text-base font-bold uppercase tracking-wider">📊 ESTUDIO DE AHORRO</p>
                             <p class="text-powercup-50 text-xl md:text-2xl font-black mt-1">COMPARATIVA</p>
-                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr("PROFESIONAL")}</p>
+                            <p class="text-powercup-50 text-base md:text-lg font-bold">${tr('PROFESIONAL')}</p>
                         </div>
                     </div>
                 `;
@@ -4063,7 +4063,7 @@
             if (res.isNegativeSavings) {
                 // Mensaje especial cuando no hay ahorro
                 document.getElementById('savings-label').textContent = "¡ENHORABUENA!";
-                savingsEl.innerHTML = `<div class="text-lg leading-tight font-bold">${tr("Actualmente estás en una buena tarifa.")}</div><div class="text-sm mt-3 leading-relaxed">${tr("Seguiremos estudiando el mercado y te avisaremos cuando encontremos alguna tarifa que se adapte a tu perfil de consumo.")}</div>`;
+                savingsEl.innerHTML = `<div class="text-lg leading-tight font-bold">${tr('Actualmente estás en una buena tarifa.')}</div><div class="text-sm mt-3 leading-relaxed">${tr('Seguiremos estudiando el mercado y te avisaremos cuando encontremos alguna tarifa que se adapte a tu perfil de consumo.')}</div>`;
                 const colorClass = brand.PRIMARY_TEXT.replace('text-', '');
                 savingsEl.classList.add('text-' + colorClass);
                 savingsEl.classList.remove('text-5xl', 'font-black');
@@ -4104,11 +4104,11 @@
             }
             
             document.getElementById('old-period-cost-display').textContent = eur(res.importe_total);
-            document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + tr("/año");
+            document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + tr('/año');
             document.getElementById('old-period-days-label').textContent = `${tr('Total Periodo')} (${res.dias_facturados} ${tr('días')})`;
             
-            document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + tr("/mes");
-            document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + tr("/año");
+            document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + tr('/mes');
+            document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + tr('/año');
             
             // 2. Desglose (Datos Extraídos)
             let energyRows = '';
@@ -4196,19 +4196,19 @@
                     <div class="mb-4">
                         <p class="font-bold text-slate-800 mb-1">${tr('ENERGÍA')} (€/kWh)</p>
                         ${energyBreakdown}
-                        <div class="flex justify-between font-bold ${brand.SECONDARY_TEXT} border-t mt-1 pt-1"><span${tr("Subtotal Energía (Bruto)")}</span><span>${num(res.subEnergy, 2)} €</span></div>
+                        <div class="flex justify-between font-bold ${brand.SECONDARY_TEXT} border-t mt-1 pt-1"><span${tr('Subtotal Energía (Bruto)')}</span><span>${num(res.subEnergy, 2)} €</span></div>
                         ${discountRowsHtml}
                     </div>
 
                     <div class="border-t border-slate-200 pt-2 mb-2">
-                        <div class="flex justify-between font-bold text-slate-800"><span${tr("SUBTOTAL BASE (P+E)")}</span><span>${num(res.subBase, 2)} €</span></div>
+                        <div class="flex justify-between font-bold text-slate-800"><span${tr('SUBTOTAL BASE (P+E)')}</span><span>${num(res.subBase, 2)} €</span></div>
                         <div class="flex justify-between"><span>${tr('Imp. Eléc.')} (${num(res.ieRate * 100, 3)}%)</span><span>${num(res.costIE, 2)} €</span></div>
-                        <div class="flex justify-between font-bold text-lg border-t mt-1 pt-1"><span${tr("BASE IMPONIBLE")}</span><span>${num(res.baseImp, 2)} €</span></div>
+                        <div class="flex justify-between font-bold text-lg border-t mt-1 pt-1"><span${tr('BASE IMPONIBLE')}</span><span>${num(res.baseImp, 2)} €</span></div>
                         <div class="flex justify-between"><span>IVA (21%)</span><span>${num(res.costIVA, 2)} €</span></div>
                     </div>
                     
-                    <div class="bg-drk-900 text-white p-3 rounded-lg flex justify-between items-center text-md font-bold mb-1 mt-4"><span>${tr("TOTAL FACTURA")}</span><span>${eur(res.totalPeriod)}</span></div>
-                    <div class="text-center mt-2 ${brand.PRIMARY_TEXT} font-bold">${tr("Total Anual Estimado")}: ${eur(res.totalAnnual)}</div>
+                    <div class="bg-drk-900 text-white p-3 rounded-lg flex justify-between items-center text-md font-bold mb-1 mt-4"><span>${tr('TOTAL FACTURA')}</span><span>${eur(res.totalPeriod)}</span></div>
+                    <div class="text-center mt-2 ${brand.PRIMARY_TEXT} font-bold">${tr('Total Anual Estimado')}: ${eur(res.totalAnnual)}</div>
                 </div>
             `;
             
@@ -4300,7 +4300,7 @@
             
             if (!lastComparisonResult) {
                 console.error('ERROR: lastComparisonResult es null o undefined');
-                return window.showErrorModal("Primero realice una comparación.");
+                return window.showErrorModal("Primero realice una comparación.');
             }
             
             const currentLang = localStorage.getItem('appLanguage') || 'es';
@@ -4584,11 +4584,11 @@
                 document.body.removeChild(tempElement);
                 
                 if (success) {
-                    window.showMessageModal(tr("✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio."));
+                    window.showMessageModal(tr('✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio.'));
                     document.getElementById('send-offer-modal').classList.add('hidden');
                     document.getElementById('send-offer-modal').classList.remove('flex');
                 } else {
-                    window.showErrorModal(tr("No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte."));
+                    window.showErrorModal(tr('No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte.'));
                 }
                 
                 return;
@@ -4601,7 +4601,7 @@
             // El código anterior ya manejó todos los idiomas y terminó con return
             // Este código nunca se ejecutará pero lo dejo por compatibilidad
             const commercialCode = document.getElementById('comercial-code-input').value.trim();
-            if (!commercialCode) return window.showErrorModal("Indique el Código Comercial.");
+            if (!commercialCode) return window.showErrorModal("Indique el Código Comercial.');
 
             try {
                 // 1. Generar el HTML
@@ -4645,11 +4645,11 @@
                 document.body.removeChild(tempElement);
 
                 if (success) {
-                    window.showMessageModal(tr("✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio."));
+                    window.showMessageModal(tr('✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio.'));
                     document.getElementById('send-offer-modal').classList.add('hidden');
                     document.getElementById('send-offer-modal').classList.remove('flex');
                 } else {
-                    window.showErrorModal(tr("No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte."));
+                    window.showErrorModal(tr('No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte.'));
                 }
             } catch (e) {
                 console.error("Error al copiar al portapapeles:", e);
@@ -4690,7 +4690,7 @@
                     console.log('resIndexed recalculado:', resIndexed);
                 }
                 
-                window.showMessageModal("⏳ Generando PDF con comparación Fijo vs Indexado... Por favor espere.");
+                window.showMessageModal("⏳ Generando PDF con comparación Fijo vs Indexado... Por favor espere.');
                 
                 const { jsPDF } = window.jspdf;
                 let doc = new jsPDF('p', 'mm', 'a4');
@@ -5329,7 +5329,7 @@
                 }
                 
                 console.log('🟢 ANTES de showMessageModal');
-                window.showMessageModal("⏳ Generando PDF MULTICUPS con comparación Fijo vs Indexado... Por favor espere.");
+                window.showMessageModal("⏳ Generando PDF MULTICUPS con comparación Fijo vs Indexado... Por favor espere.');
                 console.log('🟢 DESPUÉS de showMessageModal');
                 
                 console.log('🟢 ANTES de obtener jsPDF');
@@ -6184,7 +6184,7 @@
             console.log('Verificando datos:', {hasElectricityData, hasGasData, hasDualData});
             
             if (!hasElectricityData && !hasGasData && !hasDualData) {
-                return window.showErrorModal("Primero realice una comparación.");
+                return window.showErrorModal("Primero realice una comparación.');
             }
             
             // Validar campos obligatorios
@@ -6196,7 +6196,7 @@
             const observations = document.getElementById('improvement-observations').value.trim();
             
             if (!commercialCode) {
-                return window.showErrorModal("El Código Comercial es obligatorio.");
+                return window.showErrorModal("El Código Comercial es obligatorio.');
             }
             
             try {
@@ -6225,7 +6225,7 @@
                         <div style="font-family: Arial, sans-serif; max-width: 900px;">
                             <h2 style="color: ${brandColor}; text-align: center;">⚡🔥 RESULTADO COMPARATIVA DUAL</h2>
                             <div style="background: linear-gradient(135deg, ${isDrk ? '#f0f9ff' : '#f7fee7'} 0%, ${isDrk ? '#e0f2fe' : '#ecfccb'} 100%); border: 3px solid ${brandColor}; border-radius: 12px; padding: 24px; margin: 20px 0;">
-                                <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</h3>
+                                <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;"${tr('LA MEJOR OPCIÓN PARA TI ES')}</h3>
                                 <h2 style="color: ${isDrk ? '#0c4a6e' : '#365314'}; text-align: center; font-size: 36px; margin: 16px 0;">Tus Tarifas Actuales</h2>
                                 <p style="text-align: center; color: ${brandColor}; font-size: 18px;">Es la mejor opción detectada</p>
                             </div>
@@ -6245,7 +6245,7 @@
                                         <td style="padding: 8px; text-align: right;">${electricitySupply?.tariff || 'N/A'}</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #BFDBFE;">
-                                        <td style="padding: 8px; font-weight: bold;"${tr("CUPS:")}</td>
+                                        <td style="padding: 8px; font-weight: bold;"${tr('CUPS:')}</td>
                                         <td style="padding: 8px; text-align: right; font-family: monospace; font-size: 11px;">${electricitySupply?.cups || 'N/A'}</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #BFDBFE;">
@@ -6615,7 +6615,7 @@ Desglose mensual estimado:
                     // VALIDACIÓN: Verificar que lastComparisonResult existe y tiene las propiedades necesarias
                     if (!lastComparisonResult || !lastComparisonResult.dias_facturados || !lastComparisonResult.energyCosts) {
                         console.error('❌ ERROR: lastComparisonResult incompleto', lastComparisonResult);
-                        return window.showErrorModal(tr("Error: Los datos de ELECTRICIDAD no están completos. Por favor, realice el cálculo de nuevo."));
+                        return window.showErrorModal(tr('Error: Los datos de ELECTRICIDAD no están completos. Por favor, realice el cálculo de nuevo.'));
                     }
                     
                     // Verificar si hay ahorro o no
@@ -6632,7 +6632,7 @@ Desglose mensual estimado:
                             <div style="font-family: Arial, sans-serif; max-width: 800px;">
                                 <h2 style="color: ${brandColor}; text-align: center;">⚡ RESULTADO COMPARATIVA ELECTRICIDAD</h2>
                                 <div style="background-color: ${isDrk ? '#f0f9ff' : '#f7fee7'}; border: 3px solid ${brandColor}; border-radius: 12px; padding: 24px; margin: 20px 0;">
-                                    <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</h3>
+                                    <h3 style="color: ${brandColor}; text-align: center; font-size: 24px;"${tr('LA MEJOR OPCIÓN PARA TI ES')}</h3>
                                     <h2 style="color: ${isDrk ? '#0c4a6e' : '#365314'}; text-align: center; font-size: 36px; margin: 16px 0;">Tu Tarifa Actual</h2>
                                     <p style="text-align: center; color: ${brandColor}; font-size: 18px;">Es la mejor opción detectada</p>
                                 </div>
@@ -6651,7 +6651,7 @@ Desglose mensual estimado:
                                             <td style="padding: 8px; text-align: right;">${lastComparisonResult.dias_facturados || 0} días</td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
-                                            <td style="padding: 8px; font-weight: bold;"${tr("CUPS:")}</td>
+                                            <td style="padding: 8px; font-weight: bold;"${tr('CUPS:')}</td>
                                             <td style="padding: 8px; text-align: right; font-family: monospace; font-size: 11px;">${lastComparisonResult.cups || 'N/A'}</td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid ${isDrk ? '#bfdbfe' : '#d9f99d'};">
@@ -6742,7 +6742,7 @@ CUPS: ${cups || 'No proporcionado'}
                         <h3>DATOS DEL CLIENTE:</h3>
                         <ul>
                             <li><strong>Nombre:</strong> ${clientName || 'No proporcionado'}</li>
-                            <li><strong${tr("CUPS:")}</strong> ${cups || 'No proporcionado'}</li>
+                            <li><strong${tr('CUPS:')}</strong> ${cups || 'No proporcionado'}</li>
                             <li><strong>Teléfono:</strong> ${phone || 'No proporcionado'}</li>
                             <li><strong>Email:</strong> ${email || 'No proporcionado'}</li>
                             ${observations ? `<li><strong>Observaciones:</strong> ${observations}</li>` : ''}
@@ -6828,7 +6828,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     document.getElementById('improvement-client-email').value = '';
                     document.getElementById('improvement-observations').value = '';
                 } else {
-                    window.showErrorModal("No se pudo copiar el contenido. Por favor, contacte a soporte.");
+                    window.showErrorModal("No se pudo copiar el contenido. Por favor, contacte a soporte.');
                 }
                 
             } catch (error) {
@@ -6896,7 +6896,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             
             if (!lastComparisonResult) {
                 console.error('ERROR: lastComparisonResult es null o undefined');
-                return window.showErrorModal("Primero realice una comparación.");
+                return window.showErrorModal("Primero realice una comparación.');
             }
             
             const commercialCode = document.getElementById('comercial-code-input').value.trim();
@@ -6904,7 +6904,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             const clientPhone = document.getElementById('client-phone-input').value.trim();
             const clientEmail = document.getElementById('client-email-input').value.trim();
             
-            if (!commercialCode) return window.showErrorModal("Indique el Código Comercial.");
+            if (!commercialCode) return window.showErrorModal("Indique el Código Comercial.');
             
             // IMPORTANTE: Detectar si hay resultado indexado para generar PDF dual
             // Puede estar en lastIndexedResult (individual) o en indexedTotals (MULTICUPS)
@@ -6935,7 +6935,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             
             try {
                 // Mostrar mensaje de carga
-                window.showMessageModal("⏳ Generando PDF profesional... Por favor espere.");
+                window.showMessageModal("⏳ Generando PDF profesional... Por favor espere.');
                 
                 // Importar jsPDF
                 const { jsPDF } = window.jspdf;
@@ -8567,7 +8567,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     <!-- CAJA PRINCIPAL -->
                     <div style="background-color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                         <div style="background-color: ${HEADER_BLUE}; color: white; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px;">
-                            <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
+                            <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;"${tr('LA MEJOR OPCIÓN PARA TI ES')}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold;">${BRAND_DISPLAY}</h2>
                             <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.95;">Ofrece el mayor ahorro consolidado con ${brand.NAME.toUpperCase()}.</p>
                         </div>
@@ -8578,10 +8578,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                 <!-- FACTURA ACTUAL -->
                                 <td style="width: 30%; vertical-align: top; text-align: center; padding: 0 10px;">
                                     <div style="padding: 15px; border-right: 1px solid #e5e7eb;">
-                                        <p style="margin: 0 0 8px 0; font-size: 10px; color: #6b7280; font-weight: 600; text-transform: uppercase;"${tr("TU FACTURA ACTUAL")}</p>
+                                        <p style="margin: 0 0 8px 0; font-size: 10px; color: #6b7280; font-weight: 600; text-transform: uppercase;"${tr('TU FACTURA ACTUAL')}</p>
                                         <div style="margin: 10px 0;">
                                             <p style="margin: 0; font-size: 20px; font-weight: bold; color: ${RED_CTA}; text-decoration: line-through;">${eur(resFijo.originalBillPeriod)}</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 9px; color: #9ca3af;"${tr("Total Periodo")}</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 9px; color: #9ca3af;"${tr('Total Periodo')}</p>
                                         </div>
                                         <div style="margin-top: 12px;">
                                             <p style="margin: 0; font-size: 20px; font-weight: bold; color: ${RED_CTA}; text-decoration: line-through;">${eur(resFijo.originalBillAnnual)}/año</p>
@@ -8599,7 +8599,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                         <div style="margin: 15px 0 0 0;">
                                             <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;">TU NUEVO COSTE ${BRAND_DISPLAY}</p>
                                             <p style="margin: 0; font-size: 22px; font-weight: bold; color: ${DRK_BLUE};">${eur(resFijo.totalAnnual / 12)}/mes</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr("Estimado Mensual")}</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr('Estimado Mensual')}</p>
                                             <p style="margin: 10px 0 0 0; font-size: 20px; font-weight: bold; color: ${DRK_BLUE};">${eur(resFijo.totalAnnual)}/año</p>
                                         </div>
                                     </div>
@@ -8615,7 +8615,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                         <div style="margin: 15px 0 0 0;">
                                             <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;">TU NUEVO COSTE ${BRAND_DISPLAY}</p>
                                             <p style="margin: 0; font-size: 22px; font-weight: bold; color: ${GREEN_SAVE};">${eur(resIndexed.totalAnnual / 12)}/mes</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr("Estimado Mensual")}</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr('Estimado Mensual')}</p>
                                             <p style="margin: 10px 0 0 0; font-size: 20px; font-weight: bold; color: ${GREEN_SAVE};">${eur(resIndexed.totalAnnual)}/año</p>
                                         </div>
                                     </div>
@@ -9107,13 +9107,13 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     </table>
                     
                     <div style="background-color: white; padding: 15px 30px; border-bottom: 2px solid #e5e7eb;">
-                        <p style="margin: 0; font-size: 12px; color: #374151;"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
+                        <p style="margin: 0; font-size: 12px; color: #374151;"><strong${tr('CLIENTE:')}</strong> ${clientName}</p>
                         <p style="margin: 5px 0 0 0; font-size: 11px; color: #6b7280;">CUPS TOTALES: ${res.cups} CUPS</p>
                     </div>
                     
                     <div style="background-color: white; padding: 30px; border-radius: 0 0 16px 16px; margin-bottom: 20px;">
                         <div style="background-color: ${HEADER_BLUE}; color: white; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px;">
-                            <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
+                            <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;"${tr('LA MEJOR OPCIÓN PARA TI ES')}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold;">${BRAND_DISPLAY}</h2>
                             <p style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.95;">Ofrece el mayor ahorro consolidado con ${brand.NAME.toUpperCase()}.</p>
                         </div>
@@ -9122,10 +9122,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             <tr>
                                 <td style="width: 30%; vertical-align: top; text-align: center; padding: 0 10px;">
                                     <div style="padding: 15px; border-right: 1px solid #e5e7eb;">
-                                        <p style="margin: 0 0 8px 0; font-size: 10px; color: #6b7280; font-weight: 600; text-transform: uppercase;"${tr("TU FACTURA ACTUAL")}</p>
+                                        <p style="margin: 0 0 8px 0; font-size: 10px; color: #6b7280; font-weight: 600; text-transform: uppercase;"${tr('TU FACTURA ACTUAL')}</p>
                                         <div style="margin: 10px 0;">
                                             <p style="margin: 0; font-size: 24px; font-weight: bold; color: ${RED_CTA}; text-decoration: line-through;">${eur(facturaActualTotal)}</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 9px; color: #9ca3af;"${tr("Total Periodo")}</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 9px; color: #9ca3af;"${tr('Total Periodo')}</p>
                                         </div>
                                         <div style="margin-top: 12px;">
                                             <p style="margin: 0; font-size: 20px; font-weight: bold; color: ${RED_CTA}; text-decoration: line-through;">${eur(facturaActualTotal)}/año</p>
@@ -9140,9 +9140,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                     <div style="padding: 15px 10px;">
                                         <p style="margin: 0; font-size: 32px; font-weight: bold; color: ${GREEN_SAVE};">${eur(ahorroFijo)}</p>
                                         <div style="margin: 15px 0 0 0;">
-                                            <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;"${tr("TU NUEVO COSTE DRK")}</p>
+                                            <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;"${tr('TU NUEVO COSTE DRK')}</p>
                                             <p style="margin: 0; font-size: 22px; font-weight: bold; color: ${DRK_BLUE};">${eur(nuevoCosteAnualFijo / 12)}/mes</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr("Estimado Mensual")}</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr('Estimado Mensual')}</p>
                                             <p style="margin: 10px 0 0 0; font-size: 20px; font-weight: bold; color: ${DRK_BLUE};">${eur(nuevoCosteAnualFijo)}/año</p>
                                         </div>
                                     </div>
@@ -9155,9 +9155,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                     <div style="padding: 15px 10px;">
                                         <p style="margin: 0; font-size: 32px; font-weight: bold; color: ${GREEN_SAVE};">${eur(ahorroIndexado)}</p>
                                         <div style="margin: 15px 0 0 0;">
-                                            <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;"${tr("TU NUEVO COSTE DRK")}</p>
+                                            <p style="margin: 0 0 3px 0; font-size: 10px; color: #6b7280; font-weight: 600;"${tr('TU NUEVO COSTE DRK')}</p>
                                             <p style="margin: 0; font-size: 22px; font-weight: bold; color: ${GREEN_SAVE};">${eur(nuevoCosteAnualIndexado / 12)}/mes</p>
-                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr("Estimado Mensual")}</p>
+                                            <p style="margin: 3px 0 0 0; font-size: 8px; color: #9ca3af;"${tr('Estimado Mensual')}</p>
                                             <p style="margin: 10px 0 0 0; font-size: 20px; font-weight: bold; color: ${GREEN_SAVE};">${eur(nuevoCosteAnualIndexado)}/año</p>
                                         </div>
                                     </div>
@@ -9449,9 +9449,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             <p style="margin:5px 0 0 0; font-size: 14px; opacity: 0.9;">TU TARIFA ACTUAL ES LA MÁS COMPETITIVA</p>
                         </td></tr>
                         <tr><td colspan="2" style="padding: 15px;">
-                            <p style="margin: 0; font-size: 13px;"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
-                            <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("CUPS:")}</strong> ${bd.cups}</p>
-                            <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("COMERCIAL:")}</strong> ${commercialCode || 'N/A'}</p>
+                            <p style="margin: 0; font-size: 13px;"><strong${tr('CLIENTE:')}</strong> ${clientName}</p>
+                            <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr('CUPS:')}</strong> ${bd.cups}</p>
+                            <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr('COMERCIAL:')}</strong> ${commercialCode || 'N/A'}</p>
                         </td></tr>
                         <tr><td colspan="2" style="background-color: ${BG_LIGHT}; padding: 25px 20px; text-align: center; border-top: 2px solid ${D_PRIMARY_MED}; border-bottom: 2px solid ${D_PRIMARY_MED};">
                             <div style="font-size: 60px; color: ${GREEN_SAVE_COLOR}; margin-bottom: 10px; line-height: 1;">&#9989;</div>
@@ -9497,21 +9497,21 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             const desgloseRows = `
                 <tr><td colspan="2"><div style="font-weight: bold; color: ${D_PRIMARY_MED}; padding: 5px 0 2px 0;">TÉRMINO POTENCIA (Precio en €/kW Día)</div></td></tr>
                 ${desglosePotencia}
-                <tr><td style="${rowLabel} border-bottom: 1px solid #eee; font-weight: bold; color: ${D_PRIMARY_DARK};"${tr("SUBTOTAL POTENCIA")}</td><td style="${rowValue} border-bottom: 1px solid #eee; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subPower, 2)} €</td></tr>
+                <tr><td style="${rowLabel} border-bottom: 1px solid #eee; font-weight: bold; color: ${D_PRIMARY_DARK};"${tr('SUBTOTAL POTENCIA')}</td><td style="${rowValue} border-bottom: 1px solid #eee; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subPower, 2)} €</td></tr>
                 
                 <tr><td colspan="2"><div style="font-weight: bold; color: ${D_PRIMARY_MED}; padding: 10px 0 2px 0;">TÉRMINO ENERGÍA (Precios en €/kWh)</div></td></tr>
                 ${desgloseEnergia}
-                <tr><td style="${rowLabel} border-bottom: 2px solid #333; font-weight: bold; color: #555;"${tr("Subtotal Energía (Bruto)")}</td><td style="${rowValue} border-bottom: 2px solid #333; font-weight: bold; color: #555; white-space: nowrap;">${num(bd.subEnergy, 2)} €</td></tr>
+                <tr><td style="${rowLabel} border-bottom: 2px solid #333; font-weight: bold; color: #555;"${tr('Subtotal Energía (Bruto)')}</td><td style="${rowValue} border-bottom: 2px solid #333; font-weight: bold; color: #555; white-space: nowrap;">${num(bd.subEnergy, 2)} €</td></tr>
                 
                 ${discountRowsHtml}
                 
-                <tr><td style="${rowLabel} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK};"${tr("SUBTOTAL BASE (P+E)")}</td><td style="${rowValue} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subBase, 2)} €</td></tr>
+                <tr><td style="${rowLabel} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK};"${tr('SUBTOTAL BASE (P+E)')}</td><td style="${rowValue} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subBase, 2)} €</td></tr>
                 <tr><td style="${rowLabel}">${tr('Imp. Eléc.')} (${num(bd.ieRate * 100, 3)}%)</td><td style="${rowValue} white-space: nowrap;">${num(bd.costIE, 2)} €</td></tr>
-                <tr><td style="${rowLabel} font-weight: bold;"${tr("BASE IMPONIBLE")}</td><td style="${rowValue} font-weight: bold; white-space: nowrap;">${num(bd.baseImp, 2)} €</td></tr>
+                <tr><td style="${rowLabel} font-weight: bold;"${tr('BASE IMPONIBLE')}</td><td style="${rowValue} font-weight: bold; white-space: nowrap;">${num(bd.baseImp, 2)} €</td></tr>
                 <tr><td style="${rowLabel}">IVA (21%)</td><td style="${rowValue} white-space: nowrap;">${num(bd.costIVA, 2)} €</td></tr>
                 
                 <tr><td style="${rowLabel} background-color: #eee; font-weight: bold;">TOTAL FACTURA (${bd.dias_facturados} DÍAS)</td><td style="${rowValue} background-color: #eee; font-size: 16px; white-space: nowrap;">${eur(bd.totalPeriod)}</td></tr>
-                <tr><td style="${rowLabel} background-color: #eee; font-weight: bold;"${tr("TOTAL AÑO (PROYECTADO)")}</td><td style="${rowValue} background-color: #eee; font-size: 16px; white-space: nowrap;">${eur(bd.totalAnnual)}</td></tr>
+                <tr><td style="${rowLabel} background-color: #eee; font-weight: bold;"${tr('TOTAL AÑO (PROYECTADO)')}</td><td style="${rowValue} background-color: #eee; font-size: 16px; white-space: nowrap;">${eur(bd.totalAnnual)}</td></tr>
             `;
 
             const discountSummaryRow = bd.discountRate > 0 ? `
@@ -9603,13 +9603,13 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     </td></tr>
                     
                     <tr><td colspan="2" style="padding: 15px;">
-                        <p style="margin: 0; font-size: 13px;"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
-                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("CUPS:")}</strong> ${bd.cups}</p>
-                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("COMERCIAL:")}</strong> ${commercialCode || 'N/A'}</p>
+                        <p style="margin: 0; font-size: 13px;"><strong${tr('CLIENTE:')}</strong> ${clientName}</p>
+                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr('CUPS:')}</strong> ${bd.cups}</p>
+                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr('COMERCIAL:')}</strong> ${commercialCode || 'N/A'}</p>
                     </td></tr>
 
                     <tr><td colspan="2" style="background-color: ${BG_LIGHT}; padding: 15px; text-align: center; border-top: 2px solid ${D_PRIMARY_MED}; border-bottom: 2px solid ${D_PRIMARY_MED};">
-                        <p style="margin: 0; color: ${D_PRIMARY_MED}; font-size: 12px; font-weight: bold; letter-spacing: 1px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
+                        <p style="margin: 0; color: ${D_PRIMARY_MED}; font-size: 12px; font-weight: bold; letter-spacing: 1px;"${tr('LA MEJOR OPCIÓN PARA TI ES')}</p>
                         <h2 style="margin: 5px 0 0 0; color: ${D_PRIMARY_DARK}; font-size: 22px;">${commercialTariffName}</h2>
                     </td></tr>
 
@@ -9636,15 +9636,15 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 20px; table-layout: fixed;">
                             <tr>
                                 <td style="width: 50%; padding: 15px; background-color: #f9fafb; border: 1px solid #ddd; text-align: center; vertical-align: top;">
-                                    <div style="font-size: 11px; font-weight: bold; color: #888; text-transform: uppercase;"${tr("TU FACTURA ACTUAL")}</div>
+                                    <div style="font-size: 11px; font-weight: bold; color: #888; text-transform: uppercase;"${tr('TU FACTURA ACTUAL')}</div>
                                     <div style="font-size: 20px; font-weight: bold; color: #ef4444; margin: 5px 0; text-decoration: line-through; white-space: nowrap;">${eur(bd.originalBillAnnual)}</div>
-                                    <div style="font-size: 11px; color: #666;">${tr("/ AÑO")}</div>
+                                    <div style="font-size: 11px; color: #666;">${tr('/ AÑO')}</div>
                                 </td>
                                 <td style="width: 50%; padding: 15px; background-color: ${BG_LIGHT}; border: 1px solid ${D_PRIMARY_MED}; text-align: center; vertical-align: top;">
-                                    <div style="font-size: 11px; font-weight: bold; color: ${D_PRIMARY_MED}; text-transform: uppercase;">${tr("TU NUEVO COSTE")} ${commercializadoraName}</div>
+                                    <div style="font-size: 11px; font-weight: bold; color: ${D_PRIMARY_MED}; text-transform: uppercase;">${tr('TU NUEVO COSTE')} ${commercializadoraName}</div>
                                     <div style="font-size: 24px; font-weight: bold; color: ${D_PRIMARY_DARK}; margin: 5px 0; white-space: nowrap;">${eur(bd.totalAnnual)}</div>
-                                    <div style="font-size: 11px; color: ${D_PRIMARY_MED};">${tr("/ AÑO")}</div>
-                                    <div style="font-size: 13px; font-weight: bold; color: ${D_PRIMARY_DARK}; margin-top: 5px; white-space: nowrap;">${eur(bd.totalAnnual/12)} ${tr("/ MES")}</div>
+                                    <div style="font-size: 11px; color: ${D_PRIMARY_MED};">${tr('/ AÑO')}</div>
+                                    <div style="font-size: 13px; font-weight: bold; color: ${D_PRIMARY_DARK}; margin-top: 5px; white-space: nowrap;">${eur(bd.totalAnnual/12)} ${tr('/ MES')}</div>
                                 </td>
                             </tr>
                         </table>
@@ -9976,10 +9976,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     </td></tr>
                     
                     <tr><td colspan="2" style="padding: 15px;">
-                        <p style="margin: 0; font-size: 13px;"><strong${tr("CLIENTE:")}</strong> ${clientName}</p>
+                        <p style="margin: 0; font-size: 13px;"><strong${tr('CLIENTE:')}</strong> ${clientName}</p>
                         <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>TOTAL CUPS:</strong> ${individualResults.length}</p>
                         <p style="margin: 5px 0 0 0; font-size: 13px;"><strong>OFERTA CONSOLIDADA:</strong> ${consolidatedTariffName}</p>
-                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr("COMERCIAL:")}</strong> ${commercialCode || 'N/A'}</p>
+                        <p style="margin: 5px 0 0 0; font-size: 13px;"><strong${tr('COMERCIAL:')}</strong> ${commercialCode || 'N/A'}</p>
                     </td></tr>
 
                     <tr><td colspan="2" style="padding: 0 20px;">
@@ -10053,7 +10053,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 const tariffToUse = isMultiCupsMode ? multiCupsAddType : currentTariffType;
                 console.log('tariffToUse:', tariffToUse);
                 
-                if (!tariffToUse) return window.showErrorModal("Error: Seleccione un tipo de tarifa (2.0TD o 3.0TD).");
+                if (!tariffToUse) return window.showErrorModal("Error: Seleccione un tipo de tarifa (2.0TD o 3.0TD).');
                 
                 const getVal = id => parseFloat(document.getElementById(id).value.replace(',','.')) || 0;
                 
@@ -10076,7 +10076,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 
                 console.log('Data prepared:', data);
                 
-                if (data.importe_total <= 0) return window.showErrorModal("Introduce el total de la factura.");
+                if (data.importe_total <= 0) return window.showErrorModal("Introduce el total de la factura.');
                 
                 closeManualInputModal();
                 
@@ -10097,7 +10097,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             const isMultiCupsMode = currentTariffType === 'MULTICUPS';
             const tariffToConfigure = isMultiCupsMode ? multiCupsAddType : currentTariffType;
             
-            if (isMultiCupsMode && !tariffToConfigure) return window.showErrorModal("Error interno: Seleccione primero 2.0 TD o 3.0 TD en la pantalla anterior.");
+            if (isMultiCupsMode && !tariffToConfigure) return window.showErrorModal("Error interno: Seleccione primero 2.0 TD o 3.0 TD en la pantalla anterior.');
             
             // 1. Limpiar inputs
             clearManualInputs('input');
@@ -11579,7 +11579,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             // Actualizar UI y volver a la vista SAGA
             document.getElementById('tariff-display-badge').textContent = multiCupsData.length;
             
-            window.showMessageModal(`Suministro ${result.cups} (${result.offer.name}) añadido. Total: ${multiCupsData.length}`, "Suministro Añadido");
+            window.showMessageModal(`Suministro ${result.cups} (${result.offer.name}) añadido. Total: ${multiCupsData.length}`, "Suministro Añadido');
             
             document.getElementById('initial-view').classList.add('hidden');
             showMultiCupsSagaView();
@@ -12175,7 +12175,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         input.classList.add(activeBrand.NAME.includes('DRK') ? 'focus:ring-drk-500' : 'focus:ring-powercup-500');
                     });
                 } else {
-                    window.showErrorModal("Por favor, analice una factura primero para generar una oferta.");
+                    window.showErrorModal("Por favor, analice una factura primero para generar una oferta.');
                 }
             };
             
@@ -12188,7 +12188,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     document.getElementById('request-improvement-modal').classList.remove('hidden');
                     document.getElementById('request-improvement-modal').classList.add('flex');
                 } else {
-                    window.showErrorModal("Por favor, analice una factura primero.");
+                    window.showErrorModal("Por favor, analice una factura primero.');
                 }
             };
             
@@ -12200,7 +12200,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         document.getElementById('request-improvement-modal').classList.remove('hidden');
                         document.getElementById('request-improvement-modal').classList.add('flex');
                     } else {
-                        window.showErrorModal("Por favor, analice una factura primero.");
+                        window.showErrorModal("Por favor, analice una factura primero.');
                     }
                 };
             }
@@ -12213,7 +12213,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         document.getElementById('request-improvement-modal').classList.remove('hidden');
                         document.getElementById('request-improvement-modal').classList.add('flex');
                     } else {
-                        window.showErrorModal("Por favor, realice una comparación DUAL primero.");
+                        window.showErrorModal("Por favor, realice una comparación DUAL primero.');
                     }
                 };
             }
@@ -12739,26 +12739,26 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     const runAttempts = () => {
                         try {
                             // Intentos 1-6: Escalados progresivos sobre región recortada
-                            if (tryScale(1.0, "📷 Región QR")) return;
+                            if (tryScale(1.0, "📷 Región QR')) return;
                             
                             setTimeout(() => { try {
-                                if (tryScale(2.0, "🔍 2x")) return;
+                                if (tryScale(2.0, "🔍 2x')) return;
                                 
                                 setTimeout(() => { try {
-                                    if (tryScale(3.0, "🔎 3x")) return;
+                                    if (tryScale(3.0, "🔎 3x')) return;
                                     
                                     setTimeout(() => { try {
-                                        if (tryScale(4.0, "🔬 4x")) return;
+                                        if (tryScale(4.0, "🔬 4x')) return;
                                         
                                         setTimeout(() => { try {
-                                            if (tryScale(6.0, "🎯 6x")) return;
+                                            if (tryScale(6.0, "🎯 6x')) return;
                                             
                                             setTimeout(() => { try {
-                                                if (tryScale(8.0, "🚀 8x")) return;
+                                                if (tryScale(8.0, "🚀 8x')) return;
                                                 
                                                 setTimeout(() => { try {
                                                     // Intento 7: Escalado 10x (QR muy pequeños)
-                                                    if (tryScale(10.0, "💪 10x")) return;
+                                                    if (tryScale(10.0, "💪 10x')) return;
                                                     
                                                     setTimeout(() => { try {
                                                         // Intento 8: Reducir desenfoque
@@ -12911,7 +12911,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     console.error('❌ Error al cargar:', e);
                     overlay.classList.add('hidden');
                     overlay.classList.remove('flex');
-                    window.showErrorModal("❌ Error al procesar la imagen.");
+                    window.showErrorModal("❌ Error al procesar la imagen.');
                 }
             };
             
@@ -12921,7 +12921,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 URL.revokeObjectURL(url);
                 overlay.classList.add('hidden');
                 overlay.classList.remove('flex');
-                window.showErrorModal("❌ No se pudo cargar la imagen.");
+                window.showErrorModal("❌ No se pudo cargar la imagen.');
             };
             
             img.src = url;
@@ -12932,10 +12932,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             const currentTypeCheck = currentTariffType === 'MULTICUPS' ? multiCupsAddType : currentTariffType;
 
             if (currentTypeCheck !== '2.0TD') {
-                return window.showErrorModal("El escáner QR solo es compatible con la tarifa 2.0 TD.");
+                return window.showErrorModal("El escáner QR solo es compatible con la tarifa 2.0 TD.');
             }
             if (currentTariffs['2.0TD'].length === 0) {
-                 return window.showErrorModal("Cargando tarifas para esta modalidad. Por favor, espere.");
+                 return window.showErrorModal("Cargando tarifas para esta modalidad. Por favor, espere.');
             }
             if (scannerRunning) return;
             
@@ -12993,7 +12993,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 console.error(err); 
                 stopScanner(); 
                 cancelScanner(); 
-                window.showErrorModal("Error al acceder a la cámara. Intente subir una imagen.");
+                window.showErrorModal("Error al acceder a la cámara. Intente subir una imagen.');
             });
         }
         function scanLoop() {
@@ -13214,7 +13214,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             // Convertir a Blob y procesar
             captureCanvas.toBlob((blob) => {
                 if (!blob) {
-                    window.showErrorModal("Error al capturar la foto.");
+                    window.showErrorModal("Error al capturar la foto.');
                     return;
                 }
                 
@@ -13273,7 +13273,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             
             const isMultiCupsMode = currentTariffType === 'MULTICUPS';
 
-            if (directData.importe_total <= 0) return window.showErrorModal("QR incompleto. No se detectó el Importe Total de la factura.");
+            if (directData.importe_total <= 0) return window.showErrorModal("QR incompleto. No se detectó el Importe Total de la factura.');
 
             document.getElementById('scanner-view').classList.add('hidden');
             document.getElementById('loading-status').classList.add('hidden');
@@ -13309,11 +13309,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 if (currentTariffType === '2.0TD' && currentTariffs['2.0TD'].length > 0) {
                     compareOffers(directData);
                 } else if (currentTariffs[currentTariffType]?.length > 0) {
-                     window.showMessageModal(`QR leído. Por favor, revise y complete los datos faltantes para tarifas ${currentTariffType}.`, "Completar Datos Manuales");
+                     window.showMessageModal(`QR leído. Por favor, revise y complete los datos faltantes para tarifas ${currentTariffType}.`, "Completar Datos Manuales');
                      document.getElementById('manual-input-modal').classList.remove('hidden');
                      document.getElementById('manual-input-modal').classList.add('flex');
                 } else {
-                    window.showErrorModal("Las tarifas no han cargado aún. Por favor, intente de nuevo.");
+                    window.showErrorModal("Las tarifas no han cargado aún. Por favor, intente de nuevo.');
                 }
             }
         }
@@ -13594,7 +13594,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 }
             }
 
-            if (!finalIndividualResult) return window.showErrorModal("No se pudo calcular el ahorro para esta CUPS.");
+            if (!finalIndividualResult) return window.showErrorModal("No se pudo calcular el ahorro para esta CUPS.');
             
             // Recalcular el ahorro basado en el resultado final seleccionado
             finalIndividualResult.savings = finalIndividualResult.originalBillAnnual - finalIndividualResult.totalAnnual;
@@ -13741,7 +13741,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                  const row = lines[i].trim();
                  if(!row) continue;
                  
-                 const regex = new RegExp(`(?:^|${delimiter})(\"(?:[^\"]|\"\")*\"|[^${delimiter}]*)`,"g");
+                 const regex = new RegExp(`(?:^|${delimiter})(\"(?:[^\"]|\"\')*\"|[^${delimiter}]*)`,"g');
                  const values = [];
                  let match = null;
                  regex.lastIndex = 0;  
@@ -15138,20 +15138,20 @@ ${clientName}
         
         <!-- DATOS CLIENTE -->
         <div style="padding:15px 30px;background:#f8f9fa">
-            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong>${tr("CLIENTE:")}</strong> ${clientName}</p>
-            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong>${tr("CUPS:")}</strong> ${dualSupplies[0].cups}</p>
-            <p style="margin:0;font-size:11px;color:#1e293b"><strong>${tr("COMERCIAL:")}</strong> ${comercialCode}</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong>${tr('CLIENTE:')}</strong> ${clientName}</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#1e293b"><strong>${tr('CUPS:')}</strong> ${dualSupplies[0].cups}</p>
+            <p style="margin:0;font-size:11px;color:#1e293b"><strong>${tr('COMERCIAL:')}</strong> ${comercialCode}</p>
         </div>
         
         <!-- LA MEJOR OPCIÓN -->
         <div style="padding:15px 30px;background:white;text-align:center">
-            <p style="margin:0 0 5px 0;font-size:11px;color:#546e7a;font-weight:600;letter-spacing:0.5px">${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
+            <p style="margin:0 0 5px 0;font-size:11px;color:#546e7a;font-weight:600;letter-spacing:0.5px">${tr('LA MEJOR OPCIÓN PARA TI ES')}</p>
             <p style="margin:0;font-size:18px;color:#546e7a;font-weight:bold;letter-spacing:1px">${brandName}</p>
         </div>
         
         <!-- RESUMEN TABLA -->
         <div style="margin:25px 30px;padding:20px;background:white;border:3px solid #e5e7eb;border-radius:10px">
-            <p style="margin:0 0 15px 0;font-size:14px;color:#1e293b;font-weight:bold;text-align:center;text-transform:uppercase">${tr("RESUMEN DE SUMINISTROS INCLUIDOS")}</p>
+            <p style="margin:0 0 15px 0;font-size:14px;color:#1e293b;font-weight:bold;text-align:center;text-transform:uppercase">${tr('RESUMEN DE SUMINISTROS INCLUIDOS')}</p>
             <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
                 <thead>
                     <tr style="background:#f1f5f9">
@@ -15200,9 +15200,9 @@ ${clientName}
                 <tr>
                     <!-- TU FACTURA ACTUAL -->
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
-                        <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr("TU FACTURA ACTUAL")}</p>
+                        <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr('TU FACTURA ACTUAL')}</p>
                         <p style="margin:0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${(totalOriginalBill/12).toFixed(2)} ${tr('€/mes')}</p>
-                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr("Total Periodo")} (31 ${tr('días')})</p>
+                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr('Total Periodo')} (31 ${tr('días')})</p>
                         <p style="margin:20px 0 0 0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${totalOriginalBill.toFixed(2)} ${tr('€/año')}</p>
                     </td>
                     
@@ -15215,7 +15215,7 @@ ${clientName}
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
                         <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr('TU NUEVO COSTE')} ${brandName}</p>
                         <p style="margin:0;font-size:28px;color:#475569;font-weight:500">${(totalNew/12).toFixed(2)} ${tr('€/mes')}</p>
-                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr("Estimado Mensual")}</p>
+                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr('Estimado Mensual')}</p>
                         <p style="margin:20px 0 0 0;font-size:28px;color:#475569;font-weight:500">${totalNew.toFixed(2)} ${tr('€/año')}</p>
                     </td>
                 </tr>
@@ -16597,7 +16597,7 @@ ${clientName}
                     console.log('  - Ahorro anual:', originalBillAnnual - totalAnual);
                     console.log('  - Ahorro mensual:', importeFacturaMensual - totalMensual);
                     
-                    // Parsear valores correctamente (pueden venir como "11.18€" o "11,18")
+                    // Parsear valores correctamente (pueden venir como "11.18€" o "11,18')
                     const parseGasValue = (val) => {
                         if (!val) return 0;
                         if (typeof val === 'number') return val;
@@ -16717,7 +16717,7 @@ ${clientName}
                 html += `
                 <div class="mb-6 p-6 border-4 border-red-500 bg-red-50 rounded-2xl">
                     <div class="text-center mb-6">
-                        <h3 class="text-3xl font-black text-red-600 mb-4"${tr("LA MEJOR OPCIÓN PARA TI ES")}</h3>
+                        <h3 class="text-3xl font-black text-red-600 mb-4"${tr('LA MEJOR OPCIÓN PARA TI ES')}</h3>
                         <h2 class="text-5xl font-black text-red-700 mb-3">Tu Tarifa Actual</h2>
                         <p class="text-lg text-red-600 font-semibold">Es la mejor opción detectada</p>
                     </div>
@@ -17308,9 +17308,9 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: white; border: 1px solid #e0e0e0; margin-top: 20px;">
                     <tr>
                         <td style="padding: 20px 40px;">
-                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong${tr("CLIENTE:")}</strong> [NOMBRE COMPLETO CLIENTE]</p>
-                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong${tr("CUPS:")}</strong> ES0021000020679723GY</p>
-                            <p style="margin: 0; font-size: 14px;"><strong${tr("COMERCIAL:")}</strong> zdvxzc</p>
+                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong${tr('CLIENTE:')}</strong> [NOMBRE COMPLETO CLIENTE]</p>
+                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong${tr('CUPS:')}</strong> ES0021000020679723GY</p>
+                            <p style="margin: 0; font-size: 14px;"><strong${tr('COMERCIAL:')}</strong> zdvxzc</p>
                         </td>
                     </tr>
                 </table>
@@ -17319,7 +17319,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 20px;">
                     <tr>
                         <td style="padding: 30px 40px; text-align: center;">
-                            <p style="margin: 0 0 10px 0; font-size: 16px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
+                            <p style="margin: 0 0 10px 0; font-size: 16px;"${tr('LA MEJOR OPCIÓN PARA TI ES')}</p>
                             <h2 style="margin: 0; font-size: 36px; font-weight: bold;">${tariffName}</h2>
                         </td>
                     </tr>
@@ -17329,7 +17329,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
                     <tr>
                         <td style="padding: 20px 40px; text-align: center;">
-                            <p style="margin: 0 0 10px 0; font-size: 16px; color: #666; font-weight: bold;">${tr("TU AHORRO ANUAL ESTIMADO ES:")}</p>
+                            <p style="margin: 0 0 10px 0; font-size: 16px; color: #666; font-weight: bold;">${tr('TU AHORRO ANUAL ESTIMADO ES:')}</p>
                         </td>
                     </tr>
                 </table>
@@ -17338,7 +17338,7 @@ ${clientName}
                     <tr>
                         <td style="padding: 30px; text-align: center;">
                             <h1 style="margin: 0; font-size: 48px; font-weight: bold; color: white;">${eur(ahorroAnual)}</h1>
-                            <p style="margin: 10px 0 0 0; font-size: 18px; color: white; font-weight: bold;">${tr("¡CONSIGUE TU AHORRO ANUAL!")}</p>
+                            <p style="margin: 10px 0 0 0; font-size: 18px; color: white; font-weight: bold;">${tr('¡CONSIGUE TU AHORRO ANUAL!')}</p>
                         </td>
                     </tr>
                 </table>
@@ -17347,16 +17347,16 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
                     <tr>
                         <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
-                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;"${tr("TU FACTURA ACTUAL")}</p>
+                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;"${tr('TU FACTURA ACTUAL')}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(facturaActualAnio)}</h2>
-                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">${tr("/ AÑO")}</p>
+                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">${tr('/ AÑO')}</p>
                         </td>
                         <td style="width: 4%;"></td>
                         <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
-                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">${tr("TU NUEVO COSTE")} ${brandName}</p>
+                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">${tr('TU NUEVO COSTE')} ${brandName}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: ${primaryColor};">${eur(nuevoAnio)}</h2>
-                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">${tr("/ AÑO")}</p>
-                            <p style="margin: 8px 0 0 0; font-size: 16px; color: ${primaryColor}; font-weight: bold;">${eur(nuevoMes)} ${tr("/ MES")}</p>
+                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">${tr('/ AÑO')}</p>
+                            <p style="margin: 8px 0 0 0; font-size: 16px; color: ${primaryColor}; font-weight: bold;">${eur(nuevoMes)} ${tr('/ MES')}</p>
                         </td>
                     </tr>
                 </table>
@@ -17376,15 +17376,15 @@ ${clientName}
                         <td style="padding: 12px 40px; font-weight: bold; font-size: 14px; text-align: right;">PRECIO ${brandName}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">${tr("Precio fijo (€/día)")}</td>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">${tr('Precio fijo (€/día)')}</td>
                         <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p_fijo_diario / 365)}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">${tr("Energía (€/kWh)")}</td>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">${tr('Energía (€/kWh)')}</td>
                         <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p1_price)}</td>
                     </tr>
                     <tr style="background-color: #f0fdf4;">
-                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px;">${tr("AHORRO ANUAL")}</td>
+                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px;">${tr('AHORRO ANUAL')}</td>
                         <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px; text-align: right; color: #16a34a;">${eur(ahorroAnual)}</td>
                     </tr>
                 </table>
@@ -17393,7 +17393,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 30px;">
                     <tr>
                         <td style="padding: 15px 40px;">
-                            <h3 style="margin: 0; font-size: 16px; font-weight: bold;">${tr("DESGLOSE DETALLADO DE LA SIMULACIÓN")} (${tariffName})</h3>
+                            <h3 style="margin: 0; font-size: 16px; font-weight: bold;">${tr('DESGLOSE DETALLADO DE LA SIMULACIÓN')} (${tariffName})</h3>
                         </td>
                     </tr>
                 </table>
@@ -17405,37 +17405,37 @@ ${clientName}
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr("Precio fijo")} (${dias} días x ${num(result.p_fijo_diario / 365)})</td>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr('Precio fijo')} (${dias} días x ${num(result.p_fijo_diario / 365)})</td>
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right; font-weight: bold;">${eur(result.total_fijo)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
-                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr("SUBTOTAL POTENCIA")}</td>
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr('SUBTOTAL POTENCIA')}</td>
                         <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_fijo)}</td>
                     </tr>
                     
                     <tr>
                         <td style="padding: 15px 40px; padding-top: 20px;" colspan="2">
-                            <p style="margin: 0 0 10px 0; font-size: 15px; font-weight: bold; color: ${primaryColor};">${tr("TÉRMINO ENERGÍA")} (${tr("Precio en")} €/kWh)</p>
+                            <p style="margin: 0 0 10px 0; font-size: 15px; font-weight: bold; color: ${primaryColor};">${tr('TÉRMINO ENERGÍA')} (${tr('Precio en')} €/kWh)</p>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr("Energía")} (${kwh} kWh x ${num(result.p1_price)})</td>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr('Energía')} (${kwh} kWh x ${num(result.p1_price)})</td>
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right; font-weight: bold;">${eur(result.total_energia)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
-                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr("Subtotal Energía (Bruto)")}</td>
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr('Subtotal Energía (Bruto)')}</td>
                         <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_energia)}</td>
                     </tr>
                     
                     <tr>
-                        <td style="padding: 15px 40px; padding-top: 20px; font-size: 15px; font-weight: bold; color: ${primaryColor};" colspan="2"${tr("SUBTOTAL BASE (P+E)")}</td>
+                        <td style="padding: 15px 40px; padding-top: 20px; font-size: 15px; font-weight: bold; color: ${primaryColor};" colspan="2"${tr('SUBTOTAL BASE (P+E)')}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr("Imp. Hidrocarburos")} (€0,00234 x ${kwh} kWh)</td>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr('Imp. Hidrocarburos')} (€0,00234 x ${kwh} kWh)</td>
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right;">${eur(result.impuesto_hidrocarburo)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
-                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr("BASE IMPONIBLE")}</td>
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;"${tr('BASE IMPONIBLE')}</td>
                         <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_fijo + result.total_energia + result.impuesto_hidrocarburo)}</td>
                     </tr>
                     <tr>
@@ -17447,7 +17447,7 @@ ${clientName}
                         <td style="padding: 15px 40px; font-size: 16px; text-align: right; font-weight: bold;">${eur(result.total)}</td>
                     </tr>
                     <tr style="background-color: #f0f0f0;">
-                        <td style="padding: 12px 40px; font-size: 14px; font-weight: bold;"${tr("TOTAL AÑO (PROYECTADO)")}</td>
+                        <td style="padding: 12px 40px; font-size: 14px; font-weight: bold;"${tr('TOTAL AÑO (PROYECTADO)')}</td>
                         <td style="padding: 12px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(nuevoAnio)}</td>
                     </tr>
                 </table>
@@ -17456,7 +17456,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
                     <tr>
                         <td style="padding: 20px 40px; text-align: center;">
-                            <h2 style="margin: 0 0 20px 0; font-size: 24px; color: #333;">${tr("RESUMEN DE AHORRO FINAL")}</h2>
+                            <h2 style="margin: 0 0 20px 0; font-size: 24px; color: #333;">${tr('RESUMEN DE AHORRO FINAL')}</h2>
                         </td>
                     </tr>
                 </table>
@@ -17558,7 +17558,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 20px;">
                     <tr>
                         <td style="padding: 25px 40px; text-align: center;">
-                            <p style="margin: 0 0 10px 0; font-size: 16px;"${tr("LA MEJOR OPCIÓN PARA TI ES")}</p>
+                            <p style="margin: 0 0 10px 0; font-size: 16px;"${tr('LA MEJOR OPCIÓN PARA TI ES')}</p>
                             <h2 style="margin: 0; font-size: 36px; font-weight: bold;">${brandName}</h2>
                             <p style="margin: 10px 0 0 0; font-size: 14px;">Ofrece el mayor ahorro consolidado con ${brandName}.</p>
                         </td>
@@ -17570,9 +17570,9 @@ ${clientName}
                     <tr>
                         <!-- COLUMNA 1: FACTURA ACTUAL -->
                         <td style="width: 30%; vertical-align: top; text-align: center;">
-                            <p style="margin: 0 0 15px 0; font-size: 13px; color: #888; font-weight: bold;"${tr("TU FACTURA ACTUAL")}</p>
+                            <p style="margin: 0 0 15px 0; font-size: 13px; color: #888; font-weight: bold;"${tr('TU FACTURA ACTUAL')}</p>
                             <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(totalCliente)}</h2>
-                            <p style="margin: 8px 0; font-size: 11px; color: #888;"${tr("Total Periodo")}</p>
+                            <p style="margin: 8px 0; font-size: 11px; color: #888;"${tr('Total Periodo')}</p>
                             <h2 style="margin: 0; font-size: 22px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(facturaActualAnio)}/año</h2>
                         </td>
                         
@@ -17597,7 +17597,7 @@ ${clientName}
                                     <td style="text-align: center;">
                                         <p style="margin: 0 0 5px 0; font-size: 11px; color: #666;">TU NUEVO COSTE ${brandName}</p>
                                         <p style="margin: 0; font-size: 18px; font-weight: bold; color: ${primaryColor};">${eur(resFijo.total * 30 / dias)}/mes</p>
-                                        <p style="margin: 5px 0 0 0; font-size: 10px; color: #888;"${tr("Estimado Mensual")}</p>
+                                        <p style="margin: 5px 0 0 0; font-size: 10px; color: #888;"${tr('Estimado Mensual')}</p>
                                         <p style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: ${primaryColor};">${eur(resFijo.total * 365 / dias)}/año</p>
                                     </td>
                                 </tr>
@@ -17625,7 +17625,7 @@ ${clientName}
                                     <td style="text-align: center;">
                                         <p style="margin: 0 0 5px 0; font-size: 11px; color: #666;">TU NUEVO COSTE ${brandName}</p>
                                         <p style="margin: 0; font-size: 18px; font-weight: bold; color: #16a34a;">${eur(resIndexed.total * 30 / dias)}/mes</p>
-                                        <p style="margin: 5px 0 0 0; font-size: 10px; color: #888;"${tr("Estimado Mensual")}</p>
+                                        <p style="margin: 5px 0 0 0; font-size: 10px; color: #888;"${tr('Estimado Mensual')}</p>
                                         <p style="margin: 5px 0 0 0; font-size: 16px; font-weight: bold; color: #16a34a;">${eur(resIndexed.total * 365 / dias)}/año</p>
                                     </td>
                                 </tr>
@@ -18267,7 +18267,7 @@ ${clientName}
         
         // PDF INDIVIDUAL
         async function generateGasPDF_Simple(bestResult, dias, kwh, totalCliente, clientName = '[NOMBRE COMPLETO CLIENTE]', comercialCode = 'D=00') {
-            window.showMessageModal("⏳ Generando PDF... Por favor espere.");
+            window.showMessageModal("⏳ Generando PDF... Por favor espere.');
             
             const { jsPDF } = window.jspdf;
             let doc = new jsPDF('p', 'mm', 'a4');
@@ -18667,7 +18667,7 @@ ${clientName}
         
         // PDF DUAL
         async function generateGasPDF_Dual(resFijo, resIndexed, dias, kwh, totalCliente, clientName = '[NOMBRE COMPLETO CLIENTE]', comercialCode = 'D=00') {
-            window.showMessageModal("⏳ Generando PDF comparativo...");
+            window.showMessageModal("⏳ Generando PDF comparativo...');
             const { jsPDF } = window.jspdf;
             let doc = new jsPDF('p', 'mm', 'a4');
             
@@ -19229,7 +19229,7 @@ ${clientName}
         
         // PDF INDIVIDUAL POWER CUP
         async function generateGasPDF_Simple_PowerCup(bestResult, dias, kwh, totalCliente, clientName = '[NOMBRE COMPLETO CLIENTE]', comercialCode = 'D=00') {
-            window.showMessageModal("⏳ Generando PDF POWER CUP...");
+            window.showMessageModal("⏳ Generando PDF POWER CUP...');
             
             const { jsPDF } = window.jspdf;
             let doc = new jsPDF('p', 'mm', 'a4');
@@ -19568,7 +19568,7 @@ ${clientName}
         
         // PDF DUAL POWER CUP
         async function generateGasPDF_Dual_PowerCup(resFijo, resIndexed, dias, kwh, totalCliente, clientName = '[NOMBRE COMPLETO CLIENTE]', comercialCode = 'D=00') {
-            window.showMessageModal("⏳ Generando PDF comparativo POWER CUP...");
+            window.showMessageModal("⏳ Generando PDF comparativo POWER CUP...');
             const { jsPDF} = window.jspdf;
             let doc = new jsPDF('p', 'mm', 'a4');
             
@@ -19708,7 +19708,7 @@ ${clientName}
             
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(32);
-            // Extraer el nombre de la tarifa (ej: "ELEIA" de "ELEIA - Tarifa XYZ")
+            // Extraer el nombre de la tarifa (ej: "ELEIA" de "ELEIA - Tarifa XYZ')
             const bestTariff = resFijo.ahorro_anual > resIndexed.ahorro_anual ? resFijo : resIndexed;
             const tariffName = bestTariff.name.split('-')[0].trim();
             doc.text(tariffName, pageWidth / 2, y + 30, { align: 'center' });
@@ -20486,8 +20486,12 @@ ${clientName}
                 "Imp. Hidrocarburos": { en: "Hydrocarbon tax", zh: "碳氢化合物税", de: "Kohlenwasserstoffsteuer", fr: "Taxe sur les hydrocarbures" },
                 "€/mes": { en: "€/month", zh: "€/月", de: "€/Monat", fr: "€/mois" },
                 "€/año": { en: "€/year", zh: "€/年", de: "€/Jahr", fr: "€/an" },
+                "€/Mes": { en: "€/Month", zh: "€/月", de: "€/Monat", fr: "€/Mois" },
+                "€/Año": { en: "€/Year", zh: "€/年", de: "€/Jahr", fr: "€/An" },
                 "/mes": { en: "/month", zh: "/月", de: "/Monat", fr: "/mois" },
                 "/año": { en: "/year", zh: "/年", de: "/Jahr", fr: "/an" },
+                "/Mes": { en: "/Month", zh: "/月", de: "/Monat", fr: "/Mois" },
+                "/Año": { en: "/Year", zh: "/年", de: "/Jahr", fr: "/An" },
                 
                 // Más traducciones del PDF
                 "POWER SUBTOTAL": { en: "POWER SUBTOTAL", zh: "功率小计", de: "LEISTUNG ZWISCHENSUMME", fr: "SOUS-TOTAL PUISSANCE" },
