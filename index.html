@@ -16826,6 +16826,180 @@ ${clientName}
             }
         }
         
+        // Función específica para generar HTML en CHINO (GAS - Tarifa única)
+        function generateGasHTMLSingle_Chinese(result, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName) {
+            const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
+            const num = (n, d=6) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
+            
+            const tariffName = result.descripcion ? `${result.name} - ${result.descripcion}` : result.name;
+            const ahorroAnual = result.ahorro_anual;
+            const facturaActualAnio = totalCliente * 365 / dias;
+            const nuevoAnio = result.total * 365 / dias;
+            const nuevoMes = result.total * 30 / dias;
+            
+            const htmlContent = `
+            <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; background: white;">
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white;">
+                    <tr>
+                        <td style="padding: 30px 40px;">
+                            <h1 style="margin: 0; font-size: 32px; font-weight: bold;">${brandName} 能源</h1>
+                            <p style="margin: 8px 0 0 0; font-size: 14px;">引领节省和能源效率</p>
+                        </td>
+                        <td style="padding: 30px 40px; text-align: right;">
+                            <p style="margin: 0; font-size: 14px; font-weight: bold;">节省研究</p>
+                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold;">专业比较</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${accentColor}; color: white;">
+                    <tr>
+                        <td style="padding: 15px 40px; text-align: center;">
+                            <h2 style="margin: 0; font-size: 20px; font-weight: bold;">节省研究 - 天然气</h2>
+                            <p style="margin: 4px 0 0 0; font-size: 14px;">专业比较 - ${brandName}</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 20px;">
+                    <tr>
+                        <td style="padding: 30px 40px; text-align: center;">
+                            <p style="margin: 0 0 10px 0; font-size: 16px;">最适合您的选项是</p>
+                            <h2 style="margin: 0; font-size: 36px; font-weight: bold;">${tariffName}</h2>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
+                    <tr>
+                        <td style="padding: 20px 40px; text-align: center;">
+                            <p style="margin: 0 0 10px 0; font-size: 16px; color: #666; font-weight: bold;">您的预计年度节省为：</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${accentColor}; border-radius: 12px; margin: 0 40px; width: calc(100% - 80px);">
+                    <tr>
+                        <td style="padding: 30px; text-align: center;">
+                            <h1 style="margin: 0; font-size: 48px; font-weight: bold; color: white;">${eur(ahorroAnual)}</h1>
+                            <p style="margin: 10px 0 0 0; font-size: 18px; color: white; font-weight: bold;">实现您的年度节省！</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
+                    <tr>
+                        <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center;">
+                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">您当前的账单</p>
+                            <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(facturaActualAnio)}</h2>
+                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ 年</p>
+                        </td>
+                        <td style="width: 4%;"></td>
+                        <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center;">
+                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">您的新${brandName}成本</p>
+                            <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: ${primaryColor};">${eur(nuevoAnio)}</h2>
+                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ 年</p>
+                            <p style="margin: 8px 0 0 0; font-size: 16px; color: ${primaryColor}; font-weight: bold;">${eur(nuevoMes)} / 月</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 30px;">
+                    <tr>
+                        <td style="padding: 15px 40px;">
+                            <h3 style="margin: 0; font-size: 16px; font-weight: bold;">价格摘要</h3>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e0e0e0; border-top: none;">
+                    <tr style="background-color: #f5f5f5;">
+                        <td style="padding: 12px 40px; font-weight: bold; font-size: 14px;">概念</td>
+                        <td style="padding: 12px 40px; font-weight: bold; font-size: 14px; text-align: right;">${brandName}价格</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">固定价格 (€/天)</td>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p_fijo_diario / 365)}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">能源 (€/kWh)</td>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p1_price)}</td>
+                    </tr>
+                    <tr style="background-color: #f0fdf4;">
+                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px;">年度节省</td>
+                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px; text-align: right; color: #16a34a;">${eur(ahorroAnual)}</td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 30px;">
+                    <tr>
+                        <td style="padding: 15px 40px;">
+                            <h3 style="margin: 0; font-size: 16px; font-weight: bold;">详细明细 (${tariffName})</h3>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e0e0e0; border-top: none;">
+                    <tr>
+                        <td style="padding: 15px 40px;" colspan="2">
+                            <p style="margin: 0 0 10px 0; font-size: 15px; font-weight: bold; color: ${primaryColor};">固定期限（€/天）</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">固定价格 (${dias} 天 x ${num(result.p_fijo_diario / 365)})</td>
+                        <td style="padding: 8px 40px; font-size: 13px; text-align: right; font-weight: bold;">${eur(result.total_fijo)}</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;">小计功率</td>
+                        <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_fijo)}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding: 15px 40px; padding-top: 20px;" colspan="2">
+                            <p style="margin: 0 0 10px 0; font-size: 15px; font-weight: bold; color: ${primaryColor};">能源期限（€/kWh）</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">能源 (${kwh} kWh x ${num(result.p1_price)})</td>
+                        <td style="padding: 8px 40px; font-size: 13px; text-align: right; font-weight: bold;">${eur(result.total_energia)}</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;">小计能源（毛额）</td>
+                        <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_energia)}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding: 15px 40px; padding-top: 20px; font-size: 15px; font-weight: bold; color: ${primaryColor};" colspan="2">小计基础 (P+E)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">碳氢化合物税 (€0,00234 x ${kwh} kWh)</td>
+                        <td style="padding: 8px 40px; font-size: 13px; text-align: right;">${eur(result.impuesto_hidrocarburo)}</td>
+                    </tr>
+                    <tr style="background-color: #f9f9f9;">
+                        <td style="padding: 10px 40px; font-size: 14px; font-weight: bold;">应税基础</td>
+                        <td style="padding: 10px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(result.total_fijo + result.total_energia + result.impuesto_hidrocarburo)}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">增值税 (21%)</td>
+                        <td style="padding: 8px 40px; font-size: 13px; text-align: right;">${eur(result.iva)}</td>
+                    </tr>
+                    <tr style="background-color: ${primaryColor}; color: white;">
+                        <td style="padding: 15px 40px; font-size: 16px; font-weight: bold;">总计账单 (${dias} 天)</td>
+                        <td style="padding: 15px 40px; font-size: 16px; text-align: right; font-weight: bold;">${eur(result.total)}</td>
+                    </tr>
+                    <tr style="background-color: #f0f0f0;">
+                        <td style="padding: 12px 40px; font-size: 14px; font-weight: bold;">年度总计（预计）</td>
+                        <td style="padding: 12px 40px; font-size: 14px; text-align: right; font-weight: bold;">${eur(nuevoAnio)}</td>
+                    </tr>
+                </table>
+                
+            </div>
+            `;
+            
+            showHTMLPreview(htmlContent);
+        }
+        
         // Función para generar HTML individual (una sola tarifa)
         function generateGasHTMLSingle(result, dias, kwh, totalCliente) {
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
@@ -16840,6 +17014,13 @@ ${clientName}
             const accentColor = isDrk ? '#4a90e2' : '#84cc16';
             const lightBg = isDrk ? '#e8f4fd' : '#f0fdf4';
             const brandName = isDrk ? 'DRK' : 'POWER CUP';
+            
+            // NUEVO: Detectar si está en chino y llamar a versión específica
+            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
+            if (currentLang === 'zh') {
+                generateGasHTMLSingle_Chinese(result, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName);
+                return;
+            }
             
             const tariffName = result.descripcion ? `${result.name} - ${result.descripcion}` : result.name;
             console.log('🔍 DEBUG HTML GAS - tariffName:', tariffName, 'result completo:', result);
