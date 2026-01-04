@@ -20749,6 +20749,12 @@ ${clientName}
                 "Ahorro:": { en: "Savings:", zh: "节省：", de: "Einsparungen:", fr: "Économies :" },
                 "/mes": { en: "/month", zh: "/月", de: "/Monat", fr: "/mois" },
                 "/año": { en: "/year", zh: "/年", de: "/Jahr", fr: "/an" },
+                "/Mes": { en: "/Month", zh: "/月", de: "/Monat", fr: "/Mois" },
+                "/Año": { en: "/Year", zh: "/年", de: "/Jahr", fr: "/An" },
+                "€/mes": { en: "€/month", zh: "€/月", de: "€/Monat", fr: "€/mois" },
+                "€/año": { en: "€/year", zh: "€/年", de: "€/Jahr", fr: "€/an" },
+                "€/Mes": { en: "€/Month", zh: "€/月", de: "€/Monat", fr: "€/Mois" },
+                "€/Año": { en: "€/Year", zh: "€/年", de: "€/Jahr", fr: "€/An" },
                 "Término fijo (": { en: "Fixed term (", zh: "固定期限（", de: "Feste Laufzeit (", fr: "Terme fixe (" },
                 "Imp. eléctrico (5.113%)": { en: "Electricity tax (5.113%)", zh: "电力税（5.113%）", de: "Stromsteuer (5.113%)", fr: "Taxe sur l'électricité (5.113%)" },
                 "TOTAL PERIODO": { en: "PERIOD TOTAL", zh: "期间总计", de: "ZEITRAUM GESAMT", fr: "TOTAL PÉRIODE" },
@@ -20992,6 +20998,16 @@ ${clientName}
                             'TÉRMINO FIJO (Precio en €/día)',
                             'Precio fijo diario (€/día):',
                             'Precio energía (€/kWh):',
+                            
+                            // UNIDADES TEMPORALES (MUY IMPORTANTE)
+                            '€/mes',
+                            '€/año',
+                            '/mes',
+                            '/año',
+                            '€/Mes',
+                            '€/Año',
+                            '/Mes',
+                            '/Año',
                             
                             // Secciones del PDF (sin dos puntos)
                             'POTENCIA',
@@ -21261,8 +21277,14 @@ ${clientName}
                 const unitReplacements = [
                     [' días)', ' ' + tr('días') + ')'],
                     [' DÍAS)', ' ' + tr('DÍAS') + ')'],
-                    ['/mes', '/' + tr('mes')],
-                    ['/año', '/' + tr('año')]
+                    ['€/mes', tr('€/mes')],
+                    ['€/año', tr('€/año')],
+                    ['€/Mes', tr('€/Mes')],
+                    ['€/Año', tr('€/Año')],
+                    ['/mes', tr('/mes')],
+                    ['/año', tr('/año')],
+                    ['/Mes', tr('/Mes')],
+                    ['/Año', tr('/Año')]
                 ];
                 
                 unitReplacements.forEach(([original, translated]) => {
