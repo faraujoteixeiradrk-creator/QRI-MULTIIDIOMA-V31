@@ -3409,7 +3409,7 @@
             
             // 1. Cabecera y Resumen Global
             document.getElementById('results-cups-list').innerHTML = `
-                CUPS Procesadas: ${individualResults.length}
+                ${tr('CUPS Procesadas')}: ${individualResults.length}
             `;
 
             // MODIFICACIÓN: Mostrar Nombre y Descripción.
@@ -3466,7 +3466,7 @@
                 // Ocultar botón de solicitar mejora
                 document.getElementById('request-improvement-btn').style.display = 'none';
                 
-                newCostLabelEl.textContent = `TU NUEVO COSTE ${brand.NAME.includes('DRK') ? 'DRK' : 'POWER CUP'} CONSOLIDADO`;
+                newCostLabelEl.textContent = `${tr('TU NUEVO COSTE')} ${brand.NAME.includes('DRK') ? 'DRK' : 'POWER CUP'} ${tr('CONSOLIDADO')}`;
                 oldCostPeriodEl.classList.add('line-through', 'text-red-400', 'decoration-red-400/50');
                 oldCostAnnualEl.classList.add('line-through', 'text-cta-red-500', 'decoration-cta-red-500/50');
             }
@@ -20510,6 +20510,8 @@ ${clientName}
                 "RESULTADO DE LA COMPARATIVA": { en: "COMPARISON RESULT", zh: "比较结果", de: "VERGLEICHSERGEBNIS", fr: "RÉSULTAT DE LA COMPARAISON" },
                 "Liderando el ahorro y la eficiencia energética.": { en: "Leading savings and energy efficiency.", zh: "领先的节能和能源效率。", de: "Führend bei Einsparungen und Energieeffizienz.", fr: "Leader en économies et efficacité énergétique." },
                 "TU NUEVO COSTE": { en: "YOUR NEW COST", zh: "您的新费用", de: "IHRE NEUEN KOSTEN", fr: "VOTRE NOUVEAU COÛT" },
+                "CONSOLIDADO": { en: "CONSOLIDATED", zh: "合并", de: "KONSOLIDIERT", fr: "CONSOLIDÉ" },
+                "CUPS Procesadas": { en: "CUPS Processed", zh: "已处理的CUPS", de: "Verarbeitete CUPS", fr: "CUPS Traitées" },
                 
                 // Más traducciones del PDF
                 "POWER SUBTOTAL": { en: "POWER SUBTOTAL", zh: "功率小计", de: "LEISTUNG ZWISCHENSUMME", fr: "SOUS-TOTAL PUISSANCE" },
