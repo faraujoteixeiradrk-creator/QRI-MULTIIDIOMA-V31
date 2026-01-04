@@ -18105,7 +18105,7 @@ ${clientName}
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
-            doc.text('Total Periodo (' + dias + ' días)', margin + colWidth / 2, yPos + 16, { align: 'center' });
+            doc.text(tr('Total Periodo') + ' (' + dias + ' ' + tr('días') + ')', margin + colWidth / 2, yPos + 16, { align: 'center' });
             
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(14);
@@ -18204,7 +18204,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
             const p_fijo_diario = bestResult.p_fijo_diario / 365;
-            doc.text('Precio fijo (' + dias + ' días x ' + num(p_fijo_diario, 6) + ')', margin + 5, yPos);
+            doc.text(tr('Precio fijo') + ' (' + dias + ' ' + tr('días') + ' x ' + num(p_fijo_diario, 6) + ')', margin + 5, yPos);
             doc.text(eur(bestResult.total_fijo), pageWidth - margin - 5, yPos, { align: 'right' });
             yPos += 6;
             
@@ -18284,7 +18284,7 @@ ${clientName}
             doc.text('TU AHORRO ANUAL ESTIMADO ES:', margin + 5, yPos + 10);
             
             doc.setFontSize(20);
-            doc.text(eur(bestResult.ahorro_anual) + '/ AÑO', margin + 5, yPos + 20);
+            doc.text(eur(bestResult.ahorro_anual) + tr('/ AÑO'), margin + 5, yPos + 20);
             
             yPos += 35;
             
@@ -18506,7 +18506,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(6.5);
             doc.setTextColor(120, 130, 140);
-            doc.text('Total Periodo (' + dias + ' días)', col1X, y);
+            doc.text(tr('Total Periodo') + ' (' + dias + ' ' + tr('días') + ')', col1X, y);
             
             y += 10;
             doc.setFont('helvetica', 'bold');
@@ -18640,7 +18640,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             const pFijoDiario = resFijo.p_fijo_diario / 365;
-            doc.text('Precio fijo (' + dias + ' días x ' + num(pFijoDiario, 6) + ')', leftX + 3, leftY);
+            doc.text(tr('Precio fijo') + ' (' + dias + ' ' + tr('días') + ' x ' + num(pFijoDiario, 6) + ')', leftX + 3, leftY);
             doc.text(eur(resFijo.total_fijo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
@@ -18713,7 +18713,7 @@ ${clientName}
             doc.setFontSize(7);
             doc.text('TU AHORRO ANUAL ESTIMADO ES:', leftX + 3, leftY + 8);
             doc.setFontSize(13);
-            doc.text(eur(resFijo.ahorro_anual) + '/ AÑO', leftX + 3, leftY + 15);
+            doc.text(eur(resFijo.ahorro_anual) + tr('/ AÑO'), leftX + 3, leftY + 15);
             
             // COLUMNA DERECHA: INDEXADA
             let rightY = y;
@@ -18738,7 +18738,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             const pIndexDiario = resIndexed.p_fijo_diario / 365;
-            doc.text('Precio fijo (' + dias + ' días x ' + num(pIndexDiario, 6) + ')', rightX + 3, rightY);
+            doc.text(tr('Precio fijo') + ' (' + dias + ' ' + tr('días') + ' x ' + num(pIndexDiario, 6) + ')', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_fijo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
@@ -18811,7 +18811,7 @@ ${clientName}
             doc.setFontSize(7);
             doc.text('TU AHORRO ANUAL ESTIMADO ES:', rightX + 3, rightY + 8);
             doc.setFontSize(13);
-            doc.text(eur(resIndexed.ahorro_anual) + '/ AÑO', rightX + 3, rightY + 15);
+            doc.text(eur(resIndexed.ahorro_anual) + tr('/ AÑO'), rightX + 3, rightY + 15);
             
             // PÁGINA 3: CUAL ES LA DIFERENCIA
             doc.addPage();
@@ -19095,7 +19095,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7);
             doc.setTextColor(140, 150, 140);
-            doc.text('Total Periodo (' + dias + ' días)', 57, y, { align: 'center' });
+            doc.text(tr('Total Periodo') + ' (' + dias + ' ' + tr('días') + ')', 57, y, { align: 'center' });
             
             y += 11;
             const factAnio = totalCliente * 365 / dias;
@@ -19159,7 +19159,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8);
             const pFijoDiario = bestResult.p_fijo_diario / 365;
-            doc.text('Precio fijo (' + dias + ' días x ' + num(pFijoDiario, 6) + ')', 15, y);
+            doc.text(tr('Precio fijo') + ' (' + dias + ' ' + tr('días') + ' x ' + num(pFijoDiario, 6) + ')', 15, y);
             doc.text(eur(bestResult.total_fijo), 195, y, { align: 'right' });
             y += 5;
             
@@ -19229,7 +19229,7 @@ ${clientName}
             doc.setFontSize(9);
             doc.text('TU AHORRO ANUAL ESTIMADO ES:', 15, y + 8);
             doc.setFontSize(16);
-            doc.text(eur(bestResult.ahorro_anual) + '/ AÑO', 15, y + 16);
+            doc.text(eur(bestResult.ahorro_anual) + tr('/ AÑO'), 15, y + 16);
             
             doc.save('GAS_PowerCup_' + tariffName + '_' + new Date().toISOString().slice(0,10) + '.pdf');
             window.showMessageModal("✅ PDF POWER CUP generado", false);
@@ -19425,7 +19425,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(6);
             doc.setTextColor(120, 130, 120);
-            doc.text('Total Periodo (' + dias + ' días)', col1X, y);
+            doc.text(tr('Total Periodo') + ' (' + dias + ' ' + tr('días') + ')', col1X, y);
             
             y += 9;
             doc.setFont('helvetica', 'bold');
@@ -19554,7 +19554,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             const pFijoDiario = resFijo.p_fijo_diario / 365;
-            doc.text('Precio fijo (' + dias + ' días x ' + num(pFijoDiario, 6) + ')', leftX + 3, leftY);
+            doc.text(tr('Precio fijo') + ' (' + dias + ' ' + tr('días') + ' x ' + num(pFijoDiario, 6) + ')', leftX + 3, leftY);
             doc.text(eur(resFijo.total_fijo), leftX + colW - 2, leftY, { align: 'right' });
             leftY += 5;
             
@@ -19627,7 +19627,7 @@ ${clientName}
             doc.setFontSize(7);
             doc.text('TU AHORRO ANUAL ESTIMADO ES:', leftX + 3, leftY + 8);
             doc.setFontSize(13);
-            doc.text(eur(resFijo.ahorro_anual) + '/ AÑO', leftX + 3, leftY + 15);
+            doc.text(eur(resFijo.ahorro_anual) + tr('/ AÑO'), leftX + 3, leftY + 15);
             
             // COLUMNA DERECHA: INDEXADA
             let rightY = y;
@@ -19652,7 +19652,7 @@ ${clientName}
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.5);
             const pIndexDiario = resIndexed.p_fijo_diario / 365;
-            doc.text('Precio fijo (' + dias + ' días x ' + num(pIndexDiario, 6) + ')', rightX + 3, rightY);
+            doc.text(tr('Precio fijo') + ' (' + dias + ' ' + tr('días') + ' x ' + num(pIndexDiario, 6) + ')', rightX + 3, rightY);
             doc.text(eur(resIndexed.total_fijo), rightX + colW - 2, rightY, { align: 'right' });
             rightY += 5;
             
@@ -19725,7 +19725,7 @@ ${clientName}
             doc.setFontSize(7);
             doc.text('TU AHORRO ANUAL ESTIMADO ES:', rightX + 3, rightY + 8);
             doc.setFontSize(13);
-            doc.text(eur(resIndexed.ahorro_anual) + '/ AÑO', rightX + 3, rightY + 15);
+            doc.text(eur(resIndexed.ahorro_anual) + tr('/ AÑO'), rightX + 3, rightY + 15);
             
             // PÁGINA 3: CUAL ES LA DIFERENCIA
             doc.addPage();
