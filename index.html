@@ -2195,7 +2195,8 @@
             
             // DUAL: Limpiar variables DUAL
             window.dualMode = false;
-            dualSupplies = [];
+            window.dualSupplies = [];
+            dualSupplies = window.dualSupplies; // Mantener referencia
             window.dualGlobalResults = null;
             dualTempSupply = null;
             console.log('✅ Variables DUAL limpiadas');
@@ -13856,7 +13857,8 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
         // ========================================
         
         // Variables globales para DUAL
-        let dualSupplies = []; // Array para almacenar todos los suministros
+        window.dualSupplies = window.dualSupplies || []; // Array para almacenar todos los suministros
+        let dualSupplies = window.dualSupplies; // Mantener referencia local por compatibilidad
         let dualCurrentType = null; // 'electricidad' o 'gas'
         let dualTempData = null; // Datos temporales del suministro actual
         let dualTempSupply = null; // Suministro temporal pendiente de confirmación
@@ -14061,7 +14063,8 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
         // Función: Limpiar todo
         function dualReset() {
             if (confirm('¿Estás seguro de que quieres eliminar todos los suministros?')) {
-                dualSupplies = [];
+                window.dualSupplies = [];
+                dualSupplies = window.dualSupplies; // Mantener referencia
                 updateDualSuppliesList();
             }
         }
@@ -14497,9 +14500,12 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             // NUEVO: Para CHINO, generar HTML con TABLAS para Outlook
             if (currentLang === 'zh') {
                 console.log('🇨🇳 Modo chino detectado - generando HTML DUAL con tablas');
+                console.log('📊 window.dualSupplies:', window.dualSupplies);
+                console.log('📊 window.dualSupplies.length:', window.dualSupplies ? window.dualSupplies.length : 'undefined');
                 
                 // Obtener los datos de DUAL
                 if (!window.dualSupplies || window.dualSupplies.length === 0) {
+                    console.error('❌ No hay datos en window.dualSupplies');
                     alert('没有要复制的结果 / No results to copy');
                     return;
                 }
