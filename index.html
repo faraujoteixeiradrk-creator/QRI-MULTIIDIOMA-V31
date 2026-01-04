@@ -7221,7 +7221,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.text(tr('TU FACTURA ACTUAL'), leftXMulti + colWidthMulti / 2, yPos, { align: 'center' });
                     
                     // Precio mensual tachado en rojo
-                    const oldPriceMulti = `${eur(res.originalBillAnnual / 12)}/mes`;
+                    const oldPriceMulti = `${eur(res.originalBillAnnual / 12)}${tr('/mes')}`;
                     doc.setTextColor(...redColor);
                     doc.setFontSize(18);
                     doc.setFont('helvetica', 'bold');
@@ -7239,7 +7239,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setTextColor(140, 150, 160);
                     doc.setFontSize(7);
                     doc.setFont('helvetica', 'normal');
-                    doc.text('Total Periodo (Variado)', leftXMulti + colWidthMulti / 2, yPos + 19, { align: 'center' });
+                    doc.text(`${tr('Total Periodo')} (${tr('Variado')})`, leftXMulti + colWidthMulti / 2, yPos + 19, { align: 'center' });
                     
                     // Precio anual tachado
                     const oldAnnualMulti = eur(res.originalBillAnnual);
@@ -7248,10 +7248,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setFont('helvetica', 'bold');
                     const oldAnnualXMulti = leftXMulti + colWidthMulti / 2;
                     const oldAnnualYMulti = yPos + 32;
-                    doc.text(`${oldAnnualMulti}/año`, oldAnnualXMulti, oldAnnualYMulti, { align: 'center' });
+                    doc.text(`${oldAnnualMulti}${tr('/año')}`, oldAnnualXMulti, oldAnnualYMulti, { align: 'center' });
                     
                     // Línea tachada
-                    const oldAnnualWidthMulti = doc.getTextWidth(`${oldAnnualMulti}/año`);
+                    const oldAnnualWidthMulti = doc.getTextWidth(`${oldAnnualMulti}${tr('/año')}`);
                     doc.setDrawColor(...redColor);
                     doc.setLineWidth(1.5);
                     doc.line(oldAnnualXMulti - oldAnnualWidthMulti/2 - 2, oldAnnualYMulti - 3, oldAnnualXMulti + oldAnnualWidthMulti/2 + 2, oldAnnualYMulti - 3);
@@ -7274,19 +7274,19 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     doc.setTextColor(...primaryColor);
                     doc.setFontSize(20);
                     doc.setFont('helvetica', 'bold');
-                    doc.text(`${eur(res.totalAnnual / 12)}/mes`, rightXMulti + colWidthMulti / 2, yPos + 13, { align: 'center' });
+                    doc.text(`${eur(res.totalAnnual / 12)}${tr('/mes')}`, rightXMulti + colWidthMulti / 2, yPos + 13, { align: 'center' });
                     
                     // "Estimado Mensual"
                     doc.setTextColor(140, 150, 160);
                     doc.setFontSize(7);
                     doc.setFont('helvetica', 'normal');
-                    doc.text('Estimado Mensual', rightXMulti + colWidthMulti / 2, yPos + 19, { align: 'center' });
+                    doc.text(tr('Estimado Mensual'), rightXMulti + colWidthMulti / 2, yPos + 19, { align: 'center' });
                     
                     // Precio anual en azul
                     doc.setTextColor(...primaryColor);
                     doc.setFontSize(16);
                     doc.setFont('helvetica', 'bold');
-                    doc.text(`${eur(res.totalAnnual)}/año`, rightXMulti + colWidthMulti / 2, yPos + 32, { align: 'center' });
+                    doc.text(`${eur(res.totalAnnual)}${tr('/año')}`, rightXMulti + colWidthMulti / 2, yPos + 32, { align: 'center' });
                     
                     yPos += 50;
                     } // Fin del condicional de columnas de precios
