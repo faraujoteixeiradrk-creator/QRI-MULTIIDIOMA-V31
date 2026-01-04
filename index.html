@@ -16734,10 +16734,20 @@ ${clientName}
                 return;
             }
             
-            // NUEVO: Si está en chino, cambiar temporalmente a inglés para el PDF
+            // Detectar si está en chino
             const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
             const wasChineseMode = currentLang === 'zh';
             
+            // IMPORTANTE: Pedir datos PRIMERO (en el idioma actual, chino si corresponde)
+            const comercialCode = prompt(window.tr('CÓDIGO COMERCIAL (Obligatorio):'), 'D=00');
+            if (!comercialCode || comercialCode.trim() === '') {
+                alert(window.tr('El código comercial es obligatorio'));
+                return;
+            }
+            
+            const clientName = prompt(window.tr('NOMBRE DEL CLIENTE:'), window.tr('[NOMBRE COMPLETO CLIENTE]')) || window.tr('[NOMBRE COMPLETO CLIENTE]');
+            
+            // AHORA SÍ: Si está en chino, cambiar temporalmente a inglés para el PDF
             if (wasChineseMode) {
                 console.log('🇨🇳 Idioma chino detectado - cambiando a inglés para PDF');
                 // Informar al usuario en chino e inglés
@@ -16745,19 +16755,6 @@ ${clientName}
                 // Cambiar temporalmente a inglés
                 window.LANG.change('en', true); // skipReload = true
             }
-            
-            // Pedir datos del cliente y comercial (TRADUCIDOS)
-            const comercialCode = prompt(window.tr('CÓDIGO COMERCIAL (Obligatorio):'), 'D=00');
-            if (!comercialCode || comercialCode.trim() === '') {
-                alert(window.tr('El código comercial es obligatorio'));
-                // Restaurar idioma si era chino
-                if (wasChineseMode) {
-                    window.LANG.change('zh', true);
-                }
-                return;
-            }
-            
-            const clientName = prompt(window.tr('NOMBRE DEL CLIENTE:'), window.tr('[NOMBRE COMPLETO CLIENTE]')) || window.tr('[NOMBRE COMPLETO CLIENTE]');
             
             const { results, dias, kwh, totalCliente, comparisonMode } = window.gasExportData;
             
