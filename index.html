@@ -357,7 +357,7 @@
                         <span class="text-4xl">🔥</span>
                     </div>
                     <h2 class="text-3xl font-black text-red-600 mb-2 text-center">GAS</h2>
-                    <p class="text-slate-500 mb-6 text-center">Selecciona la regulación de gas.</p>
+                    <p id="gas-regulation-subtitle" class="text-slate-500 mb-6 text-center">Selecciona la regulación de gas.</p>
                     
                     <div class="w-full space-y-4">
                         <button onclick="selectGasTariff('RL1')" class="tariff-select-btn group">
@@ -3209,7 +3209,7 @@
                             <div class="bg-white border-2 border-slate-300 rounded-b-lg p-3">
                                 <p class="text-xs text-slate-500 mb-2 uppercase"${tr("TU FACTURA ACTUAL")}</p>
                                 <p class="text-2xl font-black text-red-600 line-through mb-2">${eur(res.importe_total)}</p>
-                                <p class="text-xs text-slate-500 mb-3">Total Periodo (${res.dias_facturados || 'varios'} días)</p>
+                                <p class="text-xs text-slate-500 mb-3">${tr('Total Periodo')} (${res.dias_facturados || 'varios'} ${tr('días')})</p>
                                 <p class="text-2xl font-black text-red-600">${eur(res.originalBillAnnual)}/año</p>
                             </div>
                         </div>
@@ -3472,7 +3472,7 @@
             
             document.getElementById('old-period-cost-display').textContent = eur(res.importe_total);
             document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + "/año";
-            document.getElementById('old-period-days-label').textContent = `Total Periodo (Variado)`; // Días varían por factura
+            document.getElementById('old-period-days-label').textContent = `${tr('Total Periodo')} (${tr('Variado')})`; // Días varían por factura
             
             
             document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + "/mes";
@@ -3889,7 +3889,7 @@
                             <div class="bg-white border-2 border-slate-300 rounded-b-lg p-3">
                                 <p class="text-xs text-slate-500 mb-2 uppercase"${tr("TU FACTURA ACTUAL")}</p>
                                 <p class="text-2xl font-black text-red-600 line-through mb-2">${eur(resFijo.originalBillPeriod || resFijo.importe_total)}</p>
-                                <p class="text-xs text-slate-500 mb-3">Total Periodo (${resFijo.dias_facturados || 0} días)</p>
+                                <p class="text-xs text-slate-500 mb-3">${tr('Total Periodo')} (${resFijo.dias_facturados || 0} ${tr('días')})</p>
                                 <p class="text-2xl font-black text-red-600">${eur(resFijo.originalBillAnnual)}/año</p>
                             </div>
                         </div>
@@ -4104,7 +4104,7 @@
             
             document.getElementById('old-period-cost-display').textContent = eur(res.importe_total);
             document.getElementById('old-annual-cost-display').textContent = eur(res.originalBillAnnual) + "/año";
-            document.getElementById('old-period-days-label').textContent = `Total Periodo (${res.dias_facturados} días)`;
+            document.getElementById('old-period-days-label').textContent = `${tr('Total Periodo')} (${res.dias_facturados} ${tr('días')})`;
             
             document.getElementById('new-monthly-cost-display').textContent = eur(res.totalAnnual / 12) + "/mes";
             document.getElementById('new-annual-cost-display').textContent = eur(res.totalAnnual) + "/año";
@@ -4201,7 +4201,7 @@
 
                     <div class="border-t border-slate-200 pt-2 mb-2">
                         <div class="flex justify-between font-bold text-slate-800"><span${tr("SUBTOTAL BASE (P+E)")}</span><span>${num(res.subBase, 2)} €</span></div>
-                        <div class="flex justify-between"><span>Imp. Eléc. (${num(res.ieRate * 100, 3)}%)</span><span>${num(res.costIE, 2)} €</span></div>
+                        <div class="flex justify-between"><span>${tr('Imp. Eléc.')} (${num(res.ieRate * 100, 3)}%)</span><span>${num(res.costIE, 2)} €</span></div>
                         <div class="flex justify-between font-bold text-lg border-t mt-1 pt-1"><span${tr("BASE IMPONIBLE")}</span><span>${num(res.baseImp, 2)} €</span></div>
                         <div class="flex justify-between"><span>IVA (21%)</span><span>${num(res.costIVA, 2)} €</span></div>
                     </div>
@@ -4530,7 +4530,7 @@
                                         <td align="right" style="padding:8px;color:#1e293b;font-weight:bold;">${(res.subtotalNet || 0).toFixed(2)} €</td>
                                     </tr>
                                     <tr>
-                                        <td style="padding:5px;color:#64748b;">Imp. Eléc. (5,113%)</td>
+                                        <td style="padding:5px;color:#64748b;">${tr('Imp. Eléc.')} (5,113%)</td>
                                         <td align="right" style="padding:5px;color:#1e293b;">${(res.costIE || 0).toFixed(2)} €</td>
                                     </tr>
                                     <tr style="border-top:1px solid #cbd5e1;">
@@ -4909,7 +4909,7 @@
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(8);
                 doc.setTextColor(156, 163, 175);
-                doc.text(`Total Periodo (${resFijo.dias_facturados || 0} días)`, col1X, y1);
+                doc.text(`${tr('Total Periodo')} (${resFijo.dias_facturados || 0} ${tr('días')})`, col1X, y1);
                 y1 += 14;
                 
                 // Precio anual (TACHADO)
@@ -8181,7 +8181,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     
                     // Impuesto eléctrico
                     doc.setFont('helvetica', 'normal');
-                    doc.text(`Imp. Eléc. (${num(res.ieRate * 100, 3)}%)`, margin + 2, yPos);
+                    doc.text(`${tr('Imp. Eléc.')} (${num(res.ieRate * 100, 3)}%)`, margin + 2, yPos);
                     doc.text(`${num(res.costIE, 2)} €`, pageWidth - margin - 2, yPos, { align: 'right' });
                     yPos += 5;
                     
@@ -9505,7 +9505,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 ${discountRowsHtml}
                 
                 <tr><td style="${rowLabel} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK};"${tr("SUBTOTAL BASE (P+E)")}</td><td style="${rowValue} border-top: 2px solid #333; font-weight: bold; color: ${D_PRIMARY_DARK}; white-space: nowrap;">${num(bd.subBase, 2)} €</td></tr>
-                <tr><td style="${rowLabel}">Imp. Eléc. (${num(bd.ieRate * 100, 3)}%)</td><td style="${rowValue} white-space: nowrap;">${num(bd.costIE, 2)} €</td></tr>
+                <tr><td style="${rowLabel}">${tr('Imp. Eléc.')} (${num(bd.ieRate * 100, 3)}%)</td><td style="${rowValue} white-space: nowrap;">${num(bd.costIE, 2)} €</td></tr>
                 <tr><td style="${rowLabel} font-weight: bold;"${tr("BASE IMPONIBLE")}</td><td style="${rowValue} font-weight: bold; white-space: nowrap;">${num(bd.baseImp, 2)} €</td></tr>
                 <tr><td style="${rowLabel}">IVA (21%)</td><td style="${rowValue} white-space: nowrap;">${num(bd.costIVA, 2)} €</td></tr>
                 
@@ -15629,7 +15629,7 @@ ${clientName}
             const totalCliente = parseFloat(document.getElementById('gas-total-cliente').value);
             
             if (!dias || !kwh || !totalCliente) {
-                alert('Por favor, completa todos los campos');
+                alert(tr('Por favor, completa todos los campos'));
                 return;
             }
             
@@ -15657,7 +15657,7 @@ ${clientName}
             const totalCliente = parseFloat(document.getElementById('gas-total-cliente').value);
             
             if (!dias || !kwh || !totalCliente) {
-                alert('Por favor, completa todos los campos');
+                alert(tr('Por favor, completa todos los campos'));
                 return;
             }
             
@@ -20047,6 +20047,19 @@ ${clientName}
                 // Textos adicionales de interfaz
                 "PROFESIONAL": { en: "PROFESSIONAL", zh: "专业", de: "PROFESSIONELL", fr: "PROFESSIONNEL" },
                 "Total Anual Estimado": { en: "Estimated Annual Total", zh: "估计年度总额", de: "Geschätzter Jahresgesamtbetrag", fr: "Total annuel estimé" },
+                
+                // TEXTOS FALTANTES - IMPORTANTE
+                "Total Periodo": { en: "Total Period", zh: "总期限", pt: "Período Total", de: "Gesamtzeitraum", fr: "Période totale" },
+                "Selecciona la regulación de gas.": { en: "Select gas regulation.", zh: "选择天然气监管。", pt: "Selecione a regulamentação de gás.", de: "Wählen Sie die Gasregelung.", fr: "Sélectionnez la réglementation du gaz." },
+                "Regulación de Gas - Nivel 1": { en: "Gas Regulation - Level 1", zh: "天然气监管 - 级别 1", pt: "Regulação de Gás - Nível 1", de: "Gasregelung - Stufe 1", fr: "Réglementation Gaz - Niveau 1" },
+                "Regulación de Gas - Nivel 2": { en: "Gas Regulation - Level 2", zh: "天然气监管 - 级别 2", pt: "Regulação de Gás - Nível 2", de: "Gasregelung - Stufe 2", fr: "Réglementation Gaz - Niveau 2" },
+                "Regulación de Gas - Nivel 3": { en: "Gas Regulation - Level 3", zh: "天然气监管 - 级别 3", pt: "Regulação de Gás - Nível 3", de: "Gasregelung - Stufe 3", fr: "Réglementation Gaz - Niveau 3" },
+                "Regulación de Gas - Nivel 4": { en: "Gas Regulation - Level 4", zh: "天然气监管 - 级别 4", pt: "Regulação de Gás - Nível 4", de: "Gasregelung - Stufe 4", fr: "Réglementation Gaz - Niveau 4" },
+                "Regulación de Gas - Nivel 5": { en: "Gas Regulation - Level 5", zh: "天然气监管 - 级别 5", pt: "Regulação de Gás - Nível 5", de: "Gasregelung - Stufe 5", fr: "Réglementation Gaz - Niveau 5" },
+                "Regulación de Gas - Nivel 6": { en: "Gas Regulation - Level 6", zh: "天然气监管 - 级别 6", pt: "Regulação de Gás - Nível 6", de: "Gasregelung - Stufe 6", fr: "Réglementation Gaz - Niveau 6" },
+                "Por favor, completa todos los campos": { en: "Please complete all fields", zh: "请填写所有字段", pt: "Por favor, preencha todos os campos", de: "Bitte füllen Sie alle Felder aus", fr: "Veuillez remplir tous les champs" },
+                "Aceptar": { en: "Accept", zh: "接受", pt: "Aceitar", de: "Akzeptieren", fr: "Accepter" },
+                "Variado": { en: "Varied", zh: "各种", pt: "Variado", de: "Variiert", fr: "Varié" },
                 "Realizar Nueva Comparación": { en: "Make New Comparison", zh: "进行新比较", de: "Neuen Vergleich durchführen", fr: "Effectuer une nouvelle comparaison" },
                 "✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio.": { en: "✅ Offer copied successfully! Now you can paste (Ctrl+V or Cmd+V) the visual design into your email client.", zh: "✅ 报价复制成功！现在您可以将视觉设计粘贴（Ctrl+V 或 Cmd+V）到您的电子邮件客户端。", de: "✅ Angebot erfolgreich kopiert! Jetzt können Sie das visuelle Design in Ihren E-Mail-Client einfügen (Strg+V oder Cmd+V).", fr: "✅ Offre copiée avec succès ! Vous pouvez maintenant coller (Ctrl+V ou Cmd+V) le design visuel dans votre client de messagerie." },
                 "No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte.": { en: "Could not copy visual design. Try from a PC or contact support.", zh: "无法复制视觉设计。请尝试从PC或联系支持。", de: "Visuelles Design konnte nicht kopiert werden. Versuchen Sie es von einem PC aus oder kontaktieren Sie den Support.", fr: "Impossible de copier le design visuel. Essayez depuis un PC ou contactez le support." },
@@ -20672,7 +20685,7 @@ ${clientName}
                 // Traducir elementos específicos por ID
                 const elementIds = [
                     'inicio-title', 'inicio-subtitle', 'inicio-supply-label',
-                    'landing-title', 'savings-label', 'gas-results-subtitle',
+                    'landing-title', 'savings-label', 'gas-results-subtitle', 'gas-regulation-subtitle',
                     'qr-analyzing-title', 'qr-progress-label', 'qr-help-text',
                     'multicups-datos-generales', 'multicups-potencias', 'multicups-energia',
                     'qr-confirm-title', 'qr-confirm-subtitle', 'confirm-save-supply-btn',
