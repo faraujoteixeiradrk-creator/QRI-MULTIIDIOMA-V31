@@ -1904,7 +1904,7 @@
             
             const mainButton = document.querySelector('#error-modal button:not(#secondary-action-btn)');
             if (mainButton) {
-                mainButton.textContent = "Entendido";
+                mainButton.textContent = tr("Entendido");
                 mainButton.onclick = hideErrorModal;
             }
 
@@ -1920,8 +1920,8 @@
             }
         }
 
-        window.showMessageModal = (msg, title="Éxito") => setModalContent(msg, title, false);
-        window.showErrorModal = (msg, title="¡Atención!") => setModalContent(msg, title, true);
+        window.showMessageModal = (msg, title=tr("Éxito")) => setModalContent(msg, title, false);
+        window.showErrorModal = (msg, title=tr("¡Atención!")) => setModalContent(msg, title, true);
         
         function cleanupPasteCatcher() {
             const pasteCatcher = document.getElementById('paste-catcher');
