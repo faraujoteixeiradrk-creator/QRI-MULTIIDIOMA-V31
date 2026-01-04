@@ -14512,7 +14512,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     }
                     
                     // Extraer tarjetas de suministros del DOM
-                    const supplyCards = resultsContainer.querySelectorAll('.bg-white.rounded-xl.shadow-md');
+                    const supplyCards = resultsContainer.querySelectorAll('.bg-white.rounded-lg.border.border-slate-200');
                     console.log('📦 Tarjetas encontradas:', supplyCards.length);
                     
                     if (supplyCards.length === 0) {
@@ -14525,57 +14525,67 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     // Procesar cada tarjeta
                     supplyCards.forEach((card, index) => {
                         // Determinar tipo (electricidad o gas) por el icono
-                        const iconText = card.querySelector('.text-3xl')?.textContent.trim() || '';
+                        const iconElement = card.querySelector('.text-lg');
+                        const iconText = iconElement ? iconElement.textContent.trim() : '';
                         const isElec = iconText.includes('⚡');
                         const icon = isElec ? '⚡' : '🔥';
                         const bgColor = isElec ? '#f0fdf4' : '#fff7ed';
                         const borderColor = isElec ? '#86efac' : '#fed7aa';
                         
                         // Extraer datos de la tarjeta
-                        const tariffElement = card.querySelector('.font-bold.text-lg, .text-xl.font-bold');
+                        const tariffElement = card.querySelector('.text-xs.font-semibold.text-slate-600');
                         const tariff = tariffElement ? tariffElement.textContent.trim() : '';
                         
-                        const totalElement = card.querySelector('.text-2xl.font-black, .text-3xl.font-black');
+                        const totalElement = card.querySelector('.text-sm.font-bold.text-slate-900');
                         const total = totalElement ? totalElement.textContent.trim() : '0,00 €';
                         
-                        const nameElement = card.querySelector('.text-sm.text-slate-600.mb-3, .text-slate-600.mb-3');
+                        const nameElement = card.querySelector('.text-xs.text-slate-700.font-medium');
                         const name = nameElement ? nameElement.textContent.trim() : 'DRK';
                         
-                        // Extraer líneas de desglose
-                        const detailRows = card.querySelectorAll('.grid.grid-cols-2, .flex.justify-between');
+                        // Extraer líneas de desglose de la sección bg-slate-50
+                        const detailsSection = card.querySelector('.bg-slate-50');
                         let detailsHTML = '';
                         
-                        detailRows.forEach(row => {
-                            const label = row.querySelector('.text-slate-600, .text-sm.text-slate-600')?.textContent.trim() || '';
-                            const value = row.querySelector('.font-medium, .font-semibold')?.textContent.trim() || '';
-                            
-                            if (label && value && !label.includes('当前账单') && !label.includes('节省')) {
-                                const isBold = label.includes('总计') || label.includes('期间') || label.includes('月度');
-                                const style = isBold 
-                                    ? 'padding: 8px 0; font-weight: bold; color: #1e293b; border-top: 2px solid #e2e8f0;'
-                                    : 'padding: 4px 0; color: #64748b;';
-                                
-                                detailsHTML += `
-                                    <tr>
-                                        <td style="${style}">${label}</td>
-                                        <td style="${style} text-align: right;">${value}</td>
-                                    </tr>
-                                `;
-                            }
-                        });
+                        if (detailsSection) {
+                            const detailRows = detailsSection.querySelectorAll('.flex.justify-between');
+                            detailRows.forEach(row => {
+                                const spans = row.querySelectorAll('span');
+                                if (spans.length === 2) {
+                                    const label = spans[0].textContent.trim();
+                                    const value = spans[1].textContent.trim();
+                                    
+                                    const isBold = row.classList.contains('font-semibold') || label.includes('TOTAL');
+                                    const style = isBold 
+                                        ? 'padding: 8px 0; font-weight: bold; color: #1e293b; border-top: 2px solid #e2e8f0;'
+                                        : 'padding: 4px 0; color: #64748b;';
+                                    
+                                    detailsHTML += `
+                                        <tr>
+                                            <td style="${style}">${label}</td>
+                                            <td style="${style} text-align: right;">${value}</td>
+                                        </tr>
+                                    `;
+                                }
+                            });
+                        }
                         
-                        // Extraer ahorro
-                        const savingsSection = card.querySelector('.bg-green-50, .bg-slate-50');
+                        // Extraer ahorro de la sección inferior
+                        const savingsSection = card.querySelector('.flex.items-center.justify-between.mt-2');
                         let currentBill = '0,00 €/月';
                         let savings = '0,00 €/年';
                         
                         if (savingsSection) {
-                            const savingsText = savingsSection.textContent;
-                            const currentMatch = savingsText.match(/当前账单[：:]\s*([0-9,]+\s*€\/月)/);
-                            const savingsMatch = savingsText.match(/节省[：:]\s*([0-9,]+\s*€\/年)/);
-                            
-                            if (currentMatch) currentBill = currentMatch[1];
-                            if (savingsMatch) savings = savingsMatch[1];
+                            const spans = savingsSection.querySelectorAll('span');
+                            if (spans.length >= 2) {
+                                const currentText = spans[0].textContent;
+                                const savingsText = spans[1].textContent;
+                                
+                                const currentMatch = currentText.match(/([0-9,.]+\s*€\/[^)]+)/);
+                                const savingsMatch = savingsText.match(/([0-9,.]+\s*€\/[^)]+)/);
+                                
+                                if (currentMatch) currentBill = currentMatch[1];
+                                if (savingsMatch) savings = savingsMatch[1];
+                            }
                         }
                         
                         // Construir HTML de la tarjeta
@@ -14623,23 +14633,44 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     });
                     
                     // Extraer totales del resumen
-                    const totalSavingsSection = resultsContainer.querySelector('.bg-gradient-to-r.from-green-500, .bg-green-600');
+                    const totalSavingsSection = resultsContainer.querySelector('.rounded-2xl.shadow-2xl');
                     let totalOriginal = '0,00 €';
                     let totalNew = '0,00 €';
                     let totalAhorro = '0,00 €';
                     let ahorroMes = '0,00 €';
                     
                     if (totalSavingsSection) {
-                        const text = totalSavingsSection.textContent;
-                        const originalMatch = text.match(/Factura actual total[：:]\s*([0-9,.]+\s*€)/);
-                        const newMatch = text.match(/Con DRK pagarías[：:]\s*([0-9,.]+\s*€)/);
-                        const ahorroMatch = text.match(/Ahorro anual generado[：:]\s*([0-9,.]+\s*€)/);
-                        const mesMatch = text.match(/([0-9,.]+\s*€)\s*al mes/);
-                        
-                        if (originalMatch) totalOriginal = originalMatch[1];
-                        if (newMatch) totalNew = newMatch[1];
-                        if (ahorroMatch) totalAhorro = ahorroMatch[1];
-                        if (mesMatch) ahorroMes = mesMatch[1];
+                        const allParagraphs = totalSavingsSection.querySelectorAll('p');
+                        allParagraphs.forEach(p => {
+                            const text = p.textContent.trim();
+                            
+                            // Buscar "Factura actual total:" seguido del valor
+                            if (text.includes('Factura actual total')) {
+                                const nextP = p.nextElementSibling;
+                                if (nextP && nextP.tagName === 'P') {
+                                    totalOriginal = nextP.textContent.trim();
+                                }
+                            }
+                            // Buscar "Con DRK pagarías:"
+                            else if (text.includes('Con DRK pagarías')) {
+                                const nextP = p.nextElementSibling;
+                                if (nextP && nextP.tagName === 'P') {
+                                    totalNew = nextP.textContent.trim();
+                                }
+                            }
+                            // Buscar "Ahorro anual generado:"
+                            else if (text.includes('Ahorro anual generado')) {
+                                const nextP = p.nextElementSibling;
+                                if (nextP && nextP.tagName === 'P') {
+                                    totalAhorro = nextP.textContent.trim();
+                                }
+                                // El siguiente después del ahorro anual es el mensual
+                                const mensualP = nextP ? nextP.nextElementSibling : null;
+                                if (mensualP && mensualP.tagName === 'P') {
+                                    ahorroMes = mensualP.textContent.trim();
+                                }
+                            }
+                        });
                     }
                     
                     // Construir HTML completo
