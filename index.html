@@ -9616,11 +9616,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     <tr><td colspan="2" style="padding: 0 20px;">
                         ${bd.savings > 0 ? `
                         <div style="text-align: center; margin: 25px 0 10px 0;">
-                            <p style="margin: 0; font-size: 16px; color: #555; font-weight: bold;">TU AHORRO ANUAL ESTIMADO ES:</p>
+                            <p style="margin: 0; font-size: 16px; color: #555; font-weight: bold;">${tr('TU AHORRO ANUAL ESTIMADO ES:')}</p>
                         </div>
                         <div style="${savingsBox}">
                             <span style="font-size: 38px; white-space: nowrap;">${eur(bd.savings)}</span>
-                            <p style="margin: 5px 0 0 0; font-size: 18px; font-weight: bold;">¡CONSIGUE TU AHORRO ANUAL!</p>
+                            <p style="margin: 5px 0 0 0; font-size: 18px; font-weight: bold;">${tr('¡CONSIGUE TU AHORRO ANUAL!')}</p>
                         </div>
                         ` : `
                         <div style="background-color: #f0f9ff; padding: 25px; border-radius: 8px; border: 2px solid ${D_PRIMARY_DARK}; margin: 25px 0; text-align: center;">
@@ -9638,13 +9638,13 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                 <td style="width: 50%; padding: 15px; background-color: #f9fafb; border: 1px solid #ddd; text-align: center; vertical-align: top;">
                                     <div style="font-size: 11px; font-weight: bold; color: #888; text-transform: uppercase;"${tr("TU FACTURA ACTUAL")}</div>
                                     <div style="font-size: 20px; font-weight: bold; color: #ef4444; margin: 5px 0; text-decoration: line-through; white-space: nowrap;">${eur(bd.originalBillAnnual)}</div>
-                                    <div style="font-size: 11px; color: #666;">/ AÑO</div>
+                                    <div style="font-size: 11px; color: #666;">${tr("/ AÑO")}</div>
                                 </td>
                                 <td style="width: 50%; padding: 15px; background-color: ${BG_LIGHT}; border: 1px solid ${D_PRIMARY_MED}; text-align: center; vertical-align: top;">
-                                    <div style="font-size: 11px; font-weight: bold; color: ${D_PRIMARY_MED}; text-transform: uppercase;">TU NUEVO COSTE ${commercializadoraName}</div>
+                                    <div style="font-size: 11px; font-weight: bold; color: ${D_PRIMARY_MED}; text-transform: uppercase;">${tr("TU NUEVO COSTE")} ${commercializadoraName}</div>
                                     <div style="font-size: 24px; font-weight: bold; color: ${D_PRIMARY_DARK}; margin: 5px 0; white-space: nowrap;">${eur(bd.totalAnnual)}</div>
-                                    <div style="font-size: 11px; color: ${D_PRIMARY_MED};">/ AÑO</div>
-                                    <div style="font-size: 13px; font-weight: bold; color: ${D_PRIMARY_DARK}; margin-top: 5px; white-space: nowrap;">${eur(bd.totalAnnual/12)} / MES</div>
+                                    <div style="font-size: 11px; color: ${D_PRIMARY_MED};">${tr("/ AÑO")}</div>
+                                    <div style="font-size: 13px; font-weight: bold; color: ${D_PRIMARY_DARK}; margin-top: 5px; white-space: nowrap;">${eur(bd.totalAnnual/12)} ${tr("/ MES")}</div>
                                 </td>
                             </tr>
                         </table>
@@ -9653,7 +9653,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     
                     ${preciosResumenTable}
                     
-                    <tr><td colspan="2"><div style="${sectionTitle}">DESGLOSE DETALLADO DE LA SIMULACIÓN (${commercialTariffName})</div></td></tr>
+                    <tr><td colspan="2"><div style="${sectionTitle}">${tr('DESGLOSE DETALLADO DE LA SIMULACIÓN')} (${commercialTariffName})</div></td></tr>
                     <tr><td colspan="2" style="padding: 0 20px;">
                         <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 10px; margin-bottom: 20px; table-layout: fixed;">
                             ${desgloseRows}
@@ -15201,9 +15201,9 @@ ${clientName}
                     <!-- TU FACTURA ACTUAL -->
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
                         <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr("TU FACTURA ACTUAL")}</p>
-                        <p style="margin:0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${(totalOriginalBill/12).toFixed(2)} €/mes</p>
+                        <p style="margin:0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${(totalOriginalBill/12).toFixed(2)} ${tr("€/mes")}</p>
                         <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr("Total Periodo")} (31 ${tr('días')})</p>
-                        <p style="margin:20px 0 0 0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${totalOriginalBill.toFixed(2)} €/año</p>
+                        <p style="margin:20px 0 0 0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${totalOriginalBill.toFixed(2)} ${tr("€/año")}</p>
                     </td>
                     
                     <!-- SEPARADOR VERTICAL -->
@@ -15214,9 +15214,9 @@ ${clientName}
                     <!-- TU NUEVO COSTE -->
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
                         <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr('TU NUEVO COSTE')} ${brandName}</p>
-                        <p style="margin:0;font-size:28px;color:#475569;font-weight:500">${(totalNew/12).toFixed(2)} €/mes</p>
+                        <p style="margin:0;font-size:28px;color:#475569;font-weight:500">${(totalNew/12).toFixed(2)} ${tr("€/mes")}</p>
                         <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr("Estimado Mensual")}</p>
-                        <p style="margin:20px 0 0 0;font-size:28px;color:#475569;font-weight:500">${totalNew.toFixed(2)} €/año</p>
+                        <p style="margin:20px 0 0 0;font-size:28px;color:#475569;font-weight:500">${totalNew.toFixed(2)} ${tr("€/año")}</p>
                     </td>
                 </tr>
             </table>
@@ -17329,7 +17329,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
                     <tr>
                         <td style="padding: 20px 40px; text-align: center;">
-                            <p style="margin: 0 0 10px 0; font-size: 16px; color: #666; font-weight: bold;">TU AHORRO ANUAL ESTIMADO ES:</p>
+                            <p style="margin: 0 0 10px 0; font-size: 16px; color: #666; font-weight: bold;">${tr("TU AHORRO ANUAL ESTIMADO ES:")}</p>
                         </td>
                     </tr>
                 </table>
@@ -17338,7 +17338,7 @@ ${clientName}
                     <tr>
                         <td style="padding: 30px; text-align: center;">
                             <h1 style="margin: 0; font-size: 48px; font-weight: bold; color: white;">${eur(ahorroAnual)}</h1>
-                            <p style="margin: 10px 0 0 0; font-size: 18px; color: white; font-weight: bold;">¡CONSIGUE TU AHORRO ANUAL!</p>
+                            <p style="margin: 10px 0 0 0; font-size: 18px; color: white; font-weight: bold;">${tr("¡CONSIGUE TU AHORRO ANUAL!")}</p>
                         </td>
                     </tr>
                 </table>
@@ -17349,14 +17349,14 @@ ${clientName}
                         <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
                             <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;"${tr("TU FACTURA ACTUAL")}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(facturaActualAnio)}</h2>
-                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ AÑO</p>
+                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">${tr("/ AÑO")}</p>
                         </td>
                         <td style="width: 4%;"></td>
                         <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
-                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">TU NUEVO COSTE ${brandName}</p>
+                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">${tr("TU NUEVO COSTE")} ${brandName}</p>
                             <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: ${primaryColor};">${eur(nuevoAnio)}</h2>
-                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ AÑO</p>
-                            <p style="margin: 8px 0 0 0; font-size: 16px; color: ${primaryColor}; font-weight: bold;">${eur(nuevoMes)} / MES</p>
+                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">${tr("/ AÑO")}</p>
+                            <p style="margin: 8px 0 0 0; font-size: 16px; color: ${primaryColor}; font-weight: bold;">${eur(nuevoMes)} ${tr("/ MES")}</p>
                         </td>
                     </tr>
                 </table>
@@ -17376,15 +17376,15 @@ ${clientName}
                         <td style="padding: 12px 40px; font-weight: bold; font-size: 14px; text-align: right;">PRECIO ${brandName}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">Precio fijo (€/día)</td>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">${tr("Precio fijo (€/día)")}</td>
                         <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p_fijo_diario / 365)}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">Energía (€/kWh)</td>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">${tr("Energía (€/kWh)")}</td>
                         <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p1_price)}</td>
                     </tr>
                     <tr style="background-color: #f0fdf4;">
-                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px;">AHORRO ANUAL</td>
+                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px;">${tr("AHORRO ANUAL")}</td>
                         <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px; text-align: right; color: #16a34a;">${eur(ahorroAnual)}</td>
                     </tr>
                 </table>
@@ -17393,7 +17393,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 30px;">
                     <tr>
                         <td style="padding: 15px 40px;">
-                            <h3 style="margin: 0; font-size: 16px; font-weight: bold;">DESGLOSE DETALLADO DE LA SIMULACIÓN (${tariffName})</h3>
+                            <h3 style="margin: 0; font-size: 16px; font-weight: bold;">${tr("DESGLOSE DETALLADO DE LA SIMULACIÓN")} (${tariffName})</h3>
                         </td>
                     </tr>
                 </table>
@@ -17405,7 +17405,7 @@ ${clientName}
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">Precio fijo (${dias} días x ${num(result.p_fijo_diario / 365)})</td>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr("Precio fijo")} (${dias} días x ${num(result.p_fijo_diario / 365)})</td>
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right; font-weight: bold;">${eur(result.total_fijo)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
@@ -17415,11 +17415,11 @@ ${clientName}
                     
                     <tr>
                         <td style="padding: 15px 40px; padding-top: 20px;" colspan="2">
-                            <p style="margin: 0 0 10px 0; font-size: 15px; font-weight: bold; color: ${primaryColor};">TÉRMINO ENERGÍA (Precio en €/kWh)</p>
+                            <p style="margin: 0 0 10px 0; font-size: 15px; font-weight: bold; color: ${primaryColor};">${tr("TÉRMINO ENERGÍA")} (${tr("Precio en")} €/kWh)</p>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">Energía (${kwh} kWh x ${num(result.p1_price)})</td>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr("Energía")} (${kwh} kWh x ${num(result.p1_price)})</td>
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right; font-weight: bold;">${eur(result.total_energia)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
@@ -17431,7 +17431,7 @@ ${clientName}
                         <td style="padding: 15px 40px; padding-top: 20px; font-size: 15px; font-weight: bold; color: ${primaryColor};" colspan="2"${tr("SUBTOTAL BASE (P+E)")}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">Imp. Hidrocarburos (€0,00234 x ${kwh} kWh)</td>
+                        <td style="padding: 8px 40px; padding-left: 60px; font-size: 13px;">${tr("Imp. Hidrocarburos")} (€0,00234 x ${kwh} kWh)</td>
                         <td style="padding: 8px 40px; font-size: 13px; text-align: right;">${eur(result.impuesto_hidrocarburo)}</td>
                     </tr>
                     <tr style="background-color: #f9f9f9;">
@@ -17456,7 +17456,7 @@ ${clientName}
                 <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
                     <tr>
                         <td style="padding: 20px 40px; text-align: center;">
-                            <h2 style="margin: 0 0 20px 0; font-size: 24px; color: #333;">RESUMEN DE AHORRO FINAL</h2>
+                            <h2 style="margin: 0 0 20px 0; font-size: 24px; color: #333;">${tr("RESUMEN DE AHORRO FINAL")}</h2>
                         </td>
                     </tr>
                 </table>
@@ -20472,6 +20472,20 @@ ${clientName}
                 "RESULTADO DE LA COMPARATIVA": { en: "COMPARISON RESULT", zh: "比较结果", de: "VERGLEICHSERGEBNIS", fr: "RÉSULTAT DE LA COMPARAISON" },
                 "Liderando el ahorro y la eficiencia energética.": { en: "Leading savings and energy efficiency.", zh: "领先的节能和能源效率。", de: "Führend bei Einsparungen und Energieeffizienz.", fr: "Leader en économies et efficacité énergétique." },
                 "TU NUEVO COSTE": { en: "YOUR NEW COST", zh: "您的新费用", de: "IHRE NEUEN KOSTEN", fr: "VOTRE NOUVEAU COÛT" },
+                "/ MES": { en: "/ MONTH", zh: "/ 月", de: "/ MONAT", fr: "/ MOIS" },
+                "TU AHORRO ANUAL ESTIMADO ES:": { en: "YOUR ESTIMATED ANNUAL SAVINGS IS:", zh: "您的估计年度节省为：", de: "IHRE GESCHÄTZTEN JÄHRLICHEN EINSPARUNGEN SIND:", fr: "VOS ÉCONOMIES ANNUELLES ESTIMÉES SONT :" },
+                "¡CONSIGUE TU AHORRO ANUAL!": { en: "GET YOUR ANNUAL SAVINGS!", zh: "获取您的年度节省！", de: "HOLEN SIE SICH IHRE JÄHRLICHEN EINSPARUNGEN!", fr: "OBTENEZ VOS ÉCONOMIES ANNUELLES !" },
+                "DESGLOSE DETALLADO DE LA SIMULACIÓN": { en: "DETAILED BREAKDOWN OF THE SIMULATION", zh: "模拟详细明细", de: "DETAILLIERTE AUFSCHLÜSSELUNG DER SIMULATION", fr: "RÉPARTITION DÉTAILLÉE DE LA SIMULATION" },
+                "Precio fijo (€/día)": { en: "Fixed price (€/day)", zh: "固定价格（€/天）", de: "Festpreis (€/Tag)", fr: "Prix fixe (€/jour)" },
+                "Energía (€/kWh)": { en: "Energy (€/kWh)", zh: "能源（€/kWh）", de: "Energie (€/kWh)", fr: "Énergie (€/kWh)" },
+                "AHORRO ANUAL": { en: "ANNUAL SAVINGS", zh: "年度节省", de: "JÄHRLICHE EINSPARUNGEN", fr: "ÉCONOMIES ANNUELLES" },
+                "RESUMEN DE AHORRO FINAL": { en: "FINAL SAVINGS SUMMARY", zh: "最终节省摘要", de: "ENDGÜLTIGE EINSPARUNGSZUSAMMENFASSUNG", fr: "RÉSUMÉ FINAL DES ÉCONOMIES" },
+                "Precio fijo": { en: "Fixed price", zh: "固定价格", de: "Festpreis", fr: "Prix fixe" },
+                "TÉRMINO ENERGÍA": { en: "ENERGY TERM", zh: "能源条款", de: "ENERGIEBEDINGUNGEN", fr: "TERME ÉNERGIE" },
+                "Precio en": { en: "Price in", zh: "价格", de: "Preis in", fr: "Prix en" },
+                "Imp. Hidrocarburos": { en: "Hydrocarbon tax", zh: "碳氢化合物税", de: "Kohlenwasserstoffsteuer", fr: "Taxe sur les hydrocarbures" },
+                "€/mes": { en: "€/month", zh: "€/月", de: "€/Monat", fr: "€/mois" },
+                "€/año": { en: "€/year", zh: "€/年", de: "€/Jahr", fr: "€/an" },
                 
                 // Más traducciones del PDF
                 "POWER SUBTOTAL": { en: "POWER SUBTOTAL", zh: "功率小计", de: "LEISTUNG ZWISCHENSUMME", fr: "SOUS-TOTAL PUISSANCE" },
