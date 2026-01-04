@@ -14494,46 +14494,212 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
         function copyDualHTML() {
             const currentLang = localStorage.getItem('appLanguage') || 'es';
             
-            // NUEVO: Para CHINO, copiar directamente el DOM visible
+            // NUEVO: Para CHINO, generar HTML con TABLAS para Outlook
             if (currentLang === 'zh') {
-                console.log('🇨🇳 Modo chino detectado - copiando DOM DUAL visible');
+                console.log('🇨🇳 Modo chino detectado - generando HTML DUAL con tablas');
                 
-                const resultsContainer = document.getElementById('dual-results-container');
-                if (!resultsContainer) {
+                // Obtener los datos de DUAL
+                if (!window.dualSupplies || window.dualSupplies.length === 0) {
                     alert('没有要复制的结果 / No results to copy');
                     return;
                 }
                 
-                // Crear HTML completo con estilos
-                const htmlContent = `
+                // Construir HTML con tablas
+                let htmlContent = `
                     <!DOCTYPE html>
                     <html lang="zh">
                     <head>
                         <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>DRK 能源 - DUAL 比较结果</title>
                         <style>
-                            body { font-family: Arial, sans-serif; padding: 20px; background: #f1f5f9; }
-                            .container { max-width: 1000px; margin: 0 auto; }
-                            .header { background: linear-gradient(135deg, #0ea5e9 0%, #84cc16 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
-                            .content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
-                            h1 { margin: 0; font-size: 36px; font-weight: 900; }
-                            h3 { color: #1e293b; font-size: 18px; font-weight: bold; }
-                            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-                            .text-sm { font-size: 14px; }
-                            .font-bold { font-weight: bold; }
+                            body { font-family: Arial, sans-serif; background: #f1f5f9; margin: 0; padding: 20px; }
+                            table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
                         </style>
                     </head>
                     <body>
-                        <div class="container">
-                            <div class="header">
-                                <h1>DRK 能源 - DUAL</h1>
-                                <p style="margin: 10px 0 0 0; opacity: 0.9;">多重供应管理</p>
-                            </div>
-                            <div class="content">
-                                ${resultsContainer.innerHTML}
-                            </div>
-                        </div>
+                        <!-- Encabezado -->
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #06b6d4 0%, #84cc16 100%); border-radius: 12px; margin-bottom: 20px;">
+                            <tr>
+                                <td style="padding: 30px; text-align: center;">
+                                    <div style="font-size: 48px; margin-bottom: 10px;">⚡🔥</div>
+                                    <h1 style="margin: 0; font-size: 36px; font-weight: 900; color: white;">COMPARATIVA GLOBAL</h1>
+                                    <p style="margin: 10px 0 0 0; font-size: 18px; color: white; opacity: 0.95;">Resultados de ${window.dualSupplies.length} 供应</p>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Título de sección -->
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background: white; border-radius: 12px; margin-bottom: 20px;">
+                            <tr>
+                                <td style="padding: 20px;">
+                                    <h2 style="margin: 0; font-size: 24px; color: #1e293b; font-weight: bold;">供应摘要</h2>
+                                </td>
+                            </tr>
+                        </table>
+                `;
+                
+                // Iterar por cada suministro (electricidad y gas)
+                window.dualSupplies.forEach(supply => {
+                    const isElec = supply.type === 'electricidad';
+                    const icon = isElec ? '⚡' : '🔥';
+                    const bgColor = isElec ? '#f0fdf4' : '#fff7ed';
+                    const borderColor = isElec ? '#86efac' : '#fed7aa';
+                    
+                    // Calcular ahorro anual
+                    let ahorroAnual = 0;
+                    let facturaActual = 0;
+                    
+                    if (supply.results && supply.results.length > 0) {
+                        const result = supply.results[0];
+                        ahorroAnual = result.ahorro_anual || result.ahorro || 0;
+                        facturaActual = result.originalBillAnnual || 0;
+                    }
+                    
+                    const facturaActualMes = facturaActual / 12;
+                    
+                    htmlContent += `
+                        <!-- Tarjeta de suministro -->
+                        <table width="100%" cellpadding="0" cellspacing="0" style="background: white; border: 2px solid ${borderColor}; border-radius: 12px; margin-bottom: 20px;">
+                            <tr>
+                                <td style="padding: 20px;">
+                                    <!-- Encabezado del suministro -->
+                                    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 15px;">
+                                        <tr>
+                                            <td style="font-size: 32px;">${icon}</td>
+                                            <td style="text-align: left; padding-left: 10px;">
+                                                <div style="font-size: 20px; font-weight: bold;">${supply.tariff}</div>
+                                            </td>
+                                            <td style="text-align: right;">
+                                                <div style="font-size: 28px; font-weight: bold; color: #1e293b;">${formatEuroEmail(supply.results[0]?.totalAnnual || 0)}</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <!-- Nombre de tarifa -->
+                                    <div style="font-size: 16px; font-weight: bold; color: #475569; margin-bottom: 15px;">
+                                        ${supply.results[0]?.fullName || supply.results[0]?.name || 'DRK'}
+                                    </div>
+                                    
+                                    <!-- Detalles del breakdown -->
+                                    <table width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px; color: #64748b;">
+                    `;
+                    
+                    // Agregar líneas de desglose según el tipo
+                    if (isElec) {
+                        const result = supply.results[0];
+                        const bd = result.breakdown || {};
+                        
+                        htmlContent += `
+                            <tr>
+                                <td style="padding: 4px 0;">Potencia (${bd.dias_facturados || 0} 天)</td>
+                                <td style="text-align: right; padding: 4px 0;">${formatEuroEmail(bd.total_power || 0)}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">能源 (${bd.totalKwh || 0} kWh)</td>
+                                <td style="text-align: right; padding: 4px 0;">${formatEuroEmail(bd.total_energy || 0)}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">电力税（5.113%）</td>
+                                <td style="text-align: right; padding: 4px 0;">${formatEuroEmail(bd.impuesto_electrico || 0)}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">增值税（21%）</td>
+                                <td style="text-align: right; padding: 4px 0;">${formatEuroEmail(bd.iva || 0)}</td>
+                            </tr>
+                            <tr style="border-top: 2px solid #e2e8f0;">
+                                <td style="padding: 8px 0; font-weight: bold; color: #1e293b;">期间总计</td>
+                                <td style="text-align: right; padding: 8px 0; font-weight: bold; color: #1e293b;">${formatEuroEmail(bd.total_con_iva || 0)}</td>
+                            </tr>
+                        `;
+                    } else {
+                        // GAS
+                        const result = supply.results[0];
+                        const bd = result.breakdown || {};
+                        
+                        htmlContent += `
+                            <tr>
+                                <td style="padding: 4px 0;">固定期限（${bd.dias_facturados || 30} 天)</td>
+                                <td style="text-align: right; padding: 4px 0;">${formatEuroEmail(bd.total_fijo || 0)}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">能源 (${bd.kwh || 0} kWh)</td>
+                                <td style="text-align: right; padding: 4px 0;">${formatEuroEmail(bd.total_energia || 0)}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">碳氢化合物税</td>
+                                <td style="text-align: right; padding: 4px 0;">${formatEuroEmail(bd.impuesto_hidrocarburos || 0)}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">增值税（21%）</td>
+                                <td style="text-align: right; padding: 4px 0;">${formatEuroEmail(bd.iva || 0)}</td>
+                            </tr>
+                            <tr style="border-top: 2px solid #e2e8f0;">
+                                <td style="padding: 8px 0; font-weight: bold; color: #1e293b;">月度总计</td>
+                                <td style="text-align: right; padding: 8px 0; font-weight: bold; color: #1e293b;">${formatEuroEmail(result.totalPeriod || 0)}</td>
+                            </tr>
+                        `;
+                    }
+                    
+                    htmlContent += `
+                                    </table>
+                                    
+                                    <!-- Ahorro -->
+                                    <table width="100%" cellpadding="0" cellspacing="0" style="background: ${bgColor}; border-radius: 8px; margin-top: 15px; padding: 10px;">
+                                        <tr>
+                                            <td style="font-size: 14px; color: #64748b;">当前账单：</td>
+                                            <td style="text-align: center; font-size: 16px; font-weight: bold; color: #1e293b;">${formatEuroEmail(facturaActualMes)}/月</td>
+                                            <td style="font-size: 14px; color: #16a34a; text-align: right;">节省：</td>
+                                            <td style="text-align: right; font-size: 16px; font-weight: bold; color: #16a34a;">${formatEuroEmail(ahorroAnual)}/年</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    `;
+                });
+                
+                // Calcular totales
+                let totalOriginal = 0;
+                let totalNuevo = 0;
+                let totalAhorro = 0;
+                
+                window.dualSupplies.forEach(supply => {
+                    if (supply.results && supply.results.length > 0) {
+                        const result = supply.results[0];
+                        totalOriginal += result.originalBillAnnual || 0;
+                        totalNuevo += result.totalAnnual || 0;
+                        totalAhorro += result.ahorro_anual || result.ahorro || 0;
+                    }
+                });
+                
+                // Resumen final
+                htmlContent += `
+                    <!-- Resumen de ahorro total -->
+                    <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); border-radius: 12px; margin-top: 30px;">
+                        <tr>
+                            <td style="padding: 30px; text-align: center;">
+                                <div style="font-size: 48px; margin-bottom: 10px;">💰</div>
+                                <h2 style="margin: 0 0 20px 0; font-size: 28px; color: white; font-weight: bold;">总节省</h2>
+                                
+                                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 500px; margin: 0 auto;">
+                                    <tr>
+                                        <td style="padding: 10px; text-align: left; font-size: 16px; color: white; opacity: 0.9;">📊 Factura actual total:</td>
+                                        <td style="padding: 10px; text-align: right; font-size: 20px; color: white; font-weight: bold;">${formatEuroEmail(totalOriginal)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; text-align: left; font-size: 16px; color: white; opacity: 0.9;">Con DRK pagarías:</td>
+                                        <td style="padding: 10px; text-align: right; font-size: 20px; color: white; font-weight: bold;">${formatEuroEmail(totalNuevo)}</td>
+                                    </tr>
+                                    <tr style="border-top: 2px solid rgba(255,255,255,0.3);">
+                                        <td style="padding: 15px 10px; text-align: left; font-size: 18px; color: white;">🎉 Ahorro anual generado:</td>
+                                        <td style="padding: 15px 10px; text-align: right; font-size: 32px; color: white; font-weight: bold;">${formatEuroEmail(totalAhorro)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding: 10px; text-align: center; font-size: 18px; color: white; opacity: 0.95;">${formatEuroEmail(totalAhorro / 12)} al mes</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
                     </body>
                     </html>
                 `;
@@ -14554,8 +14720,8 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 try {
                     const successful = document.execCommand('copy');
                     if (successful) {
-                        alert('✅ 成功！HTML已复制（中文）\n✅ Success! HTML copied (Chinese)\n\n可以粘贴到电子邮件\nYou can paste into email');
-                        console.log('✅ DOM DUAL copiado en chino');
+                        alert('✅ 成功！HTML已复制（中文 + 表格格式）\n✅ Success! HTML copied (Chinese + Table format)\n\n现在可以粘贴到Outlook！\nNow you can paste into Outlook!');
+                        console.log('✅ HTML DUAL con tablas copiado en chino');
                     } else {
                         throw new Error('execCommand falló');
                     }
