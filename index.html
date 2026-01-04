@@ -8338,6 +8338,27 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 document.getElementById('send-offer-modal').classList.add('hidden');
                 document.getElementById('send-offer-modal').classList.remove('flex');
                 
+                // NUEVO: Restaurar idioma chino si es necesario
+                const currentLangAfterPDF = localStorage.getItem('appLanguage') || 'es';
+                if (currentLangAfterPDF === 'en') {
+                    // Si ahora estamos en inglés, preguntar si quiere volver a chino
+                    setTimeout(() => {
+                        const userWantsChineseBack = confirm(
+                            '✅ PDF已生成！\n' +
+                            '✅ PDF generated!\n\n' +
+                            '是否要切换回中文？\n' +
+                            'Switch back to Chinese?\n\n' +
+                            '点击"确定"切换回中文\n' +
+                            'Click OK to switch back to Chinese'
+                        );
+                        
+                        if (userWantsChineseBack && window.LANG) {
+                            console.log('🇨🇳 Restaurando idioma chino');
+                            window.LANG.change('zh', true);
+                        }
+                    }, 500);
+                }
+                
             } catch (e) {
                 console.error("Error al generar PDF:", e);
                 window.showErrorModal(`Error al generar PDF: ${e.message}`);
@@ -20856,49 +20877,22 @@ ${clientName}
             window.showChinesePDFWarning = function() {
                 const currentLang = localStorage.getItem('appLanguage') || 'es';
                 if (currentLang === 'zh') {
-                    const shouldSwitchAuto = confirm(
-                        '❌ 无法生成中文PDF\n' +
-                        '❌ Cannot generate PDF in Chinese\n\n' +
-                        '原因：PDF格式不支持中文字符\n' +
-                        'Reason: PDF format does not support Chinese characters\n\n' +
-                        '------------------------\n\n' +
-                        '✅ 自动解决方案：\n' +
-                        '✅ Automatic solution:\n\n' +
-                        '1. 自动切换到英语 🇬🇧\n' +
-                        '   Automatically switch to English 🇬🇧\n' +
-                        '2. 生成PDF\n' +
-                        '   Generate PDF\n' +
-                        '3. PDF生成后可以切换回中文\n' +
-                        '   You can switch back to Chinese after PDF\n\n' +
-                        '数字和计算结果将相同。\n' +
-                        'Numbers and calculations will be the same.\n\n' +
-                        '------------------------\n\n' +
-                        '点击"确定"自动切换到英语并生成PDF\n' +
-                        'Click OK to auto-switch to English and generate PDF\n\n' +
-                        '点击"取消"返回\n' +
-                        'Click Cancel to go back'
+                    // Mostrar mensaje informativo (no preguntar, directamente hacer el cambio)
+                    alert(
+                        '🇨🇳 生成PDF文件中...\n' +
+                        '为了确保字符正确显示，PDF将使用英语生成。\n\n' +
+                        '🇬🇧 Generating PDF...\n' +
+                        'To ensure correct character display, the PDF will be generated in English.\n\n' +
+                        '✅ 计算结果将保持不变\n' +
+                        '✅ Calculations will remain the same'
                     );
                     
-                    if (shouldSwitchAuto) {
-                        // Cambiar automáticamente a inglés
-                        if (window.LANG && window.LANG.change) {
-                            window.LANG.change('en');
-                            
-                            // Esperar un momento para que se aplique la traducción
-                            setTimeout(() => {
-                                alert('✅ 已切换到英语！\n' +
-                                      '✅ Switched to English!\n\n' +
-                                      '现在将生成PDF...\n' +
-                                      'Now generating PDF...\n\n' +
-                                      'PDF生成后，您可以在右上角切换回中文 🇨🇳\n' +
-                                      'After PDF is generated, you can switch back to Chinese 🇨🇳 in the top-right corner');
-                            }, 100);
-                            
-                            return true; // PERMITIR generación de PDF en inglés
-                        }
+                    // Cambiar automáticamente a inglés SIN recargar
+                    if (window.LANG && window.LANG.change) {
+                        window.LANG.change('en', true); // skipReload = true
                     }
                     
-                    return false; // BLOQUEAR si usuario cancela
+                    return true; // PERMITIR generación de PDF en inglés
                 }
                 return true; // Para otros idiomas, continuar sin advertencia
             };
