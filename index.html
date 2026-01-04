@@ -14499,22 +14499,150 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 const currentLang = localStorage.getItem('appLanguage') || 'es';
                 console.log('🔍 copyDualHTML llamado, idioma:', currentLang);
                 
-                // NUEVO: Para CHINO, copiar directamente desde el DOM renderizado
+                // NUEVO: Para CHINO, leer datos del DOM y construir HTML con tablas
                 if (currentLang === 'zh') {
-                    console.log('🇨🇳 Modo chino detectado - copiando DOM renderizado');
+                    console.log('🇨🇳 Modo chino detectado - extrayendo datos del DOM y construyendo tablas');
                     
                     // Verificar que hay resultados renderizados en el DOM
                     const resultsContainer = document.getElementById('dual-results-container');
-                    console.log('📦 resultsContainer:', resultsContainer);
-                    console.log('📦 resultsContainer.innerHTML.length:', resultsContainer ? resultsContainer.innerHTML.length : 'null');
-                    
                     if (!resultsContainer || resultsContainer.innerHTML.trim().length < 100) {
                         console.error('❌ No hay resultados renderizados en el DOM');
                         alert('没有要复制的结果 / No results to copy\n\n请先计算结果 / Please calculate results first');
                         return;
                     }
                     
-                    // Copiar el DOM completo con encabezado mejorado
+                    // Extraer tarjetas de suministros del DOM
+                    const supplyCards = resultsContainer.querySelectorAll('.bg-white.rounded-xl.shadow-md');
+                    console.log('📦 Tarjetas encontradas:', supplyCards.length);
+                    
+                    if (supplyCards.length === 0) {
+                        alert('❌ No se encontraron tarjetas de suministros\n\nPlease try again');
+                        return;
+                    }
+                    
+                    let suppliesHTML = '';
+                    
+                    // Procesar cada tarjeta
+                    supplyCards.forEach((card, index) => {
+                        // Determinar tipo (electricidad o gas) por el icono
+                        const iconText = card.querySelector('.text-3xl')?.textContent.trim() || '';
+                        const isElec = iconText.includes('⚡');
+                        const icon = isElec ? '⚡' : '🔥';
+                        const bgColor = isElec ? '#f0fdf4' : '#fff7ed';
+                        const borderColor = isElec ? '#86efac' : '#fed7aa';
+                        
+                        // Extraer datos de la tarjeta
+                        const tariffElement = card.querySelector('.font-bold.text-lg, .text-xl.font-bold');
+                        const tariff = tariffElement ? tariffElement.textContent.trim() : '';
+                        
+                        const totalElement = card.querySelector('.text-2xl.font-black, .text-3xl.font-black');
+                        const total = totalElement ? totalElement.textContent.trim() : '0,00 €';
+                        
+                        const nameElement = card.querySelector('.text-sm.text-slate-600.mb-3, .text-slate-600.mb-3');
+                        const name = nameElement ? nameElement.textContent.trim() : 'DRK';
+                        
+                        // Extraer líneas de desglose
+                        const detailRows = card.querySelectorAll('.grid.grid-cols-2, .flex.justify-between');
+                        let detailsHTML = '';
+                        
+                        detailRows.forEach(row => {
+                            const label = row.querySelector('.text-slate-600, .text-sm.text-slate-600')?.textContent.trim() || '';
+                            const value = row.querySelector('.font-medium, .font-semibold')?.textContent.trim() || '';
+                            
+                            if (label && value && !label.includes('当前账单') && !label.includes('节省')) {
+                                const isBold = label.includes('总计') || label.includes('期间') || label.includes('月度');
+                                const style = isBold 
+                                    ? 'padding: 8px 0; font-weight: bold; color: #1e293b; border-top: 2px solid #e2e8f0;'
+                                    : 'padding: 4px 0; color: #64748b;';
+                                
+                                detailsHTML += `
+                                    <tr>
+                                        <td style="${style}">${label}</td>
+                                        <td style="${style} text-align: right;">${value}</td>
+                                    </tr>
+                                `;
+                            }
+                        });
+                        
+                        // Extraer ahorro
+                        const savingsSection = card.querySelector('.bg-green-50, .bg-slate-50');
+                        let currentBill = '0,00 €/月';
+                        let savings = '0,00 €/年';
+                        
+                        if (savingsSection) {
+                            const savingsText = savingsSection.textContent;
+                            const currentMatch = savingsText.match(/当前账单[：:]\s*([0-9,]+\s*€\/月)/);
+                            const savingsMatch = savingsText.match(/节省[：:]\s*([0-9,]+\s*€\/年)/);
+                            
+                            if (currentMatch) currentBill = currentMatch[1];
+                            if (savingsMatch) savings = savingsMatch[1];
+                        }
+                        
+                        // Construir HTML de la tarjeta
+                        suppliesHTML += `
+                            <!-- Tarjeta de suministro ${index + 1} -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background: white; border: 2px solid ${borderColor}; border-radius: 12px; margin-bottom: 20px;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <!-- Encabezado del suministro -->
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 15px;">
+                                            <tr>
+                                                <td style="font-size: 32px; width: 50px;">${icon}</td>
+                                                <td style="text-align: left; padding-left: 10px;">
+                                                    <div style="font-size: 20px; font-weight: bold; color: #1e293b;">${tariff}</div>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <div style="font-size: 28px; font-weight: bold; color: #1e293b;">${total}</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <!-- Nombre de tarifa -->
+                                        <div style="font-size: 16px; font-weight: bold; color: #475569; margin-bottom: 15px;">
+                                            ${name}
+                                        </div>
+                                        
+                                        <!-- Detalles del breakdown -->
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px; margin-bottom: 15px;">
+                                            ${detailsHTML}
+                                        </table>
+                                        
+                                        <!-- Ahorro -->
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="background: ${bgColor}; border-radius: 8px; padding: 12px;">
+                                            <tr>
+                                                <td style="font-size: 14px; color: #64748b; width: 50%;">当前账单：</td>
+                                                <td style="text-align: center; font-size: 16px; font-weight: bold; color: #1e293b; width: 25%;">${currentBill}</td>
+                                                <td style="font-size: 14px; color: #16a34a; text-align: right; width: 12%;">节省：</td>
+                                                <td style="text-align: right; font-size: 16px; font-weight: bold; color: #16a34a; width: 13%;">${savings}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        `;
+                    });
+                    
+                    // Extraer totales del resumen
+                    const totalSavingsSection = resultsContainer.querySelector('.bg-gradient-to-r.from-green-500, .bg-green-600');
+                    let totalOriginal = '0,00 €';
+                    let totalNew = '0,00 €';
+                    let totalAhorro = '0,00 €';
+                    let ahorroMes = '0,00 €';
+                    
+                    if (totalSavingsSection) {
+                        const text = totalSavingsSection.textContent;
+                        const originalMatch = text.match(/Factura actual total[：:]\s*([0-9,.]+\s*€)/);
+                        const newMatch = text.match(/Con DRK pagarías[：:]\s*([0-9,.]+\s*€)/);
+                        const ahorroMatch = text.match(/Ahorro anual generado[：:]\s*([0-9,.]+\s*€)/);
+                        const mesMatch = text.match(/([0-9,.]+\s*€)\s*al mes/);
+                        
+                        if (originalMatch) totalOriginal = originalMatch[1];
+                        if (newMatch) totalNew = newMatch[1];
+                        if (ahorroMatch) totalAhorro = ahorroMatch[1];
+                        if (mesMatch) ahorroMes = mesMatch[1];
+                    }
+                    
+                    // Construir HTML completo
                     const htmlContent = `
                         <!DOCTYPE html>
                         <html lang="zh">
@@ -14524,7 +14652,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             <title>DRK 能源 - DUAL 比较结果</title>
                         </head>
                         <body style="font-family: Arial, sans-serif; background: #f1f5f9; margin: 0; padding: 20px;">
-                            <!-- Encabezado con fondo sólido para mejor compatibilidad email -->
+                            <!-- Encabezado -->
                             <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0ea5e9; border-radius: 12px; margin-bottom: 20px;">
                                 <tr>
                                     <td style="padding: 30px; text-align: center;">
@@ -14535,10 +14663,44 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                 </tr>
                             </table>
                             
-                            <!-- Contenido del DOM -->
-                            <div style="background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-                                ${resultsContainer.innerHTML}
-                            </div>
+                            <!-- Título de sección -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background: white; border-radius: 12px; margin-bottom: 20px;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <h2 style="margin: 0; font-size: 24px; color: #1e293b; font-weight: bold;">供应摘要</h2>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            ${suppliesHTML}
+                            
+                            <!-- Resumen de ahorro total -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #16a34a; border-radius: 12px; margin-top: 30px;">
+                                <tr>
+                                    <td style="padding: 30px; text-align: center;">
+                                        <div style="font-size: 48px; margin-bottom: 10px;">💰</div>
+                                        <h2 style="margin: 0 0 20px 0; font-size: 28px; color: white; font-weight: bold;">总节省</h2>
+                                        
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 500px; margin: 0 auto;">
+                                            <tr>
+                                                <td style="padding: 10px; text-align: left; font-size: 16px; color: white; opacity: 0.9;">📊 Factura actual total:</td>
+                                                <td style="padding: 10px; text-align: right; font-size: 20px; color: white; font-weight: bold;">${totalOriginal}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 10px; text-align: left; font-size: 16px; color: white; opacity: 0.9;">Con DRK pagarías:</td>
+                                                <td style="padding: 10px; text-align: right; font-size: 20px; color: white; font-weight: bold;">${totalNew}</td>
+                                            </tr>
+                                            <tr style="border-top: 2px solid rgba(255,255,255,0.3);">
+                                                <td style="padding: 15px 10px; text-align: left; font-size: 18px; color: white;">🎉 Ahorro anual generado:</td>
+                                                <td style="padding: 15px 10px; text-align: right; font-size: 32px; color: white; font-weight: bold;">${totalAhorro}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="padding: 10px; text-align: center; font-size: 18px; color: white; opacity: 0.95;">${ahorroMes} al mes</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
                         </body>
                         </html>
                     `;
@@ -14561,7 +14723,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         console.log('📋 execCommand copy result:', successful);
                         if (successful) {
                             alert('✅ 成功！HTML已复制（中文）\n✅ Success! HTML copied (Chinese)\n\n现在可以粘贴到Outlook！\nNow you can paste into Outlook!');
-                            console.log('✅ HTML DUAL copiado desde DOM');
+                            console.log('✅ HTML DUAL copiado con tablas desde DOM');
                         } else {
                             throw new Error('execCommand falló');
                         }
