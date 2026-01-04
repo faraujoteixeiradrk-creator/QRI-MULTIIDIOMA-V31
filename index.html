@@ -14667,7 +14667,11 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                 // El siguiente después del ahorro anual es el mensual
                                 const mensualP = nextP ? nextP.nextElementSibling : null;
                                 if (mensualP && mensualP.tagName === 'P') {
-                                    ahorroMes = mensualP.textContent.trim();
+                                    // Extraer solo el valor numérico, sin "al mes"
+                                    let mensualText = mensualP.textContent.trim();
+                                    // Eliminar "al mes" si existe
+                                    mensualText = mensualText.replace(/\s*al mes\s*/gi, '').trim();
+                                    ahorroMes = mensualText;
                                 }
                             }
                         });
@@ -14714,19 +14718,19 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                         
                                         <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 500px; margin: 0 auto;">
                                             <tr>
-                                                <td style="padding: 10px; text-align: left; font-size: 16px; color: white; opacity: 0.9;">📊 Factura actual total:</td>
+                                                <td style="padding: 10px; text-align: left; font-size: 16px; color: white; opacity: 0.9;">📊 当前账单总额：</td>
                                                 <td style="padding: 10px; text-align: right; font-size: 20px; color: white; font-weight: bold;">${totalOriginal}</td>
                                             </tr>
                                             <tr>
-                                                <td style="padding: 10px; text-align: left; font-size: 16px; color: white; opacity: 0.9;">Con DRK pagarías:</td>
+                                                <td style="padding: 10px; text-align: left; font-size: 16px; color: white; opacity: 0.9;">使用 DRK 您将支付：</td>
                                                 <td style="padding: 10px; text-align: right; font-size: 20px; color: white; font-weight: bold;">${totalNew}</td>
                                             </tr>
                                             <tr style="border-top: 2px solid rgba(255,255,255,0.3);">
-                                                <td style="padding: 15px 10px; text-align: left; font-size: 18px; color: white;">🎉 Ahorro anual generado:</td>
+                                                <td style="padding: 15px 10px; text-align: left; font-size: 18px; color: white;">🎉 年度节省金额：</td>
                                                 <td style="padding: 15px 10px; text-align: right; font-size: 32px; color: white; font-weight: bold;">${totalAhorro}</td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2" style="padding: 10px; text-align: center; font-size: 18px; color: white; opacity: 0.95;">${ahorroMes} al mes</td>
+                                                <td colspan="2" style="padding: 10px; text-align: center; font-size: 18px; color: white; opacity: 0.95;">${ahorroMes} 每月</td>
                                             </tr>
                                         </table>
                                     </td>
