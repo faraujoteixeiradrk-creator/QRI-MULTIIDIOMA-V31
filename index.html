@@ -15323,9 +15323,9 @@ ${clientName}
         
         <!-- AHORRO FINAL EN ROJO -->
         <div style="margin:25px 30px 30px 30px;padding:30px;background:#dc2626;border-radius:10px;text-align:center">
-            <p style="margin:0 0 15px 0;font-size:15px;color:white;font-weight:bold;text-transform:uppercase;letter-spacing:1px">🎉 TU AHORRO ANUAL TOTAL 🎉</p>
+            <p style="margin:0 0 15px 0;font-size:15px;color:white;font-weight:bold;text-transform:uppercase;letter-spacing:1px">🎉 ${tr('TU AHORRO ANUAL TOTAL')} 🎉</p>
             <p style="margin:0 0 15px 0;font-size:48px;color:white;font-weight:bold">${eur(totalSavings)}</p>
-            <p style="margin:0;font-size:15px;color:white;font-weight:bold;text-transform:uppercase">¡AHORRA ${(totalSavings/12).toFixed(2)} € CADA MES!</p>
+            <p style="margin:0;font-size:15px;color:white;font-weight:bold;text-transform:uppercase">${tr('¡AHORRA')} ${(totalSavings/12).toFixed(2).replace('.', ',')} € ${tr('CADA MES!')} </p>
         </div>
         
         <!-- FOOTER INSTRUCCIONES -->
@@ -15415,11 +15415,9 @@ ${clientName}
                 return; // Ya se mostró el error en generateDualHTMLContent
             }
             
-            // CRÍTICO: Traducir el HTML al idioma seleccionado (inglés si era chino)
-            if (window.translateHTML) {
-                html = window.translateHTML(html);
-                console.log('✅ HTML traducido al idioma:', localStorage.getItem('appLanguage') || 'es');
-            }
+            // NOTA: NO es necesario llamar a window.translateHTML() porque generateDualHTMLContent()
+            // ya usa tr() que devuelve textos en el idioma correcto según lang
+            console.log('✅ HTML generado en idioma:', localStorage.getItem('appLanguage') || 'es');
             
             // Abrir en ventana nueva
             const w = window.open('','_blank');
@@ -20448,6 +20446,23 @@ ${clientName}
                 "COMPARATIVA": { en: "COMPARISON", zh: "比较", de: "VERGLEICH", fr: "COMPARAISON" },
                 "mes": { en: "month", zh: "月", de: "Monat", fr: "mois" },
                 "DÍAS": { en: "DAYS", zh: "天", de: "TAGE", fr: "JOURS" },
+                "TU AHORRO ANUAL TOTAL": { en: "YOUR TOTAL ANNUAL SAVINGS", zh: "您的年度总节省", de: "IHRE GESAMTEN JÄHRLICHEN EINSPARUNGEN", fr: "VOS ÉCONOMIES ANNUELLES TOTALES" },
+                "¡AHORRA": { en: "SAVE", zh: "节省", de: "SPAREN SIE", fr: "ÉCONOMISEZ" },
+                "CADA MES!": { en: "EVERY MONTH!", zh: "每月！", de: "JEDEN MONAT!", fr: "CHAQUE MOIS !" },
+                "AHORRO:": { en: "SAVINGS:", zh: "节省：", de: "EINSPARUNGEN:", fr: "ÉCONOMIES :" },
+                "PRECIOS APLICADOS:": { en: "APPLIED PRICES:", zh: "应用价格：", de: "ANGEWANDTE PREISE:", fr: "PRIX APPLIQUÉS :" },
+                "DESGLOSE DE COSTES": { en: "COST BREAKDOWN", zh: "成本明细", de: "KOSTENAUFSCHLÜSSELUNG", fr: "RÉPARTITION DES COÛTS" },
+                "DESGLOSE GAS": { en: "GAS BREAKDOWN", zh: "燃气明细", de: "GASAUFSCHLÜSSELUNG", fr: "RÉPARTITION GAZ" },
+                "No hay datos": { en: "No data", zh: "无数据", de: "Keine Daten", fr: "Pas de données" },
+                "No hay datos de potencia": { en: "No power data", zh: "无功率数据", de: "Keine Leistungsdaten", fr: "Pas de données de puissance" },
+                "No hay datos de energía": { en: "No energy data", zh: "无能源数据", de: "Keine Energiedaten", fr: "Pas de données d'énergie" },
+                "Tipo:": { en: "Type:", zh: "类型：", de: "Typ:", fr: "Type :" },
+                "Días:": { en: "Days:", zh: "天数：", de: "Tage:", fr: "Jours :" },
+                "Subtotal": { en: "Subtotal", zh: "小计", de: "Zwischensumme", fr: "Sous-total" },
+                "Sin ahorro conseguido": { en: "No savings achieved", zh: "未实现节省", de: "Keine Einsparungen erzielt", fr: "Aucune économie réalisée" },
+                "RESULTADO DE LA COMPARATIVA": { en: "COMPARISON RESULT", zh: "比较结果", de: "VERGLEICHSERGEBNIS", fr: "RÉSULTAT DE LA COMPARAISON" },
+                "Liderando el ahorro y la eficiencia energética.": { en: "Leading savings and energy efficiency.", zh: "领先的节能和能源效率。", de: "Führend bei Einsparungen und Energieeffizienz.", fr: "Leader en économies et efficacité énergétique." },
+                "TU NUEVO COSTE": { en: "YOUR NEW COST", zh: "您的新费用", de: "IHRE NEUEN KOSTEN", fr: "VOTRE NOUVEAU COÛT" },
                 
                 // Más traducciones del PDF
                 "POWER SUBTOTAL": { en: "POWER SUBTOTAL", zh: "功率小计", de: "LEISTUNG ZWISCHENSUMME", fr: "SOUS-TOTAL PUISSANCE" },
