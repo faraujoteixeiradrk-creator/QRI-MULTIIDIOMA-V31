@@ -14979,23 +14979,23 @@ ${clientName}
                         <div style="margin-bottom:20px">
                             <div style="background:${accentColor};color:white;padding:12px 20px;border-radius:8px 8px 0 0;font-weight:bold;font-size:13px">
                                 [${i+1}] ${(s.cups||'N/A').substring(0,30)}...
-                                <div style="font-size:11px;opacity:0.9;margin-top:3px">Tipo: ${s.tariff} | Días: ${eb.dias} días | CUPS: [${i+1}]</div>
+                                <div style="font-size:11px;opacity:0.9;margin-top:3px">${tr('Tipo:')}: ${s.tariff} | ${tr('Días:')}: ${eb.dias} ${tr('días')} | CUPS: [${i+1}]</div>
                                 <div style="font-size:11px;opacity:0.95;margin-top:5px;background:rgba(0,0,0,0.15);padding:6px 10px;border-radius:4px">
-                                    <strong>TARIFA:</strong> ${tarifaCompleta}
+                                    <strong>${tr('TARIFA:')}</strong> ${tarifaCompleta}
                                 </div>
                             </div>
                             <div style="background:#f8fafc;padding:15px 20px;border:1px solid #e2e8f0;border-top:none">
                                 <div style="margin-bottom:12px">
-                                    <div style="font-weight:bold;color:${accentColor};margin-bottom:5px;font-size:12px">PRECIOS APLICADOS:</div>
+                                    <div style="font-weight:bold;color:${accentColor};margin-bottom:5px;font-size:12px">${tr('PRECIOS APLICADOS:')}</div>
                                     <div style="font-size:11px;color:#64748b">
-                                        <strong>POTENCIA:</strong><br>
+                                        <strong>${tr('POTENCIA:')}</strong><br>
                                         ${s.offer ? [
                                             s.offer.p1_power_price ? `P1: ${s.offer.p1_power_price.toFixed(6)} €/kW/día` : null,
                                             s.offer.p2_power_price ? `P2: ${s.offer.p2_power_price.toFixed(6)} €/kW/día` : null
                                         ].filter(Boolean).join('<br>') : 'N/A'}
                                     </div>
                                     <div style="font-size:11px;color:#64748b;margin-top:8px">
-                                        <strong>ENERGÍA:</strong><br>
+                                        <strong>${tr('ENERGÍA:')}</strong><br>
                                         ${s.offer ? [
                                             s.offer.p1_price ? `E1: ${s.offer.p1_price.toFixed(6)} €/kWh` : null,
                                             s.offer.p2_price ? `E2: ${s.offer.p2_price.toFixed(6)} €/kWh` : null,
@@ -15007,7 +15007,7 @@ ${clientName}
                                     </div>
                                 </div>
                                 
-                                <div style="background:${accentColor};color:white;padding:8px 12px;margin:10px 0;border-radius:4px;font-size:12px;font-weight:bold">POTENCIA</div>
+                                <div style="background:${accentColor};color:white;padding:8px 12px;margin:10px 0;border-radius:4px;font-size:12px;font-weight:bold">${tr('POTENCIA')}</div>
                                 ${(eb.powerCosts||[]).map((pc, idx) => {
                                     const priceKey = idx === 0 ? 'p1_power_price' : 'p2_power_price';
                                     const precio = s.offer?.[priceKey] || pc.priceDay || pc.price_euro_kw_day || 0;
@@ -15018,7 +15018,7 @@ ${clientName}
                                     </div>
                                 `;}).join('')}
                                 
-                                <div style="background:${accentColor};color:white;padding:8px 12px;margin:10px 0;border-radius:4px;font-size:12px;font-weight:bold">ENERGÍA</div>
+                                <div style="background:${accentColor};color:white;padding:8px 12px;margin:10px 0;border-radius:4px;font-size:12px;font-weight:bold">${tr('ENERGÍA')}</div>
                                 ${(eb.energyCosts||[]).map((ec, idx) => {
                                     const priceKey = `p${idx+1}_price`;
                                     const precio = s.offer?.[priceKey] || ec.price || ec.price_euro_kwh || 0;
@@ -15030,12 +15030,12 @@ ${clientName}
                                 `;}).join('')}
                                 
                                 <div style="background:#e2e8f0;padding:10px;margin-top:10px;border-radius:4px;display:flex;justify-content:space-between;font-weight:bold">
-                                    <span>TOTAL (${eb.dias} DÍAS)</span>
+                                    <span>${tr('TOTAL')} (${eb.dias} ${tr('DÍAS')})</span>
                                     <span>${(eb.totalPeriod||0).toFixed(2)} €</span>
                                 </div>
                                 
                                 <div style="background:#ef4444;color:white;padding:10px;margin-top:10px;border-radius:4px;text-align:center;font-weight:bold">
-                                    AHORRO: ${(eb.ahorro_anual||0).toFixed(2)} €
+                                    ${tr('AHORRO:')}: ${(eb.ahorro_anual||0).toFixed(2)} €
                                 </div>
                             </div>
                         </div>
@@ -15046,35 +15046,35 @@ ${clientName}
                         <div style="margin-bottom:20px">
                             <div style="background:${accentColor};color:white;padding:12px 20px;border-radius:8px 8px 0 0;font-weight:bold;font-size:13px">
                                 [${i+1}] ${(s.cups||'N/A').substring(0,30)}...
-                                <div style="font-size:11px;opacity:0.9;margin-top:3px">Tipo: ${s.tariff} | Días: ${gb.dias} días | CUPS: [${i+1}]</div>
+                                <div style="font-size:11px;opacity:0.9;margin-top:3px">${tr('Tipo:')}: ${s.tariff} | ${tr('Días:')}: ${gb.dias} ${tr('días')} | CUPS: [${i+1}]</div>
                                 <div style="font-size:11px;opacity:0.95;margin-top:5px;background:rgba(0,0,0,0.15);padding:6px 10px;border-radius:4px">
-                                    <strong>TARIFA:</strong> ${tarifaCompleta}
+                                    <strong>${tr('TARIFA:')}</strong> ${tarifaCompleta}
                                 </div>
                             </div>
                             <div style="background:#f8fafc;padding:15px 20px;border:1px solid #e2e8f0;border-top:none">
                                 <div style="margin-bottom:12px">
-                                    <div style="font-weight:bold;color:${accentColor};margin-bottom:5px;font-size:12px">PRECIOS APLICADOS:</div>
+                                    <div style="font-weight:bold;color:${accentColor};margin-bottom:5px;font-size:12px">${tr('PRECIOS APLICADOS:')}</div>
                                     <div style="font-size:11px;color:#64748b">
-                                        Término fijo: ${(s.offer?.p_fijo_diario||0).toFixed(6)} €/día<br>
-                                        Energía: ${(s.offer?.p1_price||0).toFixed(6)} €/kWh
+                                        ${tr('Término fijo:')}: ${(s.offer?.p_fijo_diario||0).toFixed(6)} €/día<br>
+                                        ${tr('Energía:')}: ${(s.offer?.p1_price||0).toFixed(6)} €/kWh
                                     </div>
                                 </div>
                                 
-                                <div style="background:${accentColor};color:white;padding:8px 12px;margin:10px 0;border-radius:4px;font-size:12px;font-weight:bold">DESGLOSE GAS</div>
+                                <div style="background:${accentColor};color:white;padding:8px 12px;margin:10px 0;border-radius:4px;font-size:12px;font-weight:bold">${tr('DESGLOSE GAS')}</div>
                                 <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:11px">
-                                    <span>Término fijo (${gb.dias} días)</span>
+                                    <span>${tr('Término fijo')} (${gb.dias} ${tr('días')})</span>
                                     <span style="font-weight:bold">${(gb.termino_fijo||0).toFixed(2)} €</span>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:11px">
-                                    <span>Energía (${gb.kwh||0} kWh)</span>
+                                    <span>${tr('Energía')} (${gb.kwh||0} kWh)</span>
                                     <span style="font-weight:bold">${(gb.energia||0).toFixed(2)} €</span>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:11px">
-                                    <span>Impuesto hidrocarburos</span>
+                                    <span>${tr('Impuesto hidrocarburos')}</span>
                                     <span style="font-weight:bold">${(gb.impuesto_hidrocarburos||0).toFixed(2)} €</span>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:11px">
-                                    <span>Subtotal</span>
+                                    <span>${tr('Subtotal')}</span>
                                     <span style="font-weight:bold">${(gb.subtotal||0).toFixed(2)} €</span>
                                 </div>
                                 <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:11px">
@@ -15083,12 +15083,12 @@ ${clientName}
                                 </div>
                                 
                                 <div style="background:#e2e8f0;padding:10px;margin-top:10px;border-radius:4px;display:flex;justify-content:space-between;font-weight:bold">
-                                    <span>TOTAL (${gb.dias} DÍAS)</span>
+                                    <span>${tr('TOTAL')} (${gb.dias} ${tr('DÍAS')})</span>
                                     <span>${(gb.total||0).toFixed(2)} €</span>
                                 </div>
                                 
                                 <div style="background:#ef4444;color:white;padding:10px;margin-top:10px;border-radius:4px;text-align:center;font-weight:bold">
-                                    AHORRO: ${(gb.ahorro_anual||0).toFixed(2)} €
+                                    ${tr('AHORRO:')}: ${(gb.ahorro_anual||0).toFixed(2)} €
                                 </div>
                             </div>
                         </div>
@@ -15111,20 +15111,20 @@ ${clientName}
         <table width="100%" cellpadding="0" cellspacing="0" style="background:#456B7A">
             <tr>
                 <td style="padding:25px 30px;vertical-align:middle;width:60%">
-                    <h1 style="margin:0 0 8px 0;font-size:32px;font-weight:900;color:white;letter-spacing:1px">${brandName} ENERGÍA</h1>
-                    <p style="margin:0;font-size:13px;color:white;opacity:0.95;line-height:1.4">Liderando el ahorro y la eficiencia energética.</p>
+                    <h1 style="margin:0 0 8px 0;font-size:32px;font-weight:900;color:white;letter-spacing:1px">${brandName} ${tr('ENERGÍA')}</h1>
+                    <p style="margin:0;font-size:13px;color:white;opacity:0.95;line-height:1.4">${tr('Liderando el ahorro y la eficiencia energética.')}</p>
                 </td>
                 <td style="padding:25px 30px;text-align:right;vertical-align:middle;width:40%">
-                    <p style="margin:0 0 5px 0;font-size:12px;color:white;font-weight:600;letter-spacing:0.5px">ESTUDIO DE AHORRO</p>
-                    <p style="margin:0;font-size:15px;font-weight:bold;color:white;letter-spacing:1px">COMPARATIVA PROFESIONAL</p>
+                    <p style="margin:0 0 5px 0;font-size:12px;color:white;font-weight:600;letter-spacing:0.5px">${tr('ESTUDIO DE AHORRO')}</p>
+                    <p style="margin:0;font-size:15px;font-weight:bold;color:white;letter-spacing:1px">${tr('COMPARATIVA PROFESIONAL')}</p>
                 </td>
             </tr>
         </table>
         
         <!-- TÍTULO ESTUDIO DE AHORRO -->
         <div style="background:#456B7A;padding:20px 30px;text-align:center;border-top:2px solid rgba(255,255,255,0.2)">
-            <h2 style="margin:0 0 5px 0;font-size:24px;font-weight:bold;color:white;letter-spacing:1.5px">ESTUDIO DE AHORRO</h2>
-            <p style="margin:0;font-size:13px;color:white;font-weight:600;letter-spacing:0.5px">COMPARATIVA PROFESIONAL - ${brandName}</p>
+            <h2 style="margin:0 0 5px 0;font-size:24px;font-weight:bold;color:white;letter-spacing:1.5px">${tr('ESTUDIO DE AHORRO')}</h2>
+            <p style="margin:0;font-size:13px;color:white;font-weight:600;letter-spacing:0.5px">${tr('COMPARATIVA PROFESIONAL')} - ${brandName}</p>
         </div>
         
         <!-- DATOS CLIENTE -->
@@ -15148,16 +15148,16 @@ ${clientName}
                     <tr style="background:#f1f5f9">
                         <th style="padding:10px 8px;font-size:10px;color:#475569;text-align:left;border-bottom:2px solid #cbd5e1">#</th>
                         <th style="padding:10px 8px;font-size:10px;color:#475569;text-align:left;border-bottom:2px solid #cbd5e1">CUPS</th>
-                        <th style="padding:10px 8px;font-size:10px;color:#475569;text-align:center;border-bottom:2px solid #cbd5e1">Tipo</th>
-                        <th style="padding:10px 8px;font-size:10px;color:#475569;text-align:center;border-bottom:2px solid #cbd5e1">Tarifa</th>
-                        <th style="padding:10px 8px;font-size:10px;color:#475569;text-align:right;border-bottom:2px solid #cbd5e1">Ahorro Anual</th>
+                        <th style="padding:10px 8px;font-size:10px;color:#475569;text-align:center;border-bottom:2px solid #cbd5e1">${tr('Tipo')}</th>
+                        <th style="padding:10px 8px;font-size:10px;color:#475569;text-align:center;border-bottom:2px solid #cbd5e1">${tr('Tarifa')}</th>
+                        <th style="padding:10px 8px;font-size:10px;color:#475569;text-align:right;border-bottom:2px solid #cbd5e1">${tr('Ahorro Anual')}</th>
                     </tr>
                 </thead>
                 <tbody>
                 ${dualSupplies.map((s, i) => {
                     const ahorro = Math.max(0, (s.originalBillAnnual||0) - (s.totalAnnual||0)); // Mostrar 0 si es negativo
                     const emoji = s.type === 'electricidad' ? '⚡' : '🔥';
-                    const tipo = s.type === 'electricidad' ? 'Electricidad' : 'Gas';
+                    const tipo = s.type === 'electricidad' ? tr('Electricidad') : tr('Gas');
                     return `
                     <tr style="border-bottom:1px solid #f1f5f9">
                         <td style="padding:12px 8px;font-size:11px;color:#1e293b;font-weight:bold">${i+1}</td>
@@ -15171,7 +15171,7 @@ ${clientName}
                 </tbody>
                 <tfoot>
                     <tr style="background:#f1f5f9">
-                        <td colspan="4" style="padding:15px 8px;font-size:13px;color:#1e293b;text-align:right;font-weight:bold;border-top:3px solid #cbd5e1">TOTAL AHORRO:</td>
+                        <td colspan="4" style="padding:15px 8px;font-size:13px;color:#1e293b;text-align:right;font-weight:bold;border-top:3px solid #cbd5e1">${tr('TOTAL AHORRO:')}</td>
                         <td style="padding:15px 8px;font-size:14px;color:#22c55e;text-align:right;font-weight:bold;border-top:3px solid #cbd5e1">${totalSavings.toFixed(2)} €</td>
                     </tr>
                 </tfoot>
@@ -15180,9 +15180,9 @@ ${clientName}
         
         <!-- AHORRO ANUAL - DISEÑO LIMPIO -->
         <div style="padding:50px 30px 20px 30px;margin:20px 0;background:#ffffff;text-align:center">
-            <p style="margin:0 0 20px 0;font-size:13px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:1px">${totalSavings > 0 ? tr('TU AHORRO ANUAL ESTIMADO') : 'RESULTADO DE LA COMPARATIVA'}</p>
+            <p style="margin:0 0 20px 0;font-size:13px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:1px">${totalSavings > 0 ? tr('TU AHORRO ANUAL ESTIMADO') : tr('RESULTADO DE LA COMPARATIVA')}</p>
             <p style="margin:0;font-size:52px;color:${totalSavings > 0 ? '#22c55e' : '#9ca3af'};font-weight:600;letter-spacing:-1px">${totalSavings.toFixed(2)} €</p>
-            ${totalSavings === 0 ? '<p style="margin:10px 0 0 0;font-size:14px;color:#9ca3af;">Sin ahorro conseguido</p>' : ''}
+            ${totalSavings === 0 ? `<p style="margin:10px 0 0 0;font-size:14px;color:#9ca3af;">${tr('Sin ahorro conseguido')}</p>` : ''}
         </div>
         
         <!-- TABLA COMPARATIVA - DISEÑO LIMPIO -->
@@ -15191,9 +15191,9 @@ ${clientName}
                 <tr>
                     <!-- TU FACTURA ACTUAL -->
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
-                        <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px"${tr("TU FACTURA ACTUAL")}</p>
+                        <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr("TU FACTURA ACTUAL")}</p>
                         <p style="margin:0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${(totalOriginalBill/12).toFixed(2)} €/mes</p>
-                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">Total Periodo (31 días)</p>
+                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr("Total Periodo")} (31 ${tr('días')})</p>
                         <p style="margin:20px 0 0 0;font-size:24px;color:#dc2626;font-weight:normal;text-decoration:line-through">${totalOriginalBill.toFixed(2)} €/año</p>
                     </td>
                     
@@ -15204,9 +15204,9 @@ ${clientName}
                     
                     <!-- TU NUEVO COSTE -->
                     <td style="width:45%;padding:0;text-align:center;vertical-align:top">
-                        <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">TU NUEVO COSTE ${brandName}</p>
+                        <p style="margin:0 0 15px 0;font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">${tr('TU NUEVO COSTE')} ${brandName}</p>
                         <p style="margin:0;font-size:28px;color:#475569;font-weight:500">${(totalNew/12).toFixed(2)} €/mes</p>
-                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1"${tr("Estimado Mensual")}</p>
+                        <p style="margin:8px 0 0 0;font-size:10px;color:#cbd5e1">${tr("Estimado Mensual")}</p>
                         <p style="margin:20px 0 0 0;font-size:28px;color:#475569;font-weight:500">${totalNew.toFixed(2)} €/año</p>
                     </td>
                 </tr>
@@ -15215,7 +15215,7 @@ ${clientName}
         
         <!-- BANDA VERDE DESGLOSE -->
         <div style="background:#22c55e;padding:10px 30px">
-            <p style="margin:0;font-size:12px;color:white;font-weight:bold;text-transform:uppercase">DESGLOSE DETALLADO POR SUMINISTRO</p>
+            <p style="margin:0;font-size:12px;color:white;font-weight:bold;text-transform:uppercase">${tr('DESGLOSE DETALLADO POR SUMINISTRO')}</p>
         </div>
         
         <!-- DESGLOSES -->
@@ -15238,31 +15238,31 @@ ${clientName}
                 return `
                 <div style="margin:15px 30px;background:#546e7a;padding:12px;border-radius:5px">
                     <p style="margin:0 0 5px 0;font-size:11px;color:white;font-weight:bold">[${i+1}] ${s.cups.substring(0,25)}...</p>
-                    <p style="margin:0;font-size:10px;color:white">Tipo: ${s.tariff} | Días: ${dias} días | CUPS: [${i+1}]</p>
-                    <p style="margin:5px 0 0 0;font-size:10px;color:white"><strong>TARIFA:</strong> ${tarifaCompleta}</p>
+                    <p style="margin:0;font-size:10px;color:white">${tr('Tipo:')}: ${s.tariff} | ${tr('Días:')}: ${dias} ${tr('días')} | CUPS: [${i+1}]</p>
+                    <p style="margin:5px 0 0 0;font-size:10px;color:white"><strong>${tr('TARIFA:')}</strong> ${tarifaCompleta}</p>
                 </div>
                 
                 <div style="margin:0 30px 15px 30px;padding:15px;background:#f8f9fa;border:1px solid #e2e8f0">
-                    <p style="margin:0 0 8px 0;font-size:11px;color:#1e293b;font-weight:bold">PRECIOS APLICADOS:</p>
+                    <p style="margin:0 0 8px 0;font-size:11px;color:#1e293b;font-weight:bold">${tr('PRECIOS APLICADOS:')}</p>
                     
                     ${isElec ? `
-                    <p style="margin:0 0 3px 0;font-size:10px;color:#64748b"><strong>POTENCIA:</strong></p>
+                    <p style="margin:0 0 3px 0;font-size:10px;color:#64748b"><strong>${tr('POTENCIA:')}</strong></p>
                     ${s.offer?.p1_power_price ? `<p style="margin:0 0 2px 0;font-size:9px;color:#64748b">P1: ${s.offer.p1_power_price.toFixed(6)} €/kW/día</p>` : ''}
                     ${s.offer?.p2_power_price ? `<p style="margin:0 0 2px 0;font-size:9px;color:#64748b">P2: ${s.offer.p2_power_price.toFixed(6)} €/kW/día</p>` : ''}
                     
-                    <p style="margin:8px 0 3px 0;font-size:10px;color:#64748b"><strong>ENERGÍA:</strong></p>
+                    <p style="margin:8px 0 3px 0;font-size:10px;color:#64748b"><strong>${tr('ENERGÍA:')}</strong></p>
                     ${s.offer?.p1_price ? `<p style="margin:0 0 2px 0;font-size:9px;color:#64748b">E1: ${s.offer.p1_price.toFixed(6)} €/kWh</p>` : ''}
                     ${s.offer?.p2_price ? `<p style="margin:0 0 2px 0;font-size:9px;color:#64748b">E2: ${s.offer.p2_price.toFixed(6)} €/kWh</p>` : ''}
                     ${s.offer?.p3_price ? `<p style="margin:0 0 2px 0;font-size:9px;color:#64748b">E3: ${s.offer.p3_price.toFixed(6)} €/kWh</p>` : ''}
                     ` : `
-                    <p style="margin:0 0 2px 0;font-size:9px;color:#64748b">Término fijo: ${(s.offer?.p_fijo_diario||0).toFixed(6)} €/día</p>
-                    <p style="margin:0 0 2px 0;font-size:9px;color:#64748b">Energía: ${(s.offer?.p1_price||0).toFixed(6)} €/kWh</p>
+                    <p style="margin:0 0 2px 0;font-size:9px;color:#64748b">${tr('Término fijo:')}: ${(s.offer?.p_fijo_diario||0).toFixed(6)} €/día</p>
+                    <p style="margin:0 0 2px 0;font-size:9px;color:#64748b">${tr('Energía:')}: ${(s.offer?.p1_price||0).toFixed(6)} €/kWh</p>
                     `}
                     
                     ${isElec ? `
                     <!-- ELECTRICIDAD: POTENCIA -->
                     <div style="margin-top:12px;padding:10px;background:#546e7a;color:white;border-radius:5px">
-                        <p style="margin:0;font-size:11px;font-weight:bold">POTENCIA</p>
+                        <p style="margin:0;font-size:11px;font-weight:bold">${tr('POTENCIA')}</p>
                     </div>
                     ${eb?.powerCosts ? eb.powerCosts.map(pc => `
                         <div style="padding:8px 10px;background:white;border-bottom:1px solid #e2e8f0">
@@ -15271,11 +15271,11 @@ ${clientName}
                                 <div style="display:table-cell;text-align:right;font-size:10px;color:#1e293b;font-weight:bold">${(pc.cost||0).toFixed(2)} €</div>
                             </div>
                         </div>
-                    `).join('') : '<div style="padding:8px 10px;background:white;font-size:10px;color:#64748b">No hay datos de potencia</div>'}
+                    `).join('') : `<div style="padding:8px 10px;background:white;font-size:10px;color:#64748b">${tr('No hay datos de potencia')}</div>`}
                     
                     <!-- ELECTRICIDAD: ENERGÍA -->
                     <div style="margin-top:12px;padding:10px;background:#546e7a;color:white;border-radius:5px">
-                        <p style="margin:0;font-size:11px;font-weight:bold">ENERGÍA</p>
+                        <p style="margin:0;font-size:11px;font-weight:bold">${tr('ENERGÍA')}</p>
                     </div>
                     ${eb?.energyCosts ? eb.energyCosts.map(ec => `
                         <div style="padding:8px 10px;background:white;border-bottom:1px solid #e2e8f0">
@@ -15284,37 +15284,37 @@ ${clientName}
                                 <div style="display:table-cell;text-align:right;font-size:10px;color:#1e293b;font-weight:bold">${(ec.cost||0).toFixed(2)} €</div>
                             </div>
                         </div>
-                    `).join('') : '<div style="padding:8px 10px;background:white;font-size:10px;color:#64748b">No hay datos de energía</div>'}
+                    `).join('') : `<div style="padding:8px 10px;background:white;font-size:10px;color:#64748b">${tr('No hay datos de energía')}</div>`}
                     ` : `
                     <!-- GAS: DESGLOSE (sin sección POTENCIA) -->
                     <div style="margin-top:12px;padding:10px;background:#546e7a;color:white;border-radius:5px">
-                        <p style="margin:0;font-size:11px;font-weight:bold">DESGLOSE DE COSTES</p>
+                        <p style="margin:0;font-size:11px;font-weight:bold">${tr('DESGLOSE DE COSTES')}</p>
                     </div>
                     ${gb ? `
                         <div style="padding:8px 10px;background:white;border-bottom:1px solid #e2e8f0">
                             <div style="display:table;width:100%">
-                                <div style="display:table-cell;font-size:10px;color:#1e293b">Término fijo (${dias} días x ${(gb.termino_fijo_diario||0).toFixed(6)} €/día)</div>
+                                <div style="display:table-cell;font-size:10px;color:#1e293b">${tr('Término fijo')} (${dias} ${tr('días')} x ${(gb.termino_fijo_diario||0).toFixed(6)} €/día)</div>
                                 <div style="display:table-cell;text-align:right;font-size:10px;color:#1e293b;font-weight:bold">${(gb.termino_fijo||0).toFixed(2)} €</div>
                             </div>
                         </div>
                         <div style="padding:8px 10px;background:white;border-bottom:1px solid #e2e8f0">
                             <div style="display:table;width:100%">
-                                <div style="display:table-cell;font-size:10px;color:#1e293b">Energía (${gb.kwh||0} kWh x ${(s.offer?.p1_price||0).toFixed(6)} €/kWh)</div>
+                                <div style="display:table-cell;font-size:10px;color:#1e293b">${tr('Energía')} (${gb.kwh||0} kWh x ${(s.offer?.p1_price||0).toFixed(6)} €/kWh)</div>
                                 <div style="display:table-cell;text-align:right;font-size:10px;color:#1e293b;font-weight:bold">${(gb.energia||0).toFixed(2)} €</div>
                             </div>
                         </div>
-                    ` : '<div style="padding:8px 10px;background:white;font-size:10px;color:#64748b">No hay datos</div>'}
+                    ` : `<div style="padding:8px 10px;background:white;font-size:10px;color:#64748b">${tr('No hay datos')}</div>`}
                     `}
                     
                     <div style="margin-top:12px;padding:10px;background:#e2e8f0">
                         <div style="display:table;width:100%">
-                            <div style="display:table-cell;font-size:11px;color:#1e293b;font-weight:bold">TOTAL (${dias} DÍAS):</div>
+                            <div style="display:table-cell;font-size:11px;color:#1e293b;font-weight:bold">${tr('TOTAL')} (${dias} ${tr('DÍAS')}):</div>
                             <div style="display:table-cell;text-align:right;font-size:11px;color:#1e293b;font-weight:bold">${totalPeriod.toFixed(2)} €</div>
                         </div>
                     </div>
                     
                     <div style="margin-top:8px;padding:12px;background:#ef4444;text-align:center;border-radius:5px">
-                        <p style="margin:0;font-size:12px;color:white;font-weight:bold">AHORRO: ${ahorroAnual.toFixed(2)} €</p>
+                        <p style="margin:0;font-size:12px;color:white;font-weight:bold">${tr('AHORRO:')}: ${ahorroAnual.toFixed(2)} €</p>
                     </div>
                 </div>
                 `;
