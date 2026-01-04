@@ -14716,74 +14716,11 @@ ${clientName}
             return `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
         }
         
-        // Función específica para generar HTML DUAL en CHINO
-        function generateDualHTMLContent_Chinese(comercialCode, clientName, clientPhone, clientEmail, brandName, primaryColor, accentColor) {
-            let totalOriginalBill = 0;
-            let totalNew = 0;
-            
-            dualSupplies.forEach(s => {
-                const currentCost = s.totalAnnual || 0;
-                totalOriginalBill += s.originalBillAnnual || 0;
-                totalNew += currentCost;
-            });
-            
-            const totalSavings = Math.max(0, totalOriginalBill - totalNew);
-            const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
-            
-            const htmlContent = `
-            <div style="font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; background: white;">
-                
-                <!-- HEADER -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white;">
-                    <tr>
-                        <td style="padding: 30px 40px;">
-                            <h1 style="margin: 0; font-size: 32px; font-weight: bold;">${brandName} 能源</h1>
-                            <p style="margin: 8px 0 0 0; font-size: 14px;">引领节省和能源效率</p>
-                        </td>
-                        <td style="padding: 30px 40px; text-align: right;">
-                            <p style="margin: 0; font-size: 14px; font-weight: bold;">双重供应分析</p>
-                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold;">专业比较</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- RESUMEN GLOBAL -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
-                    <tr>
-                        <td style="padding: 30px 40px; text-align: center;">
-                            <h2 style="margin: 0 0 20px 0; font-size: 28px; font-weight: bold;">您的总节省</h2>
-                            <div style="background-color: ${accentColor}; color: white; padding: 30px; border-radius: 12px;">
-                                <h1 style="margin: 0; font-size: 48px; font-weight: bold;">${eur(totalSavings)}</h1>
-                                <p style="margin: 10px 0 0 0; font-size: 18px; font-weight: bold;">年度节省总额</p>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- DATOS CLIENTE -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: white; border: 1px solid #e0e0e0; margin-top: 30px;">
-                    <tr>
-                        <td style="padding: 20px 40px;">
-                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>客户：</strong> ${clientName || '[客户姓名]'}</p>
-                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>商业代码：</strong> ${comercialCode || '[代码]'}</p>
-                        </td>
-                    </tr>
-                </table>
-                
-            </div>
-            `;
-            
-            return htmlContent;
-        }
-        
         // Función auxiliar: Generar HTML DUAL (usada por PDF y copiar HTML)
         function generateDualHTMLContent(comercialCode, clientName, clientPhone = '', clientEmail = '') {
-            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
-            
             console.log('📄 Generando HTML DUAL con datos capturados:');
             console.log('  - comercialCode:', comercialCode);
             console.log('  - clientName:', clientName);
-            console.log('  - Idioma actual:', currentLang);
             
             if (!dualSupplies || dualSupplies.length === 0) {
                 alert('No hay suministros para generar la propuesta.');
@@ -14800,11 +14737,6 @@ ${clientName}
             const brandName = isPowerCup ? 'POWER CUP' : 'DRK';
             const primaryColor = isPowerCup ? '#4d7c0f' : '#546e7a';
             const accentColor = isPowerCup ? '#84cc16' : '#607d8b';
-            
-            // NUEVO: Para chino, generar versión específica sin tr()
-            if (currentLang === 'zh') {
-                return generateDualHTMLContent_Chinese(comercialCode, clientName, clientPhone, clientEmail, brandName, primaryColor, accentColor);
-            }
             
             // CAMBIO: Mostrar TODOS los suministros, no filtrar
             // Usar s.totalAnnual que ya tiene la lógica correcta
@@ -16802,10 +16734,26 @@ ${clientName}
                 return;
             }
             
+            // NUEVO: Si está en chino, cambiar temporalmente a inglés para el PDF
+            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
+            const wasChineseMode = currentLang === 'zh';
+            
+            if (wasChineseMode) {
+                console.log('🇨🇳 Idioma chino detectado - cambiando a inglés para PDF');
+                // Informar al usuario en chino e inglés
+                alert('🇨🇳 生成PDF文件中...\n为了确保字符正确显示，PDF将使用英语生成。\n\n🇬🇧 Generating PDF...\nTo ensure correct character display, the PDF will be generated in English.');
+                // Cambiar temporalmente a inglés
+                window.LANG.change('en', true); // skipReload = true
+            }
+            
             // Pedir datos del cliente y comercial
             const comercialCode = prompt('CÓDIGO COMERCIAL (Obligatorio):', 'D=00');
             if (!comercialCode || comercialCode.trim() === '') {
                 alert('El código comercial es obligatorio');
+                // Restaurar idioma si era chino
+                if (wasChineseMode) {
+                    window.LANG.change('zh', true);
+                }
                 return;
             }
             
@@ -16837,9 +16785,22 @@ ${clientName}
                         await generateGasPDF_Simple(results[0], dias, kwh, totalCliente, clientName, comercialCode);
                     }
                 }
+                
+                // NUEVO: Restaurar idioma chino después de generar el PDF
+                if (wasChineseMode) {
+                    setTimeout(() => {
+                        console.log('🇨🇳 Restaurando idioma chino');
+                        window.LANG.change('zh', true);
+                    }, 1000);
+                }
             } catch (error) {
                 console.error('Error generando PDF:', error);
                 window.showMessageModal("❌ Error: " + error.message, false);
+                
+                // Restaurar idioma si hubo error
+                if (wasChineseMode) {
+                    window.LANG.change('zh', true);
+                }
             }
         }
         
@@ -16865,142 +16826,20 @@ ${clientName}
             }
         }
         
-        // Función específica para generar HTML en CHINO (GAS)
-        function generateGasHTMLSingle_Chinese(result, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName, eur, num) {
-            const tariffName = result.descripcion ? `${result.name} - ${result.descripcion}` : result.name;
-            const ahorroAnual = result.ahorro_anual;
-            const facturaActualAnio = totalCliente * 365 / dias;
-            const nuevoAnio = result.total * 365 / dias;
-            const nuevoMes = result.total * 30 / dias;
-            
-            const htmlContent = `
-            <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; background: white;">
-                
-                <!-- HEADER -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white;">
-                    <tr>
-                        <td style="padding: 30px 40px;">
-                            <h1 style="margin: 0; font-size: 32px; font-weight: bold;">${brandName} 能源</h1>
-                            <p style="margin: 8px 0 0 0; font-size: 14px;">引领节省和能源效率</p>
-                        </td>
-                        <td style="padding: 30px 40px; text-align: right;">
-                            <p style="margin: 0; font-size: 14px; font-weight: bold;">节省研究</p>
-                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold;">专业比较</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- BANNER -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${accentColor}; color: white;">
-                    <tr>
-                        <td style="padding: 15px 40px; text-align: center;">
-                            <h2 style="margin: 0; font-size: 20px; font-weight: bold;">节省研究 - 天然气</h2>
-                            <p style="margin: 4px 0 0 0; font-size: 14px;">专业比较 - ${brandName}</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- MEJOR OPCIÓN -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 20px;">
-                    <tr>
-                        <td style="padding: 30px 40px; text-align: center;">
-                            <p style="margin: 0 0 10px 0; font-size: 16px;">最适合您的选项是</p>
-                            <h2 style="margin: 0; font-size: 36px; font-weight: bold;">${tariffName}</h2>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- AHORRO ANUAL -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
-                    <tr>
-                        <td style="padding: 20px 40px; text-align: center;">
-                            <p style="margin: 0 0 10px 0; font-size: 16px; color: #666; font-weight: bold;">您的预计年度节省是：</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${accentColor}; border-radius: 12px; margin: 0 40px; width: calc(100% - 80px);">
-                    <tr>
-                        <td style="padding: 30px; text-align: center;">
-                            <h1 style="margin: 0; font-size: 48px; font-weight: bold; color: white;">${eur(ahorroAnual)}</h1>
-                            <p style="margin: 10px 0 0 0; font-size: 18px; color: white; font-weight: bold;">实现您的年度节省！</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- COMPARATIVA -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
-                    <tr>
-                        <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
-                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">您当前的账单</p>
-                            <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(facturaActualAnio)}</h2>
-                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ 年</p>
-                        </td>
-                        <td style="width: 4%;"></td>
-                        <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
-                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">您的新 ${brandName} 成本</p>
-                            <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: ${primaryColor};">${eur(nuevoAnio)}</h2>
-                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ 年</p>
-                            <p style="margin: 8px 0 0 0; font-size: 16px; color: ${primaryColor}; font-weight: bold;">${eur(nuevoMes)} / 月</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- RESUMEN PRECIOS -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 30px;">
-                    <tr>
-                        <td style="padding: 15px 40px;">
-                            <h3 style="margin: 0; font-size: 16px; font-weight: bold;">价格摘要</h3>
-                        </td>
-                    </tr>
-                </table>
-                
-                <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e0e0e0; border-top: none;">
-                    <tr style="background-color: #f5f5f5;">
-                        <td style="padding: 12px 40px; font-weight: bold; font-size: 14px;">概念</td>
-                        <td style="padding: 12px 40px; font-weight: bold; font-size: 14px; text-align: right;">${brandName} 价格</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">固定价格 (€/天)</td>
-                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p_fijo_diario / 365)}</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">能源 (€/kWh)</td>
-                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p1_price)}</td>
-                    </tr>
-                    <tr style="background-color: #f0fdf4;">
-                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px;">年度节省</td>
-                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px; text-align: right; color: #16a34a;">${eur(ahorroAnual)}</td>
-                    </tr>
-                </table>
-                
-            </div>
-            `;
-            
-            showHTMLPreview(htmlContent);
-        }
-        
         // Función para generar HTML individual (una sola tarifa)
         function generateGasHTMLSingle(result, dias, kwh, totalCliente) {
-            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
             const num = (n, d=6) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
             
-            // Determinar marca según el nombre del resultado
-            const resultName = result.name || '';
-            const isDrk = !resultName.toLowerCase().includes('power');
+            // Determinar marca (DRK o POWER CUP)
+            const comparisonMode = document.querySelector('input[name="comparison_mode"]:checked').value;
+            const isDrk = (comparisonMode === 'drk_only' || comparisonMode === 'drk_prioritized');
             
             // Colores según marca
             const primaryColor = isDrk ? '#3b5875' : '#4d7c0f';
             const accentColor = isDrk ? '#4a90e2' : '#84cc16';
             const lightBg = isDrk ? '#e8f4fd' : '#f0fdf4';
             const brandName = isDrk ? 'DRK' : 'POWER CUP';
-            
-            // NUEVO: Para chino, generar versión específica sin tr()
-            if (currentLang === 'zh') {
-                generateGasHTMLSingle_Chinese(result, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName, eur, num);
-                return;
-            }
             
             const tariffName = result.descripcion ? `${result.name} - ${result.descripcion}` : result.name;
             console.log('🔍 DEBUG HTML GAS - tariffName:', tariffName, 'result completo:', result);
@@ -17249,158 +17088,20 @@ ${clientName}
             showHTMLPreview(htmlContent);
         }
         
-        // Función específica para generar HTML comparativo en CHINO (GAS)
-        function generateGasHTMLComparison_Chinese(results, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName, eur, num) {
-            const resFijo = results.find(r => r.name.includes('FIJO') || r.name.includes('META')) || results[0];
-            const resIndexed = results.find(r => r.name.includes('INDEX')) || results[1];
-            const facturaActualAnio = totalCliente * 365 / dias;
-            
-            const htmlContent = `
-            <div style="font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; background: white;">
-                
-                <!-- HEADER -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white;">
-                    <tr>
-                        <td style="padding: 30px 40px;">
-                            <h1 style="margin: 0; font-size: 32px; font-weight: bold;">${brandName} 能源</h1>
-                            <p style="margin: 8px 0 0 0; font-size: 14px;">引领节省和能源效率</p>
-                        </td>
-                        <td style="padding: 30px 40px; text-align: right;">
-                            <p style="margin: 0; font-size: 14px; font-weight: bold;">节省研究</p>
-                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold;">专业比较</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- BANNER -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${accentColor}; color: white;">
-                    <tr>
-                        <td style="padding: 15px 40px; text-align: center;">
-                            <h2 style="margin: 0; font-size: 20px; font-weight: bold;">比较：固定费率 vs 指数费率</h2>
-                            <p style="margin: 4px 0 0 0; font-size: 14px;">天然气 - ${brandName}</p>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- COMPARATIVA DUAL -->
-                <table width="100%" cellpadding="20" cellspacing="0" style="margin-top: 20px;">
-                    <tr>
-                        <!-- TARIFA FIJA -->
-                        <td style="width: 48%; vertical-align: top;">
-                            <table width="100%" cellpadding="0" cellspacing="0" style="border: 3px solid ${accentColor}; border-radius: 12px;">
-                                <tr>
-                                    <td style="background-color: ${accentColor}; color: white; padding: 15px; text-align: center;">
-                                        <h3 style="margin: 0; font-size: 18px; font-weight: bold;">固定费率</h3>
-                                        <p style="margin: 4px 0 0 0; font-size: 13px;">${resFijo.descripcion || resFijo.name}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 20px;">
-                                        <div style="background-color: #f0fdf4; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 15px;">
-                                            <p style="margin: 0; font-size: 12px; color: #16a34a; font-weight: bold;">年度节省</p>
-                                            <h2 style="margin: 5px 0 0 0; font-size: 28px; color: #16a34a; font-weight: bold;">${eur(resFijo.ahorro_anual)}</h2>
-                                        </div>
-                                        
-                                        <div style="font-size: 12px; color: #333; line-height: 1.6;">
-                                            <p style="margin: 5px 0;"><strong>固定价格：</strong> ${num(resFijo.p_fijo_diario / 365)} €/天</p>
-                                            <p style="margin: 5px 0;"><strong>能源：</strong> ${num(resFijo.p1_price)} €/kWh</p>
-                                            <p style="margin: 10px 0; padding-top: 10px; border-top: 1px solid #e0e0e0;"><strong>总计 (${dias} 天)：</strong> ${eur(resFijo.total)}</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        
-                        <td style="width: 4%;"></td>
-                        
-                        <!-- TARIFA INDEXADA -->
-                        <td style="width: 48%; vertical-align: top;">
-                            <table width="100%" cellpadding="0" cellspacing="0" style="border: 3px solid #6c7a89; border-radius: 12px;">
-                                <tr>
-                                    <td style="background-color: #6c7a89; color: white; padding: 15px; text-align: center;">
-                                        <h3 style="margin: 0; font-size: 18px; font-weight: bold;">指数费率</h3>
-                                        <p style="margin: 4px 0 0 0; font-size: 13px;">${resIndexed.descripcion || resIndexed.name}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 20px;">
-                                        <div style="background-color: #f5f5f5; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 15px;">
-                                            <p style="margin: 0; font-size: 12px; color: #dc2626; font-weight: bold;">年度节省</p>
-                                            <h2 style="margin: 5px 0 0 0; font-size: 28px; color: #dc2626; font-weight: bold;">${eur(resIndexed.ahorro_anual)}</h2>
-                                        </div>
-                                        
-                                        <div style="font-size: 12px; color: #333; line-height: 1.6;">
-                                            <p style="margin: 5px 0;"><strong>固定价格：</strong> ${num(resIndexed.p_fijo_diario / 365)} €/天</p>
-                                            <p style="margin: 5px 0;"><strong>能源：</strong> ${num(resIndexed.p1_price)} €/kWh</p>
-                                            <p style="margin: 10px 0; padding-top: 10px; border-top: 1px solid #e0e0e0;"><strong>总计 (${dias} 天)：</strong> ${eur(resIndexed.total)}</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-                
-                <!-- DIFERENCIAS -->
-                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
-                    <tr>
-                        <td style="padding: 20px 40px; text-align: center;">
-                            <h2 style="margin: 0; font-size: 24px; font-weight: bold;">有什么区别？</h2>
-                        </td>
-                    </tr>
-                </table>
-                
-                <table width="100%" cellpadding="20" cellspacing="0">
-                    <tr>
-                        <td style="width: 48%; vertical-align: top;">
-                            <h3 style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: ${accentColor};">为什么选择固定费率？</h3>
-                            <ul style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.8; color: #333;">
-                                <li>每千瓦时价格固定</li>
-                                <li>价格稳定，不受市场波动影响</li>
-                                <li>市场价格高时受到保护</li>
-                                <li>无需关注市场变化</li>
-                            </ul>
-                        </td>
-                        
-                        <td style="width: 48%; vertical-align: top;">
-                            <h3 style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: #16a34a;">为什么选择指数费率？</h3>
-                            <ul style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.8; color: #333;">
-                                <li>每千瓦时价格可变</li>
-                                <li>最公平的费率，支付实际成本</li>
-                                <li>电价便宜时避免额外费用</li>
-                                <li>长期可节省约20%</li>
-                            </ul>
-                        </td>
-                    </tr>
-                </table>
-                
-            </div>
-            `;
-            
-            showHTMLPreview(htmlContent);
-        }
-        
         // Función para generar HTML comparativo (Fija vs Indexada)
         function generateGasHTMLComparison(results, dias, kwh, totalCliente) {
-            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
             const num = (n, d=6) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
             
-            // Determinar marca según el nombre del resultado
-            const resultName = (results[0] && results[0].name) || '';
-            const isDrk = !resultName.toLowerCase().includes('power');
+            // Determinar marca (DRK o POWER CUP)
+            const comparisonMode = document.querySelector('input[name="comparison_mode"]:checked').value;
+            const isDrk = (comparisonMode === 'drk_only' || comparisonMode === 'drk_prioritized');
             
             // Colores según marca
             const primaryColor = isDrk ? '#3b5875' : '#4d7c0f';
             const accentColor = isDrk ? '#4a90e2' : '#84cc16';
             const lightBg = isDrk ? '#e8f4fd' : '#f0fdf4';
             const brandName = isDrk ? 'DRK' : 'POWER CUP';
-            
-            // NUEVO: Para chino, generar versión específica sin tr()
-            if (currentLang === 'zh') {
-                generateGasHTMLComparison_Chinese(results, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName, eur, num);
-                return;
-            }
             
             // Identificar cuál es fija y cuál indexada
             const resFijo = results.find(r => r.name.includes('FIJO') || r.name.includes('META')) || results[0];
@@ -17763,6 +17464,10 @@ ${clientName}
         
         // Función para mostrar el preview HTML y permitir copiar
         function showHTMLPreview(htmlContent) {
+            // Detectar idioma actual
+            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
+            const isChineseMode = currentLang === 'zh';
+            
             // Crear modal si no existe
             let modal = document.getElementById('html-preview-modal');
             if (!modal) {
@@ -17772,34 +17477,62 @@ ${clientName}
                 document.body.appendChild(modal);
             }
             
-            modal.innerHTML = `
-                <div style="max-width: 900px; margin: 0 auto; position: relative;">
-                    <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <h2 style="margin: 0; color: #0c4a6e;">📧 HTML para Email - GAS</h2>
-                            <button onclick="closeHTMLPreview()" style="background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">✕ Cerrar</button>
-                        </div>
-                        <p style="margin: 0 0 15px 0; color: #64748b; font-size: 14px; line-height: 1.6;">
-                            <strong>📋 Instrucciones:</strong><br>
-                            <span style="color: #16a34a; font-weight: bold;">OPCIÓN 1:</span> Haz clic en "Copiar HTML" (automático)<br>
-                            <span style="color: #f59e0b; font-weight: bold;">OPCIÓN 2:</span> Si no funciona, usa "Seleccionar Todo" y luego Ctrl+C
-                        </p>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <button onclick="copyHTMLToClipboard()" style="background: #0ea5e9; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px;">
-                                📋 Copiar HTML
-                            </button>
-                            <button onclick="selectAllContent()" style="background: #f59e0b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px;">
-                                ✨ Seleccionar Todo
+            // Construir HTML según idioma
+            if (isChineseMode) {
+                // MODO CHINO: Solo botón "Seleccionar Todo"
+                modal.innerHTML = `
+                    <div style="max-width: 900px; margin: 0 auto; position: relative;">
+                        <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h2 style="margin: 0; color: #0c4a6e;">📧 HTML邮件格式 - 天然气</h2>
+                                <button onclick="closeHTMLPreview()" style="background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">✕ 关闭</button>
+                            </div>
+                            <p style="margin: 0 0 15px 0; color: #64748b; font-size: 14px; line-height: 1.6;">
+                                <strong>📋 说明：</strong><br>
+                                点击按钮选择所有内容，然后按Ctrl+C（Windows/Linux）或Cmd+C（Mac）进行复制
+                            </p>
+                            <button onclick="selectAllContent()" style="background: #f59e0b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; width: 100%;">
+                                ✨ 全选
                             </button>
                         </div>
+                        
+                        <!-- Preview del HTML -->
+                        <div id="html-preview-content" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                            ${htmlContent}
+                        </div>
                     </div>
-                    
-                    <!-- Preview del HTML -->
-                    <div id="html-preview-content" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-                        ${htmlContent}
+                `;
+            } else {
+                // MODO NORMAL: Ambos botones (como estaba antes)
+                modal.innerHTML = `
+                    <div style="max-width: 900px; margin: 0 auto; position: relative;">
+                        <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h2 style="margin: 0; color: #0c4a6e;">📧 HTML para Email - GAS</h2>
+                                <button onclick="closeHTMLPreview()" style="background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">✕ Cerrar</button>
+                            </div>
+                            <p style="margin: 0 0 15px 0; color: #64748b; font-size: 14px; line-height: 1.6;">
+                                <strong>📋 Instrucciones:</strong><br>
+                                <span style="color: #16a34a; font-weight: bold;">OPCIÓN 1:</span> Haz clic en "Copiar HTML" (automático)<br>
+                                <span style="color: #f59e0b; font-weight: bold;">OPCIÓN 2:</span> Si no funciona, usa "Seleccionar Todo" y luego Ctrl+C
+                            </p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <button onclick="copyHTMLToClipboard()" style="background: #0ea5e9; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px;">
+                                    📋 Copiar HTML
+                                </button>
+                                <button onclick="selectAllContent()" style="background: #f59e0b; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px;">
+                                    ✨ Seleccionar Todo
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview del HTML -->
+                        <div id="html-preview-content" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                            ${htmlContent}
+                        </div>
                     </div>
-                </div>
-            `;
+                `;
+            }
             
             modal.style.display = 'block';
             
@@ -20388,6 +20121,11 @@ ${clientName}
                 "Por favor, completa todos los campos": { en: "Please complete all fields", zh: "请填写所有字段", pt: "Por favor, preencha todos os campos", de: "Bitte füllen Sie alle Felder aus", fr: "Veuillez remplir tous les champs" },
                 "Aceptar": { en: "Accept", zh: "接受", pt: "Aceitar", de: "Akzeptieren", fr: "Accepter" },
                 "Variado": { en: "Varied", zh: "各种", pt: "Variado", de: "Variiert", fr: "Varié" },
+                "No hay datos para exportar": { en: "No data to export", zh: "没有要导出的数据", pt: "Não há dados para exportar", de: "Keine Daten zum Exportieren", fr: "Aucune donnée à exporter" },
+                "CÓDIGO COMERCIAL (Obligatorio):": { en: "COMMERCIAL CODE (Required):", zh: "商业代码（必填）：", pt: "CÓDIGO COMERCIAL (Obrigatório):", de: "HANDELSCODE (Pflicht):", fr: "CODE COMMERCIAL (Obligatoire) :" },
+                "El código comercial es obligatorio": { en: "Commercial code is required", zh: "商业代码为必填项", pt: "O código comercial é obrigatório", de: "Der Handelscode ist erforderlich", fr: "Le code commercial est obligatoire" },
+                "NOMBRE DEL CLIENTE:": { en: "CLIENT NAME:", zh: "客户名称：", pt: "NOME DO CLIENTE:", de: "KUNDENNAME:", fr: "NOM DU CLIENT :" },
+                "[NOMBRE COMPLETO CLIENTE]": { en: "[FULL CLIENT NAME]", zh: "[客户全名]", pt: "[NOME COMPLETO DO CLIENTE]", de: "[VOLLSTÄNDIGER KUNDENNAME]", fr: "[NOM COMPLET DU CLIENT]" },
                 "Realizar Nueva Comparación": { en: "Make New Comparison", zh: "进行新比较", de: "Neuen Vergleich durchführen", fr: "Effectuer une nouvelle comparaison" },
                 "✅ ¡Oferta copiada con éxito! Ahora puede pegar (Ctrl+V o Cmd+V) el diseño visual en su correo de escritorio.": { en: "✅ Offer copied successfully! Now you can paste (Ctrl+V or Cmd+V) the visual design into your email client.", zh: "✅ 报价复制成功！现在您可以将视觉设计粘贴（Ctrl+V 或 Cmd+V）到您的电子邮件客户端。", de: "✅ Angebot erfolgreich kopiert! Jetzt können Sie das visuelle Design in Ihren E-Mail-Client einfügen (Strg+V oder Cmd+V).", fr: "✅ Offre copiée avec succès ! Vous pouvez maintenant coller (Ctrl+V ou Cmd+V) le design visuel dans votre client de messagerie." },
                 "No se pudo copiar el diseño visual. Intente desde un PC o contacte a soporte.": { en: "Could not copy visual design. Try from a PC or contact support.", zh: "无法复制视觉设计。请尝试从PC或联系支持。", de: "Visuelles Design konnte nicht kopiert werden. Versuchen Sie es von einem PC aus oder kontaktieren Sie den Support.", fr: "Impossible de copier le design visuel. Essayez depuis un PC ou contactez le support." },
