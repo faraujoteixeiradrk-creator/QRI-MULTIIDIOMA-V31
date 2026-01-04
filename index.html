@@ -9616,7 +9616,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                     <tr><td colspan="2" style="padding: 0 20px;">
                         ${bd.savings > 0 ? `
                         <div style="text-align: center; margin: 25px 0 10px 0;">
-                            <p style="margin: 0; font-size: 16px; color: #555; font-weight: bold;">TU AHORRO ANUAL ESTIMADO ES:</p>
+                            <p style="margin: 0; font-size: 16px; color: #555; font-weight: bold;">${tr('TU AHORRO ANUAL ESTIMADO ES:')}</p>
                         </div>
                         <div style="${savingsBox}">
                             <span style="font-size: 38px; white-space: nowrap;">${eur(bd.savings)}</span>
@@ -9929,10 +9929,10 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
             const finalMultiSavingsSummary = `
                 <tr><td colspan="2" style="padding: 0 20px 0 20px; text-align: center;">
                     <div style="text-align: center; margin: 15px 0 5px 0;">
-                        <p style="margin: 0; font-size: 16px; color: #555; font-weight: bold;">AHORRO TOTAL CONSOLIDADO</p>
+                        <p style="margin: 0; font-size: 16px; color: #555; font-weight: bold;">${tr('AHORRO TOTAL CONSOLIDADO')}</p>
                     </div>
                     <div style="background-color: ${BG_LIGHT}; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 20px;">
-                        <p style="margin: 0; font-size: 14px; color: #555;">TU AHORRO ANUAL ESTIMADO ES:</p>
+                        <p style="margin: 0; font-size: 14px; color: #555;">${tr('TU AHORRO ANUAL ESTIMADO ES:')}</p>
                         <span style="font-size: 32px; font-weight: bold; color: ${GREEN_SAVE}; display: block; margin-top: 5px; white-space: nowrap;">${eur(bd.savings)}</span>
                         <p style="font-size: 12px; color: #888;">${tr('/ AÑO')}</p>
                     </div>
@@ -20344,6 +20344,7 @@ ${clientName}
                 "TOTAL FACTURA ACTUAL:": { en: "CURRENT TOTAL BILL:", zh: "当前总账单：", de: "AKTUELLE GESAMTRECHNUNG:", fr: "FACTURE TOTALE ACTUELLE :" },
                 "TU AHORRO ANUAL ESTIMADO ES:": { en: "YOUR ESTIMATED ANNUAL SAVINGS IS:", zh: "您的预计年度节省为：", de: "IHRE GESCHÄTZTEN JÄHRLICHEN EINSPARUNGEN BETRAGEN:", fr: "VOS ÉCONOMIES ANNUELLES ESTIMÉES SONT :" },
                 "¡CONSIGUE TU AHORRO ANUAL!": { en: "GET YOUR ANNUAL SAVINGS!", zh: "获取您的年度节省！", de: "HOLEN SIE SICH IHRE JÄHRLICHEN EINSPARUNGEN!", fr: "OBTENEZ VOS ÉCONOMIES ANNUELLES !" },
+                "AHORRO TOTAL CONSOLIDADO": { en: "TOTAL CONSOLIDATED SAVINGS", zh: "合并总节省", de: "KONSOLIDIERTE GESAMTEINSPARUNGEN", fr: "ÉCONOMIES TOTALES CONSOLIDÉES" },
                 "RESUMEN DE PRECIOS DE LA OFERTA ÚNICA": { en: "SINGLE OFFER PRICE SUMMARY", zh: "单一报价价格摘要", de: "PREISZUSAMMENFASSUNG DES EINZELANGEBOTS", fr: "RÉSUMÉ DES PRIX DE L'OFFRE UNIQUE" },
                 "/ AÑO": { en: "/ YEAR", zh: "/ 年", de: "/ JAHR", fr: "/ AN" },
                 
