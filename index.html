@@ -14716,11 +14716,74 @@ ${clientName}
             return `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
         }
         
+        // Función específica para generar HTML DUAL en CHINO
+        function generateDualHTMLContent_Chinese(comercialCode, clientName, clientPhone, clientEmail, brandName, primaryColor, accentColor) {
+            let totalOriginalBill = 0;
+            let totalNew = 0;
+            
+            dualSupplies.forEach(s => {
+                const currentCost = s.totalAnnual || 0;
+                totalOriginalBill += s.originalBillAnnual || 0;
+                totalNew += currentCost;
+            });
+            
+            const totalSavings = Math.max(0, totalOriginalBill - totalNew);
+            const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
+            
+            const htmlContent = `
+            <div style="font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; background: white;">
+                
+                <!-- HEADER -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white;">
+                    <tr>
+                        <td style="padding: 30px 40px;">
+                            <h1 style="margin: 0; font-size: 32px; font-weight: bold;">${brandName} 能源</h1>
+                            <p style="margin: 8px 0 0 0; font-size: 14px;">引领节省和能源效率</p>
+                        </td>
+                        <td style="padding: 30px 40px; text-align: right;">
+                            <p style="margin: 0; font-size: 14px; font-weight: bold;">双重供应分析</p>
+                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold;">专业比较</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- RESUMEN GLOBAL -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
+                    <tr>
+                        <td style="padding: 30px 40px; text-align: center;">
+                            <h2 style="margin: 0 0 20px 0; font-size: 28px; font-weight: bold;">您的总节省</h2>
+                            <div style="background-color: ${accentColor}; color: white; padding: 30px; border-radius: 12px;">
+                                <h1 style="margin: 0; font-size: 48px; font-weight: bold;">${eur(totalSavings)}</h1>
+                                <p style="margin: 10px 0 0 0; font-size: 18px; font-weight: bold;">年度节省总额</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- DATOS CLIENTE -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: white; border: 1px solid #e0e0e0; margin-top: 30px;">
+                    <tr>
+                        <td style="padding: 20px 40px;">
+                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>客户：</strong> ${clientName || '[客户姓名]'}</p>
+                            <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>商业代码：</strong> ${comercialCode || '[代码]'}</p>
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+            `;
+            
+            return htmlContent;
+        }
+        
         // Función auxiliar: Generar HTML DUAL (usada por PDF y copiar HTML)
         function generateDualHTMLContent(comercialCode, clientName, clientPhone = '', clientEmail = '') {
+            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
+            
             console.log('📄 Generando HTML DUAL con datos capturados:');
             console.log('  - comercialCode:', comercialCode);
             console.log('  - clientName:', clientName);
+            console.log('  - Idioma actual:', currentLang);
             
             if (!dualSupplies || dualSupplies.length === 0) {
                 alert('No hay suministros para generar la propuesta.');
@@ -14737,6 +14800,11 @@ ${clientName}
             const brandName = isPowerCup ? 'POWER CUP' : 'DRK';
             const primaryColor = isPowerCup ? '#4d7c0f' : '#546e7a';
             const accentColor = isPowerCup ? '#84cc16' : '#607d8b';
+            
+            // NUEVO: Para chino, generar versión específica sin tr()
+            if (currentLang === 'zh') {
+                return generateDualHTMLContent_Chinese(comercialCode, clientName, clientPhone, clientEmail, brandName, primaryColor, accentColor);
+            }
             
             // CAMBIO: Mostrar TODOS los suministros, no filtrar
             // Usar s.totalAnnual que ya tiene la lógica correcta
@@ -16797,20 +16865,142 @@ ${clientName}
             }
         }
         
+        // Función específica para generar HTML en CHINO (GAS)
+        function generateGasHTMLSingle_Chinese(result, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName, eur, num) {
+            const tariffName = result.descripcion ? `${result.name} - ${result.descripcion}` : result.name;
+            const ahorroAnual = result.ahorro_anual;
+            const facturaActualAnio = totalCliente * 365 / dias;
+            const nuevoAnio = result.total * 365 / dias;
+            const nuevoMes = result.total * 30 / dias;
+            
+            const htmlContent = `
+            <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; background: white;">
+                
+                <!-- HEADER -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white;">
+                    <tr>
+                        <td style="padding: 30px 40px;">
+                            <h1 style="margin: 0; font-size: 32px; font-weight: bold;">${brandName} 能源</h1>
+                            <p style="margin: 8px 0 0 0; font-size: 14px;">引领节省和能源效率</p>
+                        </td>
+                        <td style="padding: 30px 40px; text-align: right;">
+                            <p style="margin: 0; font-size: 14px; font-weight: bold;">节省研究</p>
+                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold;">专业比较</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- BANNER -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${accentColor}; color: white;">
+                    <tr>
+                        <td style="padding: 15px 40px; text-align: center;">
+                            <h2 style="margin: 0; font-size: 20px; font-weight: bold;">节省研究 - 天然气</h2>
+                            <p style="margin: 4px 0 0 0; font-size: 14px;">专业比较 - ${brandName}</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- MEJOR OPCIÓN -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 20px;">
+                    <tr>
+                        <td style="padding: 30px 40px; text-align: center;">
+                            <p style="margin: 0 0 10px 0; font-size: 16px;">最适合您的选项是</p>
+                            <h2 style="margin: 0; font-size: 36px; font-weight: bold;">${tariffName}</h2>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- AHORRO ANUAL -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px;">
+                    <tr>
+                        <td style="padding: 20px 40px; text-align: center;">
+                            <p style="margin: 0 0 10px 0; font-size: 16px; color: #666; font-weight: bold;">您的预计年度节省是：</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${accentColor}; border-radius: 12px; margin: 0 40px; width: calc(100% - 80px);">
+                    <tr>
+                        <td style="padding: 30px; text-align: center;">
+                            <h1 style="margin: 0; font-size: 48px; font-weight: bold; color: white;">${eur(ahorroAnual)}</h1>
+                            <p style="margin: 10px 0 0 0; font-size: 18px; color: white; font-weight: bold;">实现您的年度节省！</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- COMPARATIVA -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
+                    <tr>
+                        <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
+                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">您当前的账单</p>
+                            <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: #dc2626; text-decoration: line-through;">${eur(facturaActualAnio)}</h2>
+                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ 年</p>
+                        </td>
+                        <td style="width: 4%;"></td>
+                        <td style="width: 48%; padding: 20px; border: 2px solid #e0e0e0; text-align: center; vertical-align: top;">
+                            <p style="margin: 0 0 15px 0; font-size: 14px; color: #888; font-weight: bold;">您的新 ${brandName} 成本</p>
+                            <h2 style="margin: 0; font-size: 32px; font-weight: bold; color: ${primaryColor};">${eur(nuevoAnio)}</h2>
+                            <p style="margin: 8px 0 0 0; font-size: 14px; color: #666;">/ 年</p>
+                            <p style="margin: 8px 0 0 0; font-size: 16px; color: ${primaryColor}; font-weight: bold;">${eur(nuevoMes)} / 月</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- RESUMEN PRECIOS -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white; margin-top: 30px;">
+                    <tr>
+                        <td style="padding: 15px 40px;">
+                            <h3 style="margin: 0; font-size: 16px; font-weight: bold;">价格摘要</h3>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e0e0e0; border-top: none;">
+                    <tr style="background-color: #f5f5f5;">
+                        <td style="padding: 12px 40px; font-weight: bold; font-size: 14px;">概念</td>
+                        <td style="padding: 12px 40px; font-weight: bold; font-size: 14px; text-align: right;">${brandName} 价格</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">固定价格 (€/天)</td>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p_fijo_diario / 365)}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px;">能源 (€/kWh)</td>
+                        <td style="padding: 10px 40px; border-top: 1px solid #e0e0e0; font-size: 13px; text-align: right;">${num(result.p1_price)}</td>
+                    </tr>
+                    <tr style="background-color: #f0fdf4;">
+                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px;">年度节省</td>
+                        <td style="padding: 12px 40px; border-top: 2px solid ${accentColor}; font-weight: bold; font-size: 14px; text-align: right; color: #16a34a;">${eur(ahorroAnual)}</td>
+                    </tr>
+                </table>
+                
+            </div>
+            `;
+            
+            showHTMLPreview(htmlContent);
+        }
+        
         // Función para generar HTML individual (una sola tarifa)
         function generateGasHTMLSingle(result, dias, kwh, totalCliente) {
+            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
             const num = (n, d=6) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
             
-            // Determinar marca (DRK o POWER CUP)
-            const comparisonMode = document.querySelector('input[name="comparison_mode"]:checked').value;
-            const isDrk = (comparisonMode === 'drk_only' || comparisonMode === 'drk_prioritized');
+            // Determinar marca según el nombre del resultado
+            const resultName = result.name || '';
+            const isDrk = !resultName.toLowerCase().includes('power');
             
             // Colores según marca
             const primaryColor = isDrk ? '#3b5875' : '#4d7c0f';
             const accentColor = isDrk ? '#4a90e2' : '#84cc16';
             const lightBg = isDrk ? '#e8f4fd' : '#f0fdf4';
             const brandName = isDrk ? 'DRK' : 'POWER CUP';
+            
+            // NUEVO: Para chino, generar versión específica sin tr()
+            if (currentLang === 'zh') {
+                generateGasHTMLSingle_Chinese(result, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName, eur, num);
+                return;
+            }
             
             const tariffName = result.descripcion ? `${result.name} - ${result.descripcion}` : result.name;
             console.log('🔍 DEBUG HTML GAS - tariffName:', tariffName, 'result completo:', result);
@@ -17059,20 +17249,158 @@ ${clientName}
             showHTMLPreview(htmlContent);
         }
         
+        // Función específica para generar HTML comparativo en CHINO (GAS)
+        function generateGasHTMLComparison_Chinese(results, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName, eur, num) {
+            const resFijo = results.find(r => r.name.includes('FIJO') || r.name.includes('META')) || results[0];
+            const resIndexed = results.find(r => r.name.includes('INDEX')) || results[1];
+            const facturaActualAnio = totalCliente * 365 / dias;
+            
+            const htmlContent = `
+            <div style="font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; background: white;">
+                
+                <!-- HEADER -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${primaryColor}; color: white;">
+                    <tr>
+                        <td style="padding: 30px 40px;">
+                            <h1 style="margin: 0; font-size: 32px; font-weight: bold;">${brandName} 能源</h1>
+                            <p style="margin: 8px 0 0 0; font-size: 14px;">引领节省和能源效率</p>
+                        </td>
+                        <td style="padding: 30px 40px; text-align: right;">
+                            <p style="margin: 0; font-size: 14px; font-weight: bold;">节省研究</p>
+                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: bold;">专业比较</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- BANNER -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${accentColor}; color: white;">
+                    <tr>
+                        <td style="padding: 15px 40px; text-align: center;">
+                            <h2 style="margin: 0; font-size: 20px; font-weight: bold;">比较：固定费率 vs 指数费率</h2>
+                            <p style="margin: 4px 0 0 0; font-size: 14px;">天然气 - ${brandName}</p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- COMPARATIVA DUAL -->
+                <table width="100%" cellpadding="20" cellspacing="0" style="margin-top: 20px;">
+                    <tr>
+                        <!-- TARIFA FIJA -->
+                        <td style="width: 48%; vertical-align: top;">
+                            <table width="100%" cellpadding="0" cellspacing="0" style="border: 3px solid ${accentColor}; border-radius: 12px;">
+                                <tr>
+                                    <td style="background-color: ${accentColor}; color: white; padding: 15px; text-align: center;">
+                                        <h3 style="margin: 0; font-size: 18px; font-weight: bold;">固定费率</h3>
+                                        <p style="margin: 4px 0 0 0; font-size: 13px;">${resFijo.descripcion || resFijo.name}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <div style="background-color: #f0fdf4; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 15px;">
+                                            <p style="margin: 0; font-size: 12px; color: #16a34a; font-weight: bold;">年度节省</p>
+                                            <h2 style="margin: 5px 0 0 0; font-size: 28px; color: #16a34a; font-weight: bold;">${eur(resFijo.ahorro_anual)}</h2>
+                                        </div>
+                                        
+                                        <div style="font-size: 12px; color: #333; line-height: 1.6;">
+                                            <p style="margin: 5px 0;"><strong>固定价格：</strong> ${num(resFijo.p_fijo_diario / 365)} €/天</p>
+                                            <p style="margin: 5px 0;"><strong>能源：</strong> ${num(resFijo.p1_price)} €/kWh</p>
+                                            <p style="margin: 10px 0; padding-top: 10px; border-top: 1px solid #e0e0e0;"><strong>总计 (${dias} 天)：</strong> ${eur(resFijo.total)}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        
+                        <td style="width: 4%;"></td>
+                        
+                        <!-- TARIFA INDEXADA -->
+                        <td style="width: 48%; vertical-align: top;">
+                            <table width="100%" cellpadding="0" cellspacing="0" style="border: 3px solid #6c7a89; border-radius: 12px;">
+                                <tr>
+                                    <td style="background-color: #6c7a89; color: white; padding: 15px; text-align: center;">
+                                        <h3 style="margin: 0; font-size: 18px; font-weight: bold;">指数费率</h3>
+                                        <p style="margin: 4px 0 0 0; font-size: 13px;">${resIndexed.descripcion || resIndexed.name}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <div style="background-color: #f5f5f5; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 15px;">
+                                            <p style="margin: 0; font-size: 12px; color: #dc2626; font-weight: bold;">年度节省</p>
+                                            <h2 style="margin: 5px 0 0 0; font-size: 28px; color: #dc2626; font-weight: bold;">${eur(resIndexed.ahorro_anual)}</h2>
+                                        </div>
+                                        
+                                        <div style="font-size: 12px; color: #333; line-height: 1.6;">
+                                            <p style="margin: 5px 0;"><strong>固定价格：</strong> ${num(resIndexed.p_fijo_diario / 365)} €/天</p>
+                                            <p style="margin: 5px 0;"><strong>能源：</strong> ${num(resIndexed.p1_price)} €/kWh</p>
+                                            <p style="margin: 10px 0; padding-top: 10px; border-top: 1px solid #e0e0e0;"><strong>总计 (${dias} 天)：</strong> ${eur(resIndexed.total)}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- DIFERENCIAS -->
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px;">
+                    <tr>
+                        <td style="padding: 20px 40px; text-align: center;">
+                            <h2 style="margin: 0; font-size: 24px; font-weight: bold;">有什么区别？</h2>
+                        </td>
+                    </tr>
+                </table>
+                
+                <table width="100%" cellpadding="20" cellspacing="0">
+                    <tr>
+                        <td style="width: 48%; vertical-align: top;">
+                            <h3 style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: ${accentColor};">为什么选择固定费率？</h3>
+                            <ul style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.8; color: #333;">
+                                <li>每千瓦时价格固定</li>
+                                <li>价格稳定，不受市场波动影响</li>
+                                <li>市场价格高时受到保护</li>
+                                <li>无需关注市场变化</li>
+                            </ul>
+                        </td>
+                        
+                        <td style="width: 48%; vertical-align: top;">
+                            <h3 style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: #16a34a;">为什么选择指数费率？</h3>
+                            <ul style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.8; color: #333;">
+                                <li>每千瓦时价格可变</li>
+                                <li>最公平的费率，支付实际成本</li>
+                                <li>电价便宜时避免额外费用</li>
+                                <li>长期可节省约20%</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+            `;
+            
+            showHTMLPreview(htmlContent);
+        }
+        
         // Función para generar HTML comparativo (Fija vs Indexada)
         function generateGasHTMLComparison(results, dias, kwh, totalCliente) {
+            const currentLang = window.LANG ? window.LANG.getCurrentLang() : 'es';
             const eur = n => new Intl.NumberFormat('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n || 0) + ' €';
             const num = (n, d=6) => new Intl.NumberFormat('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}).format(n || 0);
             
-            // Determinar marca (DRK o POWER CUP)
-            const comparisonMode = document.querySelector('input[name="comparison_mode"]:checked').value;
-            const isDrk = (comparisonMode === 'drk_only' || comparisonMode === 'drk_prioritized');
+            // Determinar marca según el nombre del resultado
+            const resultName = (results[0] && results[0].name) || '';
+            const isDrk = !resultName.toLowerCase().includes('power');
             
             // Colores según marca
             const primaryColor = isDrk ? '#3b5875' : '#4d7c0f';
             const accentColor = isDrk ? '#4a90e2' : '#84cc16';
             const lightBg = isDrk ? '#e8f4fd' : '#f0fdf4';
             const brandName = isDrk ? 'DRK' : 'POWER CUP';
+            
+            // NUEVO: Para chino, generar versión específica sin tr()
+            if (currentLang === 'zh') {
+                generateGasHTMLComparison_Chinese(results, dias, kwh, totalCliente, isDrk, primaryColor, accentColor, brandName, eur, num);
+                return;
+            }
             
             // Identificar cuál es fija y cuál indexada
             const resFijo = results.find(r => r.name.includes('FIJO') || r.name.includes('META')) || results[0];
