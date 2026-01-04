@@ -3492,7 +3492,7 @@
             }).join('');
 
             const supplySummarySection = `
-                <h3 class="text-lg font-bold text-slate-800 border-l-4 border-green-500 pl-3 mb-3" style="border-left-color: ${brand.QR_CENTER_BG};">Resumen de Suministros Añadidos</h3>
+                <h3 class="text-lg font-bold text-slate-800 border-l-4 border-green-500 pl-3 mb-3" style="border-left-color: ${brand.QR_CENTER_BG};">${tr('Resumen de Suministros Añadidos')}</h3>
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-sm mb-6 space-y-1">
                     ${summaryListHTML}
                 </div>
@@ -3585,13 +3585,13 @@
             let priceSectionLabel;
             if (hasDrkWinner && comparisonMode !== 'overall_best') {
                 // Modo DRK con ofertas DRK
-                priceSectionLabel = 'Precios de las Ofertas Seleccionadas (DRK ENERGÍA)';
+                priceSectionLabel = tr('Precios de las Ofertas Seleccionadas') + ' (DRK ENERGÍA)';
             } else if (!hasDrkWinner && comparisonMode === 'overall_best') {
                 // Modo POWER CUP sin DRK
-                priceSectionLabel = 'Precios de las Ofertas Seleccionadas (POWER CUP GLOBAL)';
+                priceSectionLabel = tr('Precios de las Ofertas Seleccionadas') + ' (POWER CUP GLOBAL)';
             } else {
                 // Mixto o general
-                priceSectionLabel = 'Precios de las Ofertas Seleccionadas';
+                priceSectionLabel = tr('Precios de las Ofertas Seleccionadas');
             }
 
             const basePrefix = brand.NAME.includes('DRK') ? 'drk' : 'powercup';
@@ -3704,35 +3704,35 @@
                 });
                 
                 const statusText = resItem.isNegativeSavings ? 
-                    `<p class="text-sm font-bold text-cta-red-600 mb-2">⚠️ TU TARIFA ACTUAL es la mejor</p>` :
-                    `<p class="text-sm font-bold text-cta-green-600 mb-2">💰 AHORRO ANUAL: ${eur(resItem.savings)}</p>`;
+                    `<p class="text-sm font-bold text-cta-red-600 mb-2">⚠️ ${tr('TU TARIFA ACTUAL es la mejor')}</p>` :
+                    `<p class="text-sm font-bold text-cta-green-600 mb-2">💰 ${tr('AHORRO ANUAL')}: ${eur(resItem.savings)}</p>`;
 
                 allBreakdownsHTML += `
                     <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-lg text-sm">
-                               <h4 class="text-lg font-black text-slate-800 border-b pb-2 mb-3">Suministro ${index + 1}: ${resItem.cups} (${resItem.originalTariffType})</h4>
+                               <h4 class="text-lg font-black text-slate-800 border-b pb-2 mb-3">${tr('Suministro')} ${index + 1}: ${resItem.cups} (${resItem.originalTariffType})</h4>
                                ${statusText}
-                               <p class="text-xs text-slate-500 mb-3">Tarifa aplicada en el cálculo: <span class="font-bold text-slate-700">${appliedOfferName}</span></p>
+                               <p class="text-xs text-slate-500 mb-3">${tr('Tarifa aplicada en el cálculo')}: <span class="font-bold text-slate-700">${appliedOfferName}</span></p>
                                <div class="grid grid-cols-2 gap-4 border-b border-slate-200 pb-3 mb-3">
                                    <div class="text-center">
-                                       <p class="text-slate-400 text-xs uppercase">Factura Actual Periodo</p>
+                                       <p class="text-slate-400 text-xs uppercase">${tr('Factura Actual Periodo')}</p>
                                        <p class="font-bold text-cta-red-500">${eur(resItem.importe_total)}</p>
                                    </div>
                                    <div class="text-center">
-                                       <p class="text-slate-400 text-xs uppercase">Nuevo Coste Periodo</p>
+                                       <p class="text-slate-400 text-xs uppercase">${tr('Nuevo Coste Periodo')}</p>
                                        <p class="font-black ${brand.PRIMARY_TEXT}">${eur(resItem.totalPeriod)}</p>
                                    </div>
                                </div>
 
-                               <p class="font-bold text-slate-800 mb-2">Desglose (${appliedOfferName}):</p>
+                               <p class="font-bold text-slate-800 mb-2">${tr('Desglose')} (${appliedOfferName}):</p>
                                
                                <div class="pl-2 space-y-2 font-mono text-xs">
-                                   <p class="font-bold text-slate-700">POTENCIA</p>
+                                   <p class="font-bold text-slate-700">${tr('POTENCIA')}</p>
                                    ${powerBreakdown}
-                                   <div class="flex justify-between font-bold text-slate-800 border-t pt-1"><span>Subtotal Potencia</span><span>${num(resItem.subPower, 2)} €</span></div>
+                                   <div class="flex justify-between font-bold text-slate-800 border-t pt-1"><span>${tr('Subtotal Potencia')}</span><span>${num(resItem.subPower, 2)} €</span></div>
                                    
-                                   <p class="font-bold text-slate-700 pt-2">ENERGÍA</p>
+                                   <p class="font-bold text-slate-700 pt-2">${tr('ENERGÍA')}</p>
                                    ${energyBreakdown}
-                                   <div class="flex justify-between font-bold text-slate-800 border-t pt-1"><span>Subtotal Energía (Neto)</span><span>${num(resItem.subEnergyNet, 2)} €</span></div>
+                                   <div class="flex justify-between font-bold text-slate-800 border-t pt-1"><span>${tr('Subtotal Energía (Neto)')}</span><span>${num(resItem.subEnergyNet, 2)} €</span></div>
                                    
                                    <div class="flex justify-between font-black ${brand.PRIMARY_TEXT} pt-2"><span>TOTAL CON IMPUESTOS</span><span>${eur(resItem.totalPeriod)}</span></div>
                                </div>
@@ -3750,8 +3750,8 @@
                 
                 ${tariffPricesHTML}
                 
-                <h3 class="text-lg font-bold text-slate-800 border-l-4 border-green-500 pl-3" style="border-left-color: ${brand.QR_CENTER_BG};">Desglose Individual por Suministro</h3>
-                <p class="text-sm text-slate-500 mb-4 pl-3">A continuación, se muestra el cálculo detallado de la mejor oferta para cada CUPS, por orden de introducción:</p>
+                <h3 class="text-lg font-bold text-slate-800 border-l-4 border-green-500 pl-3" style="border-left-color: ${brand.QR_CENTER_BG};">${tr('Desglose Individual por Suministro')}</h3>
+                <p class="text-sm text-slate-500 mb-4 pl-3">${tr('A continuación, se muestra el cálculo detallado de la mejor oferta para cada CUPS, por orden de introducción:')}</p>
                 <div id="cost-breakdown-multi" class="space-y-4">
                     ${allBreakdownsHTML}
                 </div>
@@ -20702,6 +20702,19 @@ ${clientName}
                 // Secciones del PDF
                 "POTENCIA": { en: "POWER", zh: "功率", de: "LEISTUNG", fr: "PUISSANCE" },
                 "ENERGÍA": { en: "ENERGY", zh: "能源", de: "ENERGIE", fr: "ÉNERGIE" },
+                "Resumen de Suministros Añadidos": { en: "Summary of Added Supplies", zh: "已添加供应的摘要", de: "Zusammenfassung der hinzugefügten Lieferungen", fr: "Résumé des Fournitures Ajoutées" },
+                "Precios de las Ofertas Seleccionadas": { en: "Prices of Selected Offers", zh: "所选报价的价格", de: "Preise der ausgewählten Angebote", fr: "Prix des Offres Sélectionnées" },
+                "Desglose Individual por Suministro": { en: "Individual Breakdown by Supply", zh: "按供应的个别明细", de: "Einzelaufschlüsselung nach Lieferung", fr: "Ventilation Individuelle par Fourniture" },
+                "A continuación, se muestra el cálculo detallado de la mejor oferta para cada CUPS, por orden de introducción:": { en: "Below is the detailed calculation of the best offer for each CUPS, in order of entry:", zh: "以下是每个CUPS的最佳报价的详细计算，按输入顺序：", de: "Nachfolgend finden Sie die detaillierte Berechnung des besten Angebots für jede CUPS in Eingabereihenfolge:", fr: "Vous trouverez ci-dessous le calcul détaillé de la meilleure offre pour chaque CUPS, par ordre d'introduction:" },
+                "Suministro": { en: "Supply", zh: "供应", de: "Lieferung", fr: "Fourniture" },
+                "AHORRO ANUAL": { en: "ANNUAL SAVINGS", zh: "年度节省", de: "JÄHRLICHE EINSPARUNGEN", fr: "ÉCONOMIES ANNUELLES" },
+                "TU TARIFA ACTUAL es la mejor": { en: "YOUR CURRENT RATE is the best", zh: "您的当前费率是最好的", de: "IHR AKTUELLER TARIF ist der beste", fr: "VOTRE TARIF ACTUEL est le meilleur" },
+                "Tarifa aplicada en el cálculo": { en: "Rate applied in calculation", zh: "计算中应用的费率", de: "Im Berechnungsverfahren angewandter Tarif", fr: "Tarif appliqué dans le calcul" },
+                "Factura Actual Periodo": { en: "Current Period Bill", zh: "当前期间账单", de: "Aktuelle Periodenrechnung", fr: "Facture Période Actuelle" },
+                "Nuevo Coste Periodo": { en: "New Period Cost", zh: "新期间费用", de: "Neue Periodenkosten", fr: "Nouveau Coût Période" },
+                "Desglose": { en: "Breakdown", zh: "明细", de: "Aufschlüsselung", fr: "Ventilation" },
+                "Subtotal Potencia": { en: "Power Subtotal", zh: "功率小计", de: "Leistung Zwischensumme", fr: "Sous-total Puissance" },
+                "Subtotal Energía (Neto)": { en: "Energy Subtotal (Net)", zh: "能源小计（净额）", de: "Energie Zwischensumme (Netto)", fr: "Sous-total Énergie (Net)" },
                 "Punta": { en: "Peak", zh: "峰值", de: "Spitze", fr: "Pointe" },
                 "Llano": { en: "Standard", zh: "标准", de: "Standard", fr: "Standard" },
                 "Valle": { en: "Valley", zh: "谷值", de: "Tal", fr: "Vallée" },
