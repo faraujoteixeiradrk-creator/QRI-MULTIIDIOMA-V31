@@ -8339,9 +8339,8 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 document.getElementById('send-offer-modal').classList.remove('flex');
                 
                 // NUEVO: Restaurar idioma chino si es necesario
-                const currentLangAfterPDF = localStorage.getItem('appLanguage') || 'es';
-                if (currentLangAfterPDF === 'en') {
-                    // Si ahora estamos en inglés, preguntar si quiere volver a chino
+                if (window._wasChineseBeforePDF === true) {
+                    // Solo preguntar si el usuario ORIGINALMENTE estaba en chino
                     setTimeout(() => {
                         const userWantsChineseBack = confirm(
                             '✅ PDF已生成！\n' +
@@ -8356,6 +8355,9 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             console.log('🇨🇳 Restaurando idioma chino');
                             window.LANG.change('zh', true);
                         }
+                        
+                        // Limpiar flag
+                        window._wasChineseBeforePDF = false;
                     }, 500);
                 }
                 
@@ -20887,6 +20889,9 @@ ${clientName}
                         '✅ Calculations will remain the same'
                     );
                     
+                    // IMPORTANTE: Marcar que el usuario estaba en chino
+                    window._wasChineseBeforePDF = true;
+                    
                     // Cambiar automáticamente a inglés SIN recargar
                     if (window.LANG && window.LANG.change) {
                         window.LANG.change('en', true); // skipReload = true
@@ -20894,6 +20899,7 @@ ${clientName}
                     
                     return true; // PERMITIR generación de PDF en inglés
                 }
+                window._wasChineseBeforePDF = false; // No estaba en chino
                 return true; // Para otros idiomas, continuar sin advertencia
             };
             
