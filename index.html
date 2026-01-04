@@ -14503,6 +14503,14 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                 if (currentLang === 'zh') {
                     console.log('🇨🇳 Modo chino detectado - extrayendo datos del DOM y construyendo tablas');
                     
+                    // Detectar si es Power Cup o DRK
+                    const results = window.dualGlobalResults || {};
+                    const isPowerCup = results.comparisonMode === 'overall_best';
+                    const bannerColor = isPowerCup ? '#84cc16' : '#0ea5e9'; // Verde Power Cup o Azul DRK
+                    const savingsColor = isPowerCup ? '#4d7c0f' : '#16a34a'; // Verde oscuro Power Cup o Verde DRK
+                    const brandName = isPowerCup ? 'POWER CUP' : 'DRK';
+                    console.log('🏷️ Marca detectada:', brandName, '| Color banner:', bannerColor);
+                    
                     // Verificar que hay resultados renderizados en el DOM
                     const resultsContainer = document.getElementById('dual-results-container');
                     if (!resultsContainer || resultsContainer.innerHTML.trim().length < 100) {
@@ -14688,7 +14696,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                         </head>
                         <body style="font-family: Arial, sans-serif; background: #f1f5f9; margin: 0; padding: 20px;">
                             <!-- Encabezado -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0ea5e9; border-radius: 12px; margin-bottom: 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${bannerColor}; border-radius: 12px; margin-bottom: 20px;">
                                 <tr>
                                     <td style="padding: 30px; text-align: center;">
                                         <div style="font-size: 48px; margin-bottom: 10px;">⚡🔥</div>
@@ -14710,7 +14718,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                             ${suppliesHTML}
                             
                             <!-- Resumen de ahorro total -->
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #16a34a; border-radius: 12px; margin-top: 30px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${savingsColor}; border-radius: 12px; margin-top: 30px;">
                                 <tr>
                                     <td style="padding: 30px; text-align: center;">
                                         <div style="font-size: 48px; margin-bottom: 10px;">💰</div>
@@ -14945,6 +14953,7 @@ ${clientName}
             const brandName = isPowerCup ? 'POWER CUP' : 'DRK';
             const primaryColor = isPowerCup ? '#4d7c0f' : '#546e7a';
             const accentColor = isPowerCup ? '#84cc16' : '#607d8b';
+            const bannerColor = isPowerCup ? '#84cc16' : '#0ea5e9'; // Verde Power Cup o Azul DRK
             
             // CAMBIO: Mostrar TODOS los suministros, no filtrar
             // Usar s.totalAnnual que ya tiene la lógica correcta
@@ -15108,7 +15117,7 @@ ${clientName}
     <div style="max-width:600px;margin:0 auto;background:white">
         
         <!-- BANNER SUPERIOR MEJORADO -->
-        <table width="100%" cellpadding="0" cellspacing="0" style="background:#456B7A">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background:${bannerColor}">
             <tr>
                 <td style="padding:25px 30px;vertical-align:middle;width:60%">
                     <h1 style="margin:0 0 8px 0;font-size:32px;font-weight:900;color:white;letter-spacing:1px">${brandName} ${tr('ENERGÍA')}</h1>
@@ -15122,7 +15131,7 @@ ${clientName}
         </table>
         
         <!-- TÍTULO ESTUDIO DE AHORRO -->
-        <div style="background:#456B7A;padding:20px 30px;text-align:center;border-top:2px solid rgba(255,255,255,0.2)">
+        <div style="background:${bannerColor};padding:20px 30px;text-align:center;border-top:2px solid rgba(255,255,255,0.2)">
             <h2 style="margin:0 0 5px 0;font-size:24px;font-weight:bold;color:white;letter-spacing:1.5px">${tr('ESTUDIO DE AHORRO')}</h2>
             <p style="margin:0;font-size:13px;color:white;font-weight:600;letter-spacing:0.5px">${tr('COMPARATIVA PROFESIONAL')} - ${brandName}</p>
         </div>
@@ -15236,7 +15245,7 @@ ${clientName}
                     : (tarifa || comercializadora || 'N/A');
                 
                 return `
-                <div style="margin:15px 30px;background:#546e7a;padding:12px;border-radius:5px">
+                <div style="margin:15px 30px;background:${primaryColor};padding:12px;border-radius:5px">
                     <p style="margin:0 0 5px 0;font-size:11px;color:white;font-weight:bold">[${i+1}] ${s.cups.substring(0,25)}...</p>
                     <p style="margin:0;font-size:10px;color:white">${tr('Tipo:')}: ${s.tariff} | ${tr('Días:')}: ${dias} ${tr('días')} | CUPS: [${i+1}]</p>
                     <p style="margin:5px 0 0 0;font-size:10px;color:white"><strong>${tr('TARIFA:')}</strong> ${tarifaCompleta}</p>
@@ -15261,7 +15270,7 @@ ${clientName}
                     
                     ${isElec ? `
                     <!-- ELECTRICIDAD: POTENCIA -->
-                    <div style="margin-top:12px;padding:10px;background:#546e7a;color:white;border-radius:5px">
+                    <div style="margin-top:12px;padding:10px;background:${primaryColor};color:white;border-radius:5px">
                         <p style="margin:0;font-size:11px;font-weight:bold">${tr('POTENCIA')}</p>
                     </div>
                     ${eb?.powerCosts ? eb.powerCosts.map(pc => `
@@ -15274,7 +15283,7 @@ ${clientName}
                     `).join('') : `<div style="padding:8px 10px;background:white;font-size:10px;color:#64748b">${tr('No hay datos de potencia')}</div>`}
                     
                     <!-- ELECTRICIDAD: ENERGÍA -->
-                    <div style="margin-top:12px;padding:10px;background:#546e7a;color:white;border-radius:5px">
+                    <div style="margin-top:12px;padding:10px;background:${primaryColor};color:white;border-radius:5px">
                         <p style="margin:0;font-size:11px;font-weight:bold">${tr('ENERGÍA')}</p>
                     </div>
                     ${eb?.energyCosts ? eb.energyCosts.map(ec => `
@@ -15287,7 +15296,7 @@ ${clientName}
                     `).join('') : `<div style="padding:8px 10px;background:white;font-size:10px;color:#64748b">${tr('No hay datos de energía')}</div>`}
                     ` : `
                     <!-- GAS: DESGLOSE (sin sección POTENCIA) -->
-                    <div style="margin-top:12px;padding:10px;background:#546e7a;color:white;border-radius:5px">
+                    <div style="margin-top:12px;padding:10px;background:${primaryColor};color:white;border-radius:5px">
                         <p style="margin:0;font-size:11px;font-weight:bold">${tr('DESGLOSE DE COSTES')}</p>
                     </div>
                     ${gb ? `
@@ -15322,14 +15331,14 @@ ${clientName}
         </div>
         
         <!-- AHORRO FINAL EN ROJO -->
-        <div style="margin:25px 30px 30px 30px;padding:30px;background:#dc2626;border-radius:10px;text-align:center">
+        <div style="margin:25px 30px 30px 30px;padding:30px;background:${primaryColor};border-radius:10px;text-align:center">
             <p style="margin:0 0 15px 0;font-size:15px;color:white;font-weight:bold;text-transform:uppercase;letter-spacing:1px">🎉 ${tr('TU AHORRO ANUAL TOTAL')} 🎉</p>
             <p style="margin:0 0 15px 0;font-size:48px;color:white;font-weight:bold">${eur(totalSavings)}</p>
             <p style="margin:0;font-size:15px;color:white;font-weight:bold;text-transform:uppercase">${tr('¡AHORRA')} ${(totalSavings/12).toFixed(2).replace('.', ',')} € ${tr('CADA MES!')} </p>
         </div>
         
         <!-- FOOTER INSTRUCCIONES -->
-        <div style="background:#546e7a;padding:20px 30px;margin-top:20px">
+        <div style="background:${primaryColor};padding:20px 30px;margin-top:20px">
             <p style="margin:0 0 10px 0;font-size:11px;color:white;font-weight:bold">${tr('PARA FORMALIZAR ESTE CONTRATO:')}</p>
             <p style="margin:0 0 8px 0;font-size:10px;color:white">${tr('Responde a este email adjuntando la documentación de los')} ${dualSupplies.length} CUPS:</p>
             <ol style="margin:0;padding-left:20px;font-size:10px;color:white;line-height:1.6">
