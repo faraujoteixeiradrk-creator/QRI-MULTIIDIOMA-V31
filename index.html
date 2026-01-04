@@ -3483,7 +3483,7 @@
             // 2. Nuevo: Resumen de Suministros (Tipo, CUPS, Ahorro Individual)
             let summaryListHTML = individualResults.map((resItem, index) => {
                 // MODIFICACIÓN #2: Eliminar "Sin Ahorro" en la vista interna, dejando un espacio.
-                const savingsText = resItem.isNegativeSavings ? `&nbsp;` : `(Ahorro: ${eur(resItem.savings)})`;
+                const savingsText = resItem.isNegativeSavings ? `&nbsp;` : `(${tr('Ahorro')}: ${eur(resItem.savings)})`;
                 return `<div class="flex justify-between items-center py-1 border-b border-slate-100 last:border-b-0">
                     <span class="font-bold text-sm text-slate-700">${resItem.cups}</span>
                     <span class="text-xs text-drk-800 font-semibold">${resItem.originalTariffType}</span>
@@ -3542,18 +3542,18 @@
                 }
 
                 // Eliminamos la referencia a 6.1 TD en el título, ya que el tipo 3.0TD ahora lo engloba todo
-                const title = is20TD ? '2.0 TD (Hogar/Negocio)' : '3.0 TD (Industria/Gran Consumo)';
+                const title = is20TD ? '2.0 TD (' + tr('Hogar/Negocio') + ')' : '3.0 TD (' + tr('Industria/Gran Consumo') + ')';
 
                 return `
                     <div class="border-t pt-4 mt-4 first:border-t-0 first:pt-0 first:mt-0">
                         <p class="font-black text-base ${brand.PRIMARY_TEXT} mb-3">${title}</p>
                         
-                        <p class="font-bold text-slate-700 mt-2 mb-1">Consumos (kWh)</p>
-                        ${energyRows || '<p class="text-xs text-slate-400">No hay consumos para este tipo.</p>'}
-                        ${totalGroupEnergy > 0 ? `<div class="flex justify-between font-bold ${brand.PRIMARY_TEXT} mt-1 border-t pt-1 border-slate-200"><span>Total Consumo ${type}</span><span>${num(totalGroupEnergy, 0)} kWh</span></div>` : ''}
+                        <p class="font-bold text-slate-700 mt-2 mb-1">${tr('Consumos (kWh)')}</p>
+                        ${energyRows || `<p class="text-xs text-slate-400">${tr('No hay consumos para este tipo.')}</p>`}
+                        ${totalGroupEnergy > 0 ? `<div class="flex justify-between font-bold ${brand.PRIMARY_TEXT} mt-1 border-t pt-1 border-slate-200"><span>${tr('Total Consumo')} ${type}</span><span>${num(totalGroupEnergy, 0)} kWh</span></div>` : ''}
                         
-                        <p class="font-bold text-slate-700 mt-4 mb-1">Potencias (kW)</p>
-                        ${powerRows || '<p class="text-xs text-slate-400">No hay potencias para este tipo.</p>'}
+                        <p class="font-bold text-slate-700 mt-4 mb-1">${tr('Potencias (kW)')}</p>
+                        ${powerRows || `<p class="text-xs text-slate-400">${tr('No hay potencias para este tipo.')}</p>`}
                     </div>
                 `;
             }
@@ -3660,7 +3660,7 @@
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 shadow-sm text-sm mb-6">
                         <h4 class="font-bold text-lg ${brandPrimaryText} mb-3">${priceSectionLabel}</h4>
                         ${consolidatedPrices.join('')}
-                        <p class="text-xs text-slate-500 mt-2">*Los precios mostrados son de las ofertas ganadoras detectadas para cada tipo de tarifa y se aplican a las CUPS añadidas.</p>
+                        <p class="text-xs text-slate-500 mt-2">*${tr('Los precios mostrados son de las ofertas ganadoras detectadas para cada tipo de tarifa y se aplican a las CUPS añadidas.')}</p>
                     </div>
                 `;
             }
@@ -14346,7 +14346,7 @@ Destinatarios: F.araujo@drk.es, rguerra@drk.es, l.grande@drk.es
                                 </div>
                                 <div class="flex items-center justify-between">
                                     <span class="text-xs text-slate-700 font-medium">${tariffName}</span>
-                                    <span class="text-xs font-semibold ${savings > 0 ? 'text-green-600' : 'text-slate-500'}">Ahorro: ${formatEuro(Math.max(0, savings))}</span>
+                                    <span class="text-xs font-semibold ${savings > 0 ? 'text-green-600' : 'text-slate-500'}">${tr('Ahorro')}: ${formatEuro(Math.max(0, savings))}</span>
                                 </div>
                             </div>
                         `;
@@ -20698,6 +20698,10 @@ ${clientName}
                 "Acumulado": { en: "Accumulated", zh: "累计", de: "Kumuliert", fr: "Accumulé" },
                 "Total Consumo": { en: "Total Consumption", zh: "总消耗", de: "Gesamtverbrauch", fr: "Consommation totale" },
                 "Ahorro:": { en: "Savings:", zh: "节省：", de: "Einsparungen:", fr: "Économies :" },
+                "Ahorro": { en: "Savings", zh: "节省", de: "Einsparungen", fr: "Économies" },
+                "No hay consumos para este tipo.": { en: "No consumption for this type.", zh: "此类型没有消耗。", de: "Kein Verbrauch für diesen Typ.", fr: "Aucune consommation pour ce type." },
+                "No hay potencias para este tipo.": { en: "No power for this type.", zh: "此类型没有功率。", de: "Keine Leistung für diesen Typ.", fr: "Aucune puissance pour ce type." },
+                "Los precios mostrados son de las ofertas ganadoras detectadas para cada tipo de tarifa y se aplican a las CUPS añadidas.": { en: "The prices shown are from the winning offers detected for each tariff type and apply to the added CUPS.", zh: "显示的价格来自检测到的每种关税类型的中标报价，并适用于添加的CUPS。", de: "Die angezeigten Preise stammen aus den für jeden Tariftyp erkannten gewinnenden Angeboten und gelten für die hinzugefügten CUPS.", fr: "Les prix affichés proviennent des offres gagnantes détectées pour chaque type de tarif et s'appliquent aux CUPS ajoutées." },
                 
                 // Secciones del PDF
                 "POTENCIA": { en: "POWER", zh: "功率", de: "LEISTUNG", fr: "PUISSANCE" },
