@@ -16730,7 +16730,7 @@ ${clientName}
         
         async function generateGasPDF() {
             if (!window.gasExportData) {
-                alert('No hay datos para exportar');
+                alert(window.tr('No hay datos para exportar'));
                 return;
             }
             
@@ -16746,10 +16746,10 @@ ${clientName}
                 window.LANG.change('en', true); // skipReload = true
             }
             
-            // Pedir datos del cliente y comercial
-            const comercialCode = prompt('CÓDIGO COMERCIAL (Obligatorio):', 'D=00');
+            // Pedir datos del cliente y comercial (TRADUCIDOS)
+            const comercialCode = prompt(window.tr('CÓDIGO COMERCIAL (Obligatorio):'), 'D=00');
             if (!comercialCode || comercialCode.trim() === '') {
-                alert('El código comercial es obligatorio');
+                alert(window.tr('El código comercial es obligatorio'));
                 // Restaurar idioma si era chino
                 if (wasChineseMode) {
                     window.LANG.change('zh', true);
@@ -16757,7 +16757,7 @@ ${clientName}
                 return;
             }
             
-            const clientName = prompt('NOMBRE DEL CLIENTE:', '[NOMBRE COMPLETO CLIENTE]') || '[NOMBRE COMPLETO CLIENTE]';
+            const clientName = prompt(window.tr('NOMBRE DEL CLIENTE:'), window.tr('[NOMBRE COMPLETO CLIENTE]')) || window.tr('[NOMBRE COMPLETO CLIENTE]');
             
             const { results, dias, kwh, totalCliente, comparisonMode } = window.gasExportData;
             
